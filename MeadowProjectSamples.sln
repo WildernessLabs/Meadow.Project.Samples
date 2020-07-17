@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Games", "Games", "{CAC64CB0-E038-4186-AC6D-DAEF4242C87B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tetris_Ssd1309", "source\Tetris\Tetris\Tetris_Ssd1309.csproj", "{66F92205-B37D-490C-9682-CE84DBB878A6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tetris_Max7219", "source\Tetris\Tetris_Max7219\Tetris_Max7219.csproj", "{3EC61240-7931-4EE8-BD26-B648FB6FBD6D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TempHumidityMonitorWithTftDisplay", "source\TempHumidityMonitorWithTftDisplay\TempHumidityMonitorWithTftDisplay.csproj", "{6B3FEB14-FC95-468E-9FCC-DE9FE8B318BD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{66F92205-B37D-490C-9682-CE84DBB878A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66F92205-B37D-490C-9682-CE84DBB878A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66F92205-B37D-490C-9682-CE84DBB878A6}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{66F92205-B37D-490C-9682-CE84DBB878A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66F92205-B37D-490C-9682-CE84DBB878A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66F92205-B37D-490C-9682-CE84DBB878A6}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{3EC61240-7931-4EE8-BD26-B648FB6FBD6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EC61240-7931-4EE8-BD26-B648FB6FBD6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EC61240-7931-4EE8-BD26-B648FB6FBD6D}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{3EC61240-7931-4EE8-BD26-B648FB6FBD6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EC61240-7931-4EE8-BD26-B648FB6FBD6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3EC61240-7931-4EE8-BD26-B648FB6FBD6D}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{6B3FEB14-FC95-468E-9FCC-DE9FE8B318BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B3FEB14-FC95-468E-9FCC-DE9FE8B318BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B3FEB14-FC95-468E-9FCC-DE9FE8B318BD}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{6B3FEB14-FC95-468E-9FCC-DE9FE8B318BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B3FEB14-FC95-468E-9FCC-DE9FE8B318BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B3FEB14-FC95-468E-9FCC-DE9FE8B318BD}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{66F92205-B37D-490C-9682-CE84DBB878A6} = {CAC64CB0-E038-4186-AC6D-DAEF4242C87B}
+		{3EC61240-7931-4EE8-BD26-B648FB6FBD6D} = {CAC64CB0-E038-4186-AC6D-DAEF4242C87B}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {10FA7F4A-2FF2-4696-8B12-DD0B9C978890}
+	EndGlobalSection
+EndGlobal
