@@ -1,0 +1,13 @@
+<Project Sdk="Meadow.Sdk/1.1">
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>App</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Meadow.Foundation" Version="0.15.2" />
+    <PackageReference Include="Meadow.Foundation.Displays.TftSpi" Version="0.7.7" />
+    <PackageReference Include="Meadow.Foundation.Displays.GraphicsLibrary" Version="0.9.7" />
+    <PackageReference Include="Meadow.Foundation.Sensors.Atmospheric.SHT31D" Version="0.1.6" />
+  </ItemGroup>
+</Project>
