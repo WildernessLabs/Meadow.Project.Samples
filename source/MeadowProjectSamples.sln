@@ -5,19 +5,19 @@ VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Games", "Games", "{CAC64CB0-E038-4186-AC6D-DAEF4242C87B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tetris_Ssd1309", "source\Tetris\Tetris\Tetris_Ssd1309.csproj", "{66F92205-B37D-490C-9682-CE84DBB878A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tetris_Ssd1309", "Tetris\Tetris\Tetris_Ssd1309.csproj", "{66F92205-B37D-490C-9682-CE84DBB878A6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tetris_Max7219", "source\Tetris\Tetris_Max7219\Tetris_Max7219.csproj", "{3EC61240-7931-4EE8-BD26-B648FB6FBD6D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tetris_Max7219", "Tetris\Tetris_Max7219\Tetris_Max7219.csproj", "{3EC61240-7931-4EE8-BD26-B648FB6FBD6D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TempHumidityMonitorWithTftDisplay", "source\TempHumidityMonitorWithTftDisplay\TempHumidityMonitorWithTftDisplay.csproj", "{6B3FEB14-FC95-468E-9FCC-DE9FE8B318BD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TempHumidityMonitorWithTftDisplay", "TempHumidityMonitorWithTftDisplay\TempHumidityMonitorWithTftDisplay.csproj", "{6B3FEB14-FC95-468E-9FCC-DE9FE8B318BD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Frogger", "source\Frogger\Frogger\Frogger.csproj", "{F9B78A39-B1C8-4DA7-9112-579AEF49AA08}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Frogger", "Frogger\Frogger\Frogger.csproj", "{F9B78A39-B1C8-4DA7-9112-579AEF49AA08}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Span4_Ssd1309", "source\Span4\Span4_SSD1309\Span4_Ssd1309.csproj", "{9580DA02-EFAD-4081-B60E-8A200B248BC1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Span4_Ssd1309", "Span4\Span4_SSD1309\Span4_Ssd1309.csproj", "{9580DA02-EFAD-4081-B60E-8A200B248BC1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Span4_St7789", "source\Span4\Span4_ST7789\Span4_St7789.csproj", "{150FDA72-763C-4E67-A4C3-21B024F9F705}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Span4_St7789", "Span4\Span4_ST7789\Span4_St7789.csproj", "{150FDA72-763C-4E67-A4C3-21B024F9F705}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloMeadowFoundation", "source\HelloMeadowFoundation - DevCamp2020\MF\HelloMeadowFoundation.csproj", "{C4242722-9E0C-4384-8EF9-836829A9B947}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloMeadowFoundation", "HelloMeadowFoundation - DevCamp2020\MF\HelloMeadowFoundation.csproj", "{C4242722-9E0C-4384-8EF9-836829A9B947}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
