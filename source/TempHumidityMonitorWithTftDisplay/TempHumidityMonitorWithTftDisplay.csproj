@@ -8,6 +8,6 @@
     <PackageReference Include="Meadow.Foundation" Version="0.17.0" />
     <PackageReference Include="Meadow.Foundation.Displays.TftSpi" Version="0.7.10" />
     <PackageReference Include="Meadow.Foundation.Displays.GraphicsLibrary" Version="0.9.10" />
-    <PackageReference Include="Meadow.Foundation.Sensors.Atmospheric.SHT31D" Version="0.1.9" />
+    <PackageReference Include="Meadow.Foundation.Sensors.Atmospheric.Sht31D" Version="0.1.9" />
   </ItemGroup>
 </Project>
