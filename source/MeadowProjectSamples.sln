@@ -59,6 +59,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShiftRegisterLeds", "Hackst
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TemperatureMonitor", "Hackster\TemperatureMonitor\TemperatureMonitor.csproj", "{9A5463A1-8F2C-4D11-9ED2-4E67AEF683B0}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlantMonitor", "Hackster\PlantMonitor\PlantMonitor.csproj", "{08F79ED3-6973-4A5A-AF25-F59F126195E7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -215,6 +217,12 @@ Global
 		{9A5463A1-8F2C-4D11-9ED2-4E67AEF683B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A5463A1-8F2C-4D11-9ED2-4E67AEF683B0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9A5463A1-8F2C-4D11-9ED2-4E67AEF683B0}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{08F79ED3-6973-4A5A-AF25-F59F126195E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08F79ED3-6973-4A5A-AF25-F59F126195E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08F79ED3-6973-4A5A-AF25-F59F126195E7}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{08F79ED3-6973-4A5A-AF25-F59F126195E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08F79ED3-6973-4A5A-AF25-F59F126195E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08F79ED3-6973-4A5A-AF25-F59F126195E7}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -245,6 +253,7 @@ Global
 		{3E4592EF-969F-4E86-90FC-11B1E131D5D4} = {B1C3E8F8-3B6A-435A-A93A-0F6EC9ECCFAF}
 		{7CAED205-4DD5-49FE-BFC8-581091D0027C} = {B1C3E8F8-3B6A-435A-A93A-0F6EC9ECCFAF}
 		{9A5463A1-8F2C-4D11-9ED2-4E67AEF683B0} = {B1C3E8F8-3B6A-435A-A93A-0F6EC9ECCFAF}
+		{08F79ED3-6973-4A5A-AF25-F59F126195E7} = {B1C3E8F8-3B6A-435A-A93A-0F6EC9ECCFAF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {10FA7F4A-2FF2-4696-8B12-DD0B9C978890}
