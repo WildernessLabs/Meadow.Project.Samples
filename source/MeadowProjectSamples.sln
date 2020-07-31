@@ -63,6 +63,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlantMonitor", "Hackster\Pl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RotaryServo", "Hackster\RotaryServo\RotaryServo.csproj", "{358E1D22-EA8E-488B-A70C-8C641D56A01A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TouchKeypad", "Hackster\TouchKeypad\TouchKeypad.csproj", "{96801F32-B504-446B-9CE8-8524254BE1E5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -231,6 +233,12 @@ Global
 		{358E1D22-EA8E-488B-A70C-8C641D56A01A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{358E1D22-EA8E-488B-A70C-8C641D56A01A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{358E1D22-EA8E-488B-A70C-8C641D56A01A}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{96801F32-B504-446B-9CE8-8524254BE1E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96801F32-B504-446B-9CE8-8524254BE1E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96801F32-B504-446B-9CE8-8524254BE1E5}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{96801F32-B504-446B-9CE8-8524254BE1E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96801F32-B504-446B-9CE8-8524254BE1E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96801F32-B504-446B-9CE8-8524254BE1E5}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -263,6 +271,7 @@ Global
 		{9A5463A1-8F2C-4D11-9ED2-4E67AEF683B0} = {B1C3E8F8-3B6A-435A-A93A-0F6EC9ECCFAF}
 		{08F79ED3-6973-4A5A-AF25-F59F126195E7} = {B1C3E8F8-3B6A-435A-A93A-0F6EC9ECCFAF}
 		{358E1D22-EA8E-488B-A70C-8C641D56A01A} = {B1C3E8F8-3B6A-435A-A93A-0F6EC9ECCFAF}
+		{96801F32-B504-446B-9CE8-8524254BE1E5} = {B1C3E8F8-3B6A-435A-A93A-0F6EC9ECCFAF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {10FA7F4A-2FF2-4696-8B12-DD0B9C978890}
