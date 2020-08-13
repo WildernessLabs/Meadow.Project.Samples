@@ -1,22 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
-using Meadow;
+﻿using Meadow;
 using Meadow.Devices;
-using Meadow.Foundation;
 using Meadow.Foundation.ICs.IOExpanders;
 using Meadow.Foundation.Leds;
+using System.Collections.Generic;
+using System.Threading;
 
 namespace McpLeds
 {
     public class MeadowApp : App<F7Micro, MeadowApp>
     {
+        RgbLed led;
         List<Led> leds;
         Mcp23x08 mcp;
 
         public MeadowApp()
         {
-            Console.Write("Initialize hardware...");
+            led = new RgbLed(Device, Device.Pins.OnboardLedRed, Device.Pins.OnboardLedGreen, Device.Pins.OnboardLedBlue);
+            led.SetColor(RgbLed.Colors.Red);
 
             mcp = new Mcp23x08(Device.CreateI2cBus(), true, true, true);
 
@@ -30,14 +30,13 @@ namespace McpLeds
             leds.Add(new Led(mcp.CreateDigitalOutputPort(mcp.Pins.GP6)));
             leds.Add(new Led(mcp.CreateDigitalOutputPort(mcp.Pins.GP7)));
 
-            Console.WriteLine("done.");
+            led.SetColor(RgbLed.Colors.Green);
+
             CycleLeds();
         }
 
         void CycleLeds()
         {
-            Console.WriteLine("Cycle leds...");
-
             while (true)
             {
                 foreach(var led in leds)
