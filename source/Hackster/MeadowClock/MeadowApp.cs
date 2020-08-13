@@ -3,6 +3,7 @@ using Meadow.Devices;
 using Meadow.Foundation.Displays;
 using Meadow.Foundation.Displays.Lcd;
 using Meadow.Foundation.Graphics;
+using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Buttons;
 using System;
 using System.Threading;
@@ -11,6 +12,7 @@ namespace MeadowClock
 {
     public class MeadowApp : App<F7Micro, MeadowApp>
     {
+        RgbLed led;
         PushButton minute;
         PushButton hour;
         CharacterDisplay display;
@@ -22,9 +24,13 @@ namespace MeadowClock
         {
             Console.Write("Initializing...");
 
+            led = new RgbLed(Device, Device.Pins.OnboardLedRed, Device.Pins.OnboardLedGreen, Device.Pins.OnboardLedBlue);
+            led.SetColor(RgbLed.Colors.Red);
+
             display = new CharacterDisplay
             (
-                device: Device,
+                device: Device, 
+                pinV0: Device.Pins.D11,
                 pinRS: Device.Pins.D10,
                 pinE: Device.Pins.D09,
                 pinD4: Device.Pins.D08,
@@ -45,6 +51,7 @@ namespace MeadowClock
 
             Device.SetClock(new DateTime(2020, 03, 31, 00, 45, 00));
 
+            led.SetColor(RgbLed.Colors.Green);
             Console.WriteLine("done");
 
             CharacterDisplayClock();
