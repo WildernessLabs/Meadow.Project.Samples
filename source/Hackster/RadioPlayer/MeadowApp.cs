@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
-using Meadow;
+﻿using Meadow;
 using Meadow.Devices;
 using Meadow.Foundation.Audio.Radio;
 using Meadow.Foundation.Displays;
 using Meadow.Foundation.Graphics;
+using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Buttons;
 using Meadow.Hardware;
+using System;
+using System.Collections.Generic;
+using System.Threading;
 
 namespace RadioPlayer
 {
@@ -16,6 +17,7 @@ namespace RadioPlayer
         List<float> stations;
         int currentStation = 0;
 
+        RgbLed led;
         Tea5767 radio;
         Ssd1306 display;
         GraphicsLibrary graphics;
@@ -43,7 +45,8 @@ namespace RadioPlayer
 
         void InitializePeripherals()
         {
-            Console.WriteLine("Creating Outputs...");
+            led = new RgbLed(Device, Device.Pins.OnboardLedRed, Device.Pins.OnboardLedGreen, Device.Pins.OnboardLedBlue);
+            led.SetColor(RgbLed.Colors.Red);
 
             var i2CBus = Device.CreateI2cBus();
 
@@ -53,11 +56,13 @@ namespace RadioPlayer
             graphics = new GraphicsLibrary(display);
             graphics.Rotation = GraphicsLibrary.RotationType._180Degrees;
 
-            btnNext = new PushButton(Device.CreateDigitalInputPort(Device.Pins.D03, InterruptMode.EdgeBoth, ResistorMode.Disabled));
+            btnNext = new PushButton(Device, Device.Pins.D03, ResistorMode.PullUp);
             btnNext.Clicked += BtnNextClicked;
 
-            btnPrevious = new PushButton(Device.CreateDigitalInputPort(Device.Pins.D04, InterruptMode.EdgeBoth, ResistorMode.Disabled));
+            btnPrevious = new PushButton(Device, Device.Pins.D04, ResistorMode.PullUp);
             btnPrevious.Clicked += BtnPreviousClicked;
+
+            led.SetColor(RgbLed.Colors.Green);
         }
 
         void BtnNextClicked(object sender, EventArgs e)
