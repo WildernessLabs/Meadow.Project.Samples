@@ -3,6 +3,7 @@ using Meadow.Devices;
 using Meadow.Foundation;
 using Meadow.Foundation.Displays.Tft;
 using Meadow.Foundation.Graphics;
+using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Temperature;
 using Meadow.Hardware;
 using Meadow.Peripherals.Sensors.Atmospheric;
@@ -20,14 +21,16 @@ namespace TemperatureMonitor
             Color.FromHex("#67E667") 
         };
 
-        AnalogTemperature analogTemperature;
+        RgbLed led;
         St7789 st7789;
         GraphicsLibrary graphics;
+        AnalogTemperature analogTemperature;               
         int displayWidth, displayHeight;
 
         public MeadowApp()
         {
-            Console.WriteLine("Initializing...");
+            led = new RgbLed(Device, Device.Pins.OnboardLedRed, Device.Pins.OnboardLedGreen, Device.Pins.OnboardLedBlue);
+            led.SetColor(RgbLed.Colors.Red);
 
             analogTemperature = new AnalogTemperature(
                 device: Device,
@@ -53,6 +56,8 @@ namespace TemperatureMonitor
 
             graphics = new GraphicsLibrary(st7789);
             graphics.Rotation = GraphicsLibrary.RotationType._270Degrees;
+
+            led.SetColor(RgbLed.Colors.Green);
 
             LoadScreen();
             analogTemperature.StartUpdating();
