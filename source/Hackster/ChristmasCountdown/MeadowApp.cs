@@ -3,6 +3,7 @@ using System.Threading;
 using Meadow;
 using Meadow.Devices;
 using Meadow.Foundation.Displays.Lcd;
+using Meadow.Foundation.Leds;
 using Meadow.Foundation.RTCs;
 
 namespace ChristmasCountdown
@@ -15,6 +16,9 @@ namespace ChristmasCountdown
 
         public MeadowApp()
         {
+            var led = new RgbLed(Device, Device.Pins.OnboardLedRed, Device.Pins.OnboardLedGreen, Device.Pins.OnboardLedBlue);
+            led.SetColor(RgbLed.Colors.Red);
+
             rtc = new Ds1307(Device.CreateI2cBus());
             // Uncomment only when setting the time
             // rtc.SetTime(new DateTime(2019, 11, 23, 22, 55, 20));
@@ -29,6 +33,8 @@ namespace ChristmasCountdown
                 pinD6: Device.Pins.D11,
                 pinD7: Device.Pins.D10
             );
+
+            led.SetColor(RgbLed.Colors.Green);
 
             StartCountdown();
         }

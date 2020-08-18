@@ -12,7 +12,6 @@ namespace MeadowClock
 {
     public class MeadowApp : App<F7Micro, MeadowApp>
     {
-        RgbLed led;
         PushButton minute;
         PushButton hour;
         CharacterDisplay display;
@@ -24,7 +23,7 @@ namespace MeadowClock
         {
             Console.Write("Initializing...");
 
-            led = new RgbLed(Device, Device.Pins.OnboardLedRed, Device.Pins.OnboardLedGreen, Device.Pins.OnboardLedBlue);
+            var led = new RgbLed(Device, Device.Pins.OnboardLedRed, Device.Pins.OnboardLedGreen, Device.Pins.OnboardLedBlue);
             led.SetColor(RgbLed.Colors.Red);
 
             display = new CharacterDisplay

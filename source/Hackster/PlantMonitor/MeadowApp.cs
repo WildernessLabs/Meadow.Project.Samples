@@ -1,11 +1,11 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using Meadow;
+﻿using Meadow;
 using Meadow.Devices;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Moisture;
 using Meadow.Hardware;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace PlantMonitor
 {
@@ -16,6 +16,9 @@ namespace PlantMonitor
 
         public MeadowApp()
         {
+            var led = new RgbLed(Device, Device.Pins.OnboardLedRed, Device.Pins.OnboardLedGreen, Device.Pins.OnboardLedBlue);
+            led.SetColor(RgbLed.Colors.Red);
+
             IDigitalOutputPort[] ports =
             {
                  Device.CreateDigitalOutputPort(Device.Pins.D05),
@@ -35,6 +38,8 @@ namespace PlantMonitor
                 analogPort: Device.CreateAnalogInputPort(Device.Pins.A00), 
                 minimumVoltageCalibration: 2.84f, 
                 maximumVoltageCalibration: 1.37f);
+
+            led.SetColor(RgbLed.Colors.Green);
 
             Run();
         }

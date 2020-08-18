@@ -3,6 +3,7 @@ using Meadow.Devices;
 using Meadow.Foundation;
 using Meadow.Foundation.Displays.Tft;
 using Meadow.Foundation.Graphics;
+using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Rotary;
 using Meadow.Hardware;
 using Meadow.Peripherals.Sensors.Rotary;
@@ -20,6 +21,9 @@ namespace EdgeASketch
 
         public MeadowApp()
         {
+            var led = new RgbLed(Device, Device.Pins.OnboardLedRed, Device.Pins.OnboardLedGreen, Device.Pins.OnboardLedBlue);
+            led.SetColor(RgbLed.Colors.Red);
+
             x = y = 120;
 
             var config = new SpiClockConfiguration(
@@ -51,6 +55,8 @@ namespace EdgeASketch
                 Device.Pins.D02, Device.Pins.D03, Device.Pins.D04);
             rotaryY.Rotated += RotaryYRotated;
             rotaryY.Clicked += RotaryYClicked;
+
+            led.SetColor(RgbLed.Colors.Green);
         }
 
         void RotaryXRotated(object sender, RotaryTurnedEventArgs e)

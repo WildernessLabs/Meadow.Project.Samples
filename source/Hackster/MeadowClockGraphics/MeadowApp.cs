@@ -5,6 +5,7 @@ using Meadow.Devices;
 using Meadow.Foundation;
 using Meadow.Foundation.Displays.Tft;
 using Meadow.Foundation.Graphics;
+using Meadow.Foundation.Leds;
 using Meadow.Hardware;
 
 namespace MeadowClockGraphics
@@ -20,8 +21,10 @@ namespace MeadowClockGraphics
 
         public MeadowApp()
         {
-            var config = new SpiClockConfiguration(6000, SpiClockConfiguration.Mode.Mode3);
+            var led = new RgbLed(Device, Device.Pins.OnboardLedRed, Device.Pins.OnboardLedGreen, Device.Pins.OnboardLedBlue);
+            led.SetColor(RgbLed.Colors.Red);
 
+            var config = new SpiClockConfiguration(6000, SpiClockConfiguration.Mode.Mode3);
             st7789 = new St7789
             (
                 device: Device, 
@@ -37,10 +40,9 @@ namespace MeadowClockGraphics
             graphics = new GraphicsLibrary(st7789);
             graphics.Rotation = GraphicsLibrary.RotationType._270Degrees;
 
-            //while (true)
-            //{
-            //    DrawShapes();
-            //}
+            led.SetColor(RgbLed.Colors.Green);
+
+            //DrawShapes();            
             //DrawTexts();
             DrawClock();
         }

@@ -14,6 +14,9 @@ namespace LedDice
 
         public MeadowApp()
         {
+            var led = new RgbLed(Device, Device.Pins.OnboardLedRed, Device.Pins.OnboardLedGreen, Device.Pins.OnboardLedBlue);
+            led.SetColor(RgbLed.Colors.Red);
+
             leds = new PwmLed[7];
             leds[0] = new PwmLed(Device.CreatePwmPort(Device.Pins.D06), TypicalForwardVoltage.Red);  // 
             leds[1] = new PwmLed(Device.CreatePwmPort(Device.Pins.D07), TypicalForwardVoltage.Red);  // [6]       [5]
@@ -26,10 +29,9 @@ namespace LedDice
             button = new PushButton(Device, Device.Pins.D05);
             button.Clicked += ButtonClicked;
 
-            ShuffleAnimation();
+            led.SetColor(RgbLed.Colors.Green);
 
-            // Keeps the app running
-            Thread.Sleep(Timeout.Infinite);
+            ShuffleAnimation();            
         }
 
         void ButtonClicked(object sender, EventArgs e)

@@ -1,6 +1,5 @@
 ﻿using Meadow;
 using Meadow.Devices;
-using Meadow.Foundation;
 using Meadow.Foundation.ICs.IOExpanders;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Rotary;
@@ -15,17 +14,11 @@ namespace RotaryLedBar
         x74595 shiftRegister;
         LedBarGraph ledBarGraph;
         RotaryEncoder rotaryEncoder;
-        RgbPwmLed onboardLed;
 
         public MeadowApp()
         {
-            onboardLed = new RgbPwmLed(Device,
-                Device.Pins.OnboardLedRed,
-                Device.Pins.OnboardLedGreen,
-                Device.Pins.OnboardLedBlue,
-                3.3f, 3.3f, 3.3f,
-                Meadow.Peripherals.Leds.IRgbLed.CommonType.CommonAnode);
-            onboardLed.SetColor(Color.Red);
+            var led = new RgbLed(Device, Device.Pins.OnboardLedRed, Device.Pins.OnboardLedGreen, Device.Pins.OnboardLedBlue);
+            led.SetColor(RgbLed.Colors.Red);
 
             shiftRegister = new x74595(Device, Device.CreateSpiBus(), Device.Pins.D00, 8);
             shiftRegister.Clear();
@@ -51,7 +44,7 @@ namespace RotaryLedBar
                 Device.CreateDigitalInputPort(Device.Pins.D03, InterruptMode.EdgeRising, ResistorMode.PullUp, 0, 5));
             rotaryEncoder.Rotated += RotaryEncoderRotated;
 
-            onboardLed.SetColor(Color.Green);
+            led.SetColor(RgbLed.Colors.Green);
         }
 
         void RotaryEncoderRotated(object sender, RotaryTurnedEventArgs e)

@@ -14,7 +14,8 @@ namespace LedJoystick
 
         public MeadowApp()
         {
-            Console.WriteLine("Initializing...");
+            var led = new RgbLed(Device, Device.Pins.OnboardLedRed, Device.Pins.OnboardLedGreen, Device.Pins.OnboardLedBlue);
+            led.SetColor(RgbLed.Colors.Red);
 
             Up = new PwmLed(Device.CreatePwmPort(Device.Pins.D07, 100, 0.0f), TypicalForwardVoltage.Red);
             Down = new PwmLed(Device.CreatePwmPort(Device.Pins.D04, 100, 0.0f), TypicalForwardVoltage.Red);
@@ -29,6 +30,8 @@ namespace LedJoystick
             joystick.SetCenterPosition();
             joystick.Updated += JoystickUpdated;
             joystick.StartUpdating();
+
+            led.SetColor(RgbLed.Colors.Green);
 
             //TestAnalogJoystick();
         }

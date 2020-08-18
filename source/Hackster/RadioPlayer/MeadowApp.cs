@@ -17,7 +17,6 @@ namespace RadioPlayer
         List<float> stations;
         int currentStation = 0;
 
-        RgbLed led;
         Tea5767 radio;
         Ssd1306 display;
         GraphicsLibrary graphics;
@@ -45,7 +44,7 @@ namespace RadioPlayer
 
         void InitializePeripherals()
         {
-            led = new RgbLed(Device, Device.Pins.OnboardLedRed, Device.Pins.OnboardLedGreen, Device.Pins.OnboardLedBlue);
+            var led = new RgbLed(Device, Device.Pins.OnboardLedRed, Device.Pins.OnboardLedGreen, Device.Pins.OnboardLedBlue);
             led.SetColor(RgbLed.Colors.Red);
 
             var i2CBus = Device.CreateI2cBus();

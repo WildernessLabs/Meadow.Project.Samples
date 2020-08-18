@@ -2,7 +2,6 @@
 using Meadow.Devices;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Motors;
-using System;
 using System.Threading;
 
 namespace LedCar
@@ -14,15 +13,8 @@ namespace LedCar
 
         public MeadowApp()
         {
-            Console.WriteLine("MeadowApp()...");
-
-            Initialize();
-            TestCar();
-        }
-
-        protected void Initialize()
-        {
-            Console.WriteLine("Initialize()...");
+            var led = new RgbLed(Device, Device.Pins.OnboardLedRed, Device.Pins.OnboardLedGreen, Device.Pins.OnboardLedBlue);
+            led.SetColor(RgbLed.Colors.Red);
 
             up = new PwmLed(Device, Device.Pins.D13, TypicalForwardVoltage.Red);
             down = new PwmLed(Device, Device.Pins.D10, TypicalForwardVoltage.Red);
@@ -44,12 +36,14 @@ namespace LedCar
             );
 
             carController = new CarController(motorLeft, motorRight);
+
+            led.SetColor(RgbLed.Colors.Green);
+
+            TestCar();
         }
 
-        protected void TestCar()
+        void TestCar()
         {
-            Console.WriteLine("TestCar()...");
-
             while (true)
             {
                 up.SetBrightness(0.1f);

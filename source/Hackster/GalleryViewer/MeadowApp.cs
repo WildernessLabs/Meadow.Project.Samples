@@ -15,7 +15,7 @@ namespace GalleryViewer
 {
     public class MeadowApp : App<F7Micro, MeadowApp>
     {
-        Led red, green;
+        RgbLed led;
         St7789 display;
         GraphicsLibrary graphics;
         PushButton buttonUp;
@@ -25,10 +25,8 @@ namespace GalleryViewer
 
         public MeadowApp()
         {
-            Console.WriteLine("Initializing...");
-
-            red = new Led(Device.CreateDigitalOutputPort(Device.Pins.OnboardLedRed));
-            green = new Led(Device.CreateDigitalOutputPort(Device.Pins.OnboardLedGreen));
+            var led = new RgbLed(Device, Device.Pins.OnboardLedRed, Device.Pins.OnboardLedGreen, Device.Pins.OnboardLedBlue);
+            led.SetColor(RgbLed.Colors.Red);
 
             buttonUp = new PushButton(Device, Device.Pins.D03);
             buttonUp.Clicked += ButtonUpClicked;
@@ -59,13 +57,12 @@ namespace GalleryViewer
 
             DisplayJPG();
 
-            green.IsOn = true;
+            led.SetColor(RgbLed.Colors.Green);
         }
 
         void ButtonUpClicked(object sender, EventArgs e)
         {
-            red.IsOn = true;
-            green.IsOn = false;
+            led.SetColor(RgbLed.Colors.Red);
 
             if (selectedIndex + 1 > 2)
                 selectedIndex = 0;
@@ -74,14 +71,12 @@ namespace GalleryViewer
 
             DisplayJPG();
 
-            red.IsOn = false;
-            green.IsOn = true;
+            led.SetColor(RgbLed.Colors.Green);
         }
 
         void ButtonDownClicked(object sender, EventArgs e)
         {
-            red.IsOn = true;
-            green.IsOn = false;
+            led.SetColor(RgbLed.Colors.Red);
 
             if (selectedIndex - 1 < 0)
                 selectedIndex = 2;
@@ -90,8 +85,7 @@ namespace GalleryViewer
 
             DisplayJPG();
 
-            red.IsOn = false;
-            green.IsOn = true;
+            led.SetColor(RgbLed.Colors.Green);
         }
 
         void DisplayJPG()

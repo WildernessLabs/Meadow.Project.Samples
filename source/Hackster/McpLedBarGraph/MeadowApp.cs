@@ -10,13 +10,12 @@ namespace McpLedBarGraph
 {
     public class MeadowApp : App<F7Micro, MeadowApp>
     {
-        RgbLed led;
         Mcp23x08 mcp;
         LedBarGraph ledBarGraph;
 
         public MeadowApp()
         {
-            led = new RgbLed(Device, Device.Pins.OnboardLedRed, Device.Pins.OnboardLedGreen, Device.Pins.OnboardLedBlue);
+            var led = new RgbLed(Device, Device.Pins.OnboardLedRed, Device.Pins.OnboardLedGreen, Device.Pins.OnboardLedBlue);
             led.SetColor(RgbLed.Colors.Red);
 
             mcp = new Mcp23x08(Device.CreateI2cBus(), true, true, true);

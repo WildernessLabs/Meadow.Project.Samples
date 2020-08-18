@@ -19,6 +19,9 @@ namespace MoistureMeter
 
         public MeadowApp()
         {
+            var led = new RgbLed(Device, Device.Pins.OnboardLedRed, Device.Pins.OnboardLedGreen, Device.Pins.OnboardLedBlue);
+            led.SetColor(RgbLed.Colors.Red);
+
             IDigitalOutputPort[] ports =
             {
                 Device.CreateDigitalOutputPort(Device.Pins.D05),
@@ -40,6 +43,8 @@ namespace MoistureMeter
                 MINIMUM_VOLTAGE_CALIBRATION,
                 MAXIMUM_VOLTAGE_CALIBRATION
             );
+
+            led.SetColor(RgbLed.Colors.Green);
 
             StartReading();
         }

@@ -2,6 +2,7 @@
 using Meadow.Devices;
 using Meadow.Foundation.Displays;
 using Meadow.Foundation.Graphics;
+using Meadow.Foundation.Leds;
 using Meadow.Hardware;
 using System;
 using System.Threading;
@@ -17,10 +18,10 @@ namespace MemoryGame
         IDigitalInputPort[] rowPorts = new IDigitalInputPort[4];
         IDigitalOutputPort[] columnPorts = new IDigitalOutputPort[4];
 
-        protected char[] options;
-        protected bool[] optionsSolved;
-        protected char[] optionsPossible;
-        protected int option1, option2;
+        char[] options;
+        bool[] optionsSolved;
+        char[] optionsPossible;
+        int option1, option2;
 
         public MeadowApp()
         {
@@ -54,6 +55,9 @@ namespace MemoryGame
 
         void InitializePeripherals()
         {
+            var led = new RgbLed(Device, Device.Pins.OnboardLedRed, Device.Pins.OnboardLedGreen, Device.Pins.OnboardLedBlue);
+            led.SetColor(RgbLed.Colors.Red);
+
             var i2CBus = Device.CreateI2cBus();
             display = new Ssd1306(i2CBus, 60, Ssd1306.DisplayType.OLED128x32);
             graphics = new GraphicsLibrary(display);
@@ -70,6 +74,8 @@ namespace MemoryGame
             columnPorts[3] = Device.CreateDigitalOutputPort(Device.Pins.D04);
 
             currentColumn = 0;
+
+            led.SetColor(RgbLed.Colors.Green);
         }
 
         void LoadMemoryBoard()
