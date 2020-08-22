@@ -58,10 +58,10 @@ namespace Frogger
             graphics = new GraphicsLibrary(display);
             graphics.CurrentFont = new Font4x8();
 
-            buttonLeft = new PushButton(Device, Device.Pins.D13, ResistorMode.PullDown);
-            buttonRight = new PushButton(Device, Device.Pins.D12, ResistorMode.PullDown);
-            buttonUp = new PushButton(Device, Device.Pins.D11, ResistorMode.PullDown);
-            buttonDown = new PushButton(Device, Device.Pins.D08, ResistorMode.PullDown);
+            buttonLeft = new PushButton(Device, Device.Pins.D13, ResistorMode.Disabled);
+            buttonRight = new PushButton(Device, Device.Pins.D12, ResistorMode.Disabled);
+            buttonUp = new PushButton(Device, Device.Pins.D11, ResistorMode.Disabled);
+            buttonDown = new PushButton(Device, Device.Pins.D14, ResistorMode.Disabled);
 
             Console.WriteLine("Initialize hardware complete.");
         }
@@ -82,12 +82,12 @@ namespace Frogger
             while (true)
             {
                 frogger.Update();
-              //  CheckInput();
+                CheckInput();
                 graphics.Clear();
-                DrawBackground();
-                DrawLanes();
+                DrawBackground(); 
+                DrawLanesAndCheckCollisions();
                 DrawFrog();
-                DrawLives();
+               // DrawLives();
                 graphics.Show();
 
               //  Thread.Sleep(10);
@@ -119,39 +119,59 @@ namespace Frogger
             //draw docks
             for(int i = 0; i < 5; i++)
             {
-                graphics.DrawRectangle(10 + 24 * i, 0, 12, 9, true, false);
+                graphics.DrawRectangle(10 + 24 * i, 0, 12, 8, true, false);
 
-                DrawFrog(12 + 24 * i, 2, 1);
+                if(i < frogger.FrogsHome)
+                {
+                    DrawFrog(12 + 24 * i, 0, 1);
+                }
             }
 
             //draw water
-            graphics.DrawRectangle(0, cellSize, 128, cellSize * 3, true, true);
+            //graphics.DrawRectangle(0, cellSize, 128, cellSize * 3, true, true);
         }
 
-        void DrawLanes()
+        void DrawLanesAndCheckCollisions()
         {
-            int startPos, index, x = 0, y;
+            int startPos, index, x, y;
             int cellOffset;
+
             for (byte row = 0; row < 6; row++)
             {
                 startPos = (int)(frogger.GameTime * frogger.LaneSpeeds[row]) % frogger.LaneLength;
                 cellOffset = (int)(8.0f * frogger.GameTime * frogger.LaneSpeeds[row]) % cellSize;
 
                 if (startPos < 0)
+                { 
+                    startPos = frogger.LaneLength - (Math.Abs(startPos) % 32);
+                }
+
+                y = cellSize * (row + 1);
+
+                if (row < 3 && y == frogger.FrogY)
                 {
-                    startPos = frogger.LaneLength - (Math.Abs(startPos) % 64);
+                    frogger.FrogX -= (byte)(frogger.TimeDelta * frogger.LaneSpeeds[row] * 8f);
                 }
 
                 for (byte i = 0; i < frogger.Columns + 2; i++)
                 {
                     index = frogger.LaneData[row, (startPos + i) % frogger.LaneLength];
 
-                    if(index == 0) { continue; }
-
-                    y = cellSize * (row + 1);
                     x = (i - 1) * cellSize - cellOffset;
 
-                    switch(row)
+                    if (index == 0)
+                    {
+                        if(row < 3)
+                        {
+                            if(IsFrogCollision(x, y) == true)
+                            {
+                                frogger.KillFrog();
+                            }
+                        }
+                        continue;
+                    }
+
+                    switch (row)
                     {
                         case 0:
                         case 1:
@@ -161,26 +181,39 @@ namespace Frogger
                         case 3:
                         case 5:
                             DrawTruck(x, y, index);
+                            if(IsFrogCollision(x, y)) { frogger.KillFrog(); }
                             break;
                         case 4:
                             DrawCar(x, y, index);
+                            if (IsFrogCollision(x, y)) { frogger.KillFrog(); }
                             break;
                     }
                 }
             }
         }
 
+        bool IsFrogCollision(int x, int y)
+        {
+            if( y == frogger.FrogY &&
+                x > frogger.FrogX &&
+                x < frogger.FrogX + cellSize)
+            {
+                return true;
+            }
+            return false;
+        }
+
         void DrawLives()
         {
             for(int i = 1; i < frogger.Lives; i++)
             {
-                DrawFrog(cellSize * (frogger.Columns - i), cellSize * frogger.Rows - 1, 1);
+                DrawFrog(cellSize * (frogger.Columns - i), cellSize * (frogger.Rows - 1), 1);
             }
         }
 
         void DrawFrog()
         {
-            DrawFrog(frogger.FrogX * cellSize, frogger.FrogY * cellSize, 1);
+            DrawFrog(frogger.FrogX, frogger.FrogY, 1);
         }
 
         void DrawFrog(int x, int y, int frame)
@@ -208,9 +241,9 @@ namespace Frogger
 
         void DrawLog(int x, int y, int index)
         {
-            if (index == 1) DrawBitmap(x, y, 1, 8, frogger.logLeft);
-            else if (index == 2) DrawBitmap(x, y, 1, 8, frogger.logCenter);
-            else if (index == 3) DrawBitmap(x, y, 1, 8, frogger.logRight);
+            if (index == 1) DrawBitmap(x, y, 1, 8, frogger.logDarkLeft);
+            else if (index == 2) DrawBitmap(x, y, 1, 8, frogger.logDarkCenter);
+            else if (index == 3) DrawBitmap(x, y, 1, 8, frogger.logDarkRight);
         }
 
         void DrawCar(int x, int y, int index)
@@ -248,30 +281,26 @@ namespace Frogger
         {
             Console.WriteLine("start title");
 
-            int count = 0;
-            {
-                graphics.Clear();
+            graphics.Clear();
 
-                DrawBitmap(0, 0, 5, 40, frogger.titleBmp);
+            DrawBitmap(0, 0, 5, 40, frogger.titleBmp);
 
-                DrawFrog(50, 50, count % 3);
+            DrawFrog(50, 50, 0);
 
-                DrawBitmap(80, 10, 1, 8, frogger.carLeft);
-                DrawBitmap(88, 10, 1, 8, frogger.carRight);
+            DrawBitmap(80, 10, 1, 8, frogger.carLeft);
+            DrawBitmap(88, 10, 1, 8, frogger.carRight);
 
-                DrawBitmap(80, 30, 1, 8, frogger.truckLeft);
-                DrawBitmap(88, 30, 1, 8, frogger.truckCenter);
-                DrawBitmap(96, 30, 1, 8, frogger.truckRight);
+            DrawBitmap(80, 30, 1, 8, frogger.truckLeft);
+            DrawBitmap(88, 30, 1, 8, frogger.truckCenter);
+            DrawBitmap(96, 30, 1, 8, frogger.truckRight);
 
-                DrawBitmap(80, 50, 1, 8, frogger.logLeft);
-                DrawBitmap(88, 50, 1, 8, frogger.logCenter);
-                DrawBitmap(96, 50, 1, 8, frogger.logRight);
+            DrawBitmap(80, 50, 1, 8, frogger.logLeft);
+            DrawBitmap(88, 50, 1, 8, frogger.logCenter);
+            DrawBitmap(96, 50, 1, 8, frogger.logRight);
 
-                graphics.Show();
+            graphics.Show();
 
-                Thread.Sleep(250);
-                count++;
-            }
+            Thread.Sleep(250);
         }
     }
 }

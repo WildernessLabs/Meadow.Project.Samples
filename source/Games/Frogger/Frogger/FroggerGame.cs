@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Frogger
 {
@@ -18,62 +13,94 @@ namespace Frogger
         {
             //docks
             {1,2,3,0,1,2,3,0,0,0,1,2,3,0,1,2,3,0,0,0,1,2,3,0,0,0,0,1,2,3,0,0 },//logs
-            {0,0,1,3,0,0,0,1,3,0,0,0,1,3,0,0,1,3,0,0,0,1,3,0,1,3,0,0,1,3,0,0 },//logs
-            {1,2,3,0,1,2,3,0,0,0,1,2,3,0,1,2,3,0,0,0,1,2,3,0,0,0,0,1,2,3,0,0 },//logs
+            {0,0,1,3,0,0,0,1,3,0,0,0,1,3,0,0,1,2,3,0,0,1,3,0,1,3,0,0,1,3,0,0 },//logs
+            {1,2,3,0,1,2,3,0,0,0,1,2,3,0,1,2,3,0,0,0,1,2,2,3,0,0,0,1,2,3,0,0 },//logs
             {0,0,1,3,0,1,3,0,0,0,0,0,0,0,0,0,1,3,0,0,0,0,0,0,1,3,0,0,1,3,0,0 },//trucks
-            {0,0,1,2,0,0,0,1,2,0,0,0,1,2,0,0,1,2,0,0,0,1,2,0,1,2,0,0,1,2,0,0 },//cars
+            {0,0,1,2,0,0,0,1,2,0,0,0,1,2,0,0,1,2,0,0,0,1,2,0,1,2,0,0,0,0,0,0 },//cars
             {1,2,3,0,0,0,0,0,0,0,0,1,2,3,0,0,0,0,0,1,2,3,0,0,0,0,0,1,2,3,0,0 },//trucks
             //start
         };
 
         public double GameTime { get; private set; }
+        public double TimeDelta => GameTime - lastTime;
 
         public byte LaneLength => 32;
         public byte Columns => 16;
         public byte Rows => 8;
 
-        public byte FrogX { get; private set; }
+        public byte FrogX { get; set; }
         public byte FrogY { get; private set; }
 
         public byte Lives { get; private set; }
+        public byte FrogsHome { get; private set; }
 
-        public FroggerGame()
+        public byte CellSize { get; private set; }
+
+        DateTime gameStart;
+
+        public FroggerGame(byte cellsize = 8)
         {
+            CellSize = cellsize;
             Reset();
         }
 
         void Reset()
         { 
             gameStart = DateTime.Now;
-            FrogX = (byte)(Columns / 2);
-            FrogY = (byte)(Rows - 1);
+            ResetFrog();
             Lives = 3;
+
+            FrogsHome = 0;
         }
 
-        DateTime gameStart;
+        void ResetFrog()
+        {
+            FrogX = (byte)(Columns * CellSize / 2);
+            FrogY = (byte)((Rows - 1) * CellSize);
+        }
+
+        double lastTime;
         public void Update()
         {
+            lastTime = GameTime;
             GameTime = (DateTime.Now - gameStart).TotalSeconds;
         }
 
         public void OnUp()
         {
-            if(FrogY > 0) { FrogY--; }
+            if(FrogY >= CellSize) { FrogY -= CellSize; }
+
+            if(FrogY == 0)
+            {
+                FrogsHome++;
+                if(FrogsHome >= 5) { Reset(); }
+                else { ResetFrog(); }
+            }
         }
 
         public void OnDown()
         {
-            if (FrogY < Rows - 1) { FrogY++; }
+            if (FrogY < Rows*CellSize - CellSize) { FrogY += CellSize; }
         }
 
         public void OnLeft()
         {
-            if (FrogX > 0) { FrogX--; }
+            if (FrogX > CellSize) { FrogX -= CellSize; }
         }
 
         public void OnRight()
         {
-            if (FrogY < Columns - 1) { FrogX++; }
+            if (FrogX <= Columns*CellSize - CellSize) { FrogX += CellSize; }
+        }
+
+        void CheckHomeCollision()
+        {
+
+        }
+
+        public void KillFrog()
+        {
+            ResetFrog();
         }
     }
 }
