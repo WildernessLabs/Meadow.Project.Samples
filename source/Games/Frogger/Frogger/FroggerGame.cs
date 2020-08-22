@@ -5,20 +5,17 @@ namespace Frogger
     public partial class FroggerGame
     {
         //each lane has a velocity (float)
-        //each lane shows one obstical type
-        //safe or not safe
-
         public float[] LaneSpeeds { get; private set; } = new float[6] { 1.0f, -2.0f, 1.5f, -1.0f, 1.5f, -2.0f };
         public byte[,] LaneData { get; private set; } = new byte[6, 32]
         {
-            //docks
+            //no data for docks
             {1,2,3,0,1,2,3,0,0,0,1,2,3,0,1,3,0,0,0,0,1,2,3,0,0,0,0,1,2,3,0,0 },//logs
             {0,0,1,3,0,0,0,1,3,0,0,0,1,3,0,0,1,2,3,0,0,0,0,0,1,3,0,0,1,3,0,0 },//logs
             {1,2,3,0,1,2,3,0,0,0,1,2,3,0,1,2,3,0,0,0,1,2,2,3,0,0,0,1,2,3,0,0 },//logs
             {0,0,1,3,0,1,3,0,0,0,0,0,0,0,0,0,1,3,0,0,0,0,0,0,1,3,0,0,1,3,0,0 },//trucks
             {0,0,1,2,0,0,0,0,0,0,0,1,2,0,0,0,1,2,0,0,0,1,2,0,1,2,0,0,0,0,0,0 },//cars
             {1,2,3,0,0,0,0,0,0,0,0,1,2,3,0,0,0,0,0,1,2,3,0,0,0,0,0,1,2,3,0,0 },//trucks
-            //start
+            //no data for start lane
         };
 
         public double GameTime { get; private set; }
@@ -44,7 +41,7 @@ namespace Frogger
             Reset();
         }
 
-        void Reset()
+        public void Reset()
         { 
             gameStart = DateTime.Now;
             ResetFrog();
@@ -91,11 +88,6 @@ namespace Frogger
         public void OnRight()
         {
             if (FrogX <= Columns*CellSize - CellSize) { FrogX += CellSize; }
-        }
-
-        void CheckHomeCollision()
-        {
-
         }
 
         public void KillFrog()

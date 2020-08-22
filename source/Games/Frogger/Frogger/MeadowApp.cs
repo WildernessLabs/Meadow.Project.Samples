@@ -2,6 +2,7 @@
 using System.Threading;
 using Meadow;
 using Meadow.Devices;
+using Meadow.Foundation.Audio;
 using Meadow.Foundation.Displays;
 using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
@@ -20,16 +21,14 @@ namespace Frogger
         PushButton buttonUp;
         PushButton buttonDown;
 
-        RgbPwmLed onboardLed;
+        PiezoSpeaker speaker;
 
-        FroggerGame frogger;
-
-        //UI 
-        int cellSize = 8;
+        readonly FroggerGame frogger;
+        readonly byte cellSize = 8;
 
         public MeadowApp()
         {
-            frogger = new FroggerGame();
+            frogger = new FroggerGame(cellSize);
 
             Initialize();
 
@@ -56,12 +55,14 @@ namespace Frogger
             );
 
             graphics = new GraphicsLibrary(display);
-            graphics.CurrentFont = new Font4x8();
+            graphics.CurrentFont = new Font12x16();
 
-            buttonLeft = new PushButton(Device, Device.Pins.D13, ResistorMode.Disabled);
-            buttonRight = new PushButton(Device, Device.Pins.D12, ResistorMode.Disabled);
-            buttonUp = new PushButton(Device, Device.Pins.D11, ResistorMode.Disabled);
-            buttonDown = new PushButton(Device, Device.Pins.D14, ResistorMode.Disabled);
+            buttonLeft = new PushButton(Device, Device.Pins.D11, ResistorMode.Disabled);
+            buttonRight = new PushButton(Device, Device.Pins.D10, ResistorMode.Disabled);
+            buttonUp = new PushButton(Device, Device.Pins.D09, ResistorMode.Disabled);
+            buttonDown = new PushButton(Device, Device.Pins.D12, ResistorMode.Disabled);
+
+            speaker = new PiezoSpeaker(Device, Device.Pins.D13);
 
             Console.WriteLine("Initialize hardware complete.");
         }
@@ -74,7 +75,7 @@ namespace Frogger
 
         void InitializeGame()
         {
-
+            frogger.Reset();
         }
 
         void StartGameLoop()
@@ -89,8 +90,6 @@ namespace Frogger
                 DrawFrog();
                // DrawLives();
                 graphics.Show();
-
-              //  Thread.Sleep(10);
             }
         }
 
@@ -99,18 +98,22 @@ namespace Frogger
             if(buttonUp.State == true)
             {
                 frogger.OnUp();
+                speaker.PlayTone(440, 100);
             }
             else if (buttonLeft.State == true)
             {
                 frogger.OnLeft();
+                speaker.PlayTone(440, 100);
             }
             else if (buttonRight.State == true)
             {
                 frogger.OnRight();
+                speaker.PlayTone(440, 100);
             }
             else if (buttonDown.State == true)
             {
                 frogger.OnDown();
+                speaker.PlayTone(440, 100);
             }
         }
 
@@ -279,28 +282,36 @@ namespace Frogger
 
         void DrawTitleMenu()
         {
-            Console.WriteLine("start title");
+            Console.WriteLine("Draw title");
 
             graphics.Clear();
-
-            DrawBitmap(0, 0, 5, 40, frogger.titleBmp);
-
-            DrawFrog(50, 50, 0);
-
-            DrawBitmap(80, 10, 1, 8, frogger.carLeft);
-            DrawBitmap(88, 10, 1, 8, frogger.carRight);
-
-            DrawBitmap(80, 30, 1, 8, frogger.truckLeft);
-            DrawBitmap(88, 30, 1, 8, frogger.truckCenter);
-            DrawBitmap(96, 30, 1, 8, frogger.truckRight);
-
-            DrawBitmap(80, 50, 1, 8, frogger.logLeft);
-            DrawBitmap(88, 50, 1, 8, frogger.logCenter);
-            DrawBitmap(96, 50, 1, 8, frogger.logRight);
-
             graphics.Show();
+            Thread.Sleep(400);//pause for video recording
 
-            Thread.Sleep(250);
+            graphics.DrawLine(0, 0, 127, 0, true);
+            graphics.Show();
+            for (int i = 1; i < 63; i++)
+            {
+                graphics.DrawPixel(0, i);
+                graphics.DrawPixel(127, i);
+                graphics.Show();
+            }
+
+            graphics.DrawLine(0, 63, 127, 63, true);
+            graphics.Show();
+            Thread.Sleep(400);
+
+            graphics.DrawText(22, 20, "Frogger");
+            graphics.Show();
+            Thread.Sleep(400);
+
+            for (int i = 0; i < 5; i++)
+            {
+                DrawFrog(20 * (i + 1), 50, 1);
+
+                graphics.Show();
+                Thread.Sleep(400);
+            }
         }
     }
 }
