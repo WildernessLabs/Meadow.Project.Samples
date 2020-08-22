@@ -12,11 +12,11 @@ namespace Frogger
         public byte[,] LaneData { get; private set; } = new byte[6, 32]
         {
             //docks
-            {1,2,3,0,1,2,3,0,0,0,1,2,3,0,1,2,3,0,0,0,1,2,3,0,0,0,0,1,2,3,0,0 },//logs
-            {0,0,1,3,0,0,0,1,3,0,0,0,1,3,0,0,1,2,3,0,0,1,3,0,1,3,0,0,1,3,0,0 },//logs
+            {1,2,3,0,1,2,3,0,0,0,1,2,3,0,1,3,0,0,0,0,1,2,3,0,0,0,0,1,2,3,0,0 },//logs
+            {0,0,1,3,0,0,0,1,3,0,0,0,1,3,0,0,1,2,3,0,0,0,0,0,1,3,0,0,1,3,0,0 },//logs
             {1,2,3,0,1,2,3,0,0,0,1,2,3,0,1,2,3,0,0,0,1,2,2,3,0,0,0,1,2,3,0,0 },//logs
             {0,0,1,3,0,1,3,0,0,0,0,0,0,0,0,0,1,3,0,0,0,0,0,0,1,3,0,0,1,3,0,0 },//trucks
-            {0,0,1,2,0,0,0,1,2,0,0,0,1,2,0,0,1,2,0,0,0,1,2,0,1,2,0,0,0,0,0,0 },//cars
+            {0,0,1,2,0,0,0,0,0,0,0,1,2,0,0,0,1,2,0,0,0,1,2,0,1,2,0,0,0,0,0,0 },//cars
             {1,2,3,0,0,0,0,0,0,0,0,1,2,3,0,0,0,0,0,1,2,3,0,0,0,0,0,1,2,3,0,0 },//trucks
             //start
         };
@@ -28,8 +28,8 @@ namespace Frogger
         public byte Columns => 16;
         public byte Rows => 8;
 
-        public byte FrogX { get; set; }
-        public byte FrogY { get; private set; }
+        public double FrogX { get; set; }
+        public double FrogY { get; private set; }
 
         public byte Lives { get; private set; }
         public byte FrogsHome { get; private set; }

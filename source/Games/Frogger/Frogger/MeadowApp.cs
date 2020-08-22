@@ -150,7 +150,7 @@ namespace Frogger
 
                 if (row < 3 && y == frogger.FrogY)
                 {
-                    frogger.FrogX -= (byte)(frogger.TimeDelta * frogger.LaneSpeeds[row] * 8f);
+                    frogger.FrogX -= (frogger.TimeDelta * frogger.LaneSpeeds[row] * 8f);
                 }
 
                 for (byte i = 0; i < frogger.Columns + 2; i++)
@@ -213,7 +213,7 @@ namespace Frogger
 
         void DrawFrog()
         {
-            DrawFrog(frogger.FrogX, frogger.FrogY, 1);
+            DrawFrog((int)frogger.FrogX, (int)frogger.FrogY, 1);
         }
 
         void DrawFrog(int x, int y, int frame)
