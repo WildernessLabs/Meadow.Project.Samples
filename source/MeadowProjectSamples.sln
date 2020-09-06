@@ -65,7 +65,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RotaryServo", "Hackster\Rot
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TouchKeypad", "Hackster\TouchKeypad\TouchKeypad.csproj", "{96801F32-B504-446B-9CE8-8524254BE1E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "McpLedBarGraph", "Hackster\McpLedBarGraph\McpLedBarGraph.csproj", "{B3401737-CA2B-4F3E-A378-FE0AB9365319}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "McpLedBarGraph", "Hackster\McpLedBarGraph\McpLedBarGraph.csproj", "{B3401737-CA2B-4F3E-A378-FE0AB9365319}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObstacleRadar", "Hackster\ObstacleRadar\ObstacleRadar.csproj", "{AD7D599C-7A11-4B9B-941D-AF7B857996EE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -247,6 +249,12 @@ Global
 		{B3401737-CA2B-4F3E-A378-FE0AB9365319}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B3401737-CA2B-4F3E-A378-FE0AB9365319}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B3401737-CA2B-4F3E-A378-FE0AB9365319}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{AD7D599C-7A11-4B9B-941D-AF7B857996EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD7D599C-7A11-4B9B-941D-AF7B857996EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD7D599C-7A11-4B9B-941D-AF7B857996EE}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{AD7D599C-7A11-4B9B-941D-AF7B857996EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD7D599C-7A11-4B9B-941D-AF7B857996EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD7D599C-7A11-4B9B-941D-AF7B857996EE}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -281,6 +289,7 @@ Global
 		{358E1D22-EA8E-488B-A70C-8C641D56A01A} = {B1C3E8F8-3B6A-435A-A93A-0F6EC9ECCFAF}
 		{96801F32-B504-446B-9CE8-8524254BE1E5} = {B1C3E8F8-3B6A-435A-A93A-0F6EC9ECCFAF}
 		{B3401737-CA2B-4F3E-A378-FE0AB9365319} = {B1C3E8F8-3B6A-435A-A93A-0F6EC9ECCFAF}
+		{AD7D599C-7A11-4B9B-941D-AF7B857996EE} = {B1C3E8F8-3B6A-435A-A93A-0F6EC9ECCFAF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {10FA7F4A-2FF2-4696-8B12-DD0B9C978890}
