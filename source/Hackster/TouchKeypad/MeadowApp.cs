@@ -3,15 +3,15 @@ using Meadow.Devices;
 using Meadow.Foundation;
 using Meadow.Foundation.Displays.Tft;
 using Meadow.Foundation.Graphics;
-//using Meadow.Foundation.Hid;
 using Meadow.Foundation.Leds;
+using Meadow.Foundation.Sensors.Hid;
 using Meadow.Hardware;
 
 namespace TouchKeypad
 {
     public class MeadowApp : App<F7Micro, MeadowApp>
     {
-        //Mpr121 sensor;
+        Mpr121 sensor;
         St7789 display;
         RgbPwmLed onboardLed;
         GraphicsLibrary graphics;
@@ -38,37 +38,37 @@ namespace TouchKeypad
             graphics.Rotation = GraphicsLibrary.RotationType._180Degrees;
             graphics.CurrentFont = new Font12x16();
 
-            //sensor = new Mpr121(Device.CreateI2cBus(I2cBusSpeed.Standard), 90, 100);
-            //sensor.ChannelStatusesChanged += SensorChannelStatusesChanged;
+            sensor = new Mpr121(Device.CreateI2cBus(I2cBusSpeed.Standard), 90, 100);
+            sensor.ChannelStatusesChanged += SensorChannelStatusesChanged;
 
             onboardLed.SetColor(Color.Green);
         }
 
-        //void SensorChannelStatusesChanged(object sender, ChannelStatusChangedEventArgs e)
-        //{
-        //    graphics.Clear();
-        //    graphics.Stroke = 1;
+        void SensorChannelStatusesChanged(object sender, ChannelStatusChangedEventArgs e)
+        {
+            graphics.Clear();
+            graphics.Stroke = 1;
 
-        //    for (int i = 0; i < e.ChannelStatus.Count; i++)
-        //    {
-        //        int numpadIndex = 0;
-        //        for (int columns = 0; columns < 3; columns++)
-        //        {
-        //            for (int rows = 3; rows >= 0; rows--)
-        //            {
-        //                if (numpadIndex == i)
-        //                {
-        //                    if (e.ChannelStatus[(Mpr121.Channels)i])
-        //                        graphics.DrawRectangle(columns * 57 + 38, rows * 57 + 10, 51, 51, Meadow.Foundation.Color.Cyan, true);
-        //                    else
-        //                        graphics.DrawRectangle(columns * 57 + 38, rows * 57 + 10, 51, 51, true);
-        //                }
-        //                numpadIndex++;
-        //            }
-        //        }
-        //    }
+            for (int i = 0; i < e.ChannelStatus.Count; i++)
+            {
+                int numpadIndex = 0;
+                for (int columns = 0; columns < 3; columns++)
+                {
+                    for (int rows = 3; rows >= 0; rows--)
+                    {
+                        if (numpadIndex == i)
+                        {
+                            if (e.ChannelStatus[(Mpr121.Channels)i])
+                                graphics.DrawRectangle(columns * 57 + 38, rows * 57 + 10, 51, 51, Meadow.Foundation.Color.Cyan, true);
+                            else
+                                graphics.DrawRectangle(columns * 57 + 38, rows * 57 + 10, 51, 51, true);
+                        }
+                        numpadIndex++;
+                    }
+                }
+            }
 
-        //    graphics.Show();
-        //}
+            graphics.Show();
+        }
     }
 }
