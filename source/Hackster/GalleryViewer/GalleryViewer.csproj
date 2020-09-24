@@ -15,7 +15,7 @@
     <EmbeddedResource Include="image3.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Meadow.Foundation" Version="0.17.0" />
+    <PackageReference Include="Meadow.Foundation" Version="0.18.0" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Meadow.Foundation.Displays.TftSpi" Version="0.7.10" />
