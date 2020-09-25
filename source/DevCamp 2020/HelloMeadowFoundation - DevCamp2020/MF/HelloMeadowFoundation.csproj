@@ -6,6 +6,6 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Meadow.Foundation.Displays.TftSpi" Version="0.7.10" />
-    <PackageReference Include="Meadow.Foundation.Sensors.Atmospheric.Bmp180" Version="0.1.7" />
+    <PackageReference Include="Meadow.Foundation.Sensors.Atmospheric.Bmp180" Version="0.1.11" />
   </ItemGroup>
 </Project>
