@@ -3,11 +3,8 @@
     <TargetFramework>net472</TargetFramework>
     <OutputType>Exe</OutputType>
     <AssemblyName>App</AssemblyName>
-  </PropertyGroup>
+  </PropertyGroup>  
   <ItemGroup>
-    <PackageReference Include="Meadow.Foundation" Version="0.17.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Meadow.Foundation.Displays.Ssd1306" Version="0.12.7" />
+    <PackageReference Include="Meadow.Foundation.Displays.Ssd1306" Version="0.12.11" />
   </ItemGroup>
 </Project>
