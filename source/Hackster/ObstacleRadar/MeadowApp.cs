@@ -81,7 +81,7 @@ namespace ObstacleRadar
                 if (angle <= 0) { increment = 4; }
 
                 angle += increment;
-                //servo.RotateTo(angle);
+                servo.RotateTo(angle);
 
                 graphics.DrawText(0, 0, $"{180 - angle}°", Color.Yellow);
 

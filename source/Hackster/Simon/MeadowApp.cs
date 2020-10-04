@@ -24,6 +24,9 @@ namespace Simon
 
         public MeadowApp()
         {
+            var led = new RgbLed(Device, Device.Pins.OnboardLedRed, Device.Pins.OnboardLedGreen, Device.Pins.OnboardLedBlue);
+            led.SetColor(RgbLed.Colors.Red);
+
             leds[0] = new Led(Device.CreateDigitalOutputPort(Device.Pins.D10));
             leds[1] = new Led(Device.CreateDigitalOutputPort(Device.Pins.D09));
             leds[2] = new Led(Device.CreateDigitalOutputPort(Device.Pins.D08));
@@ -44,6 +47,8 @@ namespace Simon
             SetAllLEDs(true);
             game.OnGameStateChanged += OnGameStateChanged;
             game.Reset();
+
+            led.SetColor(RgbLed.Colors.Green);
         }
 
         void ButtonRedClicked(object sender, EventArgs e)

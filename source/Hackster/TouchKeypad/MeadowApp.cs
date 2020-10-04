@@ -1,6 +1,5 @@
 ﻿using Meadow;
 using Meadow.Devices;
-using Meadow.Foundation;
 using Meadow.Foundation.Displays.Tft;
 using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
@@ -13,18 +12,12 @@ namespace TouchKeypad
     {
         Mpr121 sensor;
         St7789 display;
-        RgbPwmLed onboardLed;
         GraphicsLibrary graphics;
 
         public MeadowApp()
         {
-            onboardLed = new RgbPwmLed(Device,
-                 Device.Pins.OnboardLedRed,
-                 Device.Pins.OnboardLedGreen,
-                 Device.Pins.OnboardLedBlue,
-                 3.3f, 3.3f, 3.3f,
-                 Meadow.Peripherals.Leds.IRgbLed.CommonType.CommonAnode);
-            onboardLed.SetColor(Color.Red);
+            var led = new RgbLed(Device, Device.Pins.OnboardLedRed, Device.Pins.OnboardLedGreen, Device.Pins.OnboardLedBlue);
+            led.SetColor(RgbLed.Colors.Red);
 
             var config = new SpiClockConfiguration(6000, SpiClockConfiguration.Mode.Mode3);
             var spiBus = Device.CreateSpiBus(Device.Pins.SCK, Device.Pins.MOSI, Device.Pins.MISO, config);
@@ -41,7 +34,7 @@ namespace TouchKeypad
             sensor = new Mpr121(Device.CreateI2cBus(I2cBusSpeed.Standard), 90, 100);
             sensor.ChannelStatusesChanged += SensorChannelStatusesChanged;
 
-            onboardLed.SetColor(Color.Green);
+            led.SetColor(RgbLed.Colors.Green);
         }
 
         void SensorChannelStatusesChanged(object sender, ChannelStatusChangedEventArgs e)

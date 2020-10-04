@@ -1,6 +1,7 @@
 ﻿using Meadow;
 using Meadow.Devices;
 using Meadow.Foundation.ICs.IOExpanders;
+using Meadow.Foundation.Leds;
 using System.Threading;
 
 namespace ShiftRegisterLeds
@@ -11,6 +12,9 @@ namespace ShiftRegisterLeds
 
         public MeadowApp()
         {
+            var led = new RgbLed(Device, Device.Pins.OnboardLedRed, Device.Pins.OnboardLedGreen, Device.Pins.OnboardLedBlue);
+            led.SetColor(RgbLed.Colors.Red);
+
             shiftRegister = new x74595(
                 device: Device,
                 spiBus: Device.CreateSpiBus(), 
@@ -20,6 +24,8 @@ namespace ShiftRegisterLeds
             shiftRegister.Clear(true);
 
             TestX74595();
+
+            led.SetColor(RgbLed.Colors.Green);
         }
 
         void TestX74595()

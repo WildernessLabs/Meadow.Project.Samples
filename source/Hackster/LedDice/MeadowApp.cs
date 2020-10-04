@@ -59,42 +59,13 @@ namespace LedDice
 
         void ShowNumber(int number)
         {
-            switch (number)
-            {
-                case 1:
-                    leds[3].IsOn = true;
-                    break;
-                case 2:
-                    leds[1].IsOn = true;
-                    leds[5].IsOn = true;
-                    break;
-                case 3:
-                    leds[1].IsOn = true;
-                    leds[3].IsOn = true;
-                    leds[5].IsOn = true;
-                    break;
-                case 4:
-                    leds[0].IsOn = true;
-                    leds[1].IsOn = true;
-                    leds[5].IsOn = true;
-                    leds[6].IsOn = true;
-                    break;
-                case 5:
-                    leds[0].IsOn = true;
-                    leds[1].IsOn = true;
-                    leds[3].IsOn = true;
-                    leds[5].IsOn = true;
-                    leds[6].IsOn = true;
-                    break;
-                case 6:
-                    leds[0].IsOn = true;
-                    leds[1].IsOn = true;
-                    leds[2].IsOn = true;
-                    leds[4].IsOn = true;
-                    leds[5].IsOn = true;
-                    leds[6].IsOn = true;
-                    break;
-            }
+            leds[0].IsOn = (number == 6 || number == 5 || number == 4);
+            leds[1].IsOn = (number == 6 || number == 5 || number == 4 || number == 3 || number == 2);
+            leds[2].IsOn = (number == 6);
+            leds[3].IsOn = (number == 4 || number == 5 || number == 3 || number == 1);
+            leds[4].IsOn = (number == 6);
+            leds[5].IsOn = (number == 6 || number == 5 || number == 4 || number == 3 || number == 2);
+            leds[6].IsOn = (number == 6 || number == 5 || number == 4);
         }
     }
 }

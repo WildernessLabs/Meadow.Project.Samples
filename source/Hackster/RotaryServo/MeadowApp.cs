@@ -24,9 +24,13 @@ namespace RotaryServo
             rotaryEncoder.Rotated += (s, e) =>
             {
                 if (e.Direction == Meadow.Peripherals.Sensors.Rotary.RotationDirection.Clockwise)
+                {
                     angle++;
+                }
                 else
+                {
                     angle--;
+                }
 
                 if (angle > 180) angle = 180;
                 else if (angle < 0) angle = 0;

@@ -24,7 +24,7 @@ namespace MotionDetector
                 Meadow.Peripherals.Leds.IRgbLed.CommonType.CommonAnode);
             onboardLed.SetColor(Color.Red);
 
-            motionSensor = new ParallaxPir(Device, Device.Pins.D00, InterruptMode.EdgeBoth, ResistorMode.PullDown);
+            motionSensor = new ParallaxPir(Device, Device.Pins.D08, InterruptMode.EdgeFalling, ResistorMode.Disabled, 5, 0);
             motionSensor.OnMotionStart += MotionSensorMotionStart;
             motionSensor.OnMotionEnd += MotionSensorMotionEnd;
 
@@ -33,12 +33,15 @@ namespace MotionDetector
 
         private void MotionSensorMotionEnd(object sender)
         {
+            Console.WriteLine("End");
             onboardLed.SetColor(Color.Cyan);
         }
 
         private void MotionSensorMotionStart(object sender)
         {
+            Console.WriteLine("Start");
             onboardLed.SetColor(Color.Magenta);
+            Thread.Sleep(1000);
         }
     }
 }

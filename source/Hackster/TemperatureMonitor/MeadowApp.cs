@@ -21,7 +21,6 @@ namespace TemperatureMonitor
             Color.FromHex("#67E667") 
         };
 
-        RgbLed led;
         St7789 st7789;
         GraphicsLibrary graphics;
         AnalogTemperature analogTemperature;               
@@ -29,7 +28,7 @@ namespace TemperatureMonitor
 
         public MeadowApp()
         {
-            led = new RgbLed(Device, Device.Pins.OnboardLedRed, Device.Pins.OnboardLedGreen, Device.Pins.OnboardLedBlue);
+            var led = new RgbLed(Device, Device.Pins.OnboardLedRed, Device.Pins.OnboardLedGreen, Device.Pins.OnboardLedBlue);
             led.SetColor(RgbLed.Colors.Red);
 
             analogTemperature = new AnalogTemperature(
