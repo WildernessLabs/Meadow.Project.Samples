@@ -5,6 +5,7 @@ using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Rotary;
 using Meadow.Hardware;
 using Meadow.Peripherals.Sensors.Rotary;
+using System;
 
 namespace RotaryLedBar
 {
@@ -38,10 +39,11 @@ namespace RotaryLedBar
             };
 
             ledBarGraph = new LedBarGraph(ports);
+            ledBarGraph.Percentage = 1;
 
-            rotaryEncoder = new RotaryEncoder(
-                Device.CreateDigitalInputPort(Device.Pins.D02, InterruptMode.EdgeRising, ResistorMode.PullUp, 0, 5),
-                Device.CreateDigitalInputPort(Device.Pins.D03, InterruptMode.EdgeRising, ResistorMode.PullUp, 0, 5));
+            rotaryEncoder = new RotaryEncoder(Device, Device.Pins.D02, Device.Pins.D03);
+                //Device.CreateDigitalInputPort(Device.Pins.D02, InterruptMode.EdgeRising, ResistorMode.PullUp, 0, 5),
+                //Device.CreateDigitalInputPort(Device.Pins.D03, InterruptMode.EdgeRising, ResistorMode.PullUp, 0, 5));
             rotaryEncoder.Rotated += RotaryEncoderRotated;
 
             led.SetColor(RgbLed.Colors.Green);
@@ -49,6 +51,8 @@ namespace RotaryLedBar
 
         void RotaryEncoderRotated(object sender, RotaryTurnedEventArgs e)
         {
+            Console.WriteLine("Hey");
+
             if (e.Direction == RotationDirection.Clockwise)
                 percentage += 0.05f;
             else

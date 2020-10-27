@@ -5,9 +5,17 @@
     <AssemblyName>App</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Meadow.Foundation" Version="0.18.0" />
+    <None Remove="meadow.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Meadow.Foundation.Sensors.Motion.ParallaxPir" Version="0.8.14" />
+    <EmbeddedResource Include="meadow.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Meadow.Foundation" Version="0.19.0" />
+    <PackageReference Include="Meadow.Foundation.Displays.TftSpi" Version="0.7.18" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Meadow.Foundation.Sensors.Motion.ParallaxPir" Version="0.8.18" />
+    <PackageReference Include="SimpleJpegDecoder" Version="0.2.0" />
   </ItemGroup>
 </Project>

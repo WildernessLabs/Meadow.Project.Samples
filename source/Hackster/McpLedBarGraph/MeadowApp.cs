@@ -38,7 +38,8 @@ namespace McpLedBarGraph
 
             led.SetColor(RgbLed.Colors.Green);
 
-            CycleLeds();
+            ledBarGraph.Percentage = 1;
+            //CycleLeds();
         }
 
         void CycleLeds()

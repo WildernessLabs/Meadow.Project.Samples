@@ -25,9 +25,11 @@ namespace RotationDetector
             right = new Led(Device.CreateDigitalOutputPort(Device.Pins.D13));
 
             mpu = new Mpu6050(Device.CreateI2cBus());
-            mpu.AccelerationChangeThreshold = 0.05f;
-            mpu.Updated += MpuUpdated;
-            mpu.StartUpdating(100);            
+            //mpu.AccelerationChangeThreshold = 0.05f;
+            //mpu.Updated += MpuUpdated;
+            //mpu.StartUpdating(100);            
+
+            up.IsOn = true;
 
             led.SetColor(RgbLed.Colors.Green);
         }
