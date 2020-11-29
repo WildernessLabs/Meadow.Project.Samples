@@ -19,17 +19,21 @@ namespace StopwatchDisplay
 
         public MeadowApp()
         {
-            Console.Write("Initialize...");
-
             var led = new RgbLed(Device, Device.Pins.OnboardLedRed, Device.Pins.OnboardLedGreen, Device.Pins.OnboardLedBlue);
             led.SetColor(RgbLed.Colors.Red);
 
             stopwatch = new Stopwatch();
 
-            startStop = new PushButton(Device, Device.Pins.D12, Meadow.Hardware.ResistorMode.PullUp);
+            startStop = new PushButton(
+                device: Device, 
+                inputPin: Device.Pins.D12, 
+                resistor: Meadow.Hardware.ResistorMode.PullUp);
             startStop.Clicked += StartStopClicked;
 
-            reset = new PushButton(Device, Device.Pins.D13, Meadow.Hardware.ResistorMode.PullUp);
+            reset = new PushButton(
+                device: Device, 
+                inputPin: Device.Pins.D13, 
+                resistor: Meadow.Hardware.ResistorMode.PullUp);
             reset.Clicked += ResetClicked;
 
             display = new FourDigitSevenSegment
@@ -64,12 +68,10 @@ namespace StopwatchDisplay
         {
             if (isRunning)
             {
-                Console.WriteLine("stop");
                 stopwatch.Stop();
             }
             else
             {
-                Console.WriteLine("start");
                 stopwatch.Start();
             }
             isRunning = !isRunning;

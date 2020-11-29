@@ -13,7 +13,11 @@ namespace LedCar
 
         public MeadowApp()
         {
-            var led = new RgbLed(Device, Device.Pins.OnboardLedRed, Device.Pins.OnboardLedGreen, Device.Pins.OnboardLedBlue);
+            var led = new RgbLed(
+                Device, 
+                Device.Pins.OnboardLedRed, 
+                Device.Pins.OnboardLedGreen, 
+                Device.Pins.OnboardLedBlue);
             led.SetColor(RgbLed.Colors.Red);
 
             up = new PwmLed(Device, Device.Pins.D13, TypicalForwardVoltage.Red);

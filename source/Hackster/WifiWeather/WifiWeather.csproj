@@ -1,0 +1,23 @@
+﻿<Project Sdk="Meadow.Sdk/1.1.0">
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>App</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="meadow.jpg" />
+    <None Remove="w_rain.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="meadow.jpg" />
+    <EmbeddedResource Include="w_rain.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Meadow.Foundation" Version="0.*" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Meadow.Foundation.Displays.TftSpi" Version="0.7.18" />
+    <PackageReference Include="SimpleJpegDecoder" Version="0.2.0" />
+    <PackageReference Include="System.Text.Json" Version="5.0.0" />
+  </ItemGroup>
+</Project>

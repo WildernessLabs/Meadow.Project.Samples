@@ -69,7 +69,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ObstacleRadar", "Hackster\O
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MotionDetector", "Hackster\MotionDetector\MotionDetector.csproj", "{F0899D5A-F618-4A36-AAE8-D859118C9E70}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StopwatchDisplay", "Hackster\StopwatchDisplay\StopwatchDisplay.csproj", "{F295B028-FB3E-4CAE-A43C-A3855A587704}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StopwatchDisplay", "Hackster\StopwatchDisplay\StopwatchDisplay.csproj", "{F295B028-FB3E-4CAE-A43C-A3855A587704}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mp3Player", "Hackster\Mp3Player\Mp3Player.csproj", "{C1638188-2396-46D5-BA1B-78CE7A421BB8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WifiWeather", "Hackster\WifiWeather\WifiWeather.csproj", "{CDC05809-DF8A-4F7D-A5CF-AE812EFE59EE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -263,6 +267,18 @@ Global
 		{F295B028-FB3E-4CAE-A43C-A3855A587704}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F295B028-FB3E-4CAE-A43C-A3855A587704}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F295B028-FB3E-4CAE-A43C-A3855A587704}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{C1638188-2396-46D5-BA1B-78CE7A421BB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1638188-2396-46D5-BA1B-78CE7A421BB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1638188-2396-46D5-BA1B-78CE7A421BB8}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{C1638188-2396-46D5-BA1B-78CE7A421BB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1638188-2396-46D5-BA1B-78CE7A421BB8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1638188-2396-46D5-BA1B-78CE7A421BB8}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{CDC05809-DF8A-4F7D-A5CF-AE812EFE59EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDC05809-DF8A-4F7D-A5CF-AE812EFE59EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDC05809-DF8A-4F7D-A5CF-AE812EFE59EE}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{CDC05809-DF8A-4F7D-A5CF-AE812EFE59EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDC05809-DF8A-4F7D-A5CF-AE812EFE59EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDC05809-DF8A-4F7D-A5CF-AE812EFE59EE}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -299,6 +315,8 @@ Global
 		{AD7D599C-7A11-4B9B-941D-AF7B857996EE} = {B1C3E8F8-3B6A-435A-A93A-0F6EC9ECCFAF}
 		{F0899D5A-F618-4A36-AAE8-D859118C9E70} = {B1C3E8F8-3B6A-435A-A93A-0F6EC9ECCFAF}
 		{F295B028-FB3E-4CAE-A43C-A3855A587704} = {B1C3E8F8-3B6A-435A-A93A-0F6EC9ECCFAF}
+		{C1638188-2396-46D5-BA1B-78CE7A421BB8} = {B1C3E8F8-3B6A-435A-A93A-0F6EC9ECCFAF}
+		{CDC05809-DF8A-4F7D-A5CF-AE812EFE59EE} = {B1C3E8F8-3B6A-435A-A93A-0F6EC9ECCFAF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {10FA7F4A-2FF2-4696-8B12-DD0B9C978890}
