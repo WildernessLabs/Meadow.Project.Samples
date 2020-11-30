@@ -3,10 +3,10 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using WifiWeather.Models;
 
-namespace WifiWeather.ServiceAccessLayer
+namespace WifiWeather.Services
 {
     public static class WeatherService
-    {
+    {        
         static string climateDataUri = "http://api.openweathermap.org/data/2.5/weather";
         static string city = $"q=[CITY NAME HERE]";
         static string apiKey = $"appid=[API KEY HERE]";

@@ -69,7 +69,7 @@ namespace WifiWeather.Views
             graphics.Stroke = 1;
             graphics.DrawRectangle(0, 0, (int)display.Width, (int)display.Height, Color.White, true);
 
-            DisplayJPG(300, 5, 5);
+            DisplayJPG(model.WeatherCode, 5, 5);
 
             string date = model.DateTime.ToString("MM/dd/yy"); // $"11/29/20";
             graphics.CurrentFont = new Font12x20();
@@ -179,7 +179,7 @@ namespace WifiWeather.Views
                     resourceName = $"WifiWeather.w_misc.jpg";
                     break;
                 case int n when (n >= 800 && n <= 899):
-                    resourceName = $"WifiWeather.w_snow.jpg";
+                    resourceName = $"WifiWeather.w_cloudy.jpg";
                     break;
             }
 
