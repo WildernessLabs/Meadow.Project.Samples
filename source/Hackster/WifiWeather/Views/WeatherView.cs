@@ -20,10 +20,10 @@ namespace WifiWeather.Views
 
         public WeatherView()
         {
-            InitializeDisplay();
+            Initialize();
         }
 
-        void InitializeDisplay()
+        void Initialize()
         {
             var config = new SpiClockConfiguration(6000, SpiClockConfiguration.Mode.Mode3);
 
@@ -47,11 +47,6 @@ namespace WifiWeather.Views
         }
 
         public void UpdateDisplay(WeatherViewModel model)
-        {
-            Render(model);
-        }
-
-        void Render(WeatherViewModel model)
         {
             lock (renderLock)
             {

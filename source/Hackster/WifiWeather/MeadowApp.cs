@@ -66,6 +66,8 @@ namespace WifiWeather
             // Get outdoor conditions
             var outdoorConditions = await WeatherService.GetWeatherForecast();
 
+            onboardLed.StartPulse(Color.Orange);
+
             // Format indoor/outdoor conditions data
             var model = new WeatherViewModel(outdoorConditions, indoorConditions);
 
