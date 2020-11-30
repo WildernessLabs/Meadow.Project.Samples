@@ -5,11 +5,9 @@
     <AssemblyName>App</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="meadow.jpg" />
     <None Remove="w_rain.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="meadow.jpg" />
     <EmbeddedResource Include="w_rain.jpg" />
   </ItemGroup>
   <ItemGroup>

@@ -5,47 +5,33 @@ using WifiWeather.Models;
 
 namespace WifiWeather.ServiceAccessLayer
 {
-    public static class ClientServiceFacade
+    public static class WeatherService
     {
-        // TODO: change this IP for your localhost 
-        static string climateDataUri = "http://api.openweathermap.org/data/2.5/weather?q=Vancouver&appid=[API KEY HERE]";
+        static string climateDataUri = "http://api.openweathermap.org/data/2.5/weather";
+        static string city = $"q=[CITY NAME HERE]";
+        static string apiKey = $"appid=[API KEY HERE]";
 
-        static ClientServiceFacade() { }
+        static WeatherService() { }
 
-        /// <summary>
-        /// Fetches the climate readings from the Web API Endpoint
-        /// </summary>
-        /// <returns></returns>
-        public static async Task<WeatherReading> FetchReadings()
+        public static async Task<WeatherReading> GetWeatherForecast()
         {
             using (HttpClient client = new HttpClient())
             {
                 client.Timeout = new TimeSpan(0, 5, 0);
 
-                HttpResponseMessage response = await client.GetAsync(climateDataUri);
+                HttpResponseMessage response = await client.GetAsync($"{climateDataUri}?{city}&{apiKey}");
 
                 try
                 {
-                    Console.WriteLine("sending request...");
-
                     response.EnsureSuccessStatusCode();
-
                     string json = await response.Content.ReadAsStringAsync();
-
-                    Console.WriteLine(json);
-
                     var values = System.Text.Json.JsonSerializer.Deserialize(json, typeof(WeatherReading));
-
-                    Console.WriteLine("deserialized to object");
-
                     var reading = values as WeatherReading;
-
-                    Console.WriteLine($"Success");
                     return reading;
                 }
                 catch (TaskCanceledException)
                 {
-                    Console.WriteLine("Request time out.");
+                    Console.WriteLine("Request timed out.");
                     return null;
                 }
                 catch (Exception e)

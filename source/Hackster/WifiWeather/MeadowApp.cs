@@ -6,16 +6,17 @@ using System;
 using Meadow.Foundation;
 using System.Threading.Tasks;
 using WifiWeather.Controllers;
-using WifiWeather.Models;
 using WifiWeather.ServiceAccessLayer;
+using WifiWeather.ViewModels;
+using Meadow.Foundation.Sensors.Temperature;
 
 namespace WifiWeather
 {
     public class MeadowApp : App<F7Micro, MeadowApp>
     {
         RgbPwmLed onboardLed;
-        WeatherReading reading;
-        DisplayController displayController;
+        WeatherView displayController;
+        AnalogTemperature analogTemperature;
 
         public MeadowApp()
         {
@@ -34,7 +35,13 @@ namespace WifiWeather
                 Meadow.Peripherals.Leds.IRgbLed.CommonType.CommonAnode);
             onboardLed.StartPulse(Color.Red);
 
-            displayController = new DisplayController();
+            analogTemperature = new AnalogTemperature(
+                device: Device,
+                analogPin: Device.Pins.A00,
+                sensorType: AnalogTemperature.KnownSensorType.LM35
+            );
+
+            displayController = new WeatherView();
 
             Device.InitWiFiAdapter().Wait();
 
@@ -53,8 +60,17 @@ namespace WifiWeather
         {
             onboardLed.StartPulse(Color.Magenta);
 
-            WeatherReading reading = await ClientServiceFacade.FetchReadings();
-            //displayController.UpdateDisplay(reading);
+            // Get indoor conditions
+            var indoorConditions = await analogTemperature.Read();
+
+            // Get outdoor conditions
+            var outdoorConditions = await WeatherService.GetWeatherForecast();
+
+            // Format indoor/outdoor conditions data
+            var model = new WeatherViewModel(outdoorConditions, indoorConditions);
+
+            // Send formatted data to display to render
+            displayController.UpdateDisplay(model);
 
             onboardLed.StartPulse(Color.Green);
         }

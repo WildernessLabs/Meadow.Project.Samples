@@ -1,26 +1,24 @@
-﻿using System;
-using System.IO;
-using System.Reflection;
-using Meadow.Foundation;
+﻿using Meadow.Foundation;
 using Meadow.Foundation.Displays.Tft;
 using Meadow.Foundation.Graphics;
 using Meadow.Hardware;
-using Meadow.Peripherals.Sensors.Atmospheric;
 using SimpleJpegDecoder;
-using WifiWeather.Models;
+using System;
+using System.IO;
+using System.Reflection;
+using WifiWeather.ViewModels;
 
 namespace WifiWeather.Controllers
 {
-    public class DisplayController
+    public class WeatherView
     {
         protected St7789 display;
         protected GraphicsLibrary graphics;
-        protected WeatherReading weatherReading;
 
         protected bool isRendering = false;
         protected object renderLock = new object();
 
-        public DisplayController()
+        public WeatherView()
         {
             InitializeDisplay();
         }
@@ -53,20 +51,19 @@ namespace WifiWeather.Controllers
 
             graphics.Clear(true);
 
-            Render();
+            //Render();
         }
 
-        public void UpdateDisplay(WeatherReading reading)
+        public void UpdateDisplay(WeatherViewModel model)
         {
-            weatherReading = reading;
-            Render();
+            Render(model);
         }
 
         /// <summary>
         /// Does the actual rendering. If it's already rendering, it'll bail out,
         /// so render requests don't stack up.
         /// </summary>
-        protected void Render()
+        protected void Render(WeatherViewModel model)
         {
             Console.WriteLine($"Render() - is rendering: {isRendering}");
 
@@ -91,19 +88,19 @@ namespace WifiWeather.Controllers
 
             DisplayJPG(5,5);
 
-            string date = $"11/29/20";
+            string date = model.DateTime.ToString("MM/dd/yy"); // $"11/29/20";
             graphics.CurrentFont = new Font12x20();
             graphics.DrawText(
-                x: 111,
-                y: 20,
+                x: 128,
+                y: 24,
                 text: date,
                 color: Color.Black);
 
-            string time = $"12:16 AM"; 
+            string time = model.DateTime.ToString("hh:mm"); // $"12:16 AM"; 
             graphics.CurrentFont = new Font12x20();
             graphics.DrawText(
-                x: 111,
-                y: 50,
+                x: 116,
+                y: 66,
                 text: time,
                 color: Color.Black,
                 scaleFactor: GraphicsLibrary.ScaleFactor.X2);
@@ -111,16 +108,16 @@ namespace WifiWeather.Controllers
             string outdoor = $"Outdoor:";
             graphics.CurrentFont = new Font12x20();
             graphics.DrawText(
-                x: 5,
-                y: 138,
+                x: 128,
+                y: 143,
                 text: outdoor,
                 color: Color.Black);
 
-            string outdoorTemp = $"07°C";
+            string outdoorTemp = model.OutdoorTemperature.ToString("00°C");
             graphics.CurrentFont = new Font12x20();
             graphics.DrawText(
-                x: 130,
-                y: 128,
+                x: 128,
+                y: 178,
                 text: outdoorTemp,
                 color: Color.Black,
                 scaleFactor: GraphicsLibrary.ScaleFactor.X2);
@@ -128,16 +125,16 @@ namespace WifiWeather.Controllers
             string indoor = $"Indoor:";
             graphics.CurrentFont = new Font12x20();
             graphics.DrawText(
-                x: 5,
-                y: 197,
+                x: 17,
+                y: 143,
                 text: indoor,
                 color: Color.Black);
 
-            string indoorTemp = $"22°C"; 
+            string indoorTemp = model.IndoorTemperature.ToString("00°C");
             graphics.CurrentFont = new Font12x20();
             graphics.DrawText(
-                x: 130,
-                y: 187,
+                x: 11,
+                y: 178,
                 text: indoorTemp,
                 color: Color.Black,
                 scaleFactor: GraphicsLibrary.ScaleFactor.X2);
