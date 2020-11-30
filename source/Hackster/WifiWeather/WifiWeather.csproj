@@ -5,10 +5,24 @@
     <AssemblyName>App</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="w_clear.jpg" />
+    <None Remove="w_cloudy.jpg" />
+    <None Remove="w_drizzle.jpg" />
+    <None Remove="w_misc.jpg" />
     <None Remove="w_rain.jpg" />
+    <None Remove="w_snow.jpg" />
+    <None Remove="w_storm.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="w_drizzle.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="w_clear.jpg" />
+    <EmbeddedResource Include="w_cloudy.jpg" />
+    <EmbeddedResource Include="w_misc.jpg" />
     <EmbeddedResource Include="w_rain.jpg" />
+    <EmbeddedResource Include="w_snow.jpg" />
+    <EmbeddedResource Include="w_storm.jpg" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Meadow.Foundation" Version="0.*" />

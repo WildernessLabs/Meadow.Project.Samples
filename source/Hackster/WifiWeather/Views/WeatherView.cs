@@ -69,7 +69,7 @@ namespace WifiWeather.Views
             graphics.Stroke = 1;
             graphics.DrawRectangle(0, 0, (int)display.Width, (int)display.Height, Color.White, true);
 
-            DisplayJPG(5,5);
+            DisplayJPG(300, 5, 5);
 
             string date = model.DateTime.ToString("MM/dd/yy"); // $"11/29/20";
             graphics.CurrentFont = new Font12x20();
@@ -88,10 +88,10 @@ namespace WifiWeather.Views
                 color: Color.Black,
                 scaleFactor: GraphicsLibrary.ScaleFactor.X2);
 
-            string outdoor = $"Outdoor:";
+            string outdoor = $"Outdoor";
             graphics.CurrentFont = new Font12x20();
             graphics.DrawText(
-                x: 128,
+                x: 134,
                 y: 143,
                 text: outdoor,
                 color: Color.Black);
@@ -105,10 +105,10 @@ namespace WifiWeather.Views
                 color: Color.Black,
                 scaleFactor: GraphicsLibrary.ScaleFactor.X2);
 
-            string indoor = $"Indoor:";
+            string indoor = $"Indoor";
             graphics.CurrentFont = new Font12x20();
             graphics.DrawText(
-                x: 17,
+                x: 23,
                 y: 143,
                 text: indoor,
                 color: Color.Black);
@@ -127,9 +127,9 @@ namespace WifiWeather.Views
             isRendering = false;
         }
 
-        void DisplayJPG(int xOffset, int yOffset)
+        void DisplayJPG(int weatherCode, int xOffset, int yOffset)
         {
-            var jpgData = LoadResource("w_rain.jpg");
+            var jpgData = LoadResource(weatherCode);
             var decoder = new JpegDecoder();
             var jpg = decoder.DecodeJpeg(jpgData);
 
@@ -156,10 +156,32 @@ namespace WifiWeather.Views
             display.Show();
         }
 
-        byte[] LoadResource(string filename)
+        byte[] LoadResource(int weatherCode)
         {
             var assembly = Assembly.GetExecutingAssembly();
-            var resourceName = $"WifiWeather.{filename}";
+            string resourceName = string.Empty;
+
+            switch(weatherCode)
+            {
+                case int n when (n >= 200 && n <= 299):
+                    resourceName = $"WifiWeather.w_storm.jpg";
+                    break;
+                case int n when (n >= 300 && n <= 399):
+                    resourceName = $"WifiWeather.w_drizzle.jpg";
+                    break;
+                case int n when (n >= 500 && n <= 599):
+                    resourceName = $"WifiWeather.w_rain.jpg";
+                    break;
+                case int n when (n >= 600 && n <= 699):
+                    resourceName = $"WifiWeather.w_snow.jpg";
+                    break;
+                case int n when (n >= 700 && n <= 799):
+                    resourceName = $"WifiWeather.w_misc.jpg";
+                    break;
+                case int n when (n >= 800 && n <= 899):
+                    resourceName = $"WifiWeather.w_snow.jpg";
+                    break;
+            }
 
             using (Stream stream = assembly.GetManifestResourceStream(resourceName))
             {
