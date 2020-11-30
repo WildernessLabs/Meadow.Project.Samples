@@ -8,26 +8,22 @@ using System.IO;
 using System.Reflection;
 using WifiWeather.ViewModels;
 
-namespace WifiWeather.Controllers
+namespace WifiWeather.Views
 {
     public class WeatherView
     {
-        protected St7789 display;
-        protected GraphicsLibrary graphics;
+        St7789 display;
+        GraphicsLibrary graphics;
 
-        protected bool isRendering = false;
-        protected object renderLock = new object();
+        bool isRendering = false;
+        object renderLock = new object();
 
         public WeatherView()
         {
             InitializeDisplay();
         }
 
-        /// <summary>
-        /// intializes the physical display peripheral, as well as the backing
-        /// graphics library.
-        /// </summary>
-        protected void InitializeDisplay()
+        void InitializeDisplay()
         {
             var config = new SpiClockConfiguration(6000, SpiClockConfiguration.Mode.Mode3);
 
@@ -47,11 +43,7 @@ namespace WifiWeather.Controllers
                 Rotation = GraphicsLibrary.RotationType._270Degrees
             };
 
-            Console.WriteLine("Clear display");
-
             graphics.Clear(true);
-
-            //Render();
         }
 
         public void UpdateDisplay(WeatherViewModel model)
@@ -59,14 +51,8 @@ namespace WifiWeather.Controllers
             Render(model);
         }
 
-        /// <summary>
-        /// Does the actual rendering. If it's already rendering, it'll bail out,
-        /// so render requests don't stack up.
-        /// </summary>
-        protected void Render(WeatherViewModel model)
+        void Render(WeatherViewModel model)
         {
-            Console.WriteLine($"Render() - is rendering: {isRendering}");
-
             lock (renderLock)
             {
                 if (isRendering)
@@ -82,9 +68,6 @@ namespace WifiWeather.Controllers
 
             graphics.Stroke = 1;
             graphics.DrawRectangle(0, 0, (int)display.Width, (int)display.Height, Color.White, true);
-            //graphics.DrawRectangle(5, 5, (int)display.Width - 10, (int)display.Height - 10, Color.White);
-
-            //graphics.DrawCircle((int)display.Width / 2, (int)display.Height / 2, (int)(display.Width / 2) - 10, Color.FromHex("#23abe3"), true);
 
             DisplayJPG(5,5);
 
@@ -141,16 +124,11 @@ namespace WifiWeather.Controllers
 
             graphics.Show();
 
-            Console.WriteLine("Show complete");
-
             isRendering = false;
-
         }
 
-        protected void DisplayJPG(int xOffset, int yOffset)
+        void DisplayJPG(int xOffset, int yOffset)
         {
-            Console.WriteLine("DisplayJPG - BEGIN");
-
             var jpgData = LoadResource("w_rain.jpg");
             var decoder = new JpegDecoder();
             var jpg = decoder.DecodeJpeg(jpgData);
@@ -176,13 +154,10 @@ namespace WifiWeather.Controllers
             }
 
             display.Show();
-            Console.WriteLine("DisplayJPG - END");
         }
 
-        protected byte[] LoadResource(string filename)
+        byte[] LoadResource(string filename)
         {
-            Console.WriteLine("LoadResource - END");
-
             var assembly = Assembly.GetExecutingAssembly();
             var resourceName = $"WifiWeather.{filename}";
 
@@ -194,8 +169,6 @@ namespace WifiWeather.Controllers
                     return ms.ToArray();
                 }
             }
-
-            Console.WriteLine("LoadResource - END");
         }
     }
 }

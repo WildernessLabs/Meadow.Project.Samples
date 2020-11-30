@@ -1,14 +1,14 @@
 ﻿using Meadow;
 using Meadow.Devices;
+using Meadow.Foundation;
 using Meadow.Foundation.Leds;
+using Meadow.Foundation.Sensors.Temperature;
 using Meadow.Gateway.WiFi;
 using System;
-using Meadow.Foundation;
 using System.Threading.Tasks;
-using WifiWeather.Controllers;
-using WifiWeather.ServiceAccessLayer;
+using WifiWeather.Views;
+using WifiWeather.Services;
 using WifiWeather.ViewModels;
-using Meadow.Foundation.Sensors.Temperature;
 
 namespace WifiWeather
 {
