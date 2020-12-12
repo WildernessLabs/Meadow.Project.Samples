@@ -11,11 +11,11 @@
     <EmbeddedResource Include="meadow.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Meadow.Foundation" Version="0.19.0" />
-    <PackageReference Include="Meadow.Foundation.Displays.TftSpi" Version="0.7.18" />
+    <PackageReference Include="Meadow.Foundation" Version="0.20.0" />
+    <PackageReference Include="Meadow.Foundation.Displays.TftSpi" Version="0.7.22" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Meadow.Foundation.Sensors.Motion.ParallaxPir" Version="0.8.18" />
+    <PackageReference Include="Meadow.Foundation.Sensors.Motion.ParallaxPir" Version="0.8.22" />
     <PackageReference Include="SimpleJpegDecoder" Version="0.2.0" />
   </ItemGroup>
 </Project>
