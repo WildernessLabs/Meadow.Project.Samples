@@ -33,6 +33,7 @@ namespace WifiWeather
                 bluePwmPin: Device.Pins.OnboardLedBlue,
                 3.3f, 3.3f, 3.3f,
                 Meadow.Peripherals.Leds.IRgbLed.CommonType.CommonAnode);
+
             onboardLed.StartPulse(Color.Red);
 
             analogTemperature = new AnalogTemperature(

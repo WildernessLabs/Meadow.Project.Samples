@@ -1,4 +1,5 @@
-﻿using Meadow.Foundation;
+﻿using Lucene.Net.Util;
+using Meadow.Foundation;
 using Meadow.Foundation.Displays.Tft;
 using Meadow.Foundation.Graphics;
 using Meadow.Hardware;
@@ -7,6 +8,8 @@ using System;
 using System.IO;
 using System.Reflection;
 using WifiWeather.ViewModels;
+using WifiWeather.Models;
+using static Meadow.Foundation.Displays.DisplayBase;
 
 namespace WifiWeather.Views
 {
@@ -25,25 +28,27 @@ namespace WifiWeather.Views
 
         void Initialize()
         {
-            var config = new SpiClockConfiguration(6000, SpiClockConfiguration.Mode.Mode3);
+            var config = new SpiClockConfiguration(12000, SpiClockConfiguration.Mode.Mode3);
+            var spiBus = MeadowApp.Device.CreateSpiBus(MeadowApp.Device.Pins.SCK, MeadowApp.Device.Pins.MOSI, MeadowApp.Device.Pins.MISO, config);
 
             display = new St7789
             (
                 device: MeadowApp.Device,
-                spiBus: MeadowApp.Device.CreateSpiBus(MeadowApp.Device.Pins.SCK, MeadowApp.Device.Pins.MOSI, MeadowApp.Device.Pins.MISO, config),
+                spiBus: spiBus,
                 chipSelectPin: null,
                 dcPin: MeadowApp.Device.Pins.D01,
                 resetPin: MeadowApp.Device.Pins.D00,
-                width: 240, height: 240
+                width: 240, height: 240,
+                displayColorMode: DisplayColorMode.Format16bppRgb565
             );
 
             graphics = new GraphicsLibrary(display)
             {   
                 CurrentFont = new Font12x20(),
-                Rotation = GraphicsLibrary.RotationType._270Degrees
+                //Rotation = GraphicsLibrary.RotationType._270Degrees
             };
 
-            graphics.Clear(true);
+            graphics.Clear();
         }
 
         public void UpdateDisplay(WeatherViewModel model)
@@ -59,15 +64,15 @@ namespace WifiWeather.Views
                 isRendering = true;
             }
 
-            graphics.Clear(true);
+            graphics.Clear();
 
             graphics.Stroke = 1;
             graphics.DrawRectangle(0, 0, (int)display.Width, (int)display.Height, Color.White, true);
 
-            DisplayJPG(model.WeatherCode, 5, 5);
+            DisplayJPG(800, 5, 5);
 
             string date = model.DateTime.ToString("MM/dd/yy"); // $"11/29/20";
-            graphics.CurrentFont = new Font12x20();
+            //graphics.CurrentFont = new Font12x20();
             graphics.DrawText(
                 x: 128,
                 y: 24,
@@ -75,7 +80,7 @@ namespace WifiWeather.Views
                 color: Color.Black);
 
             string time = model.DateTime.ToString("hh:mm"); // $"12:16 AM"; 
-            graphics.CurrentFont = new Font12x20();
+            //graphics.CurrentFont = new Font12x20();
             graphics.DrawText(
                 x: 116,
                 y: 66,
@@ -84,7 +89,7 @@ namespace WifiWeather.Views
                 scaleFactor: GraphicsLibrary.ScaleFactor.X2);
 
             string outdoor = $"Outdoor";
-            graphics.CurrentFont = new Font12x20();
+            //graphics.CurrentFont = new Font12x20();
             graphics.DrawText(
                 x: 134,
                 y: 143,
@@ -92,7 +97,7 @@ namespace WifiWeather.Views
                 color: Color.Black);
 
             string outdoorTemp = model.OutdoorTemperature.ToString("00°C");
-            graphics.CurrentFont = new Font12x20();
+            //graphics.CurrentFont = new Font12x20();
             graphics.DrawText(
                 x: 128,
                 y: 178,
@@ -101,7 +106,7 @@ namespace WifiWeather.Views
                 scaleFactor: GraphicsLibrary.ScaleFactor.X2);
 
             string indoor = $"Indoor";
-            graphics.CurrentFont = new Font12x20();
+            //graphics.CurrentFont = new Font12x20();
             graphics.DrawText(
                 x: 23,
                 y: 143,
@@ -109,7 +114,7 @@ namespace WifiWeather.Views
                 color: Color.Black);
 
             string indoorTemp = model.IndoorTemperature.ToString("00°C");
-            graphics.CurrentFont = new Font12x20();
+            //graphics.CurrentFont = new Font12x20();
             graphics.DrawText(
                 x: 11,
                 y: 178,
@@ -148,33 +153,36 @@ namespace WifiWeather.Views
                 }
             }
 
-            display.Show();
+            //display.Show();
         }
 
         byte[] LoadResource(int weatherCode)
         {
             var assembly = Assembly.GetExecutingAssembly();
-            string resourceName = string.Empty;
+            string resourceName;
 
             switch(weatherCode)
             {
-                case int n when (n >= 200 && n <= 299):
+                case int n when (n >= WeatherConstants.THUNDERSTORM_LIGHT_RAIN && n <= WeatherConstants.THUNDERSTORM_HEAVY_DRIZZLE):
                     resourceName = $"WifiWeather.w_storm.jpg";
                     break;
-                case int n when (n >= 300 && n <= 399):
+                case int n when (n >= WeatherConstants.DRIZZLE_LIGHT && n <= WeatherConstants.DRIZZLE_SHOWER):
                     resourceName = $"WifiWeather.w_drizzle.jpg";
                     break;
-                case int n when (n >= 500 && n <= 599):
+                case int n when (n >= WeatherConstants.RAIN_LIGHT && n <= WeatherConstants.RAIN_SHOWER_RAGGED):
                     resourceName = $"WifiWeather.w_rain.jpg";
                     break;
-                case int n when (n >= 600 && n <= 699):
+                case int n when (n >= WeatherConstants.SNOW_LIGHT && n <= WeatherConstants.SNOW_SHOWER_HEAVY):
                     resourceName = $"WifiWeather.w_snow.jpg";
+                    break;                                    
+                case WeatherConstants.CLOUDS_CLEAR:
+                    resourceName = $"WifiWeather.w_clear.jpg";
                     break;
-                case int n when (n >= 700 && n <= 799):
-                    resourceName = $"WifiWeather.w_misc.jpg";
-                    break;
-                case int n when (n >= 800 && n <= 899):
+                case int n when (n >= WeatherConstants.CLOUDS_FEW && n <= WeatherConstants.CLOUDS_OVERCAST):
                     resourceName = $"WifiWeather.w_cloudy.jpg";
+                    break;
+                default:
+                    resourceName = $"WifiWeather.w_misc.jpg";
                     break;
             }
 

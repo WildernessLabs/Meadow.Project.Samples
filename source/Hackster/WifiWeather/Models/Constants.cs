@@ -1,6 +1,6 @@
 ﻿namespace WifiWeather.Models
 {
-    public class WeatherConstants
+    public sealed class WeatherConstants
     {
         public const int THUNDERSTORM_LIGHT_RAIN    = 200;
         public const int THUNDERSTORM_RAIN          = 201;
@@ -62,5 +62,17 @@
         public const int CLOUDS_SCATTERED           = 802;
         public const int CLOUDS_BROKEN              = 803;
         public const int CLOUDS_OVERCAST            = 804;
+
+        private static readonly WeatherConstants instance = new WeatherConstants();
+        
+        static WeatherConstants() { }
+
+        public static WeatherConstants Instance
+        {
+            get
+            {
+                return instance;
+            }
+        }
     }
 }
