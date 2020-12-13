@@ -12,7 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Meadow.Foundation" Version="0.20.0" />
-    <PackageReference Include="Meadow.Foundation.Displays.TftSpi" Version="0.7.22" />
+    <PackageReference Include="Meadow.Foundation.Displays.TftSpi" Version="0.7.23" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Meadow.Foundation.Sensors.Motion.ParallaxPir" Version="0.8.22" />

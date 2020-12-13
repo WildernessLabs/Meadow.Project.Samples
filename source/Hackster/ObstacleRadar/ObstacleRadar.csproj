@@ -8,7 +8,7 @@
     <PackageReference Include="Meadow.Foundation" Version="0.20.0" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Meadow.Foundation.Displays.TftSpi" Version="0.7.22" />
+    <PackageReference Include="Meadow.Foundation.Displays.TftSpi" Version="0.7.23" />
     <PackageReference Include="Meadow.Foundation.Sensors.Distance.Vl53l0x" Version="0.1.12" />
     <PackageReference Include="Meadow.Foundation.Servo" Version="0.8.22" />
   </ItemGroup>
