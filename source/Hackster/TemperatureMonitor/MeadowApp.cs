@@ -99,17 +99,17 @@ namespace TemperatureMonitor
 
         void AnalogTemperatureUpdated(object sender, AtmosphericConditionChangeResult e)
         {
-            float oldTemp = (float)(e.Old.Temperature / 1000);
-            float newTemp = (float)(e.New.Temperature / 1000);
+            graphics.DrawRectangle(
+                xLeft: 48,
+                yTop: 160,
+                width: 144,
+                height: 40,
+                color: colors[colors.Length - 1],
+                filled: true);
 
             graphics.DrawText(
                 x: 48, y: 160, 
-                text: $"{oldTemp.ToString("##.#")}°C", 
-                color: colors[colors.Length - 1], 
-                scaleFactor: GraphicsLibrary.ScaleFactor.X2);
-            graphics.DrawText(
-                x: 48, y: 160, 
-                text: $"{newTemp.ToString("##.#")}°C", 
+                text: $"{e.New.Temperature.Value.ToString("00.0")}°C", 
                 color: Color.White, 
                 scaleFactor: GraphicsLibrary.ScaleFactor.X2);
 
