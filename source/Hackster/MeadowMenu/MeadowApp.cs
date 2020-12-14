@@ -94,7 +94,7 @@ namespace MeadowMenu
             }
         }
 
-        void LoadMenuFromCode() 
+        MenuItem[] LoadFromCode() 
         {
             var subMenuItems2 = new List<MenuItem>();
             subMenuItems2.Add(new MenuItem(
@@ -136,9 +136,7 @@ namespace MeadowMenu
                 text: "submenu 1",
                 subItems: subMenuItems1.ToArray()));
 
-            onboardLed.SetColor(Color.Cyan);
-
-            menu = new Menu(graphics, menuItems.ToArray(), false);
+            return menuItems.ToArray();
         }
     }
 }
