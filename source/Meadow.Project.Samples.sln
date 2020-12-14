@@ -73,7 +73,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StopwatchDisplay", "Hackste
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mp3Player", "Hackster\Mp3Player\Mp3Player.csproj", "{C1638188-2396-46D5-BA1B-78CE7A421BB8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WifiWeather", "Hackster\WifiWeather\WifiWeather.csproj", "{CDC05809-DF8A-4F7D-A5CF-AE812EFE59EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WifiWeather", "Hackster\WifiWeather\WifiWeather.csproj", "{CDC05809-DF8A-4F7D-A5CF-AE812EFE59EE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeadowMenu", "Hackster\MeadowMenu\MeadowMenu.csproj", "{7F69975A-A81A-4E68-BCA2-B1DCF30EAF0D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -279,6 +281,12 @@ Global
 		{CDC05809-DF8A-4F7D-A5CF-AE812EFE59EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CDC05809-DF8A-4F7D-A5CF-AE812EFE59EE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CDC05809-DF8A-4F7D-A5CF-AE812EFE59EE}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{7F69975A-A81A-4E68-BCA2-B1DCF30EAF0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F69975A-A81A-4E68-BCA2-B1DCF30EAF0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F69975A-A81A-4E68-BCA2-B1DCF30EAF0D}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{7F69975A-A81A-4E68-BCA2-B1DCF30EAF0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F69975A-A81A-4E68-BCA2-B1DCF30EAF0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F69975A-A81A-4E68-BCA2-B1DCF30EAF0D}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -317,6 +325,7 @@ Global
 		{F295B028-FB3E-4CAE-A43C-A3855A587704} = {B1C3E8F8-3B6A-435A-A93A-0F6EC9ECCFAF}
 		{C1638188-2396-46D5-BA1B-78CE7A421BB8} = {B1C3E8F8-3B6A-435A-A93A-0F6EC9ECCFAF}
 		{CDC05809-DF8A-4F7D-A5CF-AE812EFE59EE} = {B1C3E8F8-3B6A-435A-A93A-0F6EC9ECCFAF}
+		{7F69975A-A81A-4E68-BCA2-B1DCF30EAF0D} = {B1C3E8F8-3B6A-435A-A93A-0F6EC9ECCFAF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {10FA7F4A-2FF2-4696-8B12-DD0B9C978890}
