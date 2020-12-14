@@ -61,8 +61,9 @@ namespace MeadowMenu
             };
             graphics.Clear();
 
-            //LoadMenuFromJson();
-            LoadMenuFromCode();
+            var menuData = LoadFromJson("menu.json");
+            //var menuData = LoadFromCode();
+            menu = new Menu(graphics, menuData, false);
 
             next = new PushButton(Device, Device.Pins.D03, ResistorMode.PullUp);
             next.Clicked += (s, e) => { menu.Next(); };
@@ -74,16 +75,11 @@ namespace MeadowMenu
             previous.Clicked += (s, e) => { menu.Previous(); };
 
             onboardLed.SetColor(Color.Green);
-            
+
             menu.Enable();
         }
 
-        void LoadMenuFromJson() 
-        {
-            var menuData = LoadResource("menu.json");
-            menu = new Menu(graphics, menuData, false);
-        }
-        byte[] LoadResource(string filename)
+        byte[] LoadFromJson(string filename)
         {
             var assembly = Assembly.GetExecutingAssembly();
             var resourceName = $"MeadowMenu.{filename}";
