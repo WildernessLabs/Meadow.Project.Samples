@@ -1,5 +1,4 @@
-﻿using Lucene.Net.Util;
-using Meadow.Foundation;
+﻿using Meadow.Foundation;
 using Meadow.Foundation.Displays.Tft;
 using Meadow.Foundation.Graphics;
 using Meadow.Hardware;
@@ -7,8 +6,8 @@ using SimpleJpegDecoder;
 using System;
 using System.IO;
 using System.Reflection;
-using WifiWeather.ViewModels;
 using WifiWeather.Models;
+using WifiWeather.ViewModels;
 using static Meadow.Foundation.Displays.DisplayBase;
 
 namespace WifiWeather.Views
@@ -72,15 +71,13 @@ namespace WifiWeather.Views
             DisplayJPG(800, 5, 5);
 
             string date = model.DateTime.ToString("MM/dd/yy"); // $"11/29/20";
-            //graphics.CurrentFont = new Font12x20();
             graphics.DrawText(
                 x: 128,
                 y: 24,
                 text: date,
                 color: Color.Black);
 
-            string time = model.DateTime.ToString("hh:mm"); // $"12:16 AM"; 
-            //graphics.CurrentFont = new Font12x20();
+            string time = model.DateTime.ToString("hh:mm"); // $"12:16 AM";             
             graphics.DrawText(
                 x: 116,
                 y: 66,
@@ -88,8 +85,7 @@ namespace WifiWeather.Views
                 color: Color.Black,
                 scaleFactor: GraphicsLibrary.ScaleFactor.X2);
 
-            string outdoor = $"Outdoor";
-            //graphics.CurrentFont = new Font12x20();
+            string outdoor = $"Outdoor";            
             graphics.DrawText(
                 x: 134,
                 y: 143,
@@ -97,7 +93,6 @@ namespace WifiWeather.Views
                 color: Color.Black);
 
             string outdoorTemp = model.OutdoorTemperature.ToString("00°C");
-            //graphics.CurrentFont = new Font12x20();
             graphics.DrawText(
                 x: 128,
                 y: 178,
@@ -106,7 +101,6 @@ namespace WifiWeather.Views
                 scaleFactor: GraphicsLibrary.ScaleFactor.X2);
 
             string indoor = $"Indoor";
-            //graphics.CurrentFont = new Font12x20();
             graphics.DrawText(
                 x: 23,
                 y: 143,
@@ -114,7 +108,6 @@ namespace WifiWeather.Views
                 color: Color.Black);
 
             string indoorTemp = model.IndoorTemperature.ToString("00°C");
-            //graphics.CurrentFont = new Font12x20();
             graphics.DrawText(
                 x: 11,
                 y: 178,
@@ -152,8 +145,6 @@ namespace WifiWeather.Views
                     x = 0;
                 }
             }
-
-            //display.Show();
         }
 
         byte[] LoadResource(int weatherCode)
