@@ -67,14 +67,14 @@ namespace MotionDetector
 
             graphics.Stroke = 1;
             graphics.DrawRectangle(
-                xLeft: 0,
-                yTop: 0,
+                x: 0,
+                y: 0,
                 width: (int)display.Width,
                 height: (int)display.Height,
                 color: Color.White);
             graphics.DrawRectangle(
-                xLeft: 5,
-                yTop: 5,
+                x: 5,
+                y: 5,
                 width: (int)display.Width - 10,
                 height: (int)display.Height - 10,
                 color: Color.White);

@@ -10,6 +10,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Meadow.Foundation.Displays.TftSpi" Version="0.7.23" />
+    <PackageReference Include="Meadow.Foundation.Displays.TftSpi" Version="0.7.28" />
   </ItemGroup>
 </Project>

@@ -100,8 +100,8 @@ namespace TemperatureMonitor
         void AnalogTemperatureUpdated(object sender, AtmosphericConditionChangeResult e)
         {
             graphics.DrawRectangle(
-                xLeft: 48,
-                yTop: 160,
+                x: 48,
+                y: 160,
                 width: 144,
                 height: 40,
                 color: colors[colors.Length - 1],
