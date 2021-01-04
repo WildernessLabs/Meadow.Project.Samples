@@ -8,8 +8,8 @@ namespace WifiWeather.Services
     public static class WeatherService
     {        
         static string climateDataUri = "http://api.openweathermap.org/data/2.5/weather";
-        static string city = $"q=Vancouver";
-        static string apiKey = $"appid=dc632fe0c693776ac7a5708e6b4ef4ec";
+        static string city = $"q=[CITY NAME HERE]";
+        static string apiKey = $"appid=[API KEY HERE]";
 
         static WeatherService() { }
 
