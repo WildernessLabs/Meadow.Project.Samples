@@ -24,12 +24,12 @@ namespace MerryXmasLights
                 Console.WriteLine("Cycle colors");
                 CycleColors(5000);
 
-                WalkColors(Color.Red);
-                WalkColors(Color.Green);
-                WalkColors(Color.Blue);
-                WalkColors(Color.Yellow);
-                WalkColors(Color.Cyan);
-                WalkColors(Color.Violet);
+                WalkColors(Color.Red, (int) ledStrip.NumberOfLeds);
+                WalkColors(Color.Green, (int) ledStrip.NumberOfLeds);
+                WalkColors(Color.Blue, (int) ledStrip.NumberOfLeds);
+                WalkColors(Color.Yellow, (int)ledStrip.NumberOfLeds);
+                WalkColors(Color.Cyan, (int)ledStrip.NumberOfLeds);
+                WalkColors(Color.Violet, (int)ledStrip.NumberOfLeds);
             }
         }
 
@@ -50,7 +50,7 @@ namespace MerryXmasLights
                 Device.CreateDigitalOutputPort(Device.Pins.D04);
             ledStrip = new Apa102(
                 spiBus: spiBus,
-                numberOfLeds: 144, 
+                numberOfLeds: 18, 
                 pixelOrder: Apa102.PixelOrder.BGR);
 
             onboardLed.SetColor(Color.Green);
