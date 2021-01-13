@@ -5,11 +5,11 @@
     <AssemblyName>App</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Meadow.Foundation" Version="0.21.0" />
+    <PackageReference Include="Meadow.Foundation" Version="0.22.0" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Meadow.Foundation.Displays.TftSpi" Version="0.7.28" />
-    <PackageReference Include="Meadow.Foundation.Sensors.Distance.Vl53l0x" Version="0.1.16" />
-    <PackageReference Include="Meadow.Foundation.Servo" Version="0.8.26" />
+    <PackageReference Include="Meadow.Foundation.Displays.TftSpi" Version="0.7.32" />
+    <PackageReference Include="Meadow.Foundation.Sensors.Distance.Vl53l0x" Version="0.1.20" />
+    <PackageReference Include="Meadow.Foundation.Servo" Version="0.8.30" />
   </ItemGroup>
 </Project>

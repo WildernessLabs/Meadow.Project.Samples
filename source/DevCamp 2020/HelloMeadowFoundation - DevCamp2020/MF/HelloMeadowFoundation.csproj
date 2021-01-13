@@ -5,7 +5,7 @@
     <AssemblyName>App</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Meadow.Foundation.Displays.TftSpi" Version="0.7.28" />
-    <PackageReference Include="Meadow.Foundation.Sensors.Atmospheric.Bmp180" Version="0.1.23" />
+    <PackageReference Include="Meadow.Foundation.Displays.TftSpi" Version="0.7.32" />
+    <PackageReference Include="Meadow.Foundation.Sensors.Atmospheric.Bmp180" Version="0.1.27" />
   </ItemGroup>
 </Project>

@@ -5,11 +5,11 @@
     <AssemblyName>App</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Meadow.Foundation" Version="0.21.0" />
-    <PackageReference Include="Meadow.Foundation.Displays.GraphicsLibrary" Version="0.9.26" />
-    <PackageReference Include="Meadow.Foundation.Displays.Lcd.CharacterDisplay" Version="0.8.16" />
+    <PackageReference Include="Meadow.Foundation" Version="0.22.0" />
+    <PackageReference Include="Meadow.Foundation.Displays.GraphicsLibrary" Version="0.9.30" />
+    <PackageReference Include="Meadow.Foundation.Displays.Lcd.CharacterDisplay" Version="0.8.20" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Meadow.Foundation.Displays.Max7219" Version="0.1.27" />
+    <PackageReference Include="Meadow.Foundation.Displays.Max7219" Version="0.1.31" />
   </ItemGroup>
 </Project>
