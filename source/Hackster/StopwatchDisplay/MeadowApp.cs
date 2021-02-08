@@ -27,13 +27,13 @@ namespace StopwatchDisplay
             startStop = new PushButton(
                 device: Device, 
                 inputPin: Device.Pins.D12, 
-                resistor: Meadow.Hardware.ResistorMode.PullUp);
+                resistorMode: Meadow.Hardware.ResistorMode.InternalPullUp);
             startStop.Clicked += StartStopClicked;
 
             reset = new PushButton(
                 device: Device, 
                 inputPin: Device.Pins.D13, 
-                resistor: Meadow.Hardware.ResistorMode.PullUp);
+                resistorMode: Meadow.Hardware.ResistorMode.InternalPullUp);
             reset.Clicked += ResetClicked;
 
             display = new FourDigitSevenSegment

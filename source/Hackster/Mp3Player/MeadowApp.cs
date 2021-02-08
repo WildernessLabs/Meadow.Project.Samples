@@ -39,13 +39,13 @@ namespace Mp3Player
             Thread.Sleep(1000);
             DisplayText("Song.mp3");
 
-            btnNext = new PushButton(Device, Device.Pins.D02, ResistorMode.PullUp);
+            btnNext = new PushButton(Device, Device.Pins.D02, ResistorMode.InternalPullUp);
             btnNext.Clicked += BtnNextClicked;
 
-            btnPrevious = new PushButton(Device, Device.Pins.D03, ResistorMode.PullUp);
+            btnPrevious = new PushButton(Device, Device.Pins.D03, ResistorMode.InternalPullUp);
             btnPrevious.Clicked += BtnPreviousClicked;
 
-            btnPlayPause = new PushButton(Device, Device.Pins.D04, ResistorMode.PullUp);
+            btnPlayPause = new PushButton(Device, Device.Pins.D04, ResistorMode.InternalPullUp);
             btnPlayPause.Clicked += BtnPlayPauseClicked;
 
             led.SetColor(RgbLed.Colors.Green);

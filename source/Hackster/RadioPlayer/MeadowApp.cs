@@ -55,10 +55,10 @@ namespace RadioPlayer
             graphics = new GraphicsLibrary(display);
             graphics.Rotation = GraphicsLibrary.RotationType._180Degrees;
 
-            btnNext = new PushButton(Device, Device.Pins.D03, ResistorMode.PullUp);
+            btnNext = new PushButton(Device, Device.Pins.D03, ResistorMode.InternalPullUp);
             btnNext.Clicked += BtnNextClicked;
 
-            btnPrevious = new PushButton(Device, Device.Pins.D04, ResistorMode.PullUp);
+            btnPrevious = new PushButton(Device, Device.Pins.D04, ResistorMode.InternalPullUp);
             btnPrevious.Clicked += BtnPreviousClicked;
 
             led.SetColor(RgbLed.Colors.Green);

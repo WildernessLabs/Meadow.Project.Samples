@@ -63,10 +63,10 @@ namespace MemoryGame
             graphics = new GraphicsLibrary(display);
             graphics.Rotation = GraphicsLibrary.RotationType._180Degrees;
 
-            rowPorts[0] = Device.CreateDigitalInputPort(Device.Pins.D15, InterruptMode.EdgeRising, ResistorMode.PullDown, 0, 50);
-            rowPorts[1] = Device.CreateDigitalInputPort(Device.Pins.D14, InterruptMode.EdgeRising, ResistorMode.PullDown, 0, 50);
-            rowPorts[2] = Device.CreateDigitalInputPort(Device.Pins.D13, InterruptMode.EdgeRising, ResistorMode.PullDown, 0, 50);
-            rowPorts[3] = Device.CreateDigitalInputPort(Device.Pins.D12, InterruptMode.EdgeRising, ResistorMode.PullDown, 0, 50);
+            rowPorts[0] = Device.CreateDigitalInputPort(Device.Pins.D15, InterruptMode.EdgeRising, ResistorMode.InternalPullDown, 0, 50);
+            rowPorts[1] = Device.CreateDigitalInputPort(Device.Pins.D14, InterruptMode.EdgeRising, ResistorMode.InternalPullDown, 0, 50);
+            rowPorts[2] = Device.CreateDigitalInputPort(Device.Pins.D13, InterruptMode.EdgeRising, ResistorMode.InternalPullDown, 0, 50);
+            rowPorts[3] = Device.CreateDigitalInputPort(Device.Pins.D12, InterruptMode.EdgeRising, ResistorMode.InternalPullDown, 0, 50);
 
             columnPorts[0] = Device.CreateDigitalOutputPort(Device.Pins.D01);
             columnPorts[1] = Device.CreateDigitalOutputPort(Device.Pins.D02);

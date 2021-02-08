@@ -59,7 +59,7 @@ namespace WifiClock
             graphics.DrawText(0, 25, "ME");
             graphics.Show();
 
-            pushButton = new PushButton(Device, Device.Pins.D04, ResistorMode.PullUp);
+            pushButton = new PushButton(Device, Device.Pins.D04, ResistorMode.InternalPullUp);
             pushButton.Clicked += PushButtonClicked;
 
             analogTemperature = new AnalogTemperature(

@@ -65,13 +65,13 @@ namespace MeadowMenu
             //var menuData = LoadFromCode();
             menu = new Menu(graphics, menuData, false);
 
-            next = new PushButton(Device, Device.Pins.D03, ResistorMode.PullUp);
+            next = new PushButton(Device, Device.Pins.D03, ResistorMode.InternalPullUp);
             next.Clicked += (s, e) => { menu.Next(); };
 
-            select = new PushButton(Device, Device.Pins.D04, ResistorMode.PullUp);
+            select = new PushButton(Device, Device.Pins.D04, ResistorMode.InternalPullUp);
             select.Clicked += (s, e) => { menu.Select(); };
 
-            previous = new PushButton(Device, Device.Pins.D02, ResistorMode.PullUp);
+            previous = new PushButton(Device, Device.Pins.D02, ResistorMode.InternalPullUp);
             previous.Clicked += (s, e) => { menu.Previous(); };
 
             onboardLed.SetColor(Color.Green);
