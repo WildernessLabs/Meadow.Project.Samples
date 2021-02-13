@@ -5,11 +5,13 @@
     <AssemblyName>App</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="coding.jpg" />
     <None Remove="image1.jpg" />
     <None Remove="image2.jpg" />
     <None Remove="image3.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="coding.jpg" />
     <EmbeddedResource Include="image1.jpg" />
     <EmbeddedResource Include="image2.jpg" />
     <EmbeddedResource Include="image3.jpg" />

@@ -8,6 +8,6 @@
     <PackageReference Include="Meadow.Foundation" Version="0.23.0" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Meadow.Foundation.Displays.Ssd1306" Version="0.12.28" />
+    <PackageReference Include="Meadow.Foundation.Displays.Ssd130x" Version="0.12.32" />
   </ItemGroup>
 </Project>
