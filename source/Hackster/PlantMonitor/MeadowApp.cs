@@ -1,65 +1,183 @@
 ﻿using Meadow;
 using Meadow.Devices;
+using Meadow.Foundation;
+using Meadow.Foundation.Displays.Tft;
+using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
+using Meadow.Foundation.Sensors.Buttons;
 using Meadow.Foundation.Sensors.Moisture;
+using Meadow.Foundation.Sensors.Temperature;
 using Meadow.Hardware;
+using SimpleJpegDecoder;
 using System;
-using System.Threading;
-using System.Threading.Tasks;
+using System.IO;
+using System.Reflection;
 
 namespace PlantMonitor
 {
     public class MeadowApp : App<F7Micro, MeadowApp>
     {
-        LedBarGraph ledBarGraph;
+        const float MINIMUM_VOLTAGE_CALIBRATION = 2.81f;
+        const float MAXIMUM_VOLTAGE_CALIBRATION = 1.50f;
+
+        RgbPwmLed onboardLed;
+        PushButton button;
         Capacitive capacitive;
+        GraphicsLibrary graphics;
+        AnalogTemperature analogTemperature;
+
+        string[] images = new string[4]
+        {
+            "level_0.jpg",
+            "level_1.jpg",
+            "level_2.jpg",
+            "level_3.jpg"
+        };
+
+        int selectedImageIndex = 0;
 
         public MeadowApp()
         {
-            var led = new RgbLed(Device, Device.Pins.OnboardLedRed, Device.Pins.OnboardLedGreen, Device.Pins.OnboardLedBlue);
-            led.SetColor(RgbLed.Colors.Red);
+            Initialize();
 
-            IDigitalOutputPort[] ports =
-            {
-                 Device.CreateDigitalOutputPort(Device.Pins.D05),
-                 Device.CreateDigitalOutputPort(Device.Pins.D06),
-                 Device.CreateDigitalOutputPort(Device.Pins.D07),
-                 Device.CreateDigitalOutputPort(Device.Pins.D08),
-                 Device.CreateDigitalOutputPort(Device.Pins.D09),
-                 Device.CreateDigitalOutputPort(Device.Pins.D10),
-                 Device.CreateDigitalOutputPort(Device.Pins.D11),
-                 Device.CreateDigitalOutputPort(Device.Pins.D12),
-                 Device.CreateDigitalOutputPort(Device.Pins.D13),
-                 Device.CreateDigitalOutputPort(Device.Pins.D14)
-            };
-            ledBarGraph = new LedBarGraph(ports);
-
-            capacitive = new Capacitive(
-                analogPort: Device.CreateAnalogInputPort(Device.Pins.A00), 
-                minimumVoltageCalibration: 2.84f, 
-                maximumVoltageCalibration: 1.37f);
-
-            led.SetColor(RgbLed.Colors.Green);
-
-            Run();
+            Start();
         }
 
-        public async Task Run()
+        void Initialize()
         {
-            while (true)
+            Console.WriteLine("Initialize hardware...");
+
+            onboardLed = new RgbPwmLed(device: Device,
+                redPwmPin: Device.Pins.OnboardLedRed,
+                greenPwmPin: Device.Pins.OnboardLedGreen,
+                bluePwmPin: Device.Pins.OnboardLedBlue,
+                3.3f, 3.3f, 3.3f,
+                Meadow.Peripherals.Leds.IRgbLed.CommonType.CommonAnode);
+            onboardLed.SetColor(Color.Red);
+
+            button = new PushButton(Device, Device.Pins.D04, ResistorMode.InternalPullUp);
+            button.Clicked += ButtonClicked;
+
+            var config = new SpiClockConfiguration
+            (
+                speedKHz: 6000,
+                mode: SpiClockConfiguration.Mode.Mode3
+            );
+            var display = new St7789
+            (
+                device: Device,
+                spiBus: Device.CreateSpiBus(Device.Pins.SCK, Device.Pins.MOSI, Device.Pins.MISO, config),
+                chipSelectPin: Device.Pins.D02,
+                dcPin: Device.Pins.D01,
+                resetPin: Device.Pins.D00,
+                width: 240, height: 240
+            );
+
+            graphics = new GraphicsLibrary(display);
+
+            capacitive = new Capacitive(
+                device: Device,
+                analogPin: Device.Pins.A01,
+                minimumVoltageCalibration: MINIMUM_VOLTAGE_CALIBRATION,
+                maximumVoltageCalibration: MAXIMUM_VOLTAGE_CALIBRATION);
+
+            analogTemperature = new AnalogTemperature(Device, Device.Pins.A00, AnalogTemperature.KnownSensorType.LM35);
+
+            onboardLed.SetColor(Color.Green);
+        }
+
+        async void ButtonClicked(object sender, EventArgs e)
+        {
+            onboardLed.SetColor(Color.Orange);
+
+            float moisture = await capacitive.Read();
+
+            if (moisture > 1)
+                moisture = 1f;
+            else
+            if (moisture < 0)
+                moisture = 0f;
+
+            if (moisture > 0 && moisture <= 0.25)
+                selectedImageIndex = 0;
+            else if (moisture > 0.25 && moisture <= 0.50)
+                selectedImageIndex = 1;
+            else if (moisture > 0.50 && moisture <= 0.75)
+                selectedImageIndex = 2;
+            else if (moisture > 0.75 && moisture <= 1.0)
+                selectedImageIndex = 3;
+
+            var temperature = analogTemperature.Read();
+
+
+            UpdateImage();
+
+            graphics.DrawRectangle(0, 0, 36, 20, Color.White, true);
+            graphics.DrawText(0, 0, $"{(int)(moisture * 100)}%", Color.Black);
+
+            graphics.Show();
+
+            onboardLed.SetColor(Color.Green);
+        }
+
+        void Start()
+        {
+            graphics.Clear();
+
+            graphics.Stroke = 3;
+            graphics.DrawRectangle(0, 0, 240, 240, Color.White, true);
+
+            graphics.CurrentFont = new Font12x20();
+            graphics.DrawText(0, 0, "99%", Color.Black);
+
+            UpdateImage();
+
+            graphics.Show();
+        }
+
+        void UpdateImage()
+        {
+            var jpgData = LoadResource(images[selectedImageIndex]);
+            var decoder = new JpegDecoder();
+            var jpg = decoder.DecodeJpeg(jpgData);
+
+            int x = 0;
+            int y = 0;
+            byte r, g, b;
+
+            graphics.DrawRectangle(25, 25, 190, 190, Color.White, true);
+
+            for (int i = 0; i < jpg.Length; i += 3)
             {
-                float moisture = await capacitive.Read();
+                r = jpg[i];
+                g = jpg[i + 1];
+                b = jpg[i + 2];
 
-                if (moisture > 1)
-                    moisture = 1f;
-                else
-                if (moisture < 0)
-                    moisture = 0f;
+                graphics.DrawPixel(x + 25, y + 25, Color.FromRgb(r, g, b));
 
-                ledBarGraph.Percentage = moisture;
+                x++;
+                if (x % decoder.Width == 0)
+                {
+                    y++;
+                    x = 0;
+                }
+            }
 
-                Console.WriteLine($"Raw: {capacitive.Moisture} | Moisture {moisture * 100}%");
-                Thread.Sleep(1000);
+            graphics.Show();
+        }
+
+        byte[] LoadResource(string filename)
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+            var resourceName = $"PlantMonitor.{filename}";
+
+            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
+            {
+                using (var ms = new MemoryStream())
+                {
+                    stream.CopyTo(ms);
+                    return ms.ToArray();
+                }
             }
         }
     }
