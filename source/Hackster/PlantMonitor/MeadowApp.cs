@@ -73,7 +73,9 @@ namespace PlantMonitor
                 width: 240, height: 240
             );
 
-            graphics = new GraphicsLibrary(display);
+            graphics = new GraphicsLibrary(display);            
+            graphics.CurrentFont = new Font12x20();
+            graphics.Stroke = 3;
 
             capacitive = new Capacitive(
                 device: Device,
@@ -99,18 +101,13 @@ namespace PlantMonitor
                 moisture = 0f;
 
             if (moisture > 0 && moisture <= 0.25)
-                selectedImageIndex = 0;
+                UpdateImage(0, 42, 20);
             else if (moisture > 0.25 && moisture <= 0.50)
-                selectedImageIndex = 1;
+                UpdateImage(1, 28, 14);
             else if (moisture > 0.50 && moisture <= 0.75)
-                selectedImageIndex = 2;
+                UpdateImage(2, 21, 15);
             else if (moisture > 0.75 && moisture <= 1.0)
-                selectedImageIndex = 3;
-
-            var temperature = analogTemperature.Read();
-
-
-            UpdateImage();
+                UpdateImage(3, 45, 15);
 
             graphics.DrawRectangle(0, 0, 36, 20, Color.White, true);
             graphics.DrawText(0, 0, $"{(int)(moisture * 100)}%", Color.Black);
@@ -123,21 +120,22 @@ namespace PlantMonitor
         void Start()
         {
             graphics.Clear();
-
-            graphics.Stroke = 3;
+           
             graphics.DrawRectangle(0, 0, 240, 240, Color.White, true);
 
-            graphics.CurrentFont = new Font12x20();
-            graphics.DrawText(0, 0, "99%", Color.Black);
+            string plant = "Plant";
+            string monitor = "Monitor";
 
-            UpdateImage();
+            graphics.CurrentFont = new Font12x20();
+            graphics.DrawText((240 - (plant.Length * 24))/2, 80, plant, Color.Black, GraphicsLibrary.ScaleFactor.X2);
+            graphics.DrawText((240 - (monitor.Length * 24)) / 2, 130, monitor, Color.Black, GraphicsLibrary.ScaleFactor.X2);
 
             graphics.Show();
         }
 
-        void UpdateImage()
+        void UpdateImage(int index, int xOffSet, int yOffSet)
         {
-            var jpgData = LoadResource(images[selectedImageIndex]);
+            var jpgData = LoadResource(images[index]);
             var decoder = new JpegDecoder();
             var jpg = decoder.DecodeJpeg(jpgData);
 
@@ -145,7 +143,7 @@ namespace PlantMonitor
             int y = 0;
             byte r, g, b;
 
-            graphics.DrawRectangle(25, 25, 190, 190, Color.White, true);
+            graphics.DrawRectangle(0, 0, 240, 240, Color.White, true);
 
             for (int i = 0; i < jpg.Length; i += 3)
             {
@@ -153,7 +151,7 @@ namespace PlantMonitor
                 g = jpg[i + 1];
                 b = jpg[i + 2];
 
-                graphics.DrawPixel(x + 25, y + 25, Color.FromRgb(r, g, b));
+                graphics.DrawPixel(x + xOffSet, y + yOffSet, Color.FromRgb(r, g, b));
 
                 x++;
                 if (x % decoder.Width == 0)

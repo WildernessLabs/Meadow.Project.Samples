@@ -1,4 +1,5 @@
 ﻿using Meadow;
+using System.Threading;
 
 namespace PlantMonitor
 {
@@ -11,6 +12,8 @@ namespace PlantMonitor
 
             // instantiate and run new meadow app
             app = new MeadowApp();
+
+            Thread.Sleep(Timeout.Infinite);
         }
     }
 }

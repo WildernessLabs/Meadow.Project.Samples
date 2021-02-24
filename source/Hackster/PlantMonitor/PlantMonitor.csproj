@@ -3,11 +3,17 @@
     <TargetFramework>net472</TargetFramework>
     <OutputType>Exe</OutputType>
     <AssemblyName>App</AssemblyName>
-  </PropertyGroup>
+  </PropertyGroup>  
   <ItemGroup>
-    <PackageReference Include="Meadow.Foundation" Version="0.23.0" />
+    <EmbeddedResource Include="level_0.jpg" />
+    <EmbeddedResource Include="level_1.jpg" />
+    <EmbeddedResource Include="level_2.jpg" />
+    <EmbeddedResource Include="level_3.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Meadow.Foundation" Version="0.23.0" />
+    <PackageReference Include="Meadow.Foundation.Displays.TftSpi" Version="0.7.36" />  
     <PackageReference Include="Meadow.Foundation.Sensors.Moisture.Capacitive" Version="0.5.34" />
+    <PackageReference Include="SimpleJpegDecoder" Version="0.2.0" />
   </ItemGroup>
 </Project>
