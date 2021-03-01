@@ -28,25 +28,7 @@ namespace PlantMonitor
        
         public MeadowApp()
         {
-            Initialize();
-
-            
-
-            analogTemperature.Subscribe(new FilterableChangeObserver<AtmosphericConditionChangeResult, AtmosphericConditions>(
-                handler => 
-                {
-                    onboardLed.SetColor(Color.Purple);
-
-                    displayController.UpdateTemperatureValue(handler.New.Temperature.Value, handler.Old.Temperature.Value);
-
-                    onboardLed.SetColor(Color.Green);
-                },
-                filter => 
-                {
-                    return (Math.Abs(filter.Delta.Temperature.Value) > 1f);
-                }
-            ));
-            analogTemperature.StartUpdating();            
+            Initialize();            
         }
 
         void Initialize()
@@ -100,9 +82,30 @@ namespace PlantMonitor
                     return (Math.Abs(filter.Delta) > 0.05);
                 }
             ));
-            capacitive.StartUpdating();
+            capacitive.StartUpdating(
+                sampleCount: 10, 
+                sampleIntervalDuration: 40, 
+                standbyDuration: (int)TimeSpan.FromHours(1).TotalMilliseconds);
 
             analogTemperature = new AnalogTemperature(Device, Device.Pins.A00, AnalogTemperature.KnownSensorType.LM35);
+            analogTemperature.Subscribe(new FilterableChangeObserver<AtmosphericConditionChangeResult, AtmosphericConditions>(
+                handler =>
+                {
+                    onboardLed.SetColor(Color.Purple);
+
+                    displayController.UpdateTemperatureValue(handler.New.Temperature.Value, handler.Old.Temperature.Value);
+
+                    onboardLed.SetColor(Color.Green);
+                },
+                filter =>
+                {
+                    return (Math.Abs(filter.Delta.Temperature.Value) > 1f);
+                }
+            ));
+            analogTemperature.StartUpdating(
+                sampleCount: 10,
+                sampleIntervalDuration: 40,
+                standbyDuration: (int)TimeSpan.FromHours(1).TotalMilliseconds);
 
             onboardLed.SetColor(Color.Green);
         }
