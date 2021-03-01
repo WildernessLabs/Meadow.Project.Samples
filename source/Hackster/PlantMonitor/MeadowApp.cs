@@ -2,16 +2,13 @@
 using Meadow.Devices;
 using Meadow.Foundation;
 using Meadow.Foundation.Displays.Tft;
-using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Buttons;
 using Meadow.Foundation.Sensors.Moisture;
 using Meadow.Foundation.Sensors.Temperature;
 using Meadow.Hardware;
-using SimpleJpegDecoder;
+using Meadow.Peripherals.Sensors.Atmospheric;
 using System;
-using System.IO;
-using System.Reflection;
 
 namespace PlantMonitor
 {
@@ -20,27 +17,36 @@ namespace PlantMonitor
         const float MINIMUM_VOLTAGE_CALIBRATION = 2.81f;
         const float MAXIMUM_VOLTAGE_CALIBRATION = 1.50f;
 
+        float moisture;
+        AtmosphericConditions temperature;
+
         RgbPwmLed onboardLed;
         PushButton button;
-        Capacitive capacitive;
-        GraphicsLibrary graphics;
+        Capacitive capacitive;        
         AnalogTemperature analogTemperature;
-
-        string[] images = new string[4]
-        {
-            "level_0.jpg",
-            "level_1.jpg",
-            "level_2.jpg",
-            "level_3.jpg"
-        };
-
-        int selectedImageIndex = 0;
-
+        DisplayController displayController;
+       
         public MeadowApp()
         {
             Initialize();
 
-            Start();
+            
+
+            analogTemperature.Subscribe(new FilterableChangeObserver<AtmosphericConditionChangeResult, AtmosphericConditions>(
+                handler => 
+                {
+                    onboardLed.SetColor(Color.Purple);
+
+                    displayController.UpdateTemperatureValue(handler.New.Temperature.Value, handler.Old.Temperature.Value);
+
+                    onboardLed.SetColor(Color.Green);
+                },
+                filter => 
+                {
+                    return (Math.Abs(filter.Delta.Temperature.Value) > 1f);
+                }
+            ));
+            analogTemperature.StartUpdating();            
         }
 
         void Initialize()
@@ -72,16 +78,29 @@ namespace PlantMonitor
                 resetPin: Device.Pins.D00,
                 width: 240, height: 240
             );
-
-            graphics = new GraphicsLibrary(display);            
-            graphics.CurrentFont = new Font12x20();
-            graphics.Stroke = 3;
-
+            displayController = new DisplayController(display);
+            
             capacitive = new Capacitive(
                 device: Device,
                 analogPin: Device.Pins.A01,
                 minimumVoltageCalibration: MINIMUM_VOLTAGE_CALIBRATION,
                 maximumVoltageCalibration: MAXIMUM_VOLTAGE_CALIBRATION);
+            capacitive.Subscribe(new FilterableChangeObserver<FloatChangeResult, float>(
+                handler =>
+                {
+                    onboardLed.SetColor(Color.Purple);
+
+                    displayController.UpdateMoistureImage(handler);
+                    displayController.UpdateMoisturePercentage(handler.New, handler.Old);
+
+                    onboardLed.SetColor(Color.Green);
+                },
+                filter =>
+                {
+                    return (Math.Abs(filter.Delta) > 0.05);
+                }
+            ));
+            capacitive.StartUpdating();
 
             analogTemperature = new AnalogTemperature(Device, Device.Pins.A00, AnalogTemperature.KnownSensorType.LM35);
 
@@ -92,91 +111,16 @@ namespace PlantMonitor
         {
             onboardLed.SetColor(Color.Orange);
 
-            float moisture = await capacitive.Read();
+            float newMoisture = await capacitive.Read();
+            var newTemperature = await analogTemperature.Read();
 
-            if (moisture > 1)
-                moisture = 1f;
-            else
-            if (moisture < 0)
-                moisture = 0f;
+            displayController.UpdateMoisturePercentage(newMoisture, moisture);
+            moisture = newMoisture;
 
-            if (moisture > 0 && moisture <= 0.25)
-                UpdateImage(0, 42, 20);
-            else if (moisture > 0.25 && moisture <= 0.50)
-                UpdateImage(1, 28, 14);
-            else if (moisture > 0.50 && moisture <= 0.75)
-                UpdateImage(2, 21, 15);
-            else if (moisture > 0.75 && moisture <= 1.0)
-                UpdateImage(3, 45, 15);
-
-            graphics.DrawRectangle(0, 0, 36, 20, Color.White, true);
-            graphics.DrawText(0, 0, $"{(int)(moisture * 100)}%", Color.Black);
-
-            graphics.Show();
+            displayController.UpdateTemperatureValue(newTemperature.Temperature.Value, temperature.Temperature.Value);
+            temperature = newTemperature;
 
             onboardLed.SetColor(Color.Green);
-        }
-
-        void Start()
-        {
-            graphics.Clear();
-           
-            graphics.DrawRectangle(0, 0, 240, 240, Color.White, true);
-
-            string plant = "Plant";
-            string monitor = "Monitor";
-
-            graphics.CurrentFont = new Font12x20();
-            graphics.DrawText((240 - (plant.Length * 24))/2, 80, plant, Color.Black, GraphicsLibrary.ScaleFactor.X2);
-            graphics.DrawText((240 - (monitor.Length * 24)) / 2, 130, monitor, Color.Black, GraphicsLibrary.ScaleFactor.X2);
-
-            graphics.Show();
-        }
-
-        void UpdateImage(int index, int xOffSet, int yOffSet)
-        {
-            var jpgData = LoadResource(images[index]);
-            var decoder = new JpegDecoder();
-            var jpg = decoder.DecodeJpeg(jpgData);
-
-            int x = 0;
-            int y = 0;
-            byte r, g, b;
-
-            graphics.DrawRectangle(0, 0, 240, 240, Color.White, true);
-
-            for (int i = 0; i < jpg.Length; i += 3)
-            {
-                r = jpg[i];
-                g = jpg[i + 1];
-                b = jpg[i + 2];
-
-                graphics.DrawPixel(x + xOffSet, y + yOffSet, Color.FromRgb(r, g, b));
-
-                x++;
-                if (x % decoder.Width == 0)
-                {
-                    y++;
-                    x = 0;
-                }
-            }
-
-            graphics.Show();
-        }
-
-        byte[] LoadResource(string filename)
-        {
-            var assembly = Assembly.GetExecutingAssembly();
-            var resourceName = $"PlantMonitor.{filename}";
-
-            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
-            {
-                using (var ms = new MemoryStream())
-                {
-                    stream.CopyTo(ms);
-                    return ms.ToArray();
-                }
-            }
         }
     }
 }
