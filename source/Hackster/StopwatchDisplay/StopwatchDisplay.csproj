@@ -8,6 +8,6 @@
     <PackageReference Include="Meadow.Foundation" Version="0.24.0" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Meadow.Foundation.Displays.Led.FourDigitSevenSegment" Version="0.1.25" />
+    <PackageReference Include="Meadow.Foundation.Displays.Led.FourDigitSevenSegment" Version="0.1.29" />
   </ItemGroup>
 </Project>

@@ -6,10 +6,10 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Meadow.Foundation" Version="0.24.0" />
-    <PackageReference Include="Meadow.Foundation.Displays.GraphicsLibrary" Version="0.9.34" />
-    <PackageReference Include="Meadow.Foundation.Displays.Lcd.CharacterDisplay" Version="0.8.24" />
+    <PackageReference Include="Meadow.Foundation.Displays.GraphicsLibrary" Version="0.9.38" />
+    <PackageReference Include="Meadow.Foundation.Displays.Lcd.CharacterDisplay" Version="0.8.28" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Meadow.Foundation.Displays.Max7219" Version="0.1.35" />
+    <PackageReference Include="Meadow.Foundation.Displays.Max7219" Version="0.1.39" />
   </ItemGroup>
 </Project>

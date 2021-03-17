@@ -6,6 +6,6 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Meadow.Foundation" Version="0.24.0" />
-    <PackageReference Include="Meadow.Foundation.Sensors.Motion.Mpu6050" Version="0.5.36" />
+    <PackageReference Include="Meadow.Foundation.Sensors.Motion.Mpu6050" Version="0.5.40" />
   </ItemGroup>
 </Project>

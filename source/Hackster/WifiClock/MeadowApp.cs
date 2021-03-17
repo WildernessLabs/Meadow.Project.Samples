@@ -31,7 +31,7 @@ namespace WifiClock
             Start();
         }
 
-        void Initialize()
+        async Task Initialize()
         {
             RgbPwmLed onboardLed = new RgbPwmLed(device: Device,
                 redPwmPin: Device.Pins.OnboardLedRed,
@@ -72,7 +72,7 @@ namespace WifiClock
 
             onboardLed.StartPulse(Color.Blue);
 
-            var result = Device.WiFiAdapter.Connect(Secrets.WIFI_NAME, Secrets.WIFI_PASSWORD);
+            var result = await Device.WiFiAdapter.Connect(Secrets.WIFI_NAME, Secrets.WIFI_PASSWORD);
             if (result.ConnectionStatus != ConnectionStatus.Success)
             {
                 onboardLed.StartPulse(Color.Magenta);

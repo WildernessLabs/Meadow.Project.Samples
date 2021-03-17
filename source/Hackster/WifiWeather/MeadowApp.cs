@@ -25,7 +25,7 @@ namespace WifiWeather
             Start();
         }
 
-        void Initialize()
+        async Task Initialize()
         {
             onboardLed = new RgbPwmLed(device: Device,
                 redPwmPin: Device.Pins.OnboardLedRed,
@@ -48,7 +48,7 @@ namespace WifiWeather
 
             onboardLed.StartPulse(Color.Blue);
 
-            var result = Device.WiFiAdapter.Connect(Secrets.WIFI_NAME, Secrets.WIFI_PASSWORD);
+            var result = await Device.WiFiAdapter.Connect(Secrets.WIFI_NAME, Secrets.WIFI_PASSWORD);
             if (result.ConnectionStatus != ConnectionStatus.Success)
             {
                 throw new Exception($"Cannot connect to network: {result.ConnectionStatus}");

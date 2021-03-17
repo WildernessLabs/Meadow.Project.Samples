@@ -80,7 +80,7 @@ namespace MerryXmasLights
                     color = Color.Yellow;
                 }
 
-                for (uint i = 0; i < ledStrip.NumberOfLeds; i++)
+                for (int i = 0; i < ledStrip.NumberOfLeds; i++)
                 {
                     if ((offset + i) % 4 == 0)
                     {
@@ -107,7 +107,7 @@ namespace MerryXmasLights
 
             while (count > 0)
             {
-                for (uint i = 0; i < ledStrip.NumberOfLeds; i++)
+                for (int i = 0; i < ledStrip.NumberOfLeds; i++)
                 {
                     if ((offset + i) % 5 == 0)
                     {
@@ -153,7 +153,7 @@ namespace MerryXmasLights
 
             while ((DateTime.Now - time).TotalMilliseconds < duration)
             {
-                for (uint i = 0; i < ledStrip.NumberOfLeds; i++)
+                for (int i = 0; i < ledStrip.NumberOfLeds; i++)
                 {
                     ledStrip.SetLed(i, color, brightness);
                 }

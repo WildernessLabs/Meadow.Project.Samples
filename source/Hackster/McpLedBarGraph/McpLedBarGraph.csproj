@@ -8,6 +8,6 @@
     <PackageReference Include="Meadow.Foundation" Version="0.24.0" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Meadow.Foundation.ICs.IOExpanders.Mcp23x08" Version="0.1.31" />
+    <PackageReference Include="Meadow.Foundation.ICs.IOExpanders.Mcp23x08" Version="0.1.35" />
   </ItemGroup>
 </Project>

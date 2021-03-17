@@ -8,6 +8,6 @@
     <PackageReference Include="Meadow.Foundation" Version="0.24.0" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Meadow.Foundation.Leds.Apa102" Version="0.1.28" />
+    <PackageReference Include="Meadow.Foundation.Leds.Apa102" Version="0.1.32" />
   </ItemGroup>
 </Project>

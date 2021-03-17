@@ -17,7 +17,7 @@ namespace PlantMonitor
         const float MINIMUM_VOLTAGE_CALIBRATION = 2.81f;
         const float MAXIMUM_VOLTAGE_CALIBRATION = 1.50f;
 
-        float moisture;
+        FloatChangeResult moisture;
         AtmosphericConditions temperature;
 
         RgbPwmLed onboardLed;
@@ -114,10 +114,10 @@ namespace PlantMonitor
         {
             onboardLed.SetColor(Color.Orange);
 
-            float newMoisture = await capacitive.Read();
+            var newMoisture = await capacitive.Read();
             var newTemperature = await analogTemperature.Read();
 
-            displayController.UpdateMoisturePercentage(newMoisture, moisture);
+            displayController.UpdateMoisturePercentage(newMoisture.New, moisture.New);
             moisture = newMoisture;
 
             displayController.UpdateTemperatureValue(newTemperature.Temperature.Value, temperature.Temperature.Value);
