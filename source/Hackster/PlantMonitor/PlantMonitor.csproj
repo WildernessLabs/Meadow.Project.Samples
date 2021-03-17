@@ -11,7 +11,7 @@
     <EmbeddedResource Include="level_3.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Meadow.Foundation" Version="0.23.0" />
+    <PackageReference Include="Meadow.Foundation" Version="0.24.0" />
     <PackageReference Include="Meadow.Foundation.Displays.TftSpi" Version="0.7.36" />  
     <PackageReference Include="Meadow.Foundation.Sensors.Moisture.Capacitive" Version="0.5.34" />
     <PackageReference Include="SimpleJpegDecoder" Version="0.2.0" />

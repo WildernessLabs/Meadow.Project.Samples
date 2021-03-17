@@ -11,7 +11,7 @@
     <EmbeddedResource Include="menu.json" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Meadow.Foundation" Version="0.23.0" />
+    <PackageReference Include="Meadow.Foundation" Version="0.24.0" />
     <PackageReference Include="Meadow.Foundation.Displays.TextDisplayMenu" Version="0.1.29" />
   </ItemGroup>
   <ItemGroup>
