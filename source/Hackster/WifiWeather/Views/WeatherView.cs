@@ -44,7 +44,7 @@ namespace WifiWeather.Views
             graphics = new GraphicsLibrary(display)
             {   
                 CurrentFont = new Font12x20(),
-                //Rotation = GraphicsLibrary.RotationType._270Degrees
+                Rotation = GraphicsLibrary.RotationType._270Degrees
             };
 
             graphics.Clear();
@@ -66,9 +66,9 @@ namespace WifiWeather.Views
             graphics.Clear();
 
             graphics.Stroke = 1;
-            graphics.DrawRectangle(0, 0, (int)display.Width, (int)display.Height, Color.White, true);
+            graphics.DrawRectangle(0, 0, display.Width, display.Height, Color.White, true);
 
-            DisplayJPG(800, 5, 5);
+            DisplayJPG(model.WeatherCode, 5, 5);
 
             string date = model.DateTime.ToString("MM/dd/yy"); // $"11/29/20";
             graphics.DrawText(
@@ -77,7 +77,7 @@ namespace WifiWeather.Views
                 text: date,
                 color: Color.Black);
 
-            string time = model.DateTime.ToString("hh:mm"); // $"12:16 AM";             
+            string time = model.DateTime.AddHours(1).ToString("hh:mm"); // $"12:16 AM";
             graphics.DrawText(
                 x: 116,
                 y: 66,
@@ -85,7 +85,7 @@ namespace WifiWeather.Views
                 color: Color.Black,
                 scaleFactor: GraphicsLibrary.ScaleFactor.X2);
 
-            string outdoor = $"Outdoor";            
+            string outdoor = $"Outdoor";
             graphics.DrawText(
                 x: 134,
                 y: 143,
