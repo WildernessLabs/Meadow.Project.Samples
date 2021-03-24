@@ -8,5 +8,6 @@
     <PackageReference Include="Meadow.Foundation" Version="0.*" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Meadow.Foundation.Web.Maple.Server" Version="0.1.0" />
   </ItemGroup>
 </Project>

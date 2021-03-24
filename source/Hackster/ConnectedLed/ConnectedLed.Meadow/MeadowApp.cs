@@ -2,22 +2,26 @@
 using Meadow.Devices;
 using Meadow.Foundation;
 using Meadow.Foundation.Leds;
+using Meadow.Foundation.Web.Maple.Server;
+using Meadow.Gateway.WiFi;
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace ConnectedLed.Meadow
 {
     public class MeadowApp : App<F7Micro, MeadowApp>
     {
+        MapleServer mapleServer;
         RgbPwmLed onboardLed;
 
         public MeadowApp()
         {
-            Initialize();
-            CycleColors(1000);
+            Initialize().Wait();
+            
         }
 
-        void Initialize()
+        async Task Initialize()
         {
             Console.WriteLine("Initialize hardware...");
 
@@ -25,8 +29,29 @@ namespace ConnectedLed.Meadow
                 redPwmPin: Device.Pins.OnboardLedRed,
                 greenPwmPin: Device.Pins.OnboardLedGreen,
                 bluePwmPin: Device.Pins.OnboardLedBlue,
-                3.3f, 3.3f, 3.3f,
-                Meadow.Peripherals.Leds.IRgbLed.CommonType.CommonAnode);
+                3.3f, 3.3f, 3.3f);
+            onboardLed.SetColor(Color.Red);
+
+            // initialize the wifi adpater
+            if (!Device.InitWiFiAdapter().Result)
+            {
+                throw new Exception("Could not initialize the WiFi adapter.");
+            }
+
+            // connnect to the wifi network.
+            Console.WriteLine($"Connecting to WiFi Network {Secrets.WIFI_NAME}");
+            var connectionResult = await Device.WiFiAdapter.Connect(Secrets.WIFI_NAME, Secrets.WIFI_PASSWORD);
+            if (connectionResult.ConnectionStatus != ConnectionStatus.Success)
+            {
+                throw new Exception($"Cannot connect to network: {connectionResult.ConnectionStatus}");
+            }
+            Console.WriteLine($"Connected. IP: {Device.WiFiAdapter.IpAddress}");
+
+            // create our maple web server
+            mapleServer = new MapleServer(Device.WiFiAdapter.IpAddress, 5417, true);
+            mapleServer.Start();
+
+            onboardLed.SetColor(Color.Green);
         }
 
         void CycleColors(int duration)

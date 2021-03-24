@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ConnectedLed.Client.ViewModel;
 using Xamarin.Forms;
 
 namespace ConnectedLed.Client
@@ -13,6 +8,7 @@ namespace ConnectedLed.Client
         public MainPage()
         {
             InitializeComponent();
+            BindingContext = new MainViewModel();
         }
     }
 }
