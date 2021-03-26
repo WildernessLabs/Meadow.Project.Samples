@@ -14,6 +14,7 @@
                 <Setter Property="TextColor" Value="White" />
                 <Setter Property="FontAttributes" Value="Bold" />
                 <Setter Property="CornerRadius" Value="5" />
+                <Setter Property="HeightRequest" Value="50" />
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
@@ -70,7 +71,7 @@
 
                 <Label Text="Choose a command:" TextColor="Black" Margin="0,10,0,10" />
 
-                <Button Text="Turn On" Style="{StaticResource ButtonStyle}" 
+                <Button Text="Turn On" Style="{StaticResource ButtonStyle}" BackgroundColor="Red"
                     Command="{Binding SendCommand}" CommandParameter="TurnOn">
                     <Button.Triggers>
                         <DataTrigger TargetType="Button" Binding="{Binding IsOn}" Value="true">

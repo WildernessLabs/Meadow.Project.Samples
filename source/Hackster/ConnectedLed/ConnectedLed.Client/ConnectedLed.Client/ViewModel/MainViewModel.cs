@@ -21,6 +21,41 @@ namespace ConnectedLed.Client.ViewModel
             set { _isBusy = value; OnPropertyChanged(nameof(IsBusy)); }
         }
 
+        bool _isOn;
+        public bool IsOn 
+        {
+            get => _isOn;
+            set { _isOn = value; OnPropertyChanged(nameof(IsOn)); }
+        }
+
+        bool _isOff;
+        public bool IsOff
+        {
+            get => _isOff;
+            set { _isOff = value; OnPropertyChanged(nameof(IsOff)); }
+        }
+
+        bool _isPulsing;
+        public bool IsPulsing
+        {
+            get => _isPulsing;
+            set { _isPulsing = value; OnPropertyChanged(nameof(IsPulsing)); }
+        }
+
+        bool _isBlinking;
+        public bool IsBlinking
+        {
+            get => _isBlinking;
+            set { _isBlinking = value; OnPropertyChanged(nameof(IsBlinking)); }
+        }
+
+        bool _isRunningColors;
+        public bool IsRunningColors
+        {
+            get => _isRunningColors;
+            set { _isRunningColors = value; OnPropertyChanged(nameof(IsRunningColors)); }
+        }
+
         bool _isServerListEmpty;
         public bool IsServerListEmpty
         {
