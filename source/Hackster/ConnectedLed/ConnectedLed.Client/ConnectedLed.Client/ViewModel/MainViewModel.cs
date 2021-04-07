@@ -83,14 +83,12 @@ namespace ConnectedLed.Client.ViewModel
             ledClient = new LedClient();
             ledClient.Servers.CollectionChanged += ServersCollectionChanged;
 
-            SendCommand = new Command(async () => await SendLedCommand());
+            SendCommand = new Command(async (obj) => await SendLedCommand(obj as string));
 
             SearchServersCommand = new Command(async () => await GetServers());
-
-            GetServers();
         }
 
-        async Task GetServers()
+        public async Task GetServers()
         {
             IsBusy = true;
 
@@ -127,18 +125,33 @@ namespace ConnectedLed.Client.ViewModel
             IsBusy = false;
         }
 
-        async Task SendLedCommand()
+        async Task SendLedCommand(string command)
         {
-            //IsBusy = true;
+            if (IsBusy)
+                return;
+            IsBusy = true;
 
-            //var response = await ledClient.SetSignText(SelectedServer, TextSign);
+            bool response = await ledClient.SendLedCommand(SelectedServer, command);
 
-            //if (!response.IsSuccessStatusCode)
-            //{
-            //    await App.Current.DisplayAlert("Error", response.StatusCode.ToString(), "Close");
-            //}
+            if (response)
+            {
+                IsOn = IsOff = IsBlinking = IsPulsing = IsRunningColors = false;
 
-            //IsBusy = false;
+                switch (command) 
+                {
+                    case "TurnOn": IsOn = true; break;
+                    case "TurnOff": IsOff = true; break;
+                    case "StartBlink": IsBlinking = true; break;
+                    case "StartPulse": IsPulsing = true; break;
+                    case "StartRunningColors": IsRunningColors = true; break;
+                }
+            }
+            else
+            {
+                await App.Current.DisplayAlert("Error", "Request failed.", "Close");
+            }
+
+            IsBusy = false;
         }
 
         #region INotifyPropertyChanged Implementation

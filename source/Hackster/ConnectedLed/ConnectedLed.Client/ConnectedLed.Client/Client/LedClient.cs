@@ -1,6 +1,4 @@
 ﻿using Meadow.Foundation.Maple.Client;
-using System;
-using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace ConnectedLed.Client.Client
@@ -11,29 +9,29 @@ namespace ConnectedLed.Client.Client
             base(listenPort, listenTimeout)
         { }
 
-        public async Task<bool> SetSignTextAsync(ServerModel server, string text)
+        public async Task<bool> SendLedCommand(ServerModel server, string command)
         {
-            return (await SendCommandAsync("SignText?text=" + text, server.IpAddress));
+            return (await SendCommandAsync(command, $"{server.IpAddress}:5417"));
         }
 
-        public async Task<HttpResponseMessage> SetSignText(ServerModel server, string text)
-        {
-            var client = new HttpClient
-            {
-                BaseAddress = new Uri($"http://{server.IpAddress}:5417/"),
-                Timeout = TimeSpan.FromSeconds(ListenTimeout)
-            };
+        //public async Task<HttpResponseMessage> SetSignText(ServerModel server, string text)
+        //{
+        //    var client = new HttpClient
+        //    {
+        //        BaseAddress = new Uri($"http://{server.IpAddress}:5417/"),
+        //        Timeout = TimeSpan.FromSeconds(ListenTimeout)
+        //    };
 
-            try
-            {
-                var response = await client.GetAsync("SignText?text=" + text, HttpCompletionOption.ResponseContentRead);
-                return response;
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine(ex.Message);
-                return null;
-            }
-        }
+        //    try
+        //    {
+        //        var response = await client.GetAsync("SignText?text=" + text, HttpCompletionOption.ResponseContentRead);
+        //        return response;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        System.Diagnostics.Debug.WriteLine(ex.Message);
+        //        return null;
+        //    }
+        //}
     }
 }

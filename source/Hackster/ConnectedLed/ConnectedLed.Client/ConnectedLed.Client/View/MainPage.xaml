@@ -64,7 +64,7 @@
 
                         <Label Grid.Column="2" Text="Port:" TextColor="White" FontSize="Medium" FontAttributes="Bold" VerticalOptions="Center"  />
 
-                        <Entry Grid.Column="3" Text="54117" TextColor="White" FontSize="Medium" 
+                        <Entry Grid.Column="3" Text="5417" TextColor="White" FontSize="Medium" 
                             BackgroundColor="#AB5D30" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
                     </Grid>
                 </Frame>
@@ -130,6 +130,9 @@
                         </DataTrigger>
                     </Button.Triggers>
                 </Button>
+
+                <Label Text="By Wilderness Labs" TextColor="Black" 
+                      HorizontalOptions="Center" VerticalOptions="EndAndExpand" />
             </StackLayout>
         </Grid>
     </ContentPage.Content>

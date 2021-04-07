@@ -2,20 +2,71 @@
 using Meadow.Foundation.Web.Maple.Server;
 using Meadow.Foundation.Web.Maple.Server.Routing;
 
-namespace ConnectedLed.Meadow.MapleRequestHandlers
+namespace ConnectedLed.Meadow
 {
     public class LedControllerRequestHandler : RequestHandlerBase
     {
-        [HttpGet]
-        public void SignText()
+        public LedControllerRequestHandler() { }
+
+        [HttpPost]
+        public void RgbLed()
         {
             Console.WriteLine("GET::SignText");
 
-            string text = base.QueryString["text"] as string;
+            string text = base.QueryString["command"];
+            LedController.Current.TurnOn();
 
-            this.Context.Response.ContentType = ContentTypes.Application_Text;
-            this.Context.Response.StatusCode = 200;
-            _ = this.Send($"{text} received");
+            StatusResponse();
+        }
+
+        [HttpPost]
+        public void TurnOn()
+        {
+            Console.WriteLine("POST: TurnOn!");
+            LedController.Current.TurnOn();
+            StatusResponse();
+        }
+
+        [HttpPost]
+        public void TurnOff()
+        {
+            Console.WriteLine("POST: TurnOff!");
+            LedController.Current.TurnOff();
+            StatusResponse();
+        }
+
+        [HttpPost]
+        public void StartBlink()
+        {
+            Console.WriteLine("POST: StartBlink!");
+            LedController.Current.StartBlink();
+            StatusResponse();
+        }
+
+        [HttpPost]
+        public void StartPulse()
+        {
+            Console.WriteLine("POST: StartPulse!");
+            LedController.Current.StartPulse();
+            StatusResponse();
+        }
+
+        [HttpPost]
+        public void StartRunningColors()
+        {
+            Console.WriteLine("POST: Turn On!");
+            //StartRunningColors(this, EventArgs.Empty);
+            StatusResponse();
+        }
+
+        [HttpPost]
+        void StatusResponse()
+        {
+            Console.WriteLine("POST");
+
+            Context.Response.ContentType = ContentTypes.Application_Text;
+            Context.Response.StatusCode = 200;
+            Send();
         }
     }
 }

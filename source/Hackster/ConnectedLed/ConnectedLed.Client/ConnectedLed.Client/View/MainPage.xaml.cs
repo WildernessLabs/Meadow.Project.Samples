@@ -10,5 +10,12 @@ namespace ConnectedLed.Client
             InitializeComponent();
             BindingContext = new MainViewModel();
         }
+
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+
+            await (BindingContext as MainViewModel).GetServers();
+        }
     }
 }
