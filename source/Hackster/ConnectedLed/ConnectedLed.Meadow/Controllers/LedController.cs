@@ -1,12 +1,16 @@
 ﻿using Meadow.Foundation;
 using Meadow.Foundation.Leds;
 using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace ConnectedLed.Meadow
 {
     public class LedController
     {
         RgbPwmLed rgbPwmLed;
+        Task animationTask = null;
+        CancellationTokenSource cancellationTokenSource = null;
 
         bool initialized = false;
 
@@ -17,6 +21,12 @@ namespace ConnectedLed.Meadow
         static LedController()
         {
             Current = new LedController();
+        }
+
+        void Stop() 
+        {
+            rgbPwmLed.Stop();
+            cancellationTokenSource?.Cancel();
         }
 
         public void Initialize()
@@ -39,58 +49,59 @@ namespace ConnectedLed.Meadow
 
         public void SetColor(Color color) 
         {
-            rgbPwmLed.Stop();
+            Stop();
             rgbPwmLed.SetColor(color);            
         }
 
         public void TurnOn()
         {
-            rgbPwmLed.Stop();
+            Stop();
             rgbPwmLed.SetColor(GetRandomColor());
             rgbPwmLed.IsOn = true;
         }
 
         public void TurnOff()
         {
-            rgbPwmLed.Stop();
+            Stop();
             rgbPwmLed.IsOn = false;
         }
 
         public void StartBlink()
         {
-            rgbPwmLed.Stop();
+            Stop();
             rgbPwmLed.StartBlink(GetRandomColor());
         }
 
         public void StartPulse()
         {
-            rgbPwmLed.Stop();
+            Stop();
             rgbPwmLed.StartPulse(GetRandomColor());
-        }
+        }        
 
         public void StartRunningColors()
         {
-            //var arrayColors = new ArrayList();
-            //for (int i = 0; i < 360; i = i + 5)
-            //{
-            //    var hue = ((double)i / 360F);
-            //    arrayColors.Add(Color.FromHsba(((double)i / 360F), 1, 1));
-            //}
+            rgbPwmLed.Stop();
 
-            //int[] intervals = new int[arrayColors.Count];
-            //for (int i = 0; i < intervals.Length; i++)
-            //{
-            //    intervals[i] = 100;
-            //}
-
-            //_rgbPwmLed.Stop();
-            //_rgbPwmLed.StartRunningColors(arrayColors, intervals);
+            animationTask = new Task(async () =>
+            {
+                cancellationTokenSource = new CancellationTokenSource();
+                await StartRunningColors(cancellationTokenSource.Token);
+            });
+            animationTask.Start();
         }
 
-        public void NetworkConnected()
+        protected async Task StartRunningColors(CancellationToken cancellationToken) 
         {
-            rgbPwmLed.Stop();
-            rgbPwmLed.SetColor(Color.Green);
+            while (true)
+            {
+                if (cancellationToken.IsCancellationRequested)
+                {
+                    break;
+                }
+
+                rgbPwmLed.SetColor(GetRandomColor());
+                await Task.Delay(500);                
+            }
         }
 
         protected Color GetRandomColor()

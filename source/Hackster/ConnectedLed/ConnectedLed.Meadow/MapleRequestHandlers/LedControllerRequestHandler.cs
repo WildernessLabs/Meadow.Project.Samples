@@ -54,8 +54,8 @@ namespace ConnectedLed.Meadow
         [HttpPost]
         public void StartRunningColors()
         {
-            Console.WriteLine("POST: Turn On!");
-            //StartRunningColors(this, EventArgs.Empty);
+            Console.WriteLine("POST: RunningColors!");
+            LedController.Current.StartRunningColors();
             StatusResponse();
         }
 

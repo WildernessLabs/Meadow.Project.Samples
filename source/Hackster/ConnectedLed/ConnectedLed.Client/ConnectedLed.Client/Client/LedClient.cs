@@ -13,25 +13,5 @@ namespace ConnectedLed.Client.Client
         {
             return (await SendCommandAsync(command, $"{server.IpAddress}:5417"));
         }
-
-        //public async Task<HttpResponseMessage> SetSignText(ServerModel server, string text)
-        //{
-        //    var client = new HttpClient
-        //    {
-        //        BaseAddress = new Uri($"http://{server.IpAddress}:5417/"),
-        //        Timeout = TimeSpan.FromSeconds(ListenTimeout)
-        //    };
-
-        //    try
-        //    {
-        //        var response = await client.GetAsync("SignText?text=" + text, HttpCompletionOption.ResponseContentRead);
-        //        return response;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        System.Diagnostics.Debug.WriteLine(ex.Message);
-        //        return null;
-        //    }
-        //}
     }
 }
