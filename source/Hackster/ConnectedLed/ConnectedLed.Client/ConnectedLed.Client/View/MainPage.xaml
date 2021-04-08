@@ -134,6 +134,13 @@
                 <Label Text="By Wilderness Labs" TextColor="Black" 
                       HorizontalOptions="Center" VerticalOptions="EndAndExpand" />
             </StackLayout>
+
+            <Grid IsVisible="{Binding IsBusy}" BackgroundColor="#88000000">
+                <StackLayout Spacing="10" HorizontalOptions="Center" VerticalOptions="Center">
+                    <Label Text="Please Wait..." TextColor="White" HorizontalOptions="Center" />
+                    <ActivityIndicator Color="White" IsRunning="True"  />
+                </StackLayout>
+            </Grid>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

@@ -18,6 +18,7 @@ namespace ConnectedLed.Client.UWP.Renderers
                 Control.BorderThickness = new Windows.UI.Xaml.Thickness(0);
                 Control.Margin = new Windows.UI.Xaml.Thickness(0);
                 Control.Padding = new Windows.UI.Xaml.Thickness(0);
+                
             }
         }
     }

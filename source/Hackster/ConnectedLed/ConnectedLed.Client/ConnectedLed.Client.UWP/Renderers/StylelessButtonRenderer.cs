@@ -1,20 +1,20 @@
 ﻿using ConnectedLed.Client.UWP.Renderers;
-using Xamarin.Forms;
+using Windows.UI.Xaml;
 using Xamarin.Forms.Platform.UWP;
 
-[assembly: ExportRenderer(typeof(Button), typeof(StylelessButtonRenderer))]
+[assembly: ExportRenderer(typeof(Xamarin.Forms.Button), typeof(StylelessButtonRenderer))]
 namespace ConnectedLed.Client.UWP.Renderers
 {
     public class StylelessButtonRenderer : ButtonRenderer
     {
-        protected override void OnElementChanged(ElementChangedEventArgs<Button> e)
+        protected override void OnElementChanged(ElementChangedEventArgs<Xamarin.Forms.Button> e)
         {
             base.OnElementChanged(e);
 
             if (Control != null)
             {
-                Resources["ButtonBackgroundPointerOver"] = Control.BackgroundColor;
-                Resources["ButtonBackgroundPressed"] = Control.BackgroundColor;
+                var style = Application.Current.Resources["ButtonStyle"] as Style;
+                Control.Style = style;
             }
         }
     }

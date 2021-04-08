@@ -32,7 +32,7 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="ConnectedLed.Client.UWP.App">
       <uap:VisualElements
-        DisplayName="ConnectedLed.Client.UWP"
+        DisplayName="Connected LED"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png"
         Description="ConnectedLed.Client.UWP"
@@ -44,7 +44,7 @@
             <uap:ShowOn Tile="square310x310Logo" />
           </uap:ShowNameOnTiles>
         </uap:DefaultTile>
-        <uap:SplashScreen Image="Assets\SplashScreen.png" />
+        <uap:SplashScreen Image="Assets\SplashScreen.png"  BackgroundColor="#23ABE3"/>
       </uap:VisualElements>
     </Application>
   </Applications>

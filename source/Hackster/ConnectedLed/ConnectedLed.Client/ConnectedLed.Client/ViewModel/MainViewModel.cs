@@ -86,6 +86,8 @@ namespace ConnectedLed.Client.ViewModel
             SendCommand = new Command(async (obj) => await SendLedCommand(obj as string));
 
             SearchServersCommand = new Command(async () => await GetServers());
+
+            IsOn = true;
         }
 
         public async Task GetServers()
@@ -121,8 +123,6 @@ namespace ConnectedLed.Client.ViewModel
                     }
                     break;
             }
-
-            IsBusy = false;
         }
 
         async Task SendLedCommand(string command)
