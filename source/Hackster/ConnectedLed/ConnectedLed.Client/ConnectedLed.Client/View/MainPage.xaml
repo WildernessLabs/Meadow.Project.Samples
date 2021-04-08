@@ -43,7 +43,6 @@
                         <Grid Grid.Column="1" WidthRequest="50" HeightRequest="50">
                             <Button Command="{Binding SearchServersCommand}" BackgroundColor="Transparent" CornerRadius="5" />
                             <Image Source="icon_search.png" Margin="10" InputTransparent="True" />
-                            <ActivityIndicator IsVisible="{Binding IsBusy}" Color="White" IsRunning="true" Scale="0.75" BackgroundColor="#23ABE3" />
                         </Grid>
                     </Grid>
                 </Frame>
