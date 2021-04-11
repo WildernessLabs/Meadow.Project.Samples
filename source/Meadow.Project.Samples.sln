@@ -93,7 +93,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConnectedLed.Client.iOS", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConnectedLed.Client", "Hackster\ConnectedLed\ConnectedLed.Client\ConnectedLed.Client\ConnectedLed.Client.csproj", "{C7E77E06-97D4-44D4-9662-FE8DF233CB46}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConnectedLed.Meadow", "Hackster\ConnectedLed\ConnectedLed.Meadow\ConnectedLed.Meadow.csproj", "{6DB77DD2-27A7-43F2-A37B-9FA7ECD71874}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConnectedLed.Meadow", "Hackster\ConnectedLed\ConnectedLed.Meadow\ConnectedLed.Meadow.csproj", "{6DB77DD2-27A7-43F2-A37B-9FA7ECD71874}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WifiWeatherClock", "Hackster\WifiWeatherClock\WifiWeatherClock.csproj", "{BEA5DEE2-7888-47B0-8C7C-6A29E6E4ADF6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1546,6 +1548,42 @@ Global
 		{6DB77DD2-27A7-43F2-A37B-9FA7ECD71874}.Release|x86.ActiveCfg = Release|Any CPU
 		{6DB77DD2-27A7-43F2-A37B-9FA7ECD71874}.Release|x86.Build.0 = Release|Any CPU
 		{6DB77DD2-27A7-43F2-A37B-9FA7ECD71874}.Release|x86.Deploy.0 = Release|Any CPU
+		{BEA5DEE2-7888-47B0-8C7C-6A29E6E4ADF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEA5DEE2-7888-47B0-8C7C-6A29E6E4ADF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BEA5DEE2-7888-47B0-8C7C-6A29E6E4ADF6}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{BEA5DEE2-7888-47B0-8C7C-6A29E6E4ADF6}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{BEA5DEE2-7888-47B0-8C7C-6A29E6E4ADF6}.Debug|ARM.Build.0 = Debug|Any CPU
+		{BEA5DEE2-7888-47B0-8C7C-6A29E6E4ADF6}.Debug|ARM.Deploy.0 = Debug|Any CPU
+		{BEA5DEE2-7888-47B0-8C7C-6A29E6E4ADF6}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{BEA5DEE2-7888-47B0-8C7C-6A29E6E4ADF6}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{BEA5DEE2-7888-47B0-8C7C-6A29E6E4ADF6}.Debug|iPhone.Deploy.0 = Debug|Any CPU
+		{BEA5DEE2-7888-47B0-8C7C-6A29E6E4ADF6}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{BEA5DEE2-7888-47B0-8C7C-6A29E6E4ADF6}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{BEA5DEE2-7888-47B0-8C7C-6A29E6E4ADF6}.Debug|iPhoneSimulator.Deploy.0 = Debug|Any CPU
+		{BEA5DEE2-7888-47B0-8C7C-6A29E6E4ADF6}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{BEA5DEE2-7888-47B0-8C7C-6A29E6E4ADF6}.Debug|x64.Build.0 = Debug|Any CPU
+		{BEA5DEE2-7888-47B0-8C7C-6A29E6E4ADF6}.Debug|x64.Deploy.0 = Debug|Any CPU
+		{BEA5DEE2-7888-47B0-8C7C-6A29E6E4ADF6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BEA5DEE2-7888-47B0-8C7C-6A29E6E4ADF6}.Debug|x86.Build.0 = Debug|Any CPU
+		{BEA5DEE2-7888-47B0-8C7C-6A29E6E4ADF6}.Debug|x86.Deploy.0 = Debug|Any CPU
+		{BEA5DEE2-7888-47B0-8C7C-6A29E6E4ADF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BEA5DEE2-7888-47B0-8C7C-6A29E6E4ADF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BEA5DEE2-7888-47B0-8C7C-6A29E6E4ADF6}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{BEA5DEE2-7888-47B0-8C7C-6A29E6E4ADF6}.Release|ARM.ActiveCfg = Release|Any CPU
+		{BEA5DEE2-7888-47B0-8C7C-6A29E6E4ADF6}.Release|ARM.Build.0 = Release|Any CPU
+		{BEA5DEE2-7888-47B0-8C7C-6A29E6E4ADF6}.Release|ARM.Deploy.0 = Release|Any CPU
+		{BEA5DEE2-7888-47B0-8C7C-6A29E6E4ADF6}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{BEA5DEE2-7888-47B0-8C7C-6A29E6E4ADF6}.Release|iPhone.Build.0 = Release|Any CPU
+		{BEA5DEE2-7888-47B0-8C7C-6A29E6E4ADF6}.Release|iPhone.Deploy.0 = Release|Any CPU
+		{BEA5DEE2-7888-47B0-8C7C-6A29E6E4ADF6}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{BEA5DEE2-7888-47B0-8C7C-6A29E6E4ADF6}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{BEA5DEE2-7888-47B0-8C7C-6A29E6E4ADF6}.Release|iPhoneSimulator.Deploy.0 = Release|Any CPU
+		{BEA5DEE2-7888-47B0-8C7C-6A29E6E4ADF6}.Release|x64.ActiveCfg = Release|Any CPU
+		{BEA5DEE2-7888-47B0-8C7C-6A29E6E4ADF6}.Release|x64.Build.0 = Release|Any CPU
+		{BEA5DEE2-7888-47B0-8C7C-6A29E6E4ADF6}.Release|x64.Deploy.0 = Release|Any CPU
+		{BEA5DEE2-7888-47B0-8C7C-6A29E6E4ADF6}.Release|x86.ActiveCfg = Release|Any CPU
+		{BEA5DEE2-7888-47B0-8C7C-6A29E6E4ADF6}.Release|x86.Build.0 = Release|Any CPU
+		{BEA5DEE2-7888-47B0-8C7C-6A29E6E4ADF6}.Release|x86.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1594,6 +1632,7 @@ Global
 		{849731E7-0D9B-486A-97AA-12F79D4C219E} = {C18D8875-EBD9-4D8D-B1B4-479BFCB5CB9E}
 		{C7E77E06-97D4-44D4-9662-FE8DF233CB46} = {C18D8875-EBD9-4D8D-B1B4-479BFCB5CB9E}
 		{6DB77DD2-27A7-43F2-A37B-9FA7ECD71874} = {C18D8875-EBD9-4D8D-B1B4-479BFCB5CB9E}
+		{BEA5DEE2-7888-47B0-8C7C-6A29E6E4ADF6} = {B1C3E8F8-3B6A-435A-A93A-0F6EC9ECCFAF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {10FA7F4A-2FF2-4696-8B12-DD0B9C978890}
