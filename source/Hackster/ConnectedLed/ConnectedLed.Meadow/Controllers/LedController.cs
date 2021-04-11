@@ -12,7 +12,7 @@ namespace ConnectedLed.Meadow
         Task animationTask = null;
         CancellationTokenSource cancellationTokenSource = null;
 
-        bool initialized = false;
+        protected bool initialized = false;
 
         public static LedController Current { get; private set; }
 
@@ -21,12 +21,6 @@ namespace ConnectedLed.Meadow
         static LedController()
         {
             Current = new LedController();
-        }
-
-        void Stop() 
-        {
-            rgbPwmLed.Stop();
-            cancellationTokenSource?.Cancel();
         }
 
         public void Initialize()
@@ -45,6 +39,12 @@ namespace ConnectedLed.Meadow
             initialized = true;
 
             Console.WriteLine("Initialization complete.");
+        }
+
+        void Stop()
+        {
+            rgbPwmLed.Stop();
+            cancellationTokenSource?.Cancel();
         }
 
         public void SetColor(Color color) 

@@ -17,15 +17,13 @@ namespace ConnectedLed.Meadow
             Initialize().Wait();
 
             mapleServer.Start();
-            Console.WriteLine("Maple Started!");
 
             LedController.Current.SetColor(Color.Green);
         }
 
         async Task Initialize()
         {
-            Console.WriteLine("");
-            Console.Write("Initialize hardware...");
+            LedController.Current.Initialize();
 
             if (!Device.InitWiFiAdapter().Result)
             {
@@ -38,11 +36,9 @@ namespace ConnectedLed.Meadow
                 throw new Exception($"Cannot connect to network: {connectionResult.ConnectionStatus}");
             }
 
-            mapleServer = new MapleServer(Device.WiFiAdapter.IpAddress, 5417, true);
-
-            LedController.Current.Initialize();
-
-            Console.WriteLine("done.");
+            mapleServer = new MapleServer(
+                Device.WiFiAdapter.IpAddress, 5417, true
+            );
         }
     }
 }
