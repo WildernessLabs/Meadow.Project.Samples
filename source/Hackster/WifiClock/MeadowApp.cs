@@ -91,7 +91,7 @@ namespace WifiClock
 
         async Task Start() 
         {
-            var dateTime = await WeatherService.GetTimeAsync();            
+            var dateTime = await ClockService.GetTimeAsync();            
 
             Device.SetClock(new DateTime(
                 year: dateTime.Year, 
