@@ -5,6 +5,7 @@ using Meadow.Devices;
 using Meadow.Foundation.Displays.Lcd;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.RTCs;
+using Meadow.Foundation;
 
 namespace ChristmasCountdown
 {
@@ -16,8 +17,18 @@ namespace ChristmasCountdown
 
         public MeadowApp()
         {
-            var led = new RgbLed(Device, Device.Pins.OnboardLedRed, Device.Pins.OnboardLedGreen, Device.Pins.OnboardLedBlue);
-            led.SetColor(RgbLed.Colors.Red);
+            Initialize();
+
+            StartCountdown();
+        }
+
+        void Initialize() 
+        {
+            var led = new RgbPwmLed(Device, 
+                Device.Pins.OnboardLedRed, 
+                Device.Pins.OnboardLedGreen, 
+                Device.Pins.OnboardLedBlue);
+            led.SetColor(Color.Red);
 
             rtc = new Ds1307(Device.CreateI2cBus());
             // Uncomment only when setting the time
@@ -34,9 +45,7 @@ namespace ChristmasCountdown
                 pinD7: Device.Pins.D10
             );
 
-            led.SetColor(RgbLed.Colors.Green);
-
-            StartCountdown();
+            led.SetColor(Color.Green);
         }
 
         void StartCountdown() 
@@ -50,7 +59,7 @@ namespace ChristmasCountdown
             while (true)
             {                
                 UpdateCountdown();
-                Thread.Sleep(60000);
+                Thread.Sleep(1000);
             }
         }
 
@@ -66,7 +75,7 @@ namespace ChristmasCountdown
             }
             
             var countdown = christmasDate.Subtract(date);
-            display.WriteLine(countdown.Days + "d" + countdown.Hours + "h" + countdown.Minutes + "m to go!", 3);
+            display.WriteLine($"{countdown.Days}d{countdown.Hours}h{countdown.Minutes}m{countdown.Seconds}s to go!", 3);            
         }
     }
 }
