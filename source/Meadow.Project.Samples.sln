@@ -81,21 +81,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MerryXmasLights", "Hackster
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WifiClock", "Hackster\WifiClock\WifiClock.csproj", "{3EC7475E-0956-4B8D-9E0E-01A92C6388ED}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ConnectedServo", "ConnectedServo", "{BC8DAE0A-57C8-4980-846E-7E91787107EB}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MapleProjects", "MapleProjects", "{C18D8875-EBD9-4D8D-B1B4-479BFCB5CB9E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ConnectedLed", "ConnectedLed", "{C18D8875-EBD9-4D8D-B1B4-479BFCB5CB9E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Connected.Client.UWP", "Hackster\MapleProjects\Connected.Client\Connected.Client.UWP\Connected.Client.UWP.csproj", "{788B9BFD-ADF0-40C6-ADC2-E3202BAFD2BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConnectedLed.Client.UWP", "Hackster\ConnectedLed\ConnectedLed.Client\ConnectedLed.Client.UWP\ConnectedLed.Client.UWP.csproj", "{788B9BFD-ADF0-40C6-ADC2-E3202BAFD2BA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Connected.Client.Android", "Hackster\MapleProjects\Connected.Client\Connected.Client.Android\Connected.Client.Android.csproj", "{89CE2441-91E3-495C-926C-6764B9C59A31}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConnectedLed.Client.Android", "Hackster\ConnectedLed\ConnectedLed.Client\ConnectedLed.Client.Android\ConnectedLed.Client.Android.csproj", "{89CE2441-91E3-495C-926C-6764B9C59A31}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Connected.Client.iOS", "Hackster\MapleProjects\Connected.Client\Connected.Client.iOS\Connected.Client.iOS.csproj", "{849731E7-0D9B-486A-97AA-12F79D4C219E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConnectedLed.Client.iOS", "Hackster\ConnectedLed\ConnectedLed.Client\ConnectedLed.Client.iOS\ConnectedLed.Client.iOS.csproj", "{849731E7-0D9B-486A-97AA-12F79D4C219E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Connected.Client", "Hackster\MapleProjects\Connected.Client\Connected.Client\Connected.Client.csproj", "{C7E77E06-97D4-44D4-9662-FE8DF233CB46}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConnectedLed.Client", "Hackster\ConnectedLed\ConnectedLed.Client\ConnectedLed.Client\ConnectedLed.Client.csproj", "{C7E77E06-97D4-44D4-9662-FE8DF233CB46}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConnectedLed.Meadow", "Hackster\MapleProjects\ConnectedLed.Meadow\ConnectedLed.Meadow.csproj", "{6DB77DD2-27A7-43F2-A37B-9FA7ECD71874}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConnectedLed.Meadow", "Hackster\ConnectedLed\ConnectedLed.Meadow\ConnectedLed.Meadow.csproj", "{6DB77DD2-27A7-43F2-A37B-9FA7ECD71874}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WifiWeatherClock", "Hackster\WifiWeatherClock\WifiWeatherClock.csproj", "{BEA5DEE2-7888-47B0-8C7C-6A29E6E4ADF6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WifiWeatherClock", "Hackster\WifiWeatherClock\WifiWeatherClock.csproj", "{BEA5DEE2-7888-47B0-8C7C-6A29E6E4ADF6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1625,7 +1623,6 @@ Global
 		{7F69975A-A81A-4E68-BCA2-B1DCF30EAF0D} = {B1C3E8F8-3B6A-435A-A93A-0F6EC9ECCFAF}
 		{B07685C9-1C67-4AE5-889A-18370347B30A} = {B1C3E8F8-3B6A-435A-A93A-0F6EC9ECCFAF}
 		{3EC7475E-0956-4B8D-9E0E-01A92C6388ED} = {B1C3E8F8-3B6A-435A-A93A-0F6EC9ECCFAF}
-		{BC8DAE0A-57C8-4980-846E-7E91787107EB} = {B1C3E8F8-3B6A-435A-A93A-0F6EC9ECCFAF}
 		{C18D8875-EBD9-4D8D-B1B4-479BFCB5CB9E} = {B1C3E8F8-3B6A-435A-A93A-0F6EC9ECCFAF}
 		{788B9BFD-ADF0-40C6-ADC2-E3202BAFD2BA} = {C18D8875-EBD9-4D8D-B1B4-479BFCB5CB9E}
 		{89CE2441-91E3-495C-926C-6764B9C59A31} = {C18D8875-EBD9-4D8D-B1B4-479BFCB5CB9E}
