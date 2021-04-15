@@ -92,23 +92,34 @@ namespace ConnectedLed.Client.ViewModel
 
         public async Task GetServers()
         {
+            if (IsBusy)
+                return;
             IsBusy = true;
 
-            IsServerListEmpty = false;
-
-            await ledClient.StartScanningForAdvertisingServers();
-
-            if (HostList.Count == 0)
-            {
-                IsServerListEmpty = true;
-            }
-            else
+            try
             {
                 IsServerListEmpty = false;
-                SelectedServer = HostList[0];
-            }
 
-            IsBusy = false;
+                await ledClient.StartScanningForAdvertisingServers();
+
+                if (HostList.Count == 0)
+                {
+                    IsServerListEmpty = true;
+                }
+                else
+                {
+                    IsServerListEmpty = false;
+                    SelectedServer = HostList[0];
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            { 
+                IsBusy = false;
+            }
         }
 
         void ServersCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
