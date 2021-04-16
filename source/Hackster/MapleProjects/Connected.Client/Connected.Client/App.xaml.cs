@@ -13,7 +13,11 @@ namespace Connected.Client
 
             Current = this;
 
-            MainPage = new MainPage();
+            // Page used for the ConnectedLed.Meadow project
+            MainPage = new LedControllerPage();
+
+            // Page used for the ConnectedServo.Meadow project
+            //MainPage = new ServoControllerPage();
         }
 
         public async Task DisplayAlert(string title, string msg, string cancel)

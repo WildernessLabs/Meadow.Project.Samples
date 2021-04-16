@@ -3,19 +3,19 @@ using Xamarin.Forms;
 
 namespace Connected.Client
 {
-    public partial class MainPage : ContentPage
+    public partial class LedControllerPage : ContentPage
     {
-        public MainPage()
+        public LedControllerPage()
         {
             InitializeComponent();
-            BindingContext = new MainViewModel();
+            BindingContext = new LedControllerViewModel();
         }
 
         protected override async void OnAppearing()
         {
             base.OnAppearing();
 
-            await (BindingContext as MainViewModel).GetServers();
+            await (BindingContext as LedControllerViewModel).GetServers();
         }
     }
 }

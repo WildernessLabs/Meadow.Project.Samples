@@ -10,7 +10,7 @@ using Xamarin.Forms;
 
 namespace Connected.Client.ViewModel
 {
-    public class MainViewModel : INotifyPropertyChanged
+    public class LedControllerViewModel : INotifyPropertyChanged
     {
         LedClient ledClient;
 
@@ -76,7 +76,7 @@ namespace Connected.Client.ViewModel
 
         public Command SearchServersCommand { private set; get; }
 
-        public MainViewModel()
+        public LedControllerViewModel()
         {
             HostList = new ObservableCollection<ServerModel>();
 

@@ -329,3 +329,4 @@ ASALocalRun/
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
 source/Hackster/ConnectedLed/ConnectedLed.Client/ConnectedLed.Client.Android/Resources/Resource.designer.cs
+source/Hackster/MapleProjects/Connected.Client/Connected.Client.Android/Resources/Resource.designer.cs
