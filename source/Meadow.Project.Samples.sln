@@ -95,6 +95,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConnectedLed.Meadow", "Hack
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WifiWeatherClock", "Hackster\WifiWeatherClock\WifiWeatherClock.csproj", "{BEA5DEE2-7888-47B0-8C7C-6A29E6E4ADF6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConnectedServo.Meadow", "Hackster\MapleProjects\ConnectedServo.Meadow\ConnectedServo.Meadow.csproj", "{55DB2BB4-E16E-4680-BCD6-DCE9174C977F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1582,6 +1584,42 @@ Global
 		{BEA5DEE2-7888-47B0-8C7C-6A29E6E4ADF6}.Release|x86.ActiveCfg = Release|Any CPU
 		{BEA5DEE2-7888-47B0-8C7C-6A29E6E4ADF6}.Release|x86.Build.0 = Release|Any CPU
 		{BEA5DEE2-7888-47B0-8C7C-6A29E6E4ADF6}.Release|x86.Deploy.0 = Release|Any CPU
+		{55DB2BB4-E16E-4680-BCD6-DCE9174C977F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55DB2BB4-E16E-4680-BCD6-DCE9174C977F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55DB2BB4-E16E-4680-BCD6-DCE9174C977F}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{55DB2BB4-E16E-4680-BCD6-DCE9174C977F}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{55DB2BB4-E16E-4680-BCD6-DCE9174C977F}.Debug|ARM.Build.0 = Debug|Any CPU
+		{55DB2BB4-E16E-4680-BCD6-DCE9174C977F}.Debug|ARM.Deploy.0 = Debug|Any CPU
+		{55DB2BB4-E16E-4680-BCD6-DCE9174C977F}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{55DB2BB4-E16E-4680-BCD6-DCE9174C977F}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{55DB2BB4-E16E-4680-BCD6-DCE9174C977F}.Debug|iPhone.Deploy.0 = Debug|Any CPU
+		{55DB2BB4-E16E-4680-BCD6-DCE9174C977F}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{55DB2BB4-E16E-4680-BCD6-DCE9174C977F}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{55DB2BB4-E16E-4680-BCD6-DCE9174C977F}.Debug|iPhoneSimulator.Deploy.0 = Debug|Any CPU
+		{55DB2BB4-E16E-4680-BCD6-DCE9174C977F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{55DB2BB4-E16E-4680-BCD6-DCE9174C977F}.Debug|x64.Build.0 = Debug|Any CPU
+		{55DB2BB4-E16E-4680-BCD6-DCE9174C977F}.Debug|x64.Deploy.0 = Debug|Any CPU
+		{55DB2BB4-E16E-4680-BCD6-DCE9174C977F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{55DB2BB4-E16E-4680-BCD6-DCE9174C977F}.Debug|x86.Build.0 = Debug|Any CPU
+		{55DB2BB4-E16E-4680-BCD6-DCE9174C977F}.Debug|x86.Deploy.0 = Debug|Any CPU
+		{55DB2BB4-E16E-4680-BCD6-DCE9174C977F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55DB2BB4-E16E-4680-BCD6-DCE9174C977F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55DB2BB4-E16E-4680-BCD6-DCE9174C977F}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{55DB2BB4-E16E-4680-BCD6-DCE9174C977F}.Release|ARM.ActiveCfg = Release|Any CPU
+		{55DB2BB4-E16E-4680-BCD6-DCE9174C977F}.Release|ARM.Build.0 = Release|Any CPU
+		{55DB2BB4-E16E-4680-BCD6-DCE9174C977F}.Release|ARM.Deploy.0 = Release|Any CPU
+		{55DB2BB4-E16E-4680-BCD6-DCE9174C977F}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{55DB2BB4-E16E-4680-BCD6-DCE9174C977F}.Release|iPhone.Build.0 = Release|Any CPU
+		{55DB2BB4-E16E-4680-BCD6-DCE9174C977F}.Release|iPhone.Deploy.0 = Release|Any CPU
+		{55DB2BB4-E16E-4680-BCD6-DCE9174C977F}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{55DB2BB4-E16E-4680-BCD6-DCE9174C977F}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{55DB2BB4-E16E-4680-BCD6-DCE9174C977F}.Release|iPhoneSimulator.Deploy.0 = Release|Any CPU
+		{55DB2BB4-E16E-4680-BCD6-DCE9174C977F}.Release|x64.ActiveCfg = Release|Any CPU
+		{55DB2BB4-E16E-4680-BCD6-DCE9174C977F}.Release|x64.Build.0 = Release|Any CPU
+		{55DB2BB4-E16E-4680-BCD6-DCE9174C977F}.Release|x64.Deploy.0 = Release|Any CPU
+		{55DB2BB4-E16E-4680-BCD6-DCE9174C977F}.Release|x86.ActiveCfg = Release|Any CPU
+		{55DB2BB4-E16E-4680-BCD6-DCE9174C977F}.Release|x86.Build.0 = Release|Any CPU
+		{55DB2BB4-E16E-4680-BCD6-DCE9174C977F}.Release|x86.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1630,6 +1668,7 @@ Global
 		{C7E77E06-97D4-44D4-9662-FE8DF233CB46} = {C18D8875-EBD9-4D8D-B1B4-479BFCB5CB9E}
 		{6DB77DD2-27A7-43F2-A37B-9FA7ECD71874} = {C18D8875-EBD9-4D8D-B1B4-479BFCB5CB9E}
 		{BEA5DEE2-7888-47B0-8C7C-6A29E6E4ADF6} = {B1C3E8F8-3B6A-435A-A93A-0F6EC9ECCFAF}
+		{55DB2BB4-E16E-4680-BCD6-DCE9174C977F} = {C18D8875-EBD9-4D8D-B1B4-479BFCB5CB9E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {10FA7F4A-2FF2-4696-8B12-DD0B9C978890}
