@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
     ios:Page.UseSafeArea="true"
-    x:Class="Connected.Client.View.LedControllerPage"
+    x:Class="Connected.Client.View.ServoControllerPage"
     BackgroundColor="White">
 
     <ContentPage.Resources>
@@ -24,7 +24,7 @@
     <ContentPage.Content>
         <Grid>
             <StackLayout Padding="30">
-                <Label Text="Control RGB LED using Maple" TextColor="Black" FontSize="Large" FontAttributes="Bold" />
+                <Label Text="Control a Servo using Maple" TextColor="Black" FontSize="Large" FontAttributes="Bold" />
 
                 <Label Text="Maple servers:" TextColor="Black" Margin="0,10,0,10" />
 
@@ -72,68 +72,50 @@
 
                 <Label Text="Choose a command:" TextColor="Black" Margin="0,10,0,10" />
 
-                <Button Text="Turn On" Style="{StaticResource ButtonStyle}" BackgroundColor="Red"
+                <Label Text="Rotate Servo"  TextColor="Black" VerticalOptions="Center" />
+
+                <Slider x:Name="slider" Value="{Binding AngleDegrees}" Minimum="0" Maximum="180" Margin="10"
+                     ThumbColor="{StaticResource ButtonActive}" MinimumTrackColor="{StaticResource ButtonActive}" MaximumTrackColor="{StaticResource ButtonActive}" />
+
+                <Button Text="{Binding Source={x:Reference slider}, Path=Value, StringFormat='Rotate Servo {0:F0} Degrees'}" 
+                    Style="{StaticResource ButtonStyle}" BackgroundColor="Red"
                     Command="{Binding SendCommand}" CommandParameter="TurnOn">
                     <Button.Triggers>
-                        <DataTrigger TargetType="Button" Binding="{Binding IsOn}" Value="true">
+                        <DataTrigger TargetType="Button" Binding="{Binding IsRotateTo}" Value="true">
                             <Setter Property="BackgroundColor" Value="{StaticResource ButtonActive}" />
                         </DataTrigger>
-                        <DataTrigger TargetType="Button" Binding="{Binding IsOn}" Value="false">
+                        <DataTrigger TargetType="Button" Binding="{Binding IsRotateTo}" Value="false">
                             <Setter Property="BackgroundColor" Value="{StaticResource ButtonInactive}" />
                         </DataTrigger>
                     </Button.Triggers>
                 </Button>
 
-                <Button Text="Turn Off" Style="{StaticResource ButtonStyle}"
+                <Button Text="Start Sweep" Style="{StaticResource ButtonStyle}"
                     Command="{Binding SendCommand}" CommandParameter="TurnOff" >
                     <Button.Triggers>
-                        <DataTrigger TargetType="Button" Binding="{Binding IsOff}" Value="true">
+                        <DataTrigger TargetType="Button" Binding="{Binding IsCyclingStart}" Value="true">
                             <Setter Property="BackgroundColor" Value="{StaticResource ButtonActive}" />
                         </DataTrigger>
-                        <DataTrigger TargetType="Button" Binding="{Binding IsOff}" Value="false">
+                        <DataTrigger TargetType="Button" Binding="{Binding IsCyclingStart}" Value="false">
                             <Setter Property="BackgroundColor" Value="{StaticResource ButtonInactive}" />
                         </DataTrigger>
                     </Button.Triggers>
                 </Button>
 
-                <Button Text="Start Blink" Style="{StaticResource ButtonStyle}"
+                <Button Text="Stop Sweep" Style="{StaticResource ButtonStyle}"
                     Command="{Binding SendCommand}" CommandParameter="StartBlink">
                     <Button.Triggers>
-                        <DataTrigger TargetType="Button" Binding="{Binding IsBlinking}" Value="true">
+                        <DataTrigger TargetType="Button" Binding="{Binding IsCyclingStop}" Value="true">
                             <Setter Property="BackgroundColor" Value="{StaticResource ButtonActive}" />
                         </DataTrigger>
-                        <DataTrigger TargetType="Button" Binding="{Binding IsBlinking}" Value="false">
-                            <Setter Property="BackgroundColor" Value="{StaticResource ButtonInactive}" />
-                        </DataTrigger>
-                    </Button.Triggers>
-                </Button>
-
-                <Button Text="Start Pulse" Style="{StaticResource ButtonStyle}"
-                    Command="{Binding SendCommand}" CommandParameter="StartPulse">
-                    <Button.Triggers>
-                        <DataTrigger TargetType="Button" Binding="{Binding IsPulsing}" Value="true">
-                            <Setter Property="BackgroundColor" Value="{StaticResource ButtonActive}" />
-                        </DataTrigger>
-                        <DataTrigger TargetType="Button" Binding="{Binding IsPulsing}" Value="false">
-                            <Setter Property="BackgroundColor" Value="{StaticResource ButtonInactive}" />
-                        </DataTrigger>
-                    </Button.Triggers>
-                </Button>
-
-                <Button Text="Start Running Colors" Style="{StaticResource ButtonStyle}"
-                    Command="{Binding SendCommand}" CommandParameter="StartRunningColors">
-                    <Button.Triggers>
-                        <DataTrigger TargetType="Button" Binding="{Binding IsRunningColors}" Value="true">
-                            <Setter Property="BackgroundColor" Value="{StaticResource ButtonActive}" />
-                        </DataTrigger>
-                        <DataTrigger TargetType="Button" Binding="{Binding IsRunningColors}" Value="false">
+                        <DataTrigger TargetType="Button" Binding="{Binding IsCyclingStop}" Value="false">
                             <Setter Property="BackgroundColor" Value="{StaticResource ButtonInactive}" />
                         </DataTrigger>
                     </Button.Triggers>
                 </Button>
 
                 <Label Text="By Wilderness Labs" TextColor="Black" 
-                      HorizontalOptions="Center" VerticalOptions="EndAndExpand" />
+                    HorizontalOptions="Center" VerticalOptions="EndAndExpand" />
             </StackLayout>
 
             <Grid IsVisible="{Binding IsBusy}" BackgroundColor="#88000000">

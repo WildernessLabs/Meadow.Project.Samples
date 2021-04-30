@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using Connected.Client.View;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace Connected.Client
@@ -14,10 +15,10 @@ namespace Connected.Client
             Current = this;
 
             // Page used for the ConnectedLed.Meadow project
-            MainPage = new LedControllerPage();
+            //MainPage = new LedControllerPage();
 
             // Page used for the ConnectedServo.Meadow project
-            //MainPage = new ServoControllerPage();
+            MainPage = new ServoControllerPage();
         }
 
         public async Task DisplayAlert(string title, string msg, string cancel)
