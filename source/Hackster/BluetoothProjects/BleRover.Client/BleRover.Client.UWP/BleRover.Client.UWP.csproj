@@ -104,6 +104,10 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\icon_connect.png" />
+    <Content Include="Assets\icon_refresh.png" />
+    <Content Include="Assets\img_dpad.png" />
+    <Content Include="Assets\img_meadow.png" />
     <Content Include="Assets\LargeTile.scale-100.png" />
     <Content Include="Assets\LargeTile.scale-125.png" />
     <Content Include="Assets\LargeTile.scale-150.png" />
