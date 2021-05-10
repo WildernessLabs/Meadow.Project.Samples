@@ -3,11 +3,14 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"    
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converters="clr-namespace:BleRover.Client.Converter;assembly=BleRover.Client"
     mc:Ignorable="d"
     x:Class="BleRover.Client.App">
     
     <Application.Resources>
-
+        <ResourceDictionary>
+            <converters:InverseBooleanValueConverter x:Key="InverseBoolean"></converters:InverseBooleanValueConverter>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
