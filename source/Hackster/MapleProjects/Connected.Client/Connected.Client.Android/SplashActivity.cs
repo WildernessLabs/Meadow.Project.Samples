@@ -5,7 +5,7 @@ using Android.OS;
 
 namespace Connected.Client.Droid
 {
-    [Activity(Label = "ConnectedLed", Icon = "@mipmap/icon_launcher", RoundIcon = "@mipmap/icon_round_launcher", Theme = "@style/Theme.Splash",
+    [Activity(Label = "Maple", Icon = "@mipmap/icon_launcher", RoundIcon = "@mipmap/icon_round_launcher", Theme = "@style/Theme.Splash",
         MainLauncher = true, NoHistory = true, ConfigurationChanges = ConfigChanges.ScreenSize, ScreenOrientation = ScreenOrientation.Portrait)]
     public class SplashActivity : Activity
     {

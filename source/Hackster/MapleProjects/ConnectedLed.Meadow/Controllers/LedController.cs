@@ -30,9 +30,9 @@ namespace ConnectedLed.Meadow
             Console.WriteLine("Initialize hardware...");
             rgbPwmLed = new RgbPwmLed(
                 device: MeadowApp.Device,
-                redPwmPin: MeadowApp.Device.Pins.OnboardLedRed,
-                greenPwmPin: MeadowApp.Device.Pins.OnboardLedGreen,
-                bluePwmPin: MeadowApp.Device.Pins.OnboardLedBlue,
+                redPwmPin: MeadowApp.Device.Pins.D12,
+                greenPwmPin: MeadowApp.Device.Pins.D11,
+                bluePwmPin: MeadowApp.Device.Pins.D10,
                 3.3f, 3.3f, 3.3f);
             rgbPwmLed.SetColor(Color.Red);
 
@@ -100,7 +100,7 @@ namespace ConnectedLed.Meadow
                 }
 
                 rgbPwmLed.SetColor(GetRandomColor());
-                await Task.Delay(500);                
+                await Task.Delay(1000);                
             }
         }
 
