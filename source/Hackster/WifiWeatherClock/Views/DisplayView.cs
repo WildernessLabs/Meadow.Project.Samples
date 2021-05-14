@@ -11,9 +11,11 @@ namespace WifiWeatherClock.Views
         public DisplayView()
         {
             Initialize();
-            
-            display.WriteLine($" WiFI Weather Clock ", 1);
+
+            display.WriteLine($"--------------------", 0);
+            display.WriteLine($" WIFI Weather Clock ", 1);
             display.WriteLine($"     Loading...     ", 2);
+            display.WriteLine($"--------------------", 3);
         }
 
         void Initialize()
@@ -21,13 +23,12 @@ namespace WifiWeatherClock.Views
             display = new CharacterDisplay
             (
                 device: MeadowApp.Device,
-                pinV0: MeadowApp.Device.Pins.D11,
-                pinRS: MeadowApp.Device.Pins.D10,
-                pinE: MeadowApp.Device.Pins.D09,
-                pinD4: MeadowApp.Device.Pins.D08,
-                pinD5: MeadowApp.Device.Pins.D07,
-                pinD6: MeadowApp.Device.Pins.D06,
-                pinD7: MeadowApp.Device.Pins.D05,
+                pinRS:  MeadowApp.Device.Pins.D10,
+                pinE:   MeadowApp.Device.Pins.D09,
+                pinD4:  MeadowApp.Device.Pins.D08,
+                pinD5:  MeadowApp.Device.Pins.D07,
+                pinD6:  MeadowApp.Device.Pins.D06,
+                pinD7:  MeadowApp.Device.Pins.D05,
                 rows: 4, columns: 20
             );
         }
@@ -36,13 +37,18 @@ namespace WifiWeatherClock.Views
         {
             display.WriteLine($"{DateTime.Now.ToString("MMMM dd, yyyy")}", 0);
             display.WriteLine($"{DateTime.Now.ToString("hh:mm:ss tt")}", 1);
-            display.WriteLine($"In: {model.IndoorTemperature}C | Out: {model.OutdoorTemperature}C", 2);
+            display.WriteLine($"In: {model.IndoorTemperature.ToString("00")}C | Out: {model.OutdoorTemperature.ToString("00")}C", 2);
             display.WriteLine($"{model.Weather}", 3);
         }
 
         public void WriteLine(string text, byte lineNumber) 
         {
             display.WriteLine($"{text}", lineNumber);
+        }
+
+        public void ClearLine(byte lineNumber) 
+        {
+            display.ClearLine(lineNumber);
         }
     }
 }

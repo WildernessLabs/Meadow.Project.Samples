@@ -55,6 +55,12 @@ namespace WifiWeatherClock
 
         async Task GetData() 
         {
+            await GetTime();
+            await GetTemperature();
+        }
+
+        async Task GetTime() 
+        {
             onboardLed.StartPulse(Color.Magenta);
 
             var dateTime = await DateTimeService.GetDateTime();
@@ -67,13 +73,25 @@ namespace WifiWeatherClock
                 minute: dateTime.Minute,
                 second: dateTime.Second));
 
+            await GetTemperature();
+
+            onboardLed.StartPulse(Color.Green);
+        }
+
+        async Task GetTemperature()
+        {
+            onboardLed.StartPulse(Color.Orange);
+
+            displayView.ClearLine(2);
+            displayView.WriteLine($"{DateTime.Now.ToString("Temperature...")}", 2);
+            displayView.ClearLine(3);
+            displayView.WriteLine($"{DateTime.Now.ToString("Weather...")}", 3);
+
             // Get indoor conditions
             var indoorConditions = await analogTemperature.Read();
 
             // Get outdoor conditions
             var outdoorConditions = await WeatherService.GetWeatherForecast();
-
-            onboardLed.StartPulse(Color.Orange);
 
             // Format indoor/outdoor conditions data
             var model = new WeatherViewModel(outdoorConditions, indoorConditions);
@@ -88,7 +106,14 @@ namespace WifiWeatherClock
         {
             while (true) 
             {
-                displayView.WriteLine($"{DateTime.Now.ToString("MMMM dd, yyyy")}", 0);
+                var datetime = DateTime.Now;
+
+                if (datetime.Minute == 0 && datetime.Second == 0)
+                {
+                    await GetTemperature();
+                }
+
+                displayView.WriteLine($"{DateTime.Now.ToString("ddd, MMM dd, yyyy")}", 0);
                 displayView.WriteLine($"{DateTime.Now.ToString("hh:mm:ss tt")}", 1);
                 await Task.Delay(1000);
             }
