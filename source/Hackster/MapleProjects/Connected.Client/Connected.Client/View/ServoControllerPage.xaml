@@ -5,28 +5,13 @@
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
     ios:Page.UseSafeArea="true"
     x:Class="Connected.Client.View.ServoControllerPage"
-    BackgroundColor="White">
-
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <Color x:Key="ButtonActive">#23ABE3</Color>
-            <Color x:Key="ButtonInactive">#555</Color>
-
-            <Style x:Key="ButtonStyle" TargetType="Button">
-                <Setter Property="TextColor" Value="White" />
-                <Setter Property="FontAttributes" Value="Bold" />
-                <Setter Property="CornerRadius" Value="5" />
-                <Setter Property="HeightRequest" Value="50" />
-            </Style>
-        </ResourceDictionary>
-    </ContentPage.Resources>
+    BackgroundColor="White"
+    Title="Servo Controller">
 
     <ContentPage.Content>
         <Grid>
-            <StackLayout Padding="30">
-                <Label Text="Control a Servo using Maple" TextColor="Black" FontSize="Large" FontAttributes="Bold" />
-
-                <Label Text="Maple servers:" TextColor="Black" Margin="0,10,0,10" />
+            <StackLayout Padding="20">
+                <Label Text="Maple servers:" TextColor="Black" FontSize="Medium" Margin="0,0,0,10" />
 
                 <Frame BackgroundColor="#23ABE3" HasShadow="False" CornerRadius="5" Padding="10,0,0,0">
                     <Grid>
@@ -65,14 +50,14 @@
 
                         <Label Grid.Column="2" Text="Port:" TextColor="White" FontSize="Medium" FontAttributes="Bold" VerticalOptions="Center"  />
 
-                        <Entry Grid.Column="3" Text="5417" TextColor="White" FontSize="Medium" 
+                        <Entry Grid.Column="3" Text="{Binding ServerPort}" TextColor="White" FontSize="Medium" Keyboard="Numeric"
                             BackgroundColor="#AB5D30" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
                     </Grid>
                 </Frame>
 
-                <Label Text="Choose a command:" TextColor="Black" Margin="0,10,0,10" />
+                <Label Text="Choose a command:" TextColor="Black" FontSize="Medium" Margin="0,10,0,10" />
 
-                <Label Text="Rotate Servo"  TextColor="Black" VerticalOptions="Center" />
+                <Label Text="Rotate Servo"  TextColor="Black" FontSize="Medium" VerticalOptions="Center" />
 
                 <Slider x:Name="slider" Value="{Binding AngleDegrees}" Minimum="0" Maximum="180" Margin="10"
                      ThumbColor="{StaticResource ButtonActive}" MinimumTrackColor="{StaticResource ButtonActive}" MaximumTrackColor="{StaticResource ButtonActive}" />

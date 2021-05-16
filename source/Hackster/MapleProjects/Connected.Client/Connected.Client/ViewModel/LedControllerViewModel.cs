@@ -50,13 +50,13 @@ namespace Connected.Client.ViewModel
 
         async Task SendLedCommand(string command)
         {
-            if (IsBusy)
+            if (IsBusy || SelectedServer == null)
                 return;
             IsBusy = true;
 
             try
             {
-                bool response = await client.SendCommand(SelectedServer, command);
+                bool response = await client.SendCommand(SelectedServer, ServerPort, command);
 
                 if (response)
                 {

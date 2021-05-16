@@ -13,6 +13,13 @@ namespace Connected.Client.ViewModel
     {
         public ConnectedClient client;
 
+        int _serverPort;
+        public int ServerPort 
+        {
+            get => _serverPort;
+            set { _serverPort = value; OnPropertyChanged(nameof(ServerPort)); }
+        }
+
         bool _isBusy;
         public bool IsBusy
         {
@@ -43,7 +50,9 @@ namespace Connected.Client.ViewModel
         public BaseViewModel() 
         {
             HostList = new ObservableCollection<ServerModel>();
-            HostList.Add(new ServerModel() { Name="Meadow (192.168.1.83)", IpAddress="192.168.1.83" });
+            //HostList.Add(new ServerModel() { Name="Meadow (192.168.1.83)", IpAddress="192.168.1.83" });
+
+            ServerPort = 5417;
 
             client = new ConnectedClient();
             client.Servers.CollectionChanged += ServersCollectionChanged;

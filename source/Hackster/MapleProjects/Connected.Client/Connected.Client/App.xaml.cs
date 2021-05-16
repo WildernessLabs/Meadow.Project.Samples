@@ -14,11 +14,8 @@ namespace Connected.Client
 
             Current = this;
 
-            // Page used for the ConnectedLed.Meadow project
-            MainPage = new LedControllerPage();
-
-            // Page used for the ConnectedServo.Meadow project
-            //MainPage = new ServoControllerPage();
+            MainPage = new NavigationPage(new MainPage()) 
+                { BarTextColor = Color.White, BarBackgroundColor = (Color)Current.Resources["ButtonActive"] };
         }
 
         public async Task DisplayAlert(string title, string msg, string cancel)

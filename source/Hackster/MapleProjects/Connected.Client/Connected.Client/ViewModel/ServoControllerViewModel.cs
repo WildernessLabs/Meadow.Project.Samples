@@ -49,7 +49,7 @@ namespace Connected.Client.ViewModel
 
             try
             {
-                bool response = await client.SendCommand(SelectedServer, command);
+                bool response = await client.SendCommand(SelectedServer, ServerPort, command);
 
                 if (response)
                 {

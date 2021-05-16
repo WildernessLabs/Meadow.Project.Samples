@@ -9,9 +9,9 @@ namespace Connected.Client
             base(listenPort, listenTimeout)
         { }
 
-        public async Task<bool> SendCommand(ServerModel server, string command)
+        public async Task<bool> SendCommand(ServerModel server, int serverPort, string command)
         {
-            return (await SendCommandAsync(command, $"{server.IpAddress}:5417"));
+            return (await SendCommandAsync(command, $"{server.IpAddress}:{serverPort}"));
         }
     }
 }
