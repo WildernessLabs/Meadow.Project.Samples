@@ -36,30 +36,30 @@ namespace LedJoystick
             //TestAnalogJoystick();
         }
 
-        private void JoystickUpdated(object sender, JoystickPositionChangeResult e)
+        private void JoystickUpdated(object sender, ChangeResult<JoystickPosition> result)
         {
-            if (e.New.HorizontalValue < 0.2f)
+            if (result.New.Horizontal < 0.2f)
             {
                 Left.SetBrightness(0f);
                 Right.SetBrightness(0f);
             }
-            if (e.New.VerticalValue < 0.2f)
+            if (result.New.Vertical < 0.2f)
             {
                 Up.SetBrightness(0f);
                 Down.SetBrightness(0f);
             }
 
-            if (e.New.HorizontalValue > 0)
-                Left.SetBrightness(Math.Abs(e.New.HorizontalValue));
+            if (result.New.Horizontal > 0)
+                Left.SetBrightness(result.New.Horizontal.Value);
             else
-                Right.SetBrightness(Math.Abs(e.New.HorizontalValue));
+                Right.SetBrightness(Math.Abs(result.New.Horizontal.Value));
 
-            if (e.New.VerticalValue > 0)
-                Down.SetBrightness(Math.Abs(e.New.VerticalValue));
+            if (result.New.Vertical > 0)
+                Down.SetBrightness(Math.Abs(result.New.Vertical.Value));
             else
-                Up.SetBrightness(Math.Abs(e.New.VerticalValue));
+                Up.SetBrightness(Math.Abs(result.New.Vertical.Value));
 
-            Console.WriteLine($"({e.New.HorizontalValue}, {e.New.VerticalValue})");
+            Console.WriteLine($"({result.New.Horizontal.Value}, {result.New.Vertical.Value})");
         }
 
         //async Task TestAnalogJoystick()

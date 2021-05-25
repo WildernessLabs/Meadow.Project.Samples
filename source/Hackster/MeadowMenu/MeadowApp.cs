@@ -2,7 +2,7 @@
 using Meadow.Devices;
 using Meadow.Foundation;
 using Meadow.Foundation.Displays.TextDisplayMenu;
-using Meadow.Foundation.Displays.Tft;
+using Meadow.Foundation.Displays.TftSpi;
 using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Buttons;
@@ -42,8 +42,8 @@ namespace MeadowMenu
                 mode: SpiClockConfiguration.Mode.Mode3);
             var spiBus = Device.CreateSpiBus(
                 clock: Device.Pins.SCK, 
-                mosi: Device.Pins.MOSI, 
-                miso: Device.Pins.MISO, 
+                copi: Device.Pins.MOSI, 
+                cipo: Device.Pins.MISO, 
                 config: config);
             st7789 = new St7789
             (

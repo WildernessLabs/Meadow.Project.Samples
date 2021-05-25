@@ -1,4 +1,4 @@
-﻿using Meadow.Peripherals.Sensors.Atmospheric;
+﻿using Meadow.Units;
 using System;
 using WifiWeather.Models;
 
@@ -14,7 +14,7 @@ namespace WifiWeather.ViewModels
 
         public int IndoorTemperature { get; set; }
 
-        public WeatherViewModel(WeatherReading outdoorConditions, AtmosphericConditions indoorConditions)
+        public WeatherViewModel(WeatherReading outdoorConditions, Temperature indoorTemperature)
         {
             int TIME_ZONE = -8; // Note: Adjust time zone value here
 
@@ -24,7 +24,7 @@ namespace WifiWeather.ViewModels
 
             OutdoorTemperature = (int) (outdoorConditions.WeatherValues.Temperature - 273);
 
-            IndoorTemperature = (int) indoorConditions.Temperature;
+            IndoorTemperature = (int) indoorTemperature.Celsius;
         }
     }
 }

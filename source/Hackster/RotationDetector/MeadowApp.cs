@@ -3,6 +3,8 @@ using Meadow.Devices;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Motion;
 using Meadow.Peripherals.Sensors.Motion;
+using Meadow.Units;
+using AC = Meadow.Units.Acceleration3D;
 
 namespace RotationDetector
 {
@@ -27,7 +29,7 @@ namespace RotationDetector
 
             mpu = new Mpu6050(Device.CreateI2cBus());
             //mpu.AccelerationChangeThreshold = 0.05f;
-            //mpu.Updated += MpuUpdated;
+            mpu.Acceleration3DUpdated += Mpu_Acceleration3DUpdated; // += MpuUpdated;
             //mpu.StartUpdating(100);            
 
             up.IsOn = true;
@@ -35,9 +37,9 @@ namespace RotationDetector
             led.SetColor(RgbLed.Colors.Green);
         }
 
-        void MpuUpdated(object sender, AccelerationConditionChangeResult e)
+        private void Mpu_Acceleration3DUpdated(object sender, IChangeResult<Meadow.Units.Acceleration3D> e)
         {
-            up.IsOn = (0.20 < e.New.YAcceleration && e.New.YAcceleration < 0.80);
+            up.IsOn = (0.20 < e.New.Y && e.New.YAcceleration < 0.80);
             down.IsOn = (-0.80 < e.New.YAcceleration && e.New.YAcceleration < -0.20);
             left.IsOn = (0.20 < e.New.XAcceleration && e.New.XAcceleration < 0.80);
             right.IsOn = (-0.80 < e.New.XAcceleration && e.New.XAcceleration < -0.20);

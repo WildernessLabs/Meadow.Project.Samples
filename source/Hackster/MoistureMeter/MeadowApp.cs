@@ -6,13 +6,15 @@ using Meadow.Hardware;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Meadow.Units;
+using VU = Meadow.Units.Voltage.UnitType;
 
 namespace MoistureMeter
 {
     public class MeadowApp : App<F7Micro, MeadowApp>
     {
-        const float MINIMUM_VOLTAGE_CALIBRATION = 2.84f;
-        const float MAXIMUM_VOLTAGE_CALIBRATION = 1.37f;
+        readonly Voltage MINIMUM_VOLTAGE_CALIBRATION = new Voltage(2.84, VU.Volts);
+        readonly Voltage MAXIMUM_VOLTAGE_CALIBRATION = new Voltage(1.37, VU.Volts);
 
         Capacitive capacitive;
         LedBarGraph ledBarGraph;        
@@ -54,7 +56,7 @@ namespace MoistureMeter
             while (true)
             {
                 var reading = await capacitive.Read();
-                float moisture = reading.New;
+                double moisture = reading.New;
 
                 if (moisture > 1)
                     moisture = 1f;
@@ -62,7 +64,7 @@ namespace MoistureMeter
                 if (moisture < 0)
                     moisture = 0f;
 
-                ledBarGraph.Percentage = moisture;
+                ledBarGraph.Percentage = (float) moisture;
                 Console.WriteLine($"Moisture {moisture * 100}%");
                 Thread.Sleep(1000);
             }

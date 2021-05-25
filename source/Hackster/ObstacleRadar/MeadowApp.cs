@@ -1,14 +1,17 @@
 ﻿using Meadow;
 using Meadow.Devices;
 using Meadow.Foundation;
-using Meadow.Foundation.Displays.Tft;
+using Meadow.Foundation.Displays.TftSpi;
 using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Distance;
 using Meadow.Foundation.Servos;
 using Meadow.Hardware;
+using Meadow.Units;
 using System;
 using System.Threading;
+using AU = Meadow.Units.Angle.UnitType;
+using LU = Meadow.Units.Length.UnitType;
 
 namespace ObstacleRadar
 {
@@ -58,7 +61,7 @@ namespace ObstacleRadar
             sensor.StartUpdating(200);
 
             servo = new Servo(Device.CreatePwmPort(Device.Pins.D05), NamedServoConfigs.SG90);
-            servo.RotateTo(0);
+            servo.RotateTo(new Angle(0, AU.Degrees));
 
             led.SetColor(RgbLed.Colors.Green);
         }
@@ -81,14 +84,14 @@ namespace ObstacleRadar
                 if (angle <= 0) { increment = 4; }
 
                 angle += increment;
-                servo.RotateTo(angle);
+                servo.RotateTo(new Angle(angle, AU.Degrees));
 
                 graphics.DrawText(0, 0, $"{180 - angle}°", Color.Yellow);
 
-                if (sensor?.Conditions?.Distance != null && sensor?.Conditions?.Distance.Value >= 0)
+                if (sensor.Distance != null && sensor.Distance >= new Length(0, LU.Millimeters))
                 {
-                    graphics.DrawText(170, 0, $"{sensor.Conditions.Distance.Value}mm", Color.Yellow);
-                    radarData[angle] = sensor.Conditions.Distance.Value / 2;
+                    graphics.DrawText(170, 0, $"{sensor.Distance?.Millimeters}mm", Color.Yellow);
+                    radarData[angle] = (float)(sensor.Distance?.Millimeters / 2);
                 }
                 else
                 {

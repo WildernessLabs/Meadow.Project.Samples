@@ -7,6 +7,7 @@ using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Atmospheric;
 using Meadow.Hardware;
+using Meadow.Units;
 
 namespace MF
 {
@@ -74,23 +75,23 @@ namespace MF
             graphics.CurrentFont = new Font12x20();
 
             sensor = new Bmp180(Device.CreateI2cBus());
-            sensor.Updated += Sensor_Updated;
+            sensor.Updated += Sensor_Updated1;
             sensor.StartUpdating();
         }
 
-        private void Button_Changed(object sender, DigitalInputPortEventArgs e)
+        private void Sensor_Updated1(object sender, IChangeResult<(Meadow.Units.Temperature? Temperature, Meadow.Units.Pressure? Pressure)> result)
+        {
+            Console.WriteLine($"{result.New.Temperature?.Celsius}");
+
+            UpdateDisplayFancy(result.New.Temperature?.Celsius);
+
+            UpdateLed(result.New.Temperature?.Celsius);
+        }
+
+        private void Button_Changed(object sender, DigitalPortResult e)
         {
             Console.WriteLine("Button pressed");
             isMetric = !isMetric;
-        }
-
-        private void Sensor_Updated(object sender, Meadow.Peripherals.Sensors.Atmospheric.AtmosphericConditionChangeResult e)
-        {
-            Console.WriteLine($"{e.New.Temperature}");
-
-            UpdateDisplayFancy(e.New.Temperature.Value);
-
-            UpdateLed(e.New.Temperature.Value);
         }
 
         void UpdateDisplay ()
@@ -111,34 +112,37 @@ namespace MF
             graphics.Show();
         }
 
-        void UpdateDisplayFancy(float temperature)
+        void UpdateDisplayFancy(Temperature? temperature)
         {
-            Console.WriteLine("Update display");
+            if (temperature is { } temp)
+            {
+                Console.WriteLine("Update display");
 
-            graphics.Clear();
+                graphics.Clear();
 
-            Console.WriteLine("Draw");
+                Console.WriteLine("Draw");
 
-            var primaryColor = Color.FromRgb(238, 243, 189);
-            var accentColor = Color.FromRgb(26, 128, 170);
+                var primaryColor = Color.FromRgb(238, 243, 189);
+                var accentColor = Color.FromRgb(26, 128, 170);
 
-            var tempText = GetTemperatureString(temperature);
+                var tempText = GetTemperatureString(temperature);
 
-            var xTempPos = graphics.Width / 2 - tempText.Length * 12;
+                var xTempPos = graphics.Width / 2 - tempText.Length * 12;
 
 
-            graphics.DrawCircle(120, 84, 80, accentColor, true);
-            graphics.DrawCircle(120, 84, 80, primaryColor);
-            graphics.DrawText((int)xTempPos, 70, tempText, primaryColor, GraphicsLibrary.ScaleFactor.X2);
+                graphics.DrawCircle(120, 84, 80, accentColor, true);
+                graphics.DrawCircle(120, 84, 80, primaryColor);
+                graphics.DrawText((int)xTempPos, 70, tempText, primaryColor, GraphicsLibrary.ScaleFactor.X2);
 
-            //draw pressure bar 
-            int barWidth = (int)(220.0 * sensor.Pressure / Conversions.StandardAtmInPa);
-            graphics.DrawRectangle(10, 190, barWidth, 30, accentColor, true);
-            graphics.DrawRectangle(10, 190, 220, 30, primaryColor);
-            graphics.DrawText(20, 196, GetPressureString(sensor.Pressure), primaryColor);
+                //draw pressure bar 
+                int barWidth = (int)(220.0 * sensor.Pressure / Conversions.StandardAtmInPa);
+                graphics.DrawRectangle(10, 190, barWidth, 30, accentColor, true);
+                graphics.DrawRectangle(10, 190, 220, 30, primaryColor);
+                graphics.DrawText(20, 196, GetPressureString(sensor.Pressure), primaryColor);
 
-            Console.WriteLine("Show");
-            graphics.Show();
+                Console.WriteLine("Show");
+                graphics.Show(); 
+            }
         }
 
         string GetPressureString(float pa)
@@ -153,18 +157,16 @@ namespace MF
             }
         }
 
-        string GetTemperatureString(float celcius)
+        string GetTemperatureString(Temperature? celsius)
         {
             if(isMetric)
             {
-                return celcius.ToString("n1") + "°C";
+                return $"{celsius.Value.Celsius}°C";
             }
             else
             {
-                return Conversions.CeliusToFahrenheit(celcius).ToString("n1") + "°F";
+                return $"{celsius.Value.Fahrenheit}°F"; 
             }
-
-
         }
 
         double oldTemp = 0;

@@ -5,8 +5,8 @@
     <AssemblyName>App</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Meadow.Foundation.Displays.Max7219" Version="0.1.39" />
-    <PackageReference Include="Meadow.Foundation.Displays.GraphicsLibrary" Version="0.9.38" />
+    <PackageReference Include="Meadow.Foundation.Displays.Max7219" Version="0.1.43" />
+    <PackageReference Include="Meadow.Foundation.Displays.GraphicsLibrary" Version="0.9.42" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\Tetris\TetrisGame.cs">

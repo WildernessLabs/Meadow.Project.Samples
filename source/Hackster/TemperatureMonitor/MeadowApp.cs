@@ -1,12 +1,11 @@
 ﻿using Meadow;
 using Meadow.Devices;
 using Meadow.Foundation;
-using Meadow.Foundation.Displays.Tft;
+using Meadow.Foundation.Displays.TftSpi;
 using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Temperature;
 using Meadow.Hardware;
-using Meadow.Peripherals.Sensors.Atmospheric;
 using System;
 
 namespace TemperatureMonitor
@@ -36,7 +35,7 @@ namespace TemperatureMonitor
                 analogPin: Device.Pins.A00,
                 sensorType: AnalogTemperature.KnownSensorType.LM35
             );
-            analogTemperature.Updated += AnalogTemperatureUpdated;
+            analogTemperature.TemperatureUpdated += AnalogTemperatureTemperatureUpdated; //+= AnalogTemperatureUpdated;
 
             var config = new SpiClockConfiguration(
                 speedKHz: 6000, 
@@ -60,6 +59,25 @@ namespace TemperatureMonitor
 
             LoadScreen();
             analogTemperature.StartUpdating();
+        }
+
+        void AnalogTemperatureTemperatureUpdated(object sender, IChangeResult<Meadow.Units.Temperature> e)
+        {
+            graphics.DrawRectangle(
+                x: 48,
+                y: 160,
+                width: 144,
+                height: 40,
+                color: colors[colors.Length - 1],
+                filled: true);
+
+            graphics.DrawText(
+                x: 48, y: 160,
+                text: $"{e.New.Celsius:00.0}°C",
+                color: Color.White,
+                scaleFactor: GraphicsLibrary.ScaleFactor.X2);
+
+            graphics.Show();
         }
 
         void LoadScreen()
@@ -93,25 +111,6 @@ namespace TemperatureMonitor
 
             graphics.CurrentFont = new Font12x20();
             graphics.DrawText(54, 130, "TEMPERATURE", Color.White);
-
-            graphics.Show();
-        }
-
-        void AnalogTemperatureUpdated(object sender, AtmosphericConditionChangeResult e)
-        {
-            graphics.DrawRectangle(
-                x: 48,
-                y: 160,
-                width: 144,
-                height: 40,
-                color: colors[colors.Length - 1],
-                filled: true);
-
-            graphics.DrawText(
-                x: 48, y: 160, 
-                text: $"{e.New.Temperature.Value.ToString("00.0")}°C", 
-                color: Color.White, 
-                scaleFactor: GraphicsLibrary.ScaleFactor.X2);
 
             graphics.Show();
         }

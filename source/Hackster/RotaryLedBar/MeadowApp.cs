@@ -49,11 +49,11 @@ namespace RotaryLedBar
             led.SetColor(RgbLed.Colors.Green);
         }
 
-        void RotaryEncoderRotated(object sender, RotaryTurnedEventArgs e)
+        void RotaryEncoderRotated(object sender, RotaryChangeResult result)
         {
             Console.WriteLine("Hey");
 
-            if (e.Direction == RotationDirection.Clockwise)
+            if (result.New == RotationDirection.Clockwise)
                 percentage += 0.05f;
             else
                 percentage -= 0.05f;

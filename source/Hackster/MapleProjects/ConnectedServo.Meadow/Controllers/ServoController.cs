@@ -1,8 +1,11 @@
-﻿using Meadow.Foundation.Servos;
+﻿using Meadow.Devices;
+using Meadow.Foundation.Servos;
 using Meadow.Hardware;
+using Meadow.Units;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using AU = Meadow.Units.Angle.UnitType;
 
 namespace ConnectedServo.Meadow.Controllers
 {
@@ -12,7 +15,7 @@ namespace ConnectedServo.Meadow.Controllers
         Task animationTask = null;
         CancellationTokenSource cancellationTokenSource = null;
 
-        protected int _rotationAngle;
+        protected Angle _rotationAngle;
 
         protected bool initialized = false;
 
@@ -25,20 +28,20 @@ namespace ConnectedServo.Meadow.Controllers
             Current = new ServoController();
         }
 
-        public void Initialize(IIODevice device, IPin PwmPin)
+        public void Initialize(IMeadowDevice device, IPin PwmPin)
         {
             if (initialized) { return; }
 
             Console.WriteLine("Initialize hardware...");
             servo = new Servo(device, PwmPin, NamedServoConfigs.SG90);
-            servo.RotateTo(0);
+            servo.RotateTo(new Angle(0, AU.Degrees));
 
             initialized = true;
 
             Console.WriteLine("Initialization complete.");
         }
 
-        public void RotateTo(int angle) 
+        public void RotateTo(Angle angle) 
         {
             servo.RotateTo(angle);
         }
@@ -63,20 +66,20 @@ namespace ConnectedServo.Meadow.Controllers
             {
                 if (cancellationToken.IsCancellationRequested) { break; }
 
-                while (_rotationAngle < 180)
+                while (_rotationAngle < new Angle(180, AU.Degrees))
                 {
                     if (cancellationToken.IsCancellationRequested) { break; }
 
-                    _rotationAngle++;
+                    _rotationAngle += new Angle(1, AU.Degrees);
                     servo.RotateTo(_rotationAngle);
                     await Task.Delay(15);
                 }
 
-                while (_rotationAngle > 0)
+                while (_rotationAngle > new Angle(0, AU.Degrees))
                 {
                     if (cancellationToken.IsCancellationRequested) { break; }
 
-                    _rotationAngle--;
+                    _rotationAngle -= new Angle(1, AU.Degrees);
                     servo.RotateTo(_rotationAngle);
                     await Task.Delay(15);
                 }

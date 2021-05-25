@@ -1,16 +1,16 @@
-﻿using System;
-using System.Threading;
-using Meadow;
+﻿using Meadow;
 using Meadow.Devices;
-using Meadow.Hardware;
 using Meadow.Foundation;
+using Meadow.Foundation.Displays.TftSpi;
+using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Motion;
-using Meadow.Foundation.Graphics;
-using Meadow.Foundation.Displays.Tft;
+using Meadow.Hardware;
 using SimpleJpegDecoder;
-using System.Reflection;
+using System;
 using System.IO;
+using System.Reflection;
+using System.Threading;
 
 namespace MotionDetector
 {

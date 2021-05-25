@@ -1,7 +1,7 @@
 ﻿using Meadow;
 using Meadow.Devices;
 using Meadow.Foundation;
-using Meadow.Foundation.Displays.Tft;
+using Meadow.Foundation.Displays.TftSpi;
 using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Rotary;
@@ -33,8 +33,8 @@ namespace EdgeASketch
                 device: Device,
                 spiBus: Device.CreateSpiBus(
                     clock: Device.Pins.SCK,
-                    mosi: Device.Pins.MOSI,
-                    miso: Device.Pins.MISO,
+                    copi: Device.Pins.MOSI,
+                    cipo: Device.Pins.MISO,
                     config: config),
                 chipSelectPin: null,
                 dcPin: Device.Pins.D01,
@@ -52,16 +52,16 @@ namespace EdgeASketch
             rotaryX.Rotated += RotaryXRotated;
 
             rotaryY = new RotaryEncoderWithButton(Device,
-                Device.Pins.D02, Device.Pins.D03, Device.Pins.D04);
-            rotaryY.Rotated += RotaryYRotated;
+            Device.Pins.D02, Device.Pins.D03, Device.Pins.D04);
+            rotaryY.Rotated += RotaryYRotated;            
             rotaryY.Clicked += RotaryYClicked;
 
             led.SetColor(RgbLed.Colors.Green);
         }
 
-        void RotaryXRotated(object sender, RotaryTurnedEventArgs e)
+        void RotaryXRotated(object sender, RotaryChangeResult e)
         {
-            if (e.Direction == RotationDirection.Clockwise)
+            if (e.New == RotationDirection.Clockwise)
                 x++;
             else
                 x--;
@@ -75,9 +75,9 @@ namespace EdgeASketch
             graphics.Show();
         }
 
-        void RotaryYRotated(object sender, RotaryTurnedEventArgs e)
+        void RotaryYRotated(object sender, RotaryChangeResult e)
         {
-            if (e.Direction == RotationDirection.Clockwise)
+            if (e.New == RotationDirection.Clockwise)
                 y++;
             else
                 y--;

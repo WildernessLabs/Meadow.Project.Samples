@@ -6,6 +6,7 @@ using Meadow.Devices;
 using Meadow.Foundation.Displays;
 using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Sensors.Hid;
+using Meadow.Peripherals.Sensors.Hid;
 
 namespace Tetris
 {
@@ -13,20 +14,29 @@ namespace Tetris
     {
         Max7219 display;
         GraphicsLibrary graphics;
-
         AnalogJoystick joystick;
-
         TetrisGame game = new TetrisGame(8, 24);
-
 
         public MeadowApp()
         {
             Console.WriteLine("Tetris");
 
-            Init();
+            Initialize();
 
             Console.WriteLine("Start game");
             StartGameLoop();
+        }
+
+        void Initialize()
+        {
+            Console.WriteLine("Init");
+
+            display = new Max7219(Device, Device.CreateSpiBus(), Device.Pins.D01, 4, Max7219.Max7219Type.Display);
+
+            graphics = new GraphicsLibrary(display);
+            graphics.CurrentFont = new Font4x8();
+
+            joystick = new AnalogJoystick(Device, Device.Pins.A01, Device.Pins.A02, null, true);
         }
 
         int tick = 0;
@@ -52,21 +62,21 @@ namespace Tetris
                 game.OnDown(true);
             }
 
-            var pos = await joystick.GetPosition();
+            var pos = await joystick.Read();
 
-            if (pos == AnalogJoystick.DigitalJoystickPosition.Left)
+            if (pos == DigitalJoystickPosition.Left)
             {
                 game.OnLeft();
             }
-            if (pos == AnalogJoystick.DigitalJoystickPosition.Right)
+            if (pos == DigitalJoystickPosition.Right)
             {
                 game.OnRight();
             }
-            if (pos == AnalogJoystick.DigitalJoystickPosition.Up)
+            if (pos == DigitalJoystickPosition.Up)
             {
                 game.OnRotate();
             }
-            if (pos == AnalogJoystick.DigitalJoystickPosition.Down)
+            if (pos == DigitalJoystickPosition.Down)
             {
                 game.OnDown();
             } 
@@ -101,18 +111,6 @@ namespace Tetris
                     }
                 }
             }
-        }
-
-        void Init()
-        {
-            Console.WriteLine("Init");
-
-            display = new Max7219(Device, Device.CreateSpiBus(), Device.Pins.D01, 4, Max7219.Max7219Type.Display);
-
-            graphics = new GraphicsLibrary(display);
-            graphics.CurrentFont = new Font4x8();
-
-            joystick = new AnalogJoystick(Device, Device.Pins.A01, Device.Pins.A02, null, true);
         }
     }
 }

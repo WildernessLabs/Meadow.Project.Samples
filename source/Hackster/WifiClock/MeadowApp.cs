@@ -12,6 +12,8 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using WifiClock.Services;
+using Meadow.Units;
+using TU = Meadow.Units.Temperature.UnitType;
 
 namespace WifiClock
 {
@@ -122,9 +124,9 @@ namespace WifiClock
 
                     graphics.DrawHorizontalLine(0, 24, 7, true);
 
-                    float temperature = analogTemperature.Read().Result.Temperature.Value;
+                    var temperature = await analogTemperature.Read();
 
-                    graphics.DrawText(0, 26, $"{(int) temperature}");
+                    graphics.DrawText(0, 26, $"{(int) temperature.New.Celsius}");
                 }
                 
                 graphics.Show();

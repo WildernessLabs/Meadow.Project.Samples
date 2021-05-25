@@ -5,10 +5,10 @@
     <AssemblyName>App</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Meadow.Foundation" Version="0.*" />
+    <PackageReference Include="Meadow.Foundation" Version="0.25.0" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Meadow.Foundation.Displays.Max7219" Version="0.1.39" />
+    <PackageReference Include="Meadow.Foundation.Displays.Max7219" Version="0.1.43" />
     <PackageReference Include="System.Text.Json" Version="5.0.2" />
   </ItemGroup>
 </Project>

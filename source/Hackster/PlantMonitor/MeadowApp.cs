@@ -1,24 +1,25 @@
 ﻿using Meadow;
 using Meadow.Devices;
 using Meadow.Foundation;
-using Meadow.Foundation.Displays.Tft;
+using Meadow.Foundation.Displays.TftSpi;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Buttons;
 using Meadow.Foundation.Sensors.Moisture;
 using Meadow.Foundation.Sensors.Temperature;
 using Meadow.Hardware;
-using Meadow.Peripherals.Sensors.Atmospheric;
 using System;
+using Meadow.Units;
+using VU = Meadow.Units.Voltage.UnitType;
 
 namespace PlantMonitor
 {
     public class MeadowApp : App<F7Micro, MeadowApp>
     {
-        const float MINIMUM_VOLTAGE_CALIBRATION = 2.81f;
-        const float MAXIMUM_VOLTAGE_CALIBRATION = 1.50f;
+        readonly Voltage MINIMUM_VOLTAGE_CALIBRATION = new Voltage(2.81, VU.Volts);
+        readonly Voltage MAXIMUM_VOLTAGE_CALIBRATION = new Voltage(1.50, VU.Volts);        
 
-        FloatChangeResult moisture;
-        AtmosphericConditions temperature;
+        double moisture;
+        Temperature temperature;
 
         RgbPwmLed onboardLed;
         PushButton button;
@@ -67,41 +68,41 @@ namespace PlantMonitor
                 analogPin: Device.Pins.A01,
                 minimumVoltageCalibration: MINIMUM_VOLTAGE_CALIBRATION,
                 maximumVoltageCalibration: MAXIMUM_VOLTAGE_CALIBRATION);
-            capacitive.Subscribe(new FilterableChangeObserver<FloatChangeResult, float>(
-                handler =>
+
+            var capacitiveObserver = Capacitive.CreateObserver(
+                handler: result =>
                 {
                     onboardLed.SetColor(Color.Purple);
 
-                    displayController.UpdateMoistureImage(handler);
-                    displayController.UpdateMoisturePercentage(handler.New, handler.Old);
+                    displayController.UpdateMoistureImage(result.New);
+                    displayController.UpdateMoisturePercentage(result.New, result.Old?);
 
                     onboardLed.SetColor(Color.Green);
                 },
-                filter =>
-                {
-                    return (Math.Abs(filter.Delta) > 0.05);
-                }
-            ));
+                filter: null
+            );
+            capacitive.Subscribe(capacitiveObserver);
+
             capacitive.StartUpdating(
                 sampleCount: 10, 
                 sampleIntervalDuration: 40, 
                 standbyDuration: (int)TimeSpan.FromHours(1).TotalMilliseconds);
 
             analogTemperature = new AnalogTemperature(Device, Device.Pins.A00, AnalogTemperature.KnownSensorType.LM35);
-            analogTemperature.Subscribe(new FilterableChangeObserver<AtmosphericConditionChangeResult, AtmosphericConditions>(
+            var analogTemperatureObserver = AnalogTemperature.CreateObserver(
                 handler =>
                 {
                     onboardLed.SetColor(Color.Purple);
 
-                    displayController.UpdateTemperatureValue(handler.New.Temperature.Value, handler.Old.Temperature.Value);
+                    displayController.UpdateTemperatureValue(handler.New.Celsius, handler.Old?.Celsius);
 
                     onboardLed.SetColor(Color.Green);
                 },
-                filter =>
-                {
-                    return (Math.Abs(filter.Delta.Temperature.Value) > 1f);
-                }
-            ));
+                filter: null
+            );
+            analogTemperature.Subscribe(analogTemperatureObserver);
+
+
             analogTemperature.StartUpdating(
                 sampleCount: 10,
                 sampleIntervalDuration: 40,
@@ -117,7 +118,7 @@ namespace PlantMonitor
             var newMoisture = await capacitive.Read();
             var newTemperature = await analogTemperature.Read();
 
-            displayController.UpdateMoisturePercentage(newMoisture.New, moisture.New);
+            displayController.UpdateMoisturePercentage(newMoisture.New, moisture);
             moisture = newMoisture;
 
             displayController.UpdateTemperatureValue(newTemperature.Temperature.Value, temperature.Temperature.Value);

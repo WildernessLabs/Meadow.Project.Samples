@@ -1,10 +1,10 @@
-﻿using Meadow;
-using Meadow.Foundation;
-using Meadow.Foundation.Displays.Tft;
+﻿using Meadow.Foundation;
+using Meadow.Foundation.Displays.TftSpi;
 using Meadow.Foundation.Graphics;
 using SimpleJpegDecoder;
 using System.IO;
 using System.Reflection;
+using Meadow.Units;
 
 namespace PlantMonitor
 {
@@ -78,9 +78,9 @@ namespace PlantMonitor
             }
         }
 
-        public void UpdateMoistureImage(FloatChangeResult moistureReadings) 
+        public void UpdateMoistureImage(double moistureReadings) 
         {
-            float moisture = moistureReadings.New;
+            double moisture = moistureReadings;
 
             if (moisture > 1) moisture = 1f;
             else if (moisture < 0) moisture = 0f;
@@ -101,7 +101,7 @@ namespace PlantMonitor
             graphics.Show();
         }
 
-        public void UpdateMoisturePercentage(float newValue, float oldValue) 
+        public void UpdateMoisturePercentage(double newValue, double oldValue) 
         {
             if (newValue > 1) newValue = 1f;
             else if (newValue < 0) newValue = 0f;
@@ -111,12 +111,12 @@ namespace PlantMonitor
             graphics.Show();
         }
 
-        public void UpdateTemperatureValue(float newValue, float oldValue) 
+        public void UpdateTemperatureValue(Temperature newValue, Temperature oldValue) 
         {
-            string t = $"{(int)oldValue}C";           
+            string t = $"{(int)oldValue.Celsius}C";           
             graphics.DrawText(240 - t.Length * 24, 208, t, Color.White, GraphicsLibrary.ScaleFactor.X2);
 
-            t = $"{(int)newValue}C";
+            t = $"{(int)newValue.Celsius}C";
             graphics.DrawText(240 - t.Length * 24, 208, t, Color.Black, GraphicsLibrary.ScaleFactor.X2);
 
             graphics.Show();

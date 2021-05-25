@@ -5,8 +5,8 @@
     <AssemblyName>App</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Meadow.Foundation" Version="0.*" />
-    <PackageReference Include="Meadow.Foundation.Servo" Version="0.8.38" />
+    <PackageReference Include="Meadow.Foundation" Version="0.25.0" />
+    <PackageReference Include="Meadow.Foundation.Servo" Version="0.8.42" />
     <PackageReference Include="Meadow.Foundation.Web.Maple.Server" Version="0.1.0" />
   </ItemGroup>
 </Project>
