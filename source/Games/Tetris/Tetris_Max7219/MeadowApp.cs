@@ -37,6 +37,7 @@ namespace Tetris
             graphics.CurrentFont = new Font4x8();
 
             joystick = new AnalogJoystick(Device, Device.Pins.A01, Device.Pins.A02, null, true);
+            joystick.StartUpdating();
         }
 
         int tick = 0;
@@ -55,14 +56,14 @@ namespace Tetris
             }
         }
 
-        async Task CheckInput(int tick)
+        void CheckInput(int tick)
         {
             if (tick % (21 - game.Level) == 0)
             {
                 game.OnDown(true);
             }
 
-            var pos = await joystick.Read();
+            var pos = joystick.DigitalPosition;
 
             if (pos == DigitalJoystickPosition.Left)
             {

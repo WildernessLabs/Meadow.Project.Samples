@@ -75,7 +75,7 @@ namespace PlantMonitor
                     onboardLed.SetColor(Color.Purple);
 
                     displayController.UpdateMoistureImage(result.New);
-                    displayController.UpdateMoisturePercentage(result.New, result.Old?);
+                    displayController.UpdateMoisturePercentage(result.New, result.Old.Value);
 
                     onboardLed.SetColor(Color.Green);
                 },
@@ -94,7 +94,7 @@ namespace PlantMonitor
                 {
                     onboardLed.SetColor(Color.Purple);
 
-                    displayController.UpdateTemperatureValue(handler.New.Celsius, handler.Old?.Celsius);
+                    displayController.UpdateTemperatureValue(handler.New, handler.Old.Value);
 
                     onboardLed.SetColor(Color.Green);
                 },
@@ -119,10 +119,10 @@ namespace PlantMonitor
             var newTemperature = await analogTemperature.Read();
 
             displayController.UpdateMoisturePercentage(newMoisture.New, moisture);
-            moisture = newMoisture;
+            moisture = newMoisture.New;
 
-            displayController.UpdateTemperatureValue(newTemperature.Temperature.Value, temperature.Temperature.Value);
-            temperature = newTemperature;
+            displayController.UpdateTemperatureValue(newTemperature.New, newTemperature.Old.Value);
+            temperature = newTemperature.New;
 
             onboardLed.SetColor(Color.Green);
         }

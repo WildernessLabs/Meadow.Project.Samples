@@ -62,7 +62,7 @@ namespace WifiWeather
             onboardLed.StartPulse(Color.Magenta);
 
             // Get indoor conditions
-            var indoorConditions = await analogTemperature.Read();
+            var roomTemperature = await analogTemperature.Read();
 
             // Get outdoor conditions
             var outdoorConditions = await WeatherService.GetWeatherForecast();
@@ -70,7 +70,7 @@ namespace WifiWeather
             onboardLed.StartPulse(Color.Orange);
 
             // Format indoor/outdoor conditions data
-            var model = new WeatherViewModel(outdoorConditions, indoorConditions);
+            var model = new WeatherViewModel(outdoorConditions, roomTemperature.New);
 
             // Send formatted data to display to render
             displayController.UpdateDisplay(model);

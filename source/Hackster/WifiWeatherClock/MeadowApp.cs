@@ -88,13 +88,13 @@ namespace WifiWeatherClock
             displayView.WriteLine($"{DateTime.Now.ToString("Weather...")}", 3);
 
             // Get indoor conditions
-            var indoorConditions = await analogTemperature.Read();
+            var roomTemperature = await analogTemperature.Read();
 
             // Get outdoor conditions
             var outdoorConditions = await WeatherService.GetWeatherForecast();
 
             // Format indoor/outdoor conditions data
-            var model = new WeatherViewModel(outdoorConditions, indoorConditions);
+            var model = new WeatherViewModel(outdoorConditions, roomTemperature.New);
 
             // Send formatted data to display to render
             displayView.UpdateDisplay(model);
