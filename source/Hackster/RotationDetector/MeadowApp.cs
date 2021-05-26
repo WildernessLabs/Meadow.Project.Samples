@@ -2,9 +2,7 @@
 using Meadow.Devices;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Motion;
-using Meadow.Peripherals.Sensors.Motion;
 using Meadow.Units;
-using AC = Meadow.Units.Acceleration3D;
 
 namespace RotationDetector
 {
@@ -25,24 +23,20 @@ namespace RotationDetector
             down = new Led(Device.CreateDigitalOutputPort(Device.Pins.D12));
             left = new Led(Device.CreateDigitalOutputPort(Device.Pins.D14));
             right = new Led(Device.CreateDigitalOutputPort(Device.Pins.D13));
-            up.IsOn = true;
 
-            mpu = new Mpu6050(Device.CreateI2cBus());
-            //mpu.AccelerationChangeThreshold = 0.05f;
-            mpu.Acceleration3DUpdated += Mpu_Acceleration3DUpdated; // += MpuUpdated;
-            //mpu.StartUpdating(100);            
-
-            up.IsOn = true;
+            mpu = new Mpu6050(Device.CreateI2cBus());            
+            mpu.Updated += RotationDetected;
+            mpu.StartUpdating(100);            
 
             led.SetColor(RgbLed.Colors.Green);
         }
 
-        private void Mpu_Acceleration3DUpdated(object sender, IChangeResult<Meadow.Units.Acceleration3D> e)
+        private void RotationDetected(object sender, IChangeResult<(Acceleration3D? Acceleration, AngularAcceleration3D? AngularAcceleration)> e)
         {
-            up.IsOn = (0.20 < e.New.Y && e.New.YAcceleration < 0.80);
-            down.IsOn = (-0.80 < e.New.YAcceleration && e.New.YAcceleration < -0.20);
-            left.IsOn = (0.20 < e.New.XAcceleration && e.New.XAcceleration < 0.80);
-            right.IsOn = (-0.80 < e.New.XAcceleration && e.New.XAcceleration < -0.20);
+            up.IsOn = (0.20 < e.New.Acceleration?.Y.MetersPerSecondSquared && e.New.Acceleration?.Y.MetersPerSecondSquared < 0.80);
+            down.IsOn = (-0.80 < e.New.Acceleration?.Y.MetersPerSecondSquared && e.New.Acceleration?.Y.MetersPerSecondSquared < -0.20);
+            left.IsOn = (0.20 < e.New.Acceleration?.X.MetersPerSecondSquared && e.New.Acceleration?.X.MetersPerSecondSquared < 0.80);
+            right.IsOn = (-0.80 < e.New.Acceleration?.X.MetersPerSecondSquared && e.New.Acceleration?.X.MetersPerSecondSquared < -0.20);
         }
     }
 }
