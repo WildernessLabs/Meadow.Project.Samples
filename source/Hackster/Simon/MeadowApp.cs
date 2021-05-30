@@ -32,13 +32,13 @@ namespace Simon
             leds[2] = new Led(Device.CreateDigitalOutputPort(Device.Pins.D08));
             leds[3] = new Led(Device.CreateDigitalOutputPort(Device.Pins.D07));
 
-            pushButtons[0] = new PushButton(Device.CreateDigitalInputPort(Device.Pins.D01, InterruptMode.EdgeBoth, ResistorMode.Disabled));
+            pushButtons[0] = new PushButton(Device.CreateDigitalInputPort(Device.Pins.MISO));
             pushButtons[0].Clicked += ButtonRedClicked;
-            pushButtons[1] = new PushButton(Device.CreateDigitalInputPort(Device.Pins.D02, InterruptMode.EdgeBoth, ResistorMode.Disabled));
+            pushButtons[1] = new PushButton(Device.CreateDigitalInputPort(Device.Pins.D02));
             pushButtons[1].Clicked += ButtonGreenClicked;
-            pushButtons[2] = new PushButton(Device.CreateDigitalInputPort(Device.Pins.D03, InterruptMode.EdgeBoth, ResistorMode.Disabled));
+            pushButtons[2] = new PushButton(Device.CreateDigitalInputPort(Device.Pins.D03));
             pushButtons[2].Clicked += ButtonBlueClicked;
-            pushButtons[3] = new PushButton(Device.CreateDigitalInputPort(Device.Pins.D04, InterruptMode.EdgeBoth, ResistorMode.Disabled));
+            pushButtons[3] = new PushButton(Device.CreateDigitalInputPort(Device.Pins.D04));
             pushButtons[3].Clicked += ButtonYellowClicked;
 
             speaker = new PiezoSpeaker(Device.CreatePwmPort(Device.Pins.D11));
