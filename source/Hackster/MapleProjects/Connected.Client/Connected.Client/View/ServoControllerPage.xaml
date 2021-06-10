@@ -64,7 +64,7 @@
 
                 <Button Text="{Binding Source={x:Reference slider}, Path=Value, StringFormat='Rotate Servo {0:F0} Degrees'}" 
                     Style="{StaticResource ButtonStyle}" BackgroundColor="Red"
-                    Command="{Binding SendCommand}" CommandParameter="TurnOn">
+                    Command="{Binding SendCommand}" CommandParameter="RotateTo">
                     <Button.Triggers>
                         <DataTrigger TargetType="Button" Binding="{Binding IsRotateTo}" Value="true">
                             <Setter Property="BackgroundColor" Value="{StaticResource ButtonActive}" />
@@ -76,7 +76,7 @@
                 </Button>
 
                 <Button Text="Start Sweep" Style="{StaticResource ButtonStyle}"
-                    Command="{Binding SendCommand}" CommandParameter="TurnOff" >
+                    Command="{Binding SendCommand}" CommandParameter="StartSweep" >
                     <Button.Triggers>
                         <DataTrigger TargetType="Button" Binding="{Binding IsCyclingStart}" Value="true">
                             <Setter Property="BackgroundColor" Value="{StaticResource ButtonActive}" />
@@ -88,7 +88,7 @@
                 </Button>
 
                 <Button Text="Stop Sweep" Style="{StaticResource ButtonStyle}"
-                    Command="{Binding SendCommand}" CommandParameter="StartBlink">
+                    Command="{Binding SendCommand}" CommandParameter="StopSweep">
                     <Button.Triggers>
                         <DataTrigger TargetType="Button" Binding="{Binding IsCyclingStop}" Value="true">
                             <Setter Property="BackgroundColor" Value="{StaticResource ButtonActive}" />

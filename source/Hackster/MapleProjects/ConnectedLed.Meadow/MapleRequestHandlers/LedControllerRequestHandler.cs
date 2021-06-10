@@ -9,17 +9,6 @@ namespace ConnectedLed.Meadow
         public LedControllerRequestHandler() { }
 
         [HttpPost]
-        public void RgbLed()
-        {
-            Console.WriteLine("GET::SignText");
-
-            string text = base.QueryString["command"];
-            LedController.Current.TurnOn();
-
-            StatusResponse();
-        }
-
-        [HttpPost]
         public void TurnOn()
         {
             Console.WriteLine("POST: TurnOn!");

@@ -32,8 +32,17 @@ namespace ConnectedServo.Meadow.Controllers
         {
             if (initialized) { return; }
 
+            var servoConfig = new ServoConfig
+            (
+                minimumAngle: new Angle(0, AU.Degrees), 
+                maximumAngle: new Angle(180, AU.Degrees), 
+                minimumPulseDuration: 525, 
+                maximumPulseDuration: 2650, 
+                frequency: 50
+            );
+
             Console.WriteLine("Initialize hardware...");
-            servo = new Servo(device, PwmPin, NamedServoConfigs.SG90);
+            servo = new Servo(device, PwmPin, servoConfig);
             servo.RotateTo(new Angle(0, AU.Degrees));
 
             initialized = true;
@@ -72,7 +81,7 @@ namespace ConnectedServo.Meadow.Controllers
 
                     _rotationAngle += new Angle(1, AU.Degrees);
                     servo.RotateTo(_rotationAngle);
-                    await Task.Delay(15);
+                    await Task.Delay(50);
                 }
 
                 while (_rotationAngle > new Angle(0, AU.Degrees))
@@ -81,7 +90,7 @@ namespace ConnectedServo.Meadow.Controllers
 
                     _rotationAngle -= new Angle(1, AU.Degrees);
                     servo.RotateTo(_rotationAngle);
-                    await Task.Delay(15);
+                    await Task.Delay(50);
                 }
             }
         }
