@@ -5,10 +5,27 @@ namespace BleRover.Client
 {
     public partial class MainPage : ContentPage
     {
+        MainViewModel vm;
+
         public MainPage()
         {
             InitializeComponent();
-            BindingContext = new MainViewModel();
+            BindingContext = vm = new MainViewModel();
+
+            btnUp.Pressed       += async (s, e) => { await vm.MoveForward(true); };
+            btnUp.Released      += async (s, e) => { await vm.MoveForward(false); };
+            btnDown.Pressed     += async (s, e) => { await vm.MoveBackward(true); };
+            btnDown.Released    += async (s, e) => { await vm.MoveBackward(false); };
+            btnLeft.Pressed     += async (s, e) => { await vm.TurnLeft(true); };
+            btnLeft.Released    += async (s, e) => { await vm.TurnLeft(false); };
+            btnRight.Pressed    += async (s, e) => { await vm.TurnRight(true); };
+            btnRight.Released   += async (s, e) => { await vm.TurnRight(false); };
+        }
+
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            await (BindingContext as MainViewModel).Connect();
         }
     }
 }

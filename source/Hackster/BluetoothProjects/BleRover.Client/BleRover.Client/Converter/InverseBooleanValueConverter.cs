@@ -1,4 +1,8 @@
-﻿namespace BleRover.Client.Converter
+﻿using System;
+using System.Globalization;
+using Xamarin.Forms;
+
+namespace BleRover.Client.Converter
 {
     public class InverseBooleanValueConverter : IValueConverter
     {

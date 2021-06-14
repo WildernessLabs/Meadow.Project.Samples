@@ -59,24 +59,16 @@ namespace BleRover.Meadow
         void InitializeBluetooth() 
         {
             Definition bleTreeDefinition;
-            CharacteristicBool onOffCharacteristic;
 
             led.SetColor(RgbLed.Colors.Blue);
 
             Device.InitCoprocessor();
-
-            onOffCharacteristic = new CharacteristicBool(
-                "On_Off",
-                Guid.NewGuid().ToString(),
-                CharacteristicPermission.Read | CharacteristicPermission.Write,
-                CharacteristicProperty.Read | CharacteristicProperty.Write);
 
             bleTreeDefinition = new Definition(
                 "Meadow Rover",
                 new Service(
                     "Service",
                     253,
-                    onOffCharacteristic,
                     new CharacteristicBool(
                         "Up",
                             uuid: "017e99d6-8a61-11eb-8dcd-0242ac1300aa",

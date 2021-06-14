@@ -1,4 +1,8 @@
-﻿namespace BleRover.Client.Extension
+﻿using Acr.UserDialogs;
+using System;
+using Xamarin.Forms;
+
+namespace BleRover.Client.Extension
 {
     public static class IUserDialogsExtensions
     {
