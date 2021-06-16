@@ -26,10 +26,10 @@ namespace BleRover.Meadow
         void Initialize() 
         {
             led = new RgbLed(
-                    Device,
-                    Device.Pins.OnboardLedRed,
-                    Device.Pins.OnboardLedGreen,
-                    Device.Pins.OnboardLedBlue);
+                Device,
+                Device.Pins.OnboardLedRed,
+                Device.Pins.OnboardLedGreen,
+                Device.Pins.OnboardLedBlue);
             led.SetColor(RgbLed.Colors.Red);
 
             up = new PwmLed(Device, Device.Pins.D13, TypicalForwardVoltage.Red);
@@ -106,18 +106,34 @@ namespace BleRover.Meadow
                     {
                         case "Up": 
                             up.IsOn = (bool)d;
+                            if ((bool)d)
+                                carController.MoveForward();
+                            else
+                                carController.Stop();
                             break;
 
                         case "Down":
                             down.IsOn = (bool)d;
+                            if ((bool)d)
+                                carController.MoveBackward();
+                            else
+                                carController.Stop();
                             break;
 
                         case "Left":
                             left.IsOn = (bool)d;
+                            if ((bool)d)
+                                carController.TurnLeft();
+                            else
+                                carController.Stop();
                             break;
 
                         case "Right":
                             right.IsOn = (bool)d;
+                            if ((bool)d)
+                                carController.TurnRight();
+                            else
+                                carController.Stop();
                             break;
                     }             
                 };
