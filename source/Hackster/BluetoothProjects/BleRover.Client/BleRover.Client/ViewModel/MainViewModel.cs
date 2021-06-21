@@ -2,19 +2,14 @@
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Abstractions.Exceptions;
 using System;
-using System.ComponentModel;
 using System.Diagnostics;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace BleRover.Client.ViewModel
 {
-    public class MainViewModel : INotifyPropertyChanged
+    public class MainViewModel : BaseViewModel
     {
-        IBluetoothLE ble;
-        IAdapter adapter;
-        BluetoothState state;
-        IDevice device;
+        IAdapter adapter;        
         ICharacteristic up, down, left, right;
 
         bool isConnected;
@@ -26,7 +21,7 @@ namespace BleRover.Client.ViewModel
 
         public MainViewModel() 
         {
-            ble = CrossBluetoothLE.Current;
+            IBluetoothLE ble = CrossBluetoothLE.Current;
 
             adapter = CrossBluetoothLE.Current.Adapter;
             adapter.ScanMode = ScanMode.LowLatency;
@@ -34,7 +29,7 @@ namespace BleRover.Client.ViewModel
             {
                 IsConnected = true;
 
-                device = e.Device;
+                IDevice device = e.Device;
 
                 var services = await device.GetServicesAsync();
 
@@ -47,8 +42,6 @@ namespace BleRover.Client.ViewModel
             {
                 IsConnected = false;
             };
-
-            state = ble.State;
         }
 
         public async Task Connect() 
@@ -99,13 +92,5 @@ namespace BleRover.Client.ViewModel
 
             await right.WriteAsync(array);
         }
-
-        #region INotifyPropertyChanged Implementation
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string name = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
-        #endregion
     }
 }

@@ -3,8 +3,6 @@ using Meadow.Devices;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Motors;
 using Meadow.Gateways.Bluetooth;
-using System;
-using System.Threading;
 
 namespace BleRover.Meadow
 {
@@ -19,8 +17,6 @@ namespace BleRover.Meadow
             Initialize();
 
             InitializeBluetooth();
-
-            //TestCar();
         }
 
         void Initialize() 
@@ -100,84 +96,39 @@ namespace BleRover.Meadow
 
             foreach (var characteristic in bleTreeDefinition.Services[0].Characteristics)
             {
-                characteristic.ValueSet += (c, d) => 
+                characteristic.ValueSet += (c, d) =>
                 {
-                    switch (c.Name) 
+                    if (!(bool)d)
                     {
-                        case "Up": 
-                            up.IsOn = (bool)d;
-                            if ((bool)d)
+                        up.IsOn = down.IsOn = left.IsOn = right.IsOn = false;
+                        carController.Stop();
+                    }
+                    else
+                    {
+                        switch (c.Name)
+                        {
+                            case "Up":
+                                up.IsOn = true;
                                 carController.MoveForward();
-                            else
-                                carController.Stop();
-                            break;
-
-                        case "Down":
-                            down.IsOn = (bool)d;
-                            if ((bool)d)
+                                break;
+                            case "Down":
+                                down.IsOn = true;
                                 carController.MoveBackward();
-                            else
-                                carController.Stop();
-                            break;
-
-                        case "Left":
-                            left.IsOn = (bool)d;
-                            if ((bool)d)
+                                break;
+                            case "Left":
+                                left.IsOn = true;
                                 carController.TurnLeft();
-                            else
-                                carController.Stop();
-                            break;
-
-                        case "Right":
-                            right.IsOn = (bool)d;
-                            if ((bool)d)
+                                break;
+                            case "Right":
+                                right.IsOn = true;
                                 carController.TurnRight();
-                            else
-                                carController.Stop();
-                            break;
-                    }             
+                                break;
+                        }
+                    }
                 };
             }
 
             led.SetColor(RgbLed.Colors.Green);
-        }
-
-        void TestCar()
-        {
-            while (true)
-            {
-                up.SetBrightness(0.1f);
-                carController.MoveForward();
-                Thread.Sleep(1000);
-                up.SetBrightness(0.0f);
-
-                carController.Stop();
-                Thread.Sleep(500);
-
-                down.SetBrightness(0.1f);
-                carController.MoveBackward();
-                Thread.Sleep(1000);
-                down.SetBrightness(0.0f);
-
-                carController.Stop();
-                Thread.Sleep(500);
-
-                left.SetBrightness(0.1f);
-                carController.TurnLeft();
-                Thread.Sleep(1000);
-                left.SetBrightness(0.0f);
-
-                carController.Stop();
-                Thread.Sleep(500);
-
-                right.SetBrightness(0.1f);
-                carController.TurnRight();
-                Thread.Sleep(1000);
-                right.SetBrightness(0.0f);
-
-                carController.Stop();
-                Thread.Sleep(500);
-            }
         }
     }
 }
