@@ -28,38 +28,34 @@ namespace LedJoystick
                 null, true);
 
             joystick.SetCenterPosition();
-            joystick.Updated += JoystickUpdated;
-            joystick.StartUpdating();
-
-            led.SetColor(RgbLed.Colors.Green);
-
-            //TestAnalogJoystick();
+            joystick.Updated += Joystick_Updated;
+            joystick.StartUpdating(TimeSpan.FromMilliseconds(100));
         }
 
-        private void JoystickUpdated(object sender, ChangeResult<JoystickPosition> result)
+        private void Joystick_Updated(object sender, IChangeResult<JoystickPosition> e)
         {
-            if (result.New.Horizontal < 0.2f)
+            if (e.New.Horizontal < 0.2f)
             {
                 Left.SetBrightness(0f);
                 Right.SetBrightness(0f);
             }
-            if (result.New.Vertical < 0.2f)
+            if (e.New.Vertical < 0.2f)
             {
                 Up.SetBrightness(0f);
                 Down.SetBrightness(0f);
             }
 
-            if (result.New.Horizontal > 0)
-                Left.SetBrightness(result.New.Horizontal.Value);
+            if (e.New.Horizontal > 0)
+                Left.SetBrightness(e.New.Horizontal.Value);
             else
-                Right.SetBrightness(Math.Abs(result.New.Horizontal.Value));
+                Right.SetBrightness(Math.Abs(e.New.Horizontal.Value));
 
-            if (result.New.Vertical > 0)
-                Down.SetBrightness(Math.Abs(result.New.Vertical.Value));
+            if (e.New.Vertical > 0)
+                Down.SetBrightness(Math.Abs(e.New.Vertical.Value));
             else
-                Up.SetBrightness(Math.Abs(result.New.Vertical.Value));
+                Up.SetBrightness(Math.Abs(e.New.Vertical.Value));
 
-            Console.WriteLine($"({result.New.Horizontal.Value}, {result.New.Vertical.Value})");
+            Console.WriteLine($"({e.New.Horizontal.Value}, {e.New.Vertical.Value})");
         }
 
         //async Task TestAnalogJoystick()
