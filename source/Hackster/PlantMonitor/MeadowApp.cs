@@ -83,10 +83,7 @@ namespace PlantMonitor
             );
             capacitive.Subscribe(capacitiveObserver);
 
-            capacitive.StartUpdating(
-                sampleCount: 10, 
-                sampleIntervalDuration: 40, 
-                standbyDuration: (int)TimeSpan.FromHours(1).TotalMilliseconds);
+            capacitive.StartUpdating(TimeSpan.FromHours(1));
 
             analogTemperature = new AnalogTemperature(Device, Device.Pins.A00, AnalogTemperature.KnownSensorType.LM35);
             var analogTemperatureObserver = AnalogTemperature.CreateObserver(
@@ -103,10 +100,7 @@ namespace PlantMonitor
             analogTemperature.Subscribe(analogTemperatureObserver);
 
 
-            analogTemperature.StartUpdating(
-                sampleCount: 10,
-                sampleIntervalDuration: 40,
-                standbyDuration: (int)TimeSpan.FromHours(1).TotalMilliseconds);
+            analogTemperature.StartUpdating(TimeSpan.FromHours(1));
 
             onboardLed.SetColor(Color.Green);
         }
@@ -118,11 +112,11 @@ namespace PlantMonitor
             var newMoisture = await capacitive.Read();
             var newTemperature = await analogTemperature.Read();
 
-            displayController.UpdateMoisturePercentage(newMoisture.New, moisture);
-            moisture = newMoisture.New;
+            displayController.UpdateMoisturePercentage(newMoisture, moisture);
+            moisture = newMoisture;
 
-            displayController.UpdateTemperatureValue(newTemperature.New, newTemperature.Old.Value);
-            temperature = newTemperature.New;
+            displayController.UpdateTemperatureValue(newTemperature, temperature);
+            temperature = newTemperature;
 
             onboardLed.SetColor(Color.Green);
         }

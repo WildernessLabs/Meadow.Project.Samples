@@ -126,7 +126,7 @@ namespace WifiClock
 
                     var temperature = await analogTemperature.Read();
 
-                    graphics.DrawText(0, 26, $"{(int) temperature.New.Celsius}");
+                    graphics.DrawText(0, 26, $"{(int) temperature.Celsius}");
                 }
                 
                 graphics.Show();

@@ -58,7 +58,7 @@ namespace TemperatureMonitor
             led.SetColor(RgbLed.Colors.Green);
 
             LoadScreen();
-            analogTemperature.StartUpdating();
+            analogTemperature.StartUpdating(TimeSpan.FromSeconds(5));
         }
 
         void AnalogTemperatureTemperatureUpdated(object sender, IChangeResult<Meadow.Units.Temperature> e)

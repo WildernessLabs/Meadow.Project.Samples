@@ -70,7 +70,7 @@ namespace WifiWeather
             onboardLed.StartPulse(Color.Orange);
 
             // Format indoor/outdoor conditions data
-            var model = new WeatherViewModel(outdoorConditions, roomTemperature.New);
+            var model = new WeatherViewModel(outdoorConditions, roomTemperature);
 
             // Send formatted data to display to render
             displayController.UpdateDisplay(model);

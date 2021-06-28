@@ -94,7 +94,7 @@ namespace WifiWeatherClock
             var outdoorConditions = await WeatherService.GetWeatherForecast();
 
             // Format indoor/outdoor conditions data
-            var model = new WeatherViewModel(outdoorConditions, roomTemperature.New);
+            var model = new WeatherViewModel(outdoorConditions, roomTemperature);
 
             // Send formatted data to display to render
             displayView.UpdateDisplay(model);

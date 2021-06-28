@@ -56,7 +56,7 @@ namespace MoistureMeter
             while (true)
             {
                 var reading = await capacitive.Read();
-                double moisture = reading.New;
+                double moisture = reading;
 
                 if (moisture > 1)
                     moisture = 1f;

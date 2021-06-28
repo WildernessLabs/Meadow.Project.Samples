@@ -3,6 +3,7 @@ using Meadow.Devices;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Motion;
 using Meadow.Units;
+using System;
 
 namespace RotationDetector
 {
@@ -24,11 +25,16 @@ namespace RotationDetector
             left = new Led(Device.CreateDigitalOutputPort(Device.Pins.D14));
             right = new Led(Device.CreateDigitalOutputPort(Device.Pins.D13));
 
-            mpu = new Mpu6050(Device.CreateI2cBus());            
-            mpu.Updated += RotationDetected;
-            mpu.StartUpdating(100);            
+            mpu = new Mpu6050(Device.CreateI2cBus());
+            mpu.Updated += Mpu_Updated; // += RotationDetected;
+            mpu.StartUpdating(TimeSpan.FromMilliseconds(100));            
 
             led.SetColor(RgbLed.Colors.Green);
+        }
+
+        private void Mpu_Updated(object sender, IChangeResult<(Acceleration3D? Acceleration3D, AngularVelocity3D? AngularVelocity3D, Temperature? Temperature)> e)
+        {
+            throw new System.NotImplementedException();
         }
 
         private void RotationDetected(object sender, IChangeResult<(Acceleration3D? Acceleration, AngularAcceleration3D? AngularAcceleration)> e)

@@ -58,7 +58,7 @@ namespace ObstacleRadar
 
             var i2cBus = Device.CreateI2cBus(I2cBusSpeed.FastPlus);
             sensor = new Vl53l0x(Device, i2cBus);
-            sensor.StartUpdating(200);
+            sensor.StartUpdating(TimeSpan.FromMilliseconds(200));
 
             servo = new Servo(Device.CreatePwmPort(Device.Pins.D05), NamedServoConfigs.SG90);
             servo.RotateTo(new Angle(0, AU.Degrees));
