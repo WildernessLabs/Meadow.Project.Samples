@@ -1,11 +1,13 @@
 ﻿<Project Sdk="Meadow.Sdk/1.1.0">
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     <OutputType>Exe</OutputType>
     <AssemblyName>App</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Meadow.Foundation" Version="0.25.0" />
-    <PackageReference Include="Meadow.Foundation.Displays.Ssd130x" Version="0.12.40" />
+    <PackageReference Include="Meadow.F7" Version="0.24.6" />
+    <PackageReference Include="Meadow.Foundation" Version="0.27.0" />
+    <PackageReference Include="Meadow.Foundation.Displays.Ssd130x" Version="0.12.41" />
   </ItemGroup>
 </Project>

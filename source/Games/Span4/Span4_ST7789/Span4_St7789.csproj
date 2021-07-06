@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Meadow.Sdk/1.1.0">
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     <OutputType>Exe</OutputType>
     <AssemblyName>App</AssemblyName>
   </PropertyGroup>
@@ -10,6 +11,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Meadow.Foundation.Displays.TftSpi" Version="0.7.44" />
+    <PackageReference Include="Meadow.F7" Version="0.24.6" />
+    <PackageReference Include="Meadow.Foundation" Version="0.27.0" />
+    <PackageReference Include="Meadow.Foundation.Displays.TftSpi" Version="0.7.45" />
   </ItemGroup>
 </Project>

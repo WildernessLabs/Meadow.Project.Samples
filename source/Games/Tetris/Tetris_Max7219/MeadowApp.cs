@@ -31,13 +31,13 @@ namespace Tetris
         {
             Console.WriteLine("Init");
 
-            display = new Max7219(Device, Device.CreateSpiBus(), Device.Pins.D01, 4, Max7219.Max7219Type.Display);
+            display = new Max7219(Device, Device.CreateSpiBus(Max7219.SpiClockFrequency), Device.Pins.D01, 4, Max7219.Max7219Type.Display);
 
             graphics = new GraphicsLibrary(display);
             graphics.CurrentFont = new Font4x8();
 
             joystick = new AnalogJoystick(Device, Device.Pins.A01, Device.Pins.A02, null, true);
-            joystick.StartUpdating();
+            joystick.StartUpdating(TimeSpan.FromMilliseconds(20));
         }
 
         int tick = 0;
