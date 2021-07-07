@@ -12,14 +12,14 @@ namespace WifiWeatherClock.ViewModels
 
         public string Weather { get; set; }
 
-        public WeatherViewModel(WeatherReadingModel outdoorConditions, Temperature indoorTemperature)
+        public WeatherViewModel(WeatherReadingModel outdoorConditions, Temperature? indoorTemperature)
         {
             var textCase = new CultureInfo("en-US", false).TextInfo;
             Weather = textCase.ToTitleCase(outdoorConditions.Weather[0].Description);
 
             OutdoorTemperature = (int)(outdoorConditions.WeatherValues.Temperature - 273);
 
-            IndoorTemperature = (int)indoorTemperature.Celsius;
+            IndoorTemperature = (int)indoorTemperature?.Celsius;
         }
     }
 }

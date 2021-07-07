@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 using WifiWeatherClock.Models;
@@ -25,9 +26,8 @@ namespace WifiWeatherClock.Services
                 {
                     response.EnsureSuccessStatusCode();
                     string json = await response.Content.ReadAsStringAsync();
-                    var values = System.Text.Json.JsonSerializer.Deserialize(json, typeof(WeatherReadingModel));
-                    var reading = values as WeatherReadingModel;
-                    return reading;
+                    var values = JsonConvert.DeserializeObject<WeatherReadingModel>(json);
+                    return values;
                 }
                 catch (TaskCanceledException)
                 {

@@ -1,53 +1,53 @@
-﻿using System;
-using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace WifiWeatherClock.Models
 {
     public class DateTimeModel
     {
-        [JsonPropertyName("abbreviation")]
+        [JsonProperty("abbreviation")]
         public string Abbreviation { get; set; }
 
-        [JsonPropertyName("client_ip")]
+        [JsonProperty("client_ip")]
         public string ClientIp { get; set; }
 
-        [JsonPropertyName("datetime")]
+        [JsonProperty("datetime")]
         public DateTimeOffset Datetime { get; set; }
 
-        [JsonPropertyName("day_of_week")]
+        [JsonProperty("day_of_week")]
         public long DayOfWeek { get; set; }
 
-        [JsonPropertyName("day_of_year")]
+        [JsonProperty("day_of_year")]
         public long DayOfYear { get; set; }
 
-        [JsonPropertyName("dst")]
+        [JsonProperty("dst")]
         public bool Dst { get; set; }
 
-        [JsonPropertyName("dst_from")]
+        [JsonProperty("dst_from")]
         public object DstFrom { get; set; }
 
-        [JsonPropertyName("dst_offset")]
+        [JsonProperty("dst_offset")]
         public long DstOffset { get; set; }
 
-        [JsonPropertyName("dst_until")]
+        [JsonProperty("dst_until")]
         public object DstUntil { get; set; }
 
-        [JsonPropertyName("raw_offset")]
+        [JsonProperty("raw_offset")]
         public long RawOffset { get; set; }
 
-        [JsonPropertyName("timezone")]
+        [JsonProperty("timezone")]
         public string Timezone { get; set; }
 
-        [JsonPropertyName("unixtime")]
+        [JsonProperty("unixtime")]
         public long Unixtime { get; set; }
 
-        [JsonPropertyName("utc_datetime")]
+        [JsonProperty("utc_datetime")]
         public DateTimeOffset UtcDatetime { get; set; }
 
-        [JsonPropertyName("utc_offset")]
+        [JsonProperty("utc_offset")]
         public string UtcOffset { get; set; }
 
-        [JsonPropertyName("week_number")]
+        [JsonProperty("week_number")]
         public long WeekNumber { get; set; }
     }
 }

@@ -37,6 +37,7 @@ namespace WifiWeatherClock
 
             analogTemperature = new AnalogTemperature(Device, Device.Pins.A00,
                 sensorType: AnalogTemperature.KnownSensorType.LM35);
+            analogTemperature.StartUpdating(TimeSpan.FromMinutes(5));
 
             displayView = new DisplayView();
 
@@ -94,7 +95,7 @@ namespace WifiWeatherClock
             var outdoorConditions = await WeatherService.GetWeatherForecast();
 
             // Format indoor/outdoor conditions data
-            var model = new WeatherViewModel(outdoorConditions, roomTemperature);
+            var model = new WeatherViewModel(outdoorConditions, analogTemperature.Temperature);
 
             // Send formatted data to display to render
             displayView.UpdateDisplay(model);
