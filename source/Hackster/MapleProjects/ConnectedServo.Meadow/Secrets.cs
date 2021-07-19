@@ -5,11 +5,11 @@
         /// <summary>
         /// Name of the WiFi network to use.
         /// </summary>
-        public const string WIFI_NAME = "[SSID]";
+        public const string WIFI_NAME = "Pneuma";
 
         /// <summary>
         /// Password for the WiFi network names in WIFI_NAME.
         /// </summary>
-        public const string WIFI_PASSWORD = "[PASSWORD]";
+        public const string WIFI_PASSWORD = "25115A020963";
     }
 }

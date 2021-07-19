@@ -1,4 +1,4 @@
-﻿using Meadow.Foundation.Maple.Client;
+﻿using Meadow.Foundation.Maple.Web.Client;
 using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -11,7 +11,7 @@ namespace Connected.Client.ViewModel
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public ConnectedClient client;
+        public MapleClient client { get; private set; }
 
         int _serverPort;
         public int ServerPort 
@@ -54,7 +54,7 @@ namespace Connected.Client.ViewModel
 
             ServerPort = 5417;
 
-            client = new ConnectedClient();
+            client = new MapleClient();
             client.Servers.CollectionChanged += ServersCollectionChanged;
 
             SearchServersCommand = new Command(async () => await GetServers());

@@ -46,7 +46,7 @@ namespace Connected.Client.ViewModel
             SendCommand = new Command(async (obj) => await SendLedCommand(obj as string));
 
             IsOn = true;
-        }        
+        }
 
         async Task SendLedCommand(string command)
         {
@@ -56,7 +56,7 @@ namespace Connected.Client.ViewModel
 
             try
             {
-                bool response = await client.SendCommand(SelectedServer, ServerPort, command);
+                bool response = await client.PostAsync(SelectedServer.IpAddress, ServerPort, command, string.Empty);
 
                 if (response)
                 {

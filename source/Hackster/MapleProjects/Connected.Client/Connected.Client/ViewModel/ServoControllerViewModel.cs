@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Meadow.Foundation.Maple.Web.Client;
+using System;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -49,7 +50,7 @@ namespace Connected.Client.ViewModel
 
             try
             {
-                bool response = await client.SendCommand(SelectedServer, ServerPort, command);
+                bool response = await client.PostAsync(SelectedServer.IpAddress, ServerPort, command, AngleDegrees.ToString());
 
                 if (response)
                 {

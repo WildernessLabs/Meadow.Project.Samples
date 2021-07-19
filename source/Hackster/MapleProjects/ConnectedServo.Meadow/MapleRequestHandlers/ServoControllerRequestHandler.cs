@@ -14,15 +14,15 @@ namespace ConnectedServo.Meadow.MapleRequestHandlers
         [HttpPost]
         public void RotateTo()
         {
-            Console.WriteLine("POST: TurnOn!");
-            ServoController.Current.RotateTo(new Angle(20, AU.Degrees));
+            Console.WriteLine("GET: RotateTo!");                        
+            ServoController.Current.RotateTo(new Angle(int.Parse(Body), AU.Degrees));
             StatusResponse();
         }
 
         [HttpPost]
         public void StartSweep()
         {
-            Console.WriteLine("POST: TurnOff!");
+            Console.WriteLine("GET: TurnOff!");
             ServoController.Current.StartSweep();
             StatusResponse();
         }
@@ -30,19 +30,16 @@ namespace ConnectedServo.Meadow.MapleRequestHandlers
         [HttpPost]
         public void StopSweep()
         {
-            Console.WriteLine("POST: StartBlink!");
+            Console.WriteLine("GET: StartBlink!");
             ServoController.Current.StopSweep();
             StatusResponse();
         }
 
-        [HttpPost]
         void StatusResponse()
         {
-            Console.WriteLine("POST");
-
             Context.Response.ContentType = ContentTypes.Application_Text;
             Context.Response.StatusCode = 200;
-            Send();
+            Send("OK");
         }
     }
 }

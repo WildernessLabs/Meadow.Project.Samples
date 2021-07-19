@@ -33,7 +33,7 @@ namespace ConnectedServo.Meadow
                 bluePwmPin: Device.Pins.OnboardLedBlue);
             onboardLed.SetColor(Color.Red);
 
-            ServoController.Current.Initialize(Device, Device.Pins.D03);
+            ServoController.Current.Initialize(Device, Device.Pins.D08);
 
             if (!Device.InitWiFiAdapter().Result)
             {
