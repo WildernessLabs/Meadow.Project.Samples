@@ -14,8 +14,8 @@ namespace Simon
         int ANIMATION_DELAY = 200;
         float[] notes = new float[] { 261.63f, 329.63f, 392, 523.25f };
 
-        Led[] leds = new Led[4];
-        PushButton[] pushButtons = new PushButton[4];
+        PwmLed[] leds;
+        PushButton[] pushButtons; 
 
         PiezoSpeaker speaker;
 
@@ -24,29 +24,36 @@ namespace Simon
 
         public MeadowApp()
         {
+            Initialize();
+
+            Console.WriteLine("Welcome to Simon");
+            SetAllLEDs(true);            
+            game.OnGameStateChanged += OnGameStateChanged;            
+            game.Reset();            
+        }
+
+        void Initialize() 
+        {
             var led = new RgbLed(Device, Device.Pins.OnboardLedRed, Device.Pins.OnboardLedGreen, Device.Pins.OnboardLedBlue);
             led.SetColor(RgbLed.Colors.Red);
 
-            leds[0] = new Led(Device.CreateDigitalOutputPort(Device.Pins.D10));
-            leds[1] = new Led(Device.CreateDigitalOutputPort(Device.Pins.D09));
-            leds[2] = new Led(Device.CreateDigitalOutputPort(Device.Pins.D08));
-            leds[3] = new Led(Device.CreateDigitalOutputPort(Device.Pins.D07));
+            leds = new PwmLed[4];
+            leds[0] = new PwmLed(Device, Device.Pins.D10, TypicalForwardVoltage.Red);
+            leds[1] = new PwmLed(Device, Device.Pins.D09, TypicalForwardVoltage.Green);
+            leds[2] = new PwmLed(Device, Device.Pins.D08, TypicalForwardVoltage.Blue);
+            leds[3] = new PwmLed(Device, Device.Pins.D07, TypicalForwardVoltage.Yellow);
 
-            pushButtons[0] = new PushButton(Device.CreateDigitalInputPort(Device.Pins.MISO));
+            pushButtons = new PushButton[4];
+            pushButtons[0] = new PushButton(Device, Device.Pins.MISO);
             pushButtons[0].Clicked += ButtonRedClicked;
-            pushButtons[1] = new PushButton(Device.CreateDigitalInputPort(Device.Pins.D02));
+            pushButtons[1] = new PushButton(Device, Device.Pins.D02);
             pushButtons[1].Clicked += ButtonGreenClicked;
-            pushButtons[2] = new PushButton(Device.CreateDigitalInputPort(Device.Pins.D03));
+            pushButtons[2] = new PushButton(Device, Device.Pins.D03);
             pushButtons[2].Clicked += ButtonBlueClicked;
-            pushButtons[3] = new PushButton(Device.CreateDigitalInputPort(Device.Pins.D04));
+            pushButtons[3] = new PushButton(Device, Device.Pins.D04);
             pushButtons[3].Clicked += ButtonYellowClicked;
 
             speaker = new PiezoSpeaker(Device.CreatePwmPort(Device.Pins.D11));
-
-            Console.WriteLine("Welcome to Simon");
-            SetAllLEDs(true);
-            game.OnGameStateChanged += OnGameStateChanged;
-            game.Reset();
 
             led.SetColor(RgbLed.Colors.Green);
         }
@@ -83,16 +90,20 @@ namespace Simon
 
         void OnGameStateChanged(object sender, SimonEventArgs e)
         {
-            var th = new Thread(() =>
-            {
+            //var th = new Thread(() =>
+            //{
+                Console.WriteLine($"OnGameStateChanged - {e.GameState}");
+
                 switch (e.GameState)
                 {
                     case GameState.Start:
                         break;
-                    case GameState.NextLevel:
-                        ShowStartAnimation();
+                    case GameState.NextLevel:                        
+                        ShowStartAnimation();                        
                         ShowNextLevelAnimation(game.Level);
+                        Console.WriteLine("Game - 1");
                         ShowSequenceAnimation(game.Level);
+                        Console.WriteLine("Game - 4");
                         break;
                     case GameState.GameOver:
                         ShowGameOverAnimation();
@@ -102,15 +113,18 @@ namespace Simon
                         ShowGameWonAnimation();
                         break;
                 }
-            });
-            th.Start();
+            //});
+            //th.Start();
         }
 
         void TurnOnLED(int index, int duration = 400)
         {
+            Console.WriteLine("TurnOnLED - 1");
             leds[index].IsOn = true;
-            speaker.PlayTone(notes[index], duration);
+            Console.WriteLine($"notes {notes[index]} duration {duration}");            
+            speaker.PlayTone(notes[index], duration);            
             leds[index].IsOn = false;
+            Console.WriteLine("TurnOnLED - 2");
         }
 
         void SetAllLEDs(bool isOn)
@@ -161,13 +175,17 @@ namespace Simon
             if (isAnimating)
                 return;
             isAnimating = true;
+            
             var steps = game.GetStepsForLevel();
-            SetAllLEDs(false);
+            SetAllLEDs(false);            
             for (int i = 0; i < level; i++)
             {
                 Thread.Sleep(200);
+                Console.WriteLine("ShowSequenceAnimation - 4");
                 TurnOnLED(steps[i], 400);
             }
+
+            Console.WriteLine("ShowSequenceAnimation - 5");
             isAnimating = false;
         }
 
@@ -176,7 +194,10 @@ namespace Simon
             if (isAnimating)
                 return;
             isAnimating = true;
-            speaker.PlayTone(123.47f, 750);
+
+            Thread.Sleep(750);
+            //speaker.PlayTone(123.47f, 750);
+
             for (int i = 0; i < 20; i++)
             {
                 SetAllLEDs(false);

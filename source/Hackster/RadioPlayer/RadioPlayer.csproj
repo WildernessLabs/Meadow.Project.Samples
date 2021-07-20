@@ -6,7 +6,7 @@
     <AssemblyName>App</AssemblyName>
   </PropertyGroup>
   <ItemGroup>    
-    <PackageReference Include="Meadow.F7" Version="0.24.6" />
+    <PackageReference Include="Meadow.F7" Version="0.24.7.1" />
     <PackageReference Include="Meadow.Foundation" Version="0.27.0" />
     <PackageReference Include="Meadow.Foundation.Audio.Radio.Tea5767" Version="0.6.43" />
     <PackageReference Include="Meadow.Foundation.Displays.Ssd130x" Version="0.12.41" />    

@@ -8,7 +8,7 @@
   <ItemGroup>
     <PackageReference Include="Meadow.Foundation.Displays.Max7219" Version="0.1.44" />
     <PackageReference Include="System.Text.Json" Version="5.0.2" />
-    <PackageReference Include="Meadow.F7" Version="0.24.6" />
+    <PackageReference Include="Meadow.F7" Version="0.24.7.1" />
     <PackageReference Include="Meadow.Foundation" Version="0.27.0" />
   </ItemGroup>
 </Project>
