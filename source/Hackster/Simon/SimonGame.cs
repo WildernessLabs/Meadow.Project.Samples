@@ -54,12 +54,10 @@ namespace Simon
         {
             if (Steps[currentStep] == step)
             {
-                Console.WriteLine("Correct step: " + step + " Current step: " + currentStep);
                 currentStep++;
             }
             else
             {
-                Console.WriteLine("wrong step: " + step + " should be: " + Steps[currentStep]);
                 OnGameStateChanged(this, new SimonEventArgs(GameState.GameOver));
                 Reset();
             }
@@ -85,7 +83,6 @@ namespace Simon
                 Steps[i] = rand.Next(NUM_BUTTONS);
                 level += Steps[i] + ", ";
             }
-            Console.WriteLine(level);
             OnGameStateChanged(this, new SimonEventArgs(GameState.NextLevel));
         }
     }

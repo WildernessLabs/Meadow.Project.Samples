@@ -3,30 +3,28 @@ using Meadow.Devices;
 using Meadow.Foundation.Audio;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Buttons;
-using Meadow.Hardware;
 using System;
-using System.Threading;
+using System.Threading.Tasks;
 
 namespace Simon
 {
     public class MeadowApp : App<F7Micro, MeadowApp>
     {
         int ANIMATION_DELAY = 200;
-        float[] notes = new float[] { 261.63f, 329.63f, 392, 523.25f };
+
+        bool isAnimating;
+        float[] notes;
+
+        SimonGame game;
 
         PwmLed[] leds;
-        PushButton[] pushButtons; 
-
+        PushButton[] buttons; 
         PiezoSpeaker speaker;
-
-        bool isAnimating = false;
-        SimonGame game = new SimonGame();
 
         public MeadowApp()
         {
             Initialize();
 
-            Console.WriteLine("Welcome to Simon");
             SetAllLEDs(true);            
             game.OnGameStateChanged += OnGameStateChanged;            
             game.Reset();            
@@ -37,94 +35,89 @@ namespace Simon
             var led = new RgbLed(Device, Device.Pins.OnboardLedRed, Device.Pins.OnboardLedGreen, Device.Pins.OnboardLedBlue);
             led.SetColor(RgbLed.Colors.Red);
 
+            notes = new float[] { 261.63f, 329.63f, 392, 523.25f };
+
+            game = new SimonGame();
+
             leds = new PwmLed[4];
             leds[0] = new PwmLed(Device, Device.Pins.D10, TypicalForwardVoltage.Red);
             leds[1] = new PwmLed(Device, Device.Pins.D09, TypicalForwardVoltage.Green);
             leds[2] = new PwmLed(Device, Device.Pins.D08, TypicalForwardVoltage.Blue);
             leds[3] = new PwmLed(Device, Device.Pins.D07, TypicalForwardVoltage.Yellow);
 
-            pushButtons = new PushButton[4];
-            pushButtons[0] = new PushButton(Device, Device.Pins.MISO);
-            pushButtons[0].Clicked += ButtonRedClicked;
-            pushButtons[1] = new PushButton(Device, Device.Pins.D02);
-            pushButtons[1].Clicked += ButtonGreenClicked;
-            pushButtons[2] = new PushButton(Device, Device.Pins.D03);
-            pushButtons[2].Clicked += ButtonBlueClicked;
-            pushButtons[3] = new PushButton(Device, Device.Pins.D04);
-            pushButtons[3].Clicked += ButtonYellowClicked;
+            buttons = new PushButton[4];
+            buttons[0] = new PushButton(Device, Device.Pins.MISO);
+            buttons[0].Clicked += ButtonRedClicked;
+            buttons[1] = new PushButton(Device, Device.Pins.D02);
+            buttons[1].Clicked += ButtonGreenClicked;
+            buttons[2] = new PushButton(Device, Device.Pins.D03);
+            buttons[2].Clicked += ButtonBlueClicked;
+            buttons[3] = new PushButton(Device, Device.Pins.D04);
+            buttons[3].Clicked += ButtonYellowClicked;
 
-            speaker = new PiezoSpeaker(Device.CreatePwmPort(Device.Pins.D11));
+            speaker = new PiezoSpeaker(Device, Device.Pins.D12);
 
             led.SetColor(RgbLed.Colors.Green);
         }
 
-        void ButtonRedClicked(object sender, EventArgs e)
+        async void ButtonRedClicked(object sender, EventArgs e)
         {
-            OnButton(0);
+            await OnButton(0);
         }
 
-        void ButtonGreenClicked(object sender, EventArgs e)
+        async void ButtonGreenClicked(object sender, EventArgs e)
         {
-            OnButton(1);
+            await OnButton(1);
         }
 
-        void ButtonBlueClicked(object sender, EventArgs e)
+        async void ButtonBlueClicked(object sender, EventArgs e)
         {
-            OnButton(2);
+            await OnButton(2);
         }
 
-        void ButtonYellowClicked(object sender, EventArgs e)
+        async void ButtonYellowClicked(object sender, EventArgs e)
         {
-            OnButton(3);
+            await OnButton(3);
         }
 
-        void OnButton(int buttonIndex)
+        async Task OnButton(int buttonIndex)
         {
-            Console.WriteLine("Button tapped: " + buttonIndex);
             if (isAnimating == false)
             {                
-                TurnOnLED(buttonIndex);
+                await TurnOnLED(buttonIndex);
                 game.EnterStep(buttonIndex);
             }
         }
 
         void OnGameStateChanged(object sender, SimonEventArgs e)
         {
-            //var th = new Thread(() =>
-            //{
-                Console.WriteLine($"OnGameStateChanged - {e.GameState}");
-
+            Task.Run(async () => 
+            {
                 switch (e.GameState)
                 {
                     case GameState.Start:
                         break;
-                    case GameState.NextLevel:                        
-                        ShowStartAnimation();                        
-                        ShowNextLevelAnimation(game.Level);
-                        Console.WriteLine("Game - 1");
-                        ShowSequenceAnimation(game.Level);
-                        Console.WriteLine("Game - 4");
+                    case GameState.NextLevel:
+                        await ShowStartAnimation();
+                        await ShowNextLevelAnimation(game.Level);
+                        await ShowSequenceAnimation(game.Level);
                         break;
                     case GameState.GameOver:
-                        ShowGameOverAnimation();
+                        await ShowGameOverAnimation();
                         game.Reset();
                         break;
                     case GameState.Win:
-                        ShowGameWonAnimation();
+                        await ShowGameWonAnimation();
                         break;
                 }
-            //});
-            //th.Start();
+            });
         }
 
-        void TurnOnLED(int index, int duration = 400)
+        async Task TurnOnLED(int index, int duration = 400)
         {
-            Console.WriteLine("TurnOnLED - 1");
             leds[index].IsOn = true;
-            Console.WriteLine($"notes {notes[index]} duration {duration}");            
-            speaker.PlayTone(notes[index], duration);            
+            await speaker.PlayTone(notes[index], duration);            
             leds[index].IsOn = false;
-            Console.WriteLine("TurnOnLED - 2");
         }
 
         void SetAllLEDs(bool isOn)
@@ -135,42 +128,46 @@ namespace Simon
             leds[3].IsOn = isOn;
         }
 
-        void ShowStartAnimation()
+        async Task ShowStartAnimation()
         {
             if (isAnimating)
                 return;
             isAnimating = true;
+
             SetAllLEDs(false);
             for (int i = 0; i < 4; i++)
             {
                 leds[i].IsOn = true;
-                Thread.Sleep(ANIMATION_DELAY);
+                await Task.Delay(ANIMATION_DELAY);
             }
             for (int i = 0; i < 4; i++)
             {
                 leds[3 - i].IsOn = false;
-                Thread.Sleep(ANIMATION_DELAY);
+                await Task.Delay(ANIMATION_DELAY);
             }
+
             isAnimating = false;
         }
 
-        void ShowNextLevelAnimation(int level)
+        async Task ShowNextLevelAnimation(int level)
         {
             if (isAnimating)
                 return;
             isAnimating = true;
+
             SetAllLEDs(false);
             for (int i = 0; i < level; i++)
             {
-                Thread.Sleep(ANIMATION_DELAY);
+                await Task.Delay(ANIMATION_DELAY);
                 SetAllLEDs(true);
-                Thread.Sleep(ANIMATION_DELAY * 3);
+                await Task.Delay(ANIMATION_DELAY * 3);
                 SetAllLEDs(false);
             }
+
             isAnimating = false;
         }
 
-        void ShowSequenceAnimation(int level)
+        async Task ShowSequenceAnimation(int level)
         {
             if (isAnimating)
                 return;
@@ -180,40 +177,38 @@ namespace Simon
             SetAllLEDs(false);            
             for (int i = 0; i < level; i++)
             {
-                Thread.Sleep(200);
-                Console.WriteLine("ShowSequenceAnimation - 4");
-                TurnOnLED(steps[i], 400);
+                await Task.Delay(200);
+                await TurnOnLED(steps[i], 400);
             }
 
-            Console.WriteLine("ShowSequenceAnimation - 5");
             isAnimating = false;
         }
 
-        void ShowGameOverAnimation()
+        async Task ShowGameOverAnimation()
         {
             if (isAnimating)
                 return;
             isAnimating = true;
 
-            Thread.Sleep(750);
-            //speaker.PlayTone(123.47f, 750);
+            await speaker.PlayTone(123.47f, 750);
 
             for (int i = 0; i < 20; i++)
             {
                 SetAllLEDs(false);
-                Thread.Sleep(50);
+                await Task.Delay(50);
                 SetAllLEDs(true);
-                Thread.Sleep(50);
+                await Task.Delay(50);
             }
+
             isAnimating = false;
         }
 
-        void ShowGameWonAnimation()
+        async Task ShowGameWonAnimation()
         {
-            ShowStartAnimation();
-            ShowStartAnimation();
-            ShowStartAnimation();
-            ShowStartAnimation();
+            await ShowStartAnimation();
+            await ShowStartAnimation();
+            await ShowStartAnimation();
+            await ShowStartAnimation();
         }
     }
 }
