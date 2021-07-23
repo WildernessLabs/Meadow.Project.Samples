@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
 
 namespace WifiWeather.Models
 {
@@ -6,123 +6,121 @@ namespace WifiWeather.Models
     {
         public WeatherReading() { }
 
-        [JsonPropertyName("coord")]
+        [JsonProperty("coord")]
         public Coordinates Coordinates { get; set; }
 
-        [JsonPropertyName("weather")]
+        [JsonProperty("weather")]
         public Weather[] Weather { get; set; }
 
-        [JsonPropertyName("base")]
+        [JsonProperty("base")]
         public string Base { get; set; }
 
-        [JsonPropertyName("main")]
+        [JsonProperty("main")]
         public WeatherValues WeatherValues { get; set; }
 
-        [JsonPropertyName("visibility")]
+        [JsonProperty("visibility")]
         public int Visibility { get; set; }
 
-        [JsonPropertyName("wind")]
+        [JsonProperty("wind")]
         public Wind Wind { get; set; }
 
-        [JsonPropertyName("clouds")]
+        [JsonProperty("clouds")]
         public Clouds Clouds { get; set; }
 
-        [JsonPropertyName("dt")]
+        [JsonProperty("dt")]
         public int DateTime { get; set; }
 
-        [JsonPropertyName("sys")]
+        [JsonProperty("sys")]
         public System System { get; set; }
 
-        [JsonPropertyName("timezone")]
+        [JsonProperty("timezone")]
         public long Timezone { get; set; }
 
-        [JsonPropertyName("id")]
+        [JsonProperty("id")]
         public int Id { get; set; }
 
-        [JsonPropertyName("name")]
+        [JsonProperty("name")]
         public string Name { get; set; }
 
-        [JsonPropertyName("cod")]
+        [JsonProperty("cod")]
         public int Code { get; set; }
     }
 
-    public class Coordinates 
+    public class Coordinates
     {
-        [JsonPropertyName("lon")]
+        [JsonProperty("lon")]
         public double Longitude { get; set; }
 
-        [JsonPropertyName("lat")]
+        [JsonProperty("lat")]
         public double Latitude { get; set; }
     }
 
-    public class Weather 
+    public class Weather
     {
-        [JsonPropertyName("id")]
+        [JsonProperty("id")]
         public int Id { get; set; }
 
-        [JsonPropertyName("main")]
+        [JsonProperty("main")]
         public string Main { get; set; }
 
-        [JsonPropertyName("description")]
+        [JsonProperty("description")]
         public string Description { get; set; }
 
-        [JsonPropertyName("icon")]
+        [JsonProperty("icon")]
         public string Icon { get; set; }
     }
 
     public class WeatherValues
     {
-        [JsonPropertyName("temp")]
+        [JsonProperty("temp")]
         public decimal Temperature { get; set; }
 
-        [JsonPropertyName("feels_like")]
+        [JsonProperty("feels_like")]
         public decimal FeelsLike { get; set; }
 
-        [JsonPropertyName("temp_min")]
+        [JsonProperty("temp_min")]
         public decimal TemperatureMin { get; set; }
 
-        [JsonPropertyName("temp_max")]
+        [JsonProperty("temp_max")]
         public decimal TemperatureMax { get; set; }
 
-        [JsonPropertyName("pressure")]
+        [JsonProperty("pressure")]
         public int Pressure { get; set; }
 
-        [JsonPropertyName("humidity")]
+        [JsonProperty("humidity")]
         public int humidity { get; set; }
     }
 
-    public class Wind 
+    public class Wind
     {
-        [JsonPropertyName("speed")]
+        [JsonProperty("speed")]
         public decimal Speed { get; set; }
 
-        [JsonPropertyName("deg")]
+        [JsonProperty("deg")]
         public int Degrees { get; set; }
     }
 
-    public class Clouds 
+    public class Clouds
     {
-        [JsonPropertyName("all")]
+        [JsonProperty("all")]
         public int All { get; set; }
     }
 
-    public class System 
+    public class System
     {
-        [JsonPropertyName("type")]
+        [JsonProperty("type")]
         public int Type { get; set; }
 
-        [JsonPropertyName("id")]
+        [JsonProperty("id")]
         public int Id { get; set; }
 
-        [JsonPropertyName("country")]
+        [JsonProperty("country")]
         public string Country { get; set; }
 
-        [JsonPropertyName("sunrise")]
+        [JsonProperty("sunrise")]
         public long Sunrise { get; set; }
 
-        [JsonPropertyName("sunset")]
+        [JsonProperty("sunset")]
         public long Sunset { get; set; }
     }
-
-
 }
