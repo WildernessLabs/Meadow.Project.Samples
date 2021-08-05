@@ -6,8 +6,8 @@
     <AssemblyName>App</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Meadow.F7" Version="0.24.7.1" />
-    <PackageReference Include="Meadow.Foundation" Version="0.27.0" />
-    <PackageReference Include="Meadow.Foundation.ICs.IOExpanders.x74595" Version="0.1.40" />    
+    <PackageReference Include="Meadow.F7" Version="0.*" />
+    <PackageReference Include="Meadow.Foundation" Version="0.*" />
+    <PackageReference Include="Meadow.Foundation.ICs.IOExpanders.x74595" Version="0.*" />
   </ItemGroup>
 </Project>

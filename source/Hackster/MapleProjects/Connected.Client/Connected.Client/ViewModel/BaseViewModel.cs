@@ -1,4 +1,4 @@
-﻿using Meadow.Foundation.Maple.Web.Client;
+﻿using Meadow.Foundation.Maple.Client;
 using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;

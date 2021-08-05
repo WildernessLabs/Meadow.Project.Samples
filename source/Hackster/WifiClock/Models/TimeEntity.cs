@@ -1,53 +1,53 @@
 ﻿using System;
-using System.Text.Json.Serialization;
+//using System.Text.Json.Serialization;
 
 namespace WifiClock.Models
 {
     public partial class TimeEntity
     {
-        [JsonPropertyName("abbreviation")]
+        //[JsonPropertyName("abbreviation")]
         public string Abbreviation { get; set; }
 
-        [JsonPropertyName("client_ip")]
+        //[JsonPropertyName("client_ip")]
         public string ClientIp { get; set; }
 
-        [JsonPropertyName("datetime")]
+        //[JsonPropertyName("datetime")]
         public DateTimeOffset Datetime { get; set; }
 
-        [JsonPropertyName("day_of_week")]
+        //[JsonPropertyName("day_of_week")]
         public long DayOfWeek { get; set; }
 
-        [JsonPropertyName("day_of_year")]
+        //[JsonPropertyName("day_of_year")]
         public long DayOfYear { get; set; }
 
-        [JsonPropertyName("dst")]
+        //[JsonPropertyName("dst")]
         public bool Dst { get; set; }
 
-        [JsonPropertyName("dst_from")]
+        //[JsonPropertyName("dst_from")]
         public object DstFrom { get; set; }
 
-        [JsonPropertyName("dst_offset")]
+        //[JsonPropertyName("dst_offset")]
         public long DstOffset { get; set; }
 
-        [JsonPropertyName("dst_until")]
+        //[JsonPropertyName("dst_until")]
         public object DstUntil { get; set; }
 
-        [JsonPropertyName("raw_offset")]
+        //[JsonPropertyName("raw_offset")]
         public long RawOffset { get; set; }
 
-        [JsonPropertyName("timezone")]
+        //[JsonPropertyName("timezone")]
         public string Timezone { get; set; }
 
-        [JsonPropertyName("unixtime")]
+        //[JsonPropertyName("unixtime")]
         public long Unixtime { get; set; }
 
-        [JsonPropertyName("utc_datetime")]
+        //[JsonPropertyName("utc_datetime")]
         public DateTimeOffset UtcDatetime { get; set; }
 
-        [JsonPropertyName("utc_offset")]
+        //[JsonPropertyName("utc_offset")]
         public string UtcOffset { get; set; }
 
-        [JsonPropertyName("week_number")]
+        //[JsonPropertyName("week_number")]
         public long WeekNumber { get; set; }
     }
 }
