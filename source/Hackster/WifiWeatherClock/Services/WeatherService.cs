@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using Json.Net;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -14,19 +14,19 @@ namespace WifiWeatherClock.Services
 
         static WeatherService() { }
 
-        public static async Task<WeatherReadingModel> GetWeatherForecast()
+        public static async Task<WeatherReading> GetWeatherForecast()
         {
             using (HttpClient client = new HttpClient())
             {
-                client.Timeout = new TimeSpan(0, 5, 0);
-
-                HttpResponseMessage response = await client.GetAsync($"{climateDataUri}?{city}&{apiKey}");
-
                 try
                 {
+                    client.Timeout = new TimeSpan(0, 5, 0);
+
+                    HttpResponseMessage response = await client.GetAsync($"{climateDataUri}?{city}&{apiKey}");
+
                     response.EnsureSuccessStatusCode();
                     string json = await response.Content.ReadAsStringAsync();
-                    var values = JsonConvert.DeserializeObject<WeatherReadingModel>(json);
+                    var values = JsonNet.Deserialize<WeatherReading>(json);
                     return values;
                 }
                 catch (TaskCanceledException)

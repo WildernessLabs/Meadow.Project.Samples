@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using Json.Net;
 using System;
 using System.Diagnostics;
 using System.Net.Http;
@@ -17,21 +17,21 @@ namespace WifiWeatherClock.Services
         {
             using (HttpClient client = new HttpClient())
             {
-                client.Timeout = new TimeSpan(0, 5, 0);
-
-                HttpResponseMessage response = await client.GetAsync($"{clockDataUri}");
-
                 try
                 {
-                    Stopwatch stopwatch = new Stopwatch();
+                    client.Timeout = new TimeSpan(0, 5, 0);
+
+                    HttpResponseMessage response = await client.GetAsync($"{clockDataUri}");
+                
+                    var stopwatch = new Stopwatch();
                     stopwatch.Start();
 
                     response.EnsureSuccessStatusCode();
                     string json = await response.Content.ReadAsStringAsync();
-                    var values = JsonConvert.DeserializeObject<DateTimeModel>(json);                    
+                    var values = JsonNet.Deserialize<DateTimeModel>(json);                    
                     stopwatch.Stop();
 
-                    return values.Datetime.Add(stopwatch.Elapsed);
+                    return values.datetime.Add(stopwatch.Elapsed);
                 }
                 catch (TaskCanceledException)
                 {
