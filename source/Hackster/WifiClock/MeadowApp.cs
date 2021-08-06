@@ -35,13 +35,10 @@ namespace WifiClock
 
         async Task Initialize()
         {
-            RgbPwmLed onboardLed = new RgbPwmLed(device: Device,
+            var onboardLed = new RgbPwmLed(device: Device,
                 redPwmPin: Device.Pins.OnboardLedRed,
                 greenPwmPin: Device.Pins.OnboardLedGreen,
-                bluePwmPin: Device.Pins.OnboardLedBlue,
-                3.3f, 3.3f, 3.3f,
-                Meadow.Peripherals.Leds.IRgbLed.CommonType.CommonAnode);
-
+                bluePwmPin: Device.Pins.OnboardLedBlue);
             onboardLed.StartPulse(Color.Red);
 
             display = new Max7219(
@@ -93,7 +90,7 @@ namespace WifiClock
 
         async Task Start() 
         {
-            var dateTime = await ClockService.GetTimeAsync();            
+            var dateTime = await DateTimeService.GetTimeAsync();
 
             Device.SetClock(new DateTime(
                 year: dateTime.Year, 
