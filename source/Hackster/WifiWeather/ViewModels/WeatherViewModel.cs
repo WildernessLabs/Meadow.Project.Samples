@@ -17,12 +17,12 @@ namespace WifiWeather.ViewModels
         public WeatherViewModel(WeatherReading outdoorConditions, Temperature indoorTemperature)
         {
             int TIME_ZONE = -8; // Note: Adjust time zone value here
+            
+            DateTime = DateTimeOffset.FromUnixTimeSeconds(outdoorConditions.dt).LocalDateTime.AddHours(TIME_ZONE);
 
-            DateTime = DateTimeOffset.FromUnixTimeSeconds(outdoorConditions.DateTime).LocalDateTime.AddHours(TIME_ZONE);
+            WeatherCode = outdoorConditions.weather[0].id;
 
-            WeatherCode = outdoorConditions.Weather[0].Id;
-
-            OutdoorTemperature = (int) (outdoorConditions.WeatherValues.Temperature - 273);
+            OutdoorTemperature = (int) (outdoorConditions.main.temp - 273);
 
             IndoorTemperature = (int) indoorTemperature.Celsius;
         }

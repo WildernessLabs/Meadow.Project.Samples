@@ -20,9 +20,9 @@ namespace WifiWeather
 
         public MeadowApp()
         {
-            Initialize();
+            Initialize().Wait();
 
-            Start();
+            Start().Wait();
         }
 
         async Task Initialize()
@@ -30,10 +30,7 @@ namespace WifiWeather
             onboardLed = new RgbPwmLed(device: Device,
                 redPwmPin: Device.Pins.OnboardLedRed,
                 greenPwmPin: Device.Pins.OnboardLedGreen,
-                bluePwmPin: Device.Pins.OnboardLedBlue,
-                3.3f, 3.3f, 3.3f,
-                Meadow.Peripherals.Leds.IRgbLed.CommonType.CommonAnode);
-
+                bluePwmPin: Device.Pins.OnboardLedBlue);
             onboardLed.StartPulse(Color.Red);
 
             analogTemperature = new AnalogTemperature(
