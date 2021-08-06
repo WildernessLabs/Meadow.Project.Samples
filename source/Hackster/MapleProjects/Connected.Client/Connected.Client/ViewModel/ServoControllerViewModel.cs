@@ -1,5 +1,4 @@
-﻿using Meadow.Foundation.Maple.Client;
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 

@@ -27,7 +27,7 @@ namespace WifiClock.Services
 
                     response.EnsureSuccessStatusCode();
                     string json = await response.Content.ReadAsStringAsync();
-                    var values = JsonSerializer.Deserialize(json, typeof(TimeEntity));
+                    var values = new TimeEntity(); // JsonSerializer.Deserialize(json, typeof(TimeEntity));
                     var reading = values as TimeEntity;
 
                     stopwatch.Stop();
