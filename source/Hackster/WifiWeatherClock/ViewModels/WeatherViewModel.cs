@@ -12,7 +12,7 @@ namespace WifiWeatherClock.ViewModels
 
         public string Weather { get; set; }
 
-        public WeatherViewModel(WeatherReading outdoorConditions, Temperature? indoorTemperature)
+        public WeatherViewModel(WeatherReadingEntity outdoorConditions, Temperature? indoorTemperature)
         {
             var textCase = new CultureInfo("en-US", false).TextInfo;
             Weather = textCase.ToTitleCase(outdoorConditions.weather[0].description);

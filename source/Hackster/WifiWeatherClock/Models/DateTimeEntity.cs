@@ -2,7 +2,7 @@
 
 namespace WifiWeatherClock.Models
 {
-    public class DateTimeModel
+    public class DateTimeEntity
     {
         public string abbreviation { get; set; }
         public string client_ip { get; set; }

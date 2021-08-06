@@ -14,7 +14,7 @@ namespace WifiWeatherClock.Services
 
         static WeatherService() { }
 
-        public static async Task<WeatherReading> GetWeatherForecast()
+        public static async Task<WeatherReadingEntity> GetWeatherForecast()
         {
             using (HttpClient client = new HttpClient())
             {
@@ -26,7 +26,7 @@ namespace WifiWeatherClock.Services
 
                     response.EnsureSuccessStatusCode();
                     string json = await response.Content.ReadAsStringAsync();
-                    var values = JsonNet.Deserialize<WeatherReading>(json);
+                    var values = JsonNet.Deserialize<WeatherReadingEntity>(json);
                     return values;
                 }
                 catch (TaskCanceledException)

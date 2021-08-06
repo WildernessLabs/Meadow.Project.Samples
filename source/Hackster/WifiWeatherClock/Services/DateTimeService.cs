@@ -28,7 +28,7 @@ namespace WifiWeatherClock.Services
 
                     response.EnsureSuccessStatusCode();
                     string json = await response.Content.ReadAsStringAsync();
-                    var values = JsonNet.Deserialize<DateTimeModel>(json);                    
+                    var values = JsonNet.Deserialize<DateTimeEntity>(json);
                     stopwatch.Stop();
 
                     return values.datetime.Add(stopwatch.Elapsed);
