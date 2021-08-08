@@ -12,24 +12,29 @@ namespace ShiftRegisterLeds
 
         public MeadowApp()
         {
+            Initialize();
+
+            TestX74595();
+        }
+
+        void Initialize() 
+        {
             var led = new RgbLed(Device, Device.Pins.OnboardLedRed, Device.Pins.OnboardLedGreen, Device.Pins.OnboardLedBlue);
             led.SetColor(RgbLed.Colors.Red);
 
             shiftRegister = new x74595(
                 device: Device,
-                spiBus: Device.CreateSpiBus(), 
+                spiBus: Device.CreateSpiBus(),
                 pinChipSelect: Device.Pins.D03,
                 pins: 8);
-
-            shiftRegister.Clear(true);
-
-            TestX74595();
 
             led.SetColor(RgbLed.Colors.Green);
         }
 
         void TestX74595()
         {
+            shiftRegister.Clear(true);
+
             while (true)
             {
                 shiftRegister.Clear();
