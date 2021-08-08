@@ -17,32 +17,33 @@ namespace RotationDetector
 
         public MeadowApp()
         {
+            Initialize();
+
+            mpu.StartUpdating(TimeSpan.FromMilliseconds(100));
+        }
+
+        void Initialize() 
+        {
             var led = new RgbLed(Device, Device.Pins.OnboardLedRed, Device.Pins.OnboardLedGreen, Device.Pins.OnboardLedBlue);
             led.SetColor(RgbLed.Colors.Red);
 
             up = new Led(Device.CreateDigitalOutputPort(Device.Pins.D15));
             down = new Led(Device.CreateDigitalOutputPort(Device.Pins.D12));
-            left = new Led(Device.CreateDigitalOutputPort(Device.Pins.D14));
-            right = new Led(Device.CreateDigitalOutputPort(Device.Pins.D13));
+            left = new Led(Device.CreateDigitalOutputPort(Device.Pins.D13));
+            right = new Led(Device.CreateDigitalOutputPort(Device.Pins.D14));
 
             mpu = new Mpu6050(Device.CreateI2cBus());
-            mpu.Updated += Mpu_Updated; // += RotationDetected;
-            mpu.StartUpdating(TimeSpan.FromMilliseconds(100));            
+            mpu.Updated += MpuUpdated;            
 
             led.SetColor(RgbLed.Colors.Green);
         }
 
-        private void Mpu_Updated(object sender, IChangeResult<(Acceleration3D? Acceleration3D, AngularVelocity3D? AngularVelocity3D, Temperature? Temperature)> e)
+        void MpuUpdated(object sender, IChangeResult<(Acceleration3D? Acceleration3D, AngularVelocity3D? AngularVelocity3D, Temperature? Temperature)> e)
         {
-            throw new System.NotImplementedException();
-        }
-
-        private void RotationDetected(object sender, IChangeResult<(Acceleration3D? Acceleration, AngularAcceleration3D? AngularAcceleration)> e)
-        {
-            up.IsOn = (0.20 < e.New.Acceleration?.Y.MetersPerSecondSquared && e.New.Acceleration?.Y.MetersPerSecondSquared < 0.80);
-            down.IsOn = (-0.80 < e.New.Acceleration?.Y.MetersPerSecondSquared && e.New.Acceleration?.Y.MetersPerSecondSquared < -0.20);
-            left.IsOn = (0.20 < e.New.Acceleration?.X.MetersPerSecondSquared && e.New.Acceleration?.X.MetersPerSecondSquared < 0.80);
-            right.IsOn = (-0.80 < e.New.Acceleration?.X.MetersPerSecondSquared && e.New.Acceleration?.X.MetersPerSecondSquared < -0.20);
+            up.IsOn = e.New.Acceleration3D?.Y.CentimetersPerSecondSquared < -50;
+            down.IsOn = e.New.Acceleration3D?.Y.CentimetersPerSecondSquared > 100;
+            left.IsOn = e.New.Acceleration3D?.X.CentimetersPerSecondSquared > 50;
+            right.IsOn = e.New.Acceleration3D?.X.CentimetersPerSecondSquared < -100;
         }
     }
 }
