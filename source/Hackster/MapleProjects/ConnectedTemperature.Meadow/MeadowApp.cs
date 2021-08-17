@@ -1,66 +1,52 @@
-﻿using Meadow;
+﻿using ConnectedTemperature.Meadow.Controllers;
+using Meadow;
 using Meadow.Devices;
 using Meadow.Foundation;
 using Meadow.Foundation.Leds;
+using Meadow.Foundation.Web.Maple.Server;
+using Meadow.Gateway.WiFi;
 using System;
-using System.Threading;
+using System.Threading.Tasks;
 
 namespace ConnectedTemperature.Meadow
 {
     public class MeadowApp : App<F7Micro, MeadowApp>
     {
-        RgbPwmLed onboardLed;
+        MapleServer mapleServer;
 
         public MeadowApp()
         {
-            Initialize();
-            CycleColors(1000);
+            Initialize().Wait();
+
+            mapleServer.Start();
         }
 
-        void Initialize()
+        async Task Initialize()
         {
-            Console.WriteLine("Initialize hardware...");
-
-            onboardLed = new RgbPwmLed(device: Device,
+            var onboardLed = new RgbPwmLed(device: Device,
                 redPwmPin: Device.Pins.OnboardLedRed,
                 greenPwmPin: Device.Pins.OnboardLedGreen,
                 bluePwmPin: Device.Pins.OnboardLedBlue);
-        }
+            onboardLed.SetColor(Color.Red);
 
-        void CycleColors(int duration)
-        {
-            Console.WriteLine("Cycle colors...");
+            AnalogTemperatureController.Current.Initialize(Device, Device.Pins.D08);
 
-            while (true)
+            if (!Device.InitWiFiAdapter().Result)
             {
-                ShowColorPulse(Color.Blue, duration);
-                ShowColorPulse(Color.Cyan, duration);
-                ShowColorPulse(Color.Green, duration);
-                ShowColorPulse(Color.GreenYellow, duration);
-                ShowColorPulse(Color.Yellow, duration);
-                ShowColorPulse(Color.Orange, duration);
-                ShowColorPulse(Color.OrangeRed, duration);
-                ShowColorPulse(Color.Red, duration);
-                ShowColorPulse(Color.MediumVioletRed, duration);
-                ShowColorPulse(Color.Purple, duration);
-                ShowColorPulse(Color.Magenta, duration);
-                ShowColorPulse(Color.Pink, duration);
+                throw new Exception("Could not initialize the WiFi adapter.");
             }
-        }
 
-        void ShowColorPulse(Color color, int duration = 1000)
-        {
-            onboardLed.StartPulse(color, (duration / 2));
-            Thread.Sleep(duration);
-            onboardLed.Stop();
-        }
+            var connectionResult = await Device.WiFiAdapter.Connect(Secrets.WIFI_NAME, Secrets.WIFI_PASSWORD);
+            if (connectionResult.ConnectionStatus != ConnectionStatus.Success)
+            {
+                throw new Exception($"Cannot connect to network: {connectionResult.ConnectionStatus}");
+            }
 
-        void ShowColor(Color color, int duration = 1000)
-        {
-            Console.WriteLine($"Color: {color}");
-            onboardLed.SetColor(color);
-            Thread.Sleep(duration);
-            onboardLed.Stop();
+            mapleServer = new MapleServer(
+                Device.WiFiAdapter.IpAddress, 5417, true
+            );
+
+            onboardLed.SetColor(Color.Green);
         }
     }
 }
