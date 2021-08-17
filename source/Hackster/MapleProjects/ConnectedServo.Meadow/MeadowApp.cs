@@ -7,8 +7,6 @@ using Meadow.Foundation.Web.Maple.Server;
 using Meadow.Gateway.WiFi;
 using System;
 using System.Threading.Tasks;
-using Meadow.Units;
-using AU = Meadow.Units.Angle.UnitType;
 
 namespace ConnectedServo.Meadow
 {
@@ -21,8 +19,6 @@ namespace ConnectedServo.Meadow
             Initialize().Wait();
 
             mapleServer.Start();
-
-            ServoController.Current.RotateTo(new Angle(0, AU.Degrees));
         }
 
         async Task Initialize()

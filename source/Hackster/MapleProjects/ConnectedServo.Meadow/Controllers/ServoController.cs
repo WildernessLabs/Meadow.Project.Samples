@@ -2,7 +2,6 @@
 using Meadow.Foundation.Servos;
 using Meadow.Hardware;
 using Meadow.Units;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 using AU = Meadow.Units.Angle.UnitType;
@@ -32,22 +31,10 @@ namespace ConnectedServo.Meadow.Controllers
         {
             if (initialized) { return; }
 
-            var servoConfig = new ServoConfig
-            (
-                minimumAngle: new Angle(0, AU.Degrees), 
-                maximumAngle: new Angle(180, AU.Degrees), 
-                minimumPulseDuration: 525, 
-                maximumPulseDuration: 2650, 
-                frequency: 50
-            );
-
-            Console.WriteLine("Initialize hardware...");
-            servo = new Servo(device, PwmPin, servoConfig);
+            servo = new Servo(device, PwmPin, NamedServoConfigs.SG90);
             servo.RotateTo(new Angle(0, AU.Degrees));
 
             initialized = true;
-
-            Console.WriteLine("Initialization complete.");
         }
 
         public void RotateTo(Angle angle) 

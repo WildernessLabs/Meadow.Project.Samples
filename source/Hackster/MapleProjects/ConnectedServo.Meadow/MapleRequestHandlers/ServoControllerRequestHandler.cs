@@ -3,7 +3,6 @@ using Meadow.Foundation.Web.Maple.Server;
 using Meadow.Foundation.Web.Maple.Server.Routing;
 using Meadow.Units;
 using AU = Meadow.Units.Angle.UnitType;
-using System;
 
 namespace ConnectedServo.Meadow.MapleRequestHandlers
 {
@@ -14,7 +13,6 @@ namespace ConnectedServo.Meadow.MapleRequestHandlers
         [HttpPost]
         public void RotateTo()
         {
-            Console.WriteLine("GET: RotateTo!");                        
             ServoController.Current.RotateTo(new Angle(int.Parse(Body), AU.Degrees));
             StatusResponse();
         }
@@ -22,7 +20,6 @@ namespace ConnectedServo.Meadow.MapleRequestHandlers
         [HttpPost]
         public void StartSweep()
         {
-            Console.WriteLine("GET: TurnOff!");
             ServoController.Current.StartSweep();
             StatusResponse();
         }
@@ -30,7 +27,6 @@ namespace ConnectedServo.Meadow.MapleRequestHandlers
         [HttpPost]
         public void StopSweep()
         {
-            Console.WriteLine("GET: StartBlink!");
             ServoController.Current.StopSweep();
             StatusResponse();
         }
