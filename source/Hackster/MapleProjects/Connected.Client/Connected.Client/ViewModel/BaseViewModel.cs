@@ -50,7 +50,7 @@ namespace Connected.Client.ViewModel
         public BaseViewModel() 
         {
             HostList = new ObservableCollection<ServerModel>();
-            //HostList.Add(new ServerModel() { Name="Meadow (192.168.1.83)", IpAddress="192.168.1.83" });
+            HostList.Add(new ServerModel() { Name="Meadow (192.168.1.73)", IpAddress="192.168.1.73" });
 
             ServerPort = 5417;
 

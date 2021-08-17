@@ -21,5 +21,10 @@ namespace Connected.Client.View
         {
             Navigation.PushAsync(new ServoControllerPage());
         }
+
+        void BtnTemperatureClicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new TemperatureControllerPage());
+        }
     }
 }
