@@ -15,7 +15,7 @@ namespace Connected.Client.View
         {
             base.OnAppearing();
 
-            await (BindingContext as TemperatureControllerViewModel).GetServers();
+            await (BindingContext as TemperatureControllerViewModel).LoadData();
         }
     }
 }
