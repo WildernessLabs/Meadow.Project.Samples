@@ -1,4 +1,7 @@
-﻿using System.Collections.ObjectModel;
+﻿using Connected.Client.Model;
+using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -36,13 +39,14 @@ namespace Connected.Client.ViewModel
 
         public async Task GetTemperatureLogs()
         {
-            await Task.Delay(500);
+            var response = await client.GetAsync(SelectedServer.IpAddress, ServerPort, "GetTemperature", null, null);
 
-            TemperatureLog.Add(new TemperatureModel() { DateTime = "2021-08-01 10:23:10 PM", Temperature = 22.3f });
-            TemperatureLog.Add(new TemperatureModel() { DateTime = "2021-08-05 10:23:05 PM", Temperature = 20.7f });
-            TemperatureLog.Add(new TemperatureModel() { DateTime = "2021-08-07 10:23:23 PM", Temperature = 18.5f });
-            TemperatureLog.Add(new TemperatureModel() { DateTime = "2021-08-12 10:23:45 PM", Temperature = 25.9f });
-            TemperatureLog.Add(new TemperatureModel() { DateTime = "2021-08-15 10:23:35 PM", Temperature = 27.1f });
+            var values = JsonConvert.DeserializeObject<List<TemperatureModel>>(response);
+
+            foreach (var value in values)
+            {
+                TemperatureLog.Add(value);
+            }
         }
 
         public async Task LoadData() 
@@ -54,11 +58,5 @@ namespace Connected.Client.ViewModel
                 await GetTemperatureLogs();
             }
         }
-    }
-
-    public class TemperatureModel
-    {
-        public string DateTime { get; set; }
-        public float Temperature { get; set; }
     }
 }
