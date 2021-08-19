@@ -55,9 +55,9 @@
                     </Grid>
                 </Frame>
 
-                <Label Grid.Row="3" Text="Choose a command:" TextColor="Black" FontSize="Medium" Margin="0,5" />
+                <Label Grid.Row="3" Text="Pull to refresh:" TextColor="Black" FontSize="Medium" Margin="0,5" />
 
-                <Frame Grid.Row="4" BackgroundColor="#DDD" HasShadow="False" Padding="0">
+                <Frame Grid.Row="4" BackgroundColor="#F5F5F5" HasShadow="False" Padding="0">
                     <Grid>
                         <ListView ItemsSource="{Binding TemperatureLog}" SeparatorVisibility="None" BackgroundColor="Transparent"
                             IsPullToRefreshEnabled="True" RefreshCommand="{Binding CmdReloadTemperatureLog}" IsRefreshing="{Binding IsRefreshing}">
@@ -76,8 +76,6 @@
                                 </DataTemplate>
                             </ListView.ItemTemplate>
                         </ListView>
-
-                        <!--<Label Text="Pull down to refresh" FontSize="Medium" HorizontalTextAlignment="Center" Margin="0,10" />-->
                     </Grid>
                 </Frame>
 

@@ -26,6 +26,8 @@ namespace Connected.Client.ViewModel
 
             CmdReloadTemperatureLog = new Command(async () =>
             {
+                TemperatureLog.Clear();
+
                 await GetTemperatureLogs();
 
                 IsRefreshing = false;
@@ -34,7 +36,7 @@ namespace Connected.Client.ViewModel
 
         public async Task GetTemperatureLogs()
         {
-            await Task.Delay(100);
+            await Task.Delay(500);
 
             TemperatureLog.Add(new TemperatureModel() { DateTime = "2021-08-01 10:23:10 PM", Temperature = 22.3f });
             TemperatureLog.Add(new TemperatureModel() { DateTime = "2021-08-05 10:23:05 PM", Temperature = 20.7f });

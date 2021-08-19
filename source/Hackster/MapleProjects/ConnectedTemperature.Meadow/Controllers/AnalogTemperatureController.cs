@@ -38,14 +38,14 @@ namespace ConnectedTemperature.Meadow.Controllers
 
         void TemperatureUpdated(object sender, global::Meadow.IChangeResult<global::Meadow.Units.Temperature> e)
         {
-            temperatureList.Add(new TemperatureEntity() 
-            { 
-                temperature = e.New.Celsius, 
-                dateTime = DateTime.Now 
+            temperatureList.Add(new TemperatureEntity()
+            {
+                temperature = e.New.Celsius.ToString("0.0"),
+                dateTime = DateTime.Now.ToString("yyyy-mm-dd hh:mm:ss tt")
             });
         }
 
-        public List<TemperatureEntity> GetTemperatureLog() 
+        public List<TemperatureEntity> GetTemperatureLog()
         {
             return temperatureList;
         }

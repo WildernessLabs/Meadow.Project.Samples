@@ -29,7 +29,7 @@ namespace ConnectedTemperature.Meadow
                 bluePwmPin: Device.Pins.OnboardLedBlue);
             onboardLed.SetColor(Color.Red);
 
-            AnalogTemperatureController.Current.Initialize(Device, Device.Pins.D08);
+            AnalogTemperatureController.Current.Initialize(Device, Device.Pins.A00);
 
             if (!Device.InitWiFiAdapter().Result)
             {
