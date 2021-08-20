@@ -14,15 +14,15 @@
     <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="View\LedControllerPage.xaml.cs">
+    <Compile Update="Views\LedControllerPage.xaml.cs">
       <DependentUpon>LedControllerPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Update="View\MainPage.xaml">
+    <EmbeddedResource Update="Views\MainPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="View\ServoControllerPage.xaml">
+    <EmbeddedResource Update="Views\ServoControllerPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
