@@ -10,10 +10,24 @@
 
     <ContentPage.Content>
         <Grid>
-            <StackLayout Padding="20">
-                <Label Text="Maple servers:" TextColor="Black" FontSize="Medium" Margin="0,0,0,10" />
+            <Grid RowSpacing="10" Padding="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                
+                <Label Grid.Row="0" Text="Maple servers:" TextColor="Black" FontSize="Medium" />
 
-                <Frame BackgroundColor="#23ABE3" HasShadow="False" CornerRadius="5" Padding="10,0,0,0">
+                <Frame Grid.Row="1" BackgroundColor="#23ABE3" HasShadow="False" CornerRadius="5" Padding="10,0,0,0">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
@@ -34,7 +48,7 @@
                     </Grid>
                 </Frame>
 
-                <Frame BackgroundColor="#EF7D3B" HasShadow="False" CornerRadius="5" Padding="10">
+                <Frame Grid.Row="2" BackgroundColor="#EF7D3B" HasShadow="False" CornerRadius="5" Padding="10">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
@@ -55,14 +69,14 @@
                     </Grid>
                 </Frame>
 
-                <Label Text="Choose a command:" TextColor="Black" FontSize="Medium" Margin="0,10,0,10" />
+                <Label Grid.Row="3" Text="Choose a command:" TextColor="Black" FontSize="Medium" Margin="0,5" />
 
-                <Label Text="Rotate Servo"  TextColor="Black" FontSize="Medium" VerticalOptions="Center" />
+                <Label Grid.Row="4" Text="Rotate Servo"  TextColor="Black" FontSize="Medium" VerticalOptions="Center" />
 
-                <Slider x:Name="slider" Value="{Binding AngleDegrees}" Minimum="0" Maximum="180" Margin="10"
+                <Slider Grid.Row="5" x:Name="slider" Value="{Binding AngleDegrees}" Minimum="0" Maximum="180" Margin="10"
                      ThumbColor="{StaticResource ButtonActive}" MinimumTrackColor="{StaticResource ButtonActive}" MaximumTrackColor="{StaticResource ButtonActive}" />
 
-                <Button Text="{Binding Source={x:Reference slider}, Path=Value, StringFormat='Rotate Servo {0:F0} Degrees'}" 
+                <Button Grid.Row="6" Text="{Binding Source={x:Reference slider}, Path=Value, StringFormat='Rotate Servo {0:F0} Degrees'}" 
                     Style="{StaticResource ButtonStyle}" BackgroundColor="Red"
                     Command="{Binding SendCommand}" CommandParameter="RotateTo">
                     <Button.Triggers>
@@ -75,7 +89,7 @@
                     </Button.Triggers>
                 </Button>
 
-                <Button Text="Start Sweep" Style="{StaticResource ButtonStyle}"
+                <Button Grid.Row="7" Text="Start Sweep" Style="{StaticResource ButtonStyle}"
                     Command="{Binding SendCommand}" CommandParameter="StartSweep" >
                     <Button.Triggers>
                         <DataTrigger TargetType="Button" Binding="{Binding IsCyclingStart}" Value="true">
@@ -87,7 +101,7 @@
                     </Button.Triggers>
                 </Button>
 
-                <Button Text="Stop Sweep" Style="{StaticResource ButtonStyle}"
+                <Button Grid.Row="8" Text="Stop Sweep" Style="{StaticResource ButtonStyle}"
                     Command="{Binding SendCommand}" CommandParameter="StopSweep">
                     <Button.Triggers>
                         <DataTrigger TargetType="Button" Binding="{Binding IsCyclingStop}" Value="true">
@@ -99,9 +113,9 @@
                     </Button.Triggers>
                 </Button>
 
-                <Label Text="By Wilderness Labs" TextColor="Black" 
+                <Label Grid.Row="10" Text="By Wilderness Labs" TextColor="Black" 
                     HorizontalOptions="Center" VerticalOptions="EndAndExpand" />
-            </StackLayout>
+            </Grid>
 
             <Grid IsVisible="{Binding IsBusy}" BackgroundColor="#88000000">
                 <StackLayout Spacing="10" HorizontalOptions="Center" VerticalOptions="Center">

@@ -10,7 +10,16 @@
     
     <ContentPage.Content>
         <Grid>
-            <Grid RowDefinitions="Auto, Auto, Auto, Auto, *, auto" RowSpacing="10" Padding="20">
+            <Grid RowSpacing="10" Padding="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                
                 <Label Grid.Row="0" Text="Maple servers:" FontSize="Medium" TextColor="Black" />
 
                 <Frame Grid.Row="1" BackgroundColor="#23ABE3" HasShadow="False" CornerRadius="5" Padding="10,0,0,0">
