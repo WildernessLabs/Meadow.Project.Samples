@@ -1,4 +1,5 @@
 ﻿using ConnectedTemperature.Meadow.Controllers;
+using ConnectedTemperature.Meadow.Services;
 using Meadow;
 using Meadow.Devices;
 using Meadow.Foundation;
@@ -27,9 +28,7 @@ namespace ConnectedTemperature.Meadow
                 redPwmPin: Device.Pins.OnboardLedRed,
                 greenPwmPin: Device.Pins.OnboardLedGreen,
                 bluePwmPin: Device.Pins.OnboardLedBlue);
-            onboardLed.SetColor(Color.Red);
-
-            AnalogTemperatureController.Current.Initialize(Device, Device.Pins.A00);
+            onboardLed.SetColor(Color.Red);            
 
             if (!Device.InitWiFiAdapter().Result)
             {
@@ -41,6 +40,18 @@ namespace ConnectedTemperature.Meadow
             {
                 throw new Exception($"Cannot connect to network: {connectionResult.ConnectionStatus}");
             }
+
+            var dateTime = await DateTimeService.GetTimeAsync();
+
+            Device.SetClock(new DateTime(
+                year: dateTime.Year,
+                month: dateTime.Month,
+                day: dateTime.Day,
+                hour: dateTime.Hour,
+                minute: dateTime.Minute,
+                second: dateTime.Second));
+
+            AnalogTemperatureController.Current.Initialize(Device, Device.Pins.A00);
 
             mapleServer = new MapleServer(
                 Device.WiFiAdapter.IpAddress, 5417, true
