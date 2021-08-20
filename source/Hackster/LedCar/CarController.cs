@@ -17,26 +17,26 @@ namespace LedCar
 
         public void Stop()
         {
-            motorLeft.Speed = 0f;
-            motorRight.Speed = 0f;
+            motorLeft.Power = 0f;
+            motorRight.Power = 0f;
         }
 
         public void TurnLeft()
         {
-            motorLeft.Speed = SPEED;
-            motorRight.Speed = -SPEED;
+            motorLeft.Power = SPEED;
+            motorRight.Power = -SPEED;
         }
 
         public void TurnRight()
         {
-            motorLeft.Speed = -SPEED;
-            motorRight.Speed = SPEED;
+            motorLeft.Power = -SPEED;
+            motorRight.Power = SPEED;
         }
 
         public void MoveForward()
         {
-            motorLeft.Speed = -SPEED;
-            motorRight.Speed = -SPEED;
+            motorLeft.Power = -SPEED;
+            motorRight.Power = -SPEED;
         }
 
         public void MoveBackward()
