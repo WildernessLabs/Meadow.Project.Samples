@@ -27,16 +27,18 @@ namespace LedCar
             up.IsOn = down.IsOn = left.IsOn = right.IsOn = false;
 
             var motorLeft = new HBridgeMotor
-            (
-                a1Pin: Device.CreatePwmPort(Device.Pins.D05),
-                a2Pin: Device.CreatePwmPort(Device.Pins.D06),
-                enablePin: Device.CreateDigitalOutputPort(Device.Pins.D07)
+            (   
+                device: Device,
+                a1Pin: Device.Pins.D05,
+                a2Pin: Device.Pins.D06,
+                enablePin: Device.Pins.D07
             );
             var motorRight = new HBridgeMotor
             (
-                a1Pin: Device.CreatePwmPort(Device.Pins.D02),
-                a2Pin: Device.CreatePwmPort(Device.Pins.D03),
-                enablePin: Device.CreateDigitalOutputPort(Device.Pins.D04)
+                device: Device,
+                a1Pin: Device.Pins.D02,
+                a2Pin: Device.Pins.D03,
+                enablePin: Device.Pins.D04
             );
 
             carController = new CarController(motorLeft, motorRight);
