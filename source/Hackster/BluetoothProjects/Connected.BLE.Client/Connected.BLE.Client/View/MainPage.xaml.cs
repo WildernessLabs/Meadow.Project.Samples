@@ -1,0 +1,26 @@
+﻿using Connected.BLE.Client.ViewModel;
+using Xamarin.Forms;
+
+namespace Connected.BLE.Client
+{
+    public partial class MainPage : ContentPage
+    {
+        public MainPage()
+        {
+            InitializeComponent();
+            BindingContext = new MainViewModel();
+            ColorWheel1.SelectedColorChanged += ColorWheel1_SelectedColorChanged;
+        }
+
+        private void ColorWheel1_SelectedColorChanged(object sender, ColorPicker.BaseClasses.ColorPickerEventArgs.ColorChangedEventArgs e)
+        {
+            (BindingContext as MainViewModel).SelectedColor = e.NewColor;
+        }
+
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            await (BindingContext as MainViewModel).DiscoverDevices();
+        }
+    }
+}
