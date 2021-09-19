@@ -81,7 +81,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MerryXmasLights", "Hackster
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WifiClock", "Hackster\WifiClock\WifiClock.csproj", "{3EC7475E-0956-4B8D-9E0E-01A92C6388ED}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MapleProjects", "Maple", "{C18D8875-EBD9-4D8D-B1B4-479BFCB5CB9E}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Maple", "Maple", "{C18D8875-EBD9-4D8D-B1B4-479BFCB5CB9E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobileClient.UWP", "Hackster\Maple\MobileClient\MobileClient.UWP\MobileClient.UWP.csproj", "{788B9BFD-ADF0-40C6-ADC2-E3202BAFD2BA}"
 EndProject

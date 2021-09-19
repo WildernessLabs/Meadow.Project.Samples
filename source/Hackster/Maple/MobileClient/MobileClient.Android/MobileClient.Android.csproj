@@ -88,7 +88,7 @@
     <AndroidResource Include="Resources\xml\network_security_config.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Connected.Client\MobileClient.csproj">
+    <ProjectReference Include="..\MobileClient\MobileClient.csproj">
       <Project>{C7E77E06-97D4-44D4-9662-FE8DF233CB46}</Project>
       <Name>MobileClient</Name>
     </ProjectReference>
