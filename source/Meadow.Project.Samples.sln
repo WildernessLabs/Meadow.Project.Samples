@@ -97,7 +97,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WifiWeatherClock", "Hackste
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeadowServerServo", "Hackster\Maple\MeadowServerServo\MeadowServerServo.csproj", "{55DB2BB4-E16E-4680-BCD6-DCE9174C977F}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BluetoothProjects", "BluetoothProjects", "{35706016-C4F5-4EBE-9F97-4051C4533ADC}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bluetooth", "Bluetooth", "{35706016-C4F5-4EBE-9F97-4051C4533ADC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BleRover.Client.UWP", "Hackster\BluetoothProjects\BleRover.Client\BleRover.Client.UWP\BleRover.Client.UWP.csproj", "{AC96E127-716C-41FF-BBCB-2011B9F402B2}"
 EndProject
@@ -123,7 +123,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Connected.BLE.Client.iOS", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Connected.BLE.Client", "Hackster\BluetoothProjects\Connected.BLE.Client\Connected.BLE.Client\Connected.BLE.Client.csproj", "{409509DB-40BC-476B-9B6F-480CCECC7617}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BluetoothRover", "BluetoothRover", "{952B706C-9FE9-4717-AD48-33CA1FEB51F3}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Rover", "Rover", "{952B706C-9FE9-4717-AD48-33CA1FEB51F3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

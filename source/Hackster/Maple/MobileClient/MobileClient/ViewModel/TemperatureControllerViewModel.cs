@@ -1,4 +1,5 @@
-﻿using MobileClient.Model;
+﻿using MobileClient.Entity;
+using MobileClient.Model;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -39,13 +40,17 @@ namespace MobileClient.ViewModel
 
         public async Task GetTemperatureLogs()
         {
-            var response = await client.GetAsync(SelectedServer.IpAddress, ServerPort, "GetTemperature", null, null);
+            var response = await client.GetAsync(SelectedServer.IpAddress, ServerPort, "GetTemperatureLogs", null, null);
 
-            var values = JsonConvert.DeserializeObject<List<TemperatureModel>>(response);
+            var values = JsonConvert.DeserializeObject<List<TemperatureEntity>>(response);
 
             foreach (var value in values)
             {
-                TemperatureLog.Add(value);
+                TemperatureLog.Add(new TemperatureModel()
+                {
+                    Temperature = value.ToString(),
+                    DateTime = value.DateTime.ToString("G")
+                });
             }
         }
 
