@@ -1,0 +1,11 @@
+﻿<forms:WindowsPage    
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"    
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"    
+    xmlns:forms="using:Xamarin.Forms.Platform.UWP"
+    x:Class="MobileBle.UWP.MainPage"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    </Grid>
+</forms:WindowsPage>

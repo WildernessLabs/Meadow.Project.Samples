@@ -99,15 +99,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeadowServerServo", "Hackst
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bluetooth", "Bluetooth", "{35706016-C4F5-4EBE-9F97-4051C4533ADC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BleRover.Client.UWP", "Hackster\BluetoothProjects\BleRover.Client\BleRover.Client.UWP\BleRover.Client.UWP.csproj", "{AC96E127-716C-41FF-BBCB-2011B9F402B2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BleRover.Client.UWP", "Hackster\Rover\BleRover.Client\BleRover.Client.UWP\BleRover.Client.UWP.csproj", "{AC96E127-716C-41FF-BBCB-2011B9F402B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BleRover.Client.Android", "Hackster\BluetoothProjects\BleRover.Client\BleRover.Client.Android\BleRover.Client.Android.csproj", "{0F57101C-9E4C-4AEC-B222-5A3FF219EDCF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BleRover.Client.Android", "Hackster\Rover\BleRover.Client\BleRover.Client.Android\BleRover.Client.Android.csproj", "{0F57101C-9E4C-4AEC-B222-5A3FF219EDCF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BleRover.Client.iOS", "Hackster\BluetoothProjects\BleRover.Client\BleRover.Client.iOS\BleRover.Client.iOS.csproj", "{2ED50F88-B61B-4F66-8325-8C8C9EE41FF8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BleRover.Client.iOS", "Hackster\Rover\BleRover.Client\BleRover.Client.iOS\BleRover.Client.iOS.csproj", "{2ED50F88-B61B-4F66-8325-8C8C9EE41FF8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BleRover.Client", "Hackster\BluetoothProjects\BleRover.Client\BleRover.Client\BleRover.Client.csproj", "{49A5A7C8-C573-45DF-B776-44CC7C02DAEA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BleRover.Client", "Hackster\Rover\BleRover.Client\BleRover.Client\BleRover.Client.csproj", "{49A5A7C8-C573-45DF-B776-44CC7C02DAEA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BleRover.Meadow", "Hackster\BluetoothProjects\BleRover.Meadow\BleRover.Meadow.csproj", "{7E1F1758-B33F-41AF-9090-CD3DA0BBE3F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BleRover.Meadow", "Hackster\Rover\BleRover.Meadow\BleRover.Meadow.csproj", "{7E1F1758-B33F-41AF-9090-CD3DA0BBE3F3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeadowServerTemperature", "Hackster\Maple\MeadowServerTemperature\MeadowServerTemperature.csproj", "{5451B41A-AE55-4EF3-9172-9045F5D6096A}"
 EndProject
@@ -115,15 +115,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LedSample", "Hackster\LedSa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RgbLedSample", "Hackster\RgbLedSample\RgbLedSample.csproj", "{29C62184-AA11-40A9-B120-7206EEB541E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Connected.BLE.Client.UWP", "Hackster\BluetoothProjects\Connected.BLE.Client\Connected.BLE.Client.UWP\Connected.BLE.Client.UWP.csproj", "{46C99C91-AE2D-46AB-AC7B-EBFA81DAE649}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobileBle.UWP", "Hackster\Bluetooth\MobileBle\MobileBle.UWP\MobileBle.UWP.csproj", "{46C99C91-AE2D-46AB-AC7B-EBFA81DAE649}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Connected.BLE.Client.Android", "Hackster\BluetoothProjects\Connected.BLE.Client\Connected.BLE.Client.Android\Connected.BLE.Client.Android.csproj", "{47694F5F-CB3E-49BA-AD74-7E82CDE021A2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobileBle.Android", "Hackster\Bluetooth\MobileBle\MobileBle.Android\MobileBle.Android.csproj", "{47694F5F-CB3E-49BA-AD74-7E82CDE021A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Connected.BLE.Client.iOS", "Hackster\BluetoothProjects\Connected.BLE.Client\Connected.BLE.Client.iOS\Connected.BLE.Client.iOS.csproj", "{E360920B-AE40-4677-9DC6-6621E029A094}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobileBle.iOS", "Hackster\Bluetooth\MobileBle\MobileBle.iOS\MobileBle.iOS.csproj", "{E360920B-AE40-4677-9DC6-6621E029A094}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Connected.BLE.Client", "Hackster\BluetoothProjects\Connected.BLE.Client\Connected.BLE.Client\Connected.BLE.Client.csproj", "{409509DB-40BC-476B-9B6F-480CCECC7617}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MobileBle", "Hackster\Bluetooth\MobileBle\MobileBle\MobileBle.csproj", "{409509DB-40BC-476B-9B6F-480CCECC7617}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Rover", "Rover", "{952B706C-9FE9-4717-AD48-33CA1FEB51F3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeadowBleLed", "Hackster\Bluetooth\MeadowBleLed\MeadowBleLed.csproj", "{462A35F7-6783-4F75-88C9-8538F90FB838}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1994,6 +1996,42 @@ Global
 		{409509DB-40BC-476B-9B6F-480CCECC7617}.Release|x64.Build.0 = Release|Any CPU
 		{409509DB-40BC-476B-9B6F-480CCECC7617}.Release|x86.ActiveCfg = Release|Any CPU
 		{409509DB-40BC-476B-9B6F-480CCECC7617}.Release|x86.Build.0 = Release|Any CPU
+		{462A35F7-6783-4F75-88C9-8538F90FB838}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{462A35F7-6783-4F75-88C9-8538F90FB838}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{462A35F7-6783-4F75-88C9-8538F90FB838}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{462A35F7-6783-4F75-88C9-8538F90FB838}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{462A35F7-6783-4F75-88C9-8538F90FB838}.Debug|ARM.Build.0 = Debug|Any CPU
+		{462A35F7-6783-4F75-88C9-8538F90FB838}.Debug|ARM.Deploy.0 = Debug|Any CPU
+		{462A35F7-6783-4F75-88C9-8538F90FB838}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{462A35F7-6783-4F75-88C9-8538F90FB838}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{462A35F7-6783-4F75-88C9-8538F90FB838}.Debug|iPhone.Deploy.0 = Debug|Any CPU
+		{462A35F7-6783-4F75-88C9-8538F90FB838}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{462A35F7-6783-4F75-88C9-8538F90FB838}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{462A35F7-6783-4F75-88C9-8538F90FB838}.Debug|iPhoneSimulator.Deploy.0 = Debug|Any CPU
+		{462A35F7-6783-4F75-88C9-8538F90FB838}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{462A35F7-6783-4F75-88C9-8538F90FB838}.Debug|x64.Build.0 = Debug|Any CPU
+		{462A35F7-6783-4F75-88C9-8538F90FB838}.Debug|x64.Deploy.0 = Debug|Any CPU
+		{462A35F7-6783-4F75-88C9-8538F90FB838}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{462A35F7-6783-4F75-88C9-8538F90FB838}.Debug|x86.Build.0 = Debug|Any CPU
+		{462A35F7-6783-4F75-88C9-8538F90FB838}.Debug|x86.Deploy.0 = Debug|Any CPU
+		{462A35F7-6783-4F75-88C9-8538F90FB838}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{462A35F7-6783-4F75-88C9-8538F90FB838}.Release|Any CPU.Build.0 = Release|Any CPU
+		{462A35F7-6783-4F75-88C9-8538F90FB838}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{462A35F7-6783-4F75-88C9-8538F90FB838}.Release|ARM.ActiveCfg = Release|Any CPU
+		{462A35F7-6783-4F75-88C9-8538F90FB838}.Release|ARM.Build.0 = Release|Any CPU
+		{462A35F7-6783-4F75-88C9-8538F90FB838}.Release|ARM.Deploy.0 = Release|Any CPU
+		{462A35F7-6783-4F75-88C9-8538F90FB838}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{462A35F7-6783-4F75-88C9-8538F90FB838}.Release|iPhone.Build.0 = Release|Any CPU
+		{462A35F7-6783-4F75-88C9-8538F90FB838}.Release|iPhone.Deploy.0 = Release|Any CPU
+		{462A35F7-6783-4F75-88C9-8538F90FB838}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{462A35F7-6783-4F75-88C9-8538F90FB838}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{462A35F7-6783-4F75-88C9-8538F90FB838}.Release|iPhoneSimulator.Deploy.0 = Release|Any CPU
+		{462A35F7-6783-4F75-88C9-8538F90FB838}.Release|x64.ActiveCfg = Release|Any CPU
+		{462A35F7-6783-4F75-88C9-8538F90FB838}.Release|x64.Build.0 = Release|Any CPU
+		{462A35F7-6783-4F75-88C9-8538F90FB838}.Release|x64.Deploy.0 = Release|Any CPU
+		{462A35F7-6783-4F75-88C9-8538F90FB838}.Release|x86.ActiveCfg = Release|Any CPU
+		{462A35F7-6783-4F75-88C9-8538F90FB838}.Release|x86.Build.0 = Release|Any CPU
+		{462A35F7-6783-4F75-88C9-8538F90FB838}.Release|x86.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -2057,6 +2095,7 @@ Global
 		{E360920B-AE40-4677-9DC6-6621E029A094} = {35706016-C4F5-4EBE-9F97-4051C4533ADC}
 		{409509DB-40BC-476B-9B6F-480CCECC7617} = {35706016-C4F5-4EBE-9F97-4051C4533ADC}
 		{952B706C-9FE9-4717-AD48-33CA1FEB51F3} = {B1C3E8F8-3B6A-435A-A93A-0F6EC9ECCFAF}
+		{462A35F7-6783-4F75-88C9-8538F90FB838} = {35706016-C4F5-4EBE-9F97-4051C4533ADC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {10FA7F4A-2FF2-4696-8B12-DD0B9C978890}

@@ -1,7 +1,7 @@
 ﻿<Application    
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    x:Class="MobileClient.UWP.App"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"    
+    x:Class="MobileBle.UWP.App"
     RequestedTheme="Light">
 
     <Application.Resources>
