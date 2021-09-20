@@ -1,5 +1,4 @@
-﻿using MeadowServerTemperature.Controllers;
-using MeadowServerTemperature.Services;
+﻿using MeadowServerTemperature.Services;
 using Meadow;
 using Meadow.Devices;
 using Meadow.Foundation;
@@ -8,16 +7,20 @@ using Meadow.Foundation.Web.Maple.Server;
 using Meadow.Gateway.WiFi;
 using System;
 using System.Threading.Tasks;
+using MeadowServerTemperature.Models;
 
 namespace MeadowServerTemperature
 {
     public class MeadowApp : App<F7Micro, MeadowApp>
     {
+        TemperatureAgent temperatureAgent;
         MapleServer mapleServer;
 
         public MeadowApp()
         {
             Initialize().Wait();
+
+            GetDateTime().Wait();
 
             mapleServer.Start();
         }
@@ -28,7 +31,7 @@ namespace MeadowServerTemperature
                 redPwmPin: Device.Pins.OnboardLedRed,
                 greenPwmPin: Device.Pins.OnboardLedGreen,
                 bluePwmPin: Device.Pins.OnboardLedBlue);
-            onboardLed.SetColor(Color.Red);            
+            onboardLed.SetColor(Color.Red);
 
             if (!Device.InitWiFiAdapter().Result)
             {
@@ -41,6 +44,20 @@ namespace MeadowServerTemperature
                 throw new Exception($"Cannot connect to network: {connectionResult.ConnectionStatus}");
             }
 
+            await GetDateTime();
+
+            temperatureAgent = new TemperatureAgent();
+            temperatureAgent.TemperatureUpdated += TemperatureAgentUpdated;
+
+            mapleServer = new MapleServer(
+                Device.WiFiAdapter.IpAddress, 5417, true
+            );
+
+            onboardLed.SetColor(Color.Green);
+        }
+
+        async Task GetDateTime() 
+        {
             var dateTime = await DateTimeService.GetTimeAsync();
 
             Device.SetClock(new DateTime(
@@ -50,14 +67,13 @@ namespace MeadowServerTemperature
                 hour: dateTime.Hour,
                 minute: dateTime.Minute,
                 second: dateTime.Second));
+        }
 
-            AnalogTemperatureController.Current.Initialize(Device, Device.Pins.A00);
-
-            mapleServer = new MapleServer(
-                Device.WiFiAdapter.IpAddress, 5417, true
-            );
-
-            onboardLed.SetColor(Color.Green);
+        void TemperatureAgentUpdated(object sender, TemperatureModel e)
+        {
+            Console.Write($"Saving ({e.Temperature.Value.Celsius},{e.DateTime.ToString()})...");
+            SQLiteDatabaseManager.Instance.SaveReading(e);
+            Console.WriteLine("done!");
         }
     }
 }

@@ -20,4 +20,10 @@ namespace MeadowServerTemperature.Entities
         public string utc_offset { get; set; }
         public long week_number { get; set; }
     }
+
+    public class TemperatureLogEntity 
+    { 
+        public double? Temperature { get; set; }
+        public DateTime DateTime { get; set; }
+    }
 }
