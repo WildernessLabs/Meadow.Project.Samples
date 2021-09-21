@@ -334,3 +334,4 @@ source/Hackster/MapleProjects/Connected.Client/Connected.Client.Android/Resource
 source/Hackster/BluetoothProjects/BleRover.Client/BleRover.Client.Android/Resources/Resource.designer.cs
 source/Hackster/Maple/MobileClient/MobileClient.Android/Resources/Resource.designer.cs
 source/Hackster/Rover/BleRover.Client/BleRover.Client.Android/Resources/Resource.designer.cs
+source/Hackster/Bluetooth/MobileBle/MobileBle.Android/Resources/Resource.designer.cs
