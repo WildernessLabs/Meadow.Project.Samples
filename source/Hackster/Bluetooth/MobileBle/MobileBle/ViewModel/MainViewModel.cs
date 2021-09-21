@@ -52,7 +52,9 @@ namespace MobileBle.ViewModel
 
         public ICommand CmdSetColor { get; set; }
 
-        public ICommand CmdConnect { get; set; }
+        public ICommand CmdToggleConnection { get; set; }
+
+        public ICommand CmdSearchForDevices { get; set; }
 
         public MainViewModel()
         {
@@ -109,7 +111,9 @@ namespace MobileBle.ViewModel
                 await setColor.WriteAsync(array);
             });
 
-            CmdConnect = new Command(async () => await Connect());
+            CmdToggleConnection = new Command(async () => await ToggleConnection());
+
+            CmdSearchForDevices = new Command(async () => await DiscoverDevices());
         }
 
         int UuidToUshort(string uuid)
@@ -121,6 +125,31 @@ namespace MobileBle.ViewModel
             result = int.Parse(id, System.Globalization.NumberStyles.HexNumber);
 
             return result;
+        }
+
+        async Task ToggleConnection()
+        {
+            try
+            {
+                if (IsConnected)
+                {
+                    await adapter.DisconnectDeviceAsync(DeviceSelected);
+                    IsConnected = false;
+                }
+                else
+                {
+                    await adapter.ConnectToDeviceAsync(DeviceSelected);
+                    IsConnected = true;
+                }
+            }
+            catch (DeviceConnectionException ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
         }
 
         public async Task DiscoverDevices()
@@ -135,22 +164,6 @@ namespace MobileBle.ViewModel
                     }
                 };
                 await adapter.StartScanningForDevicesAsync();
-            }
-            catch (DeviceConnectionException ex)
-            {
-                Debug.WriteLine(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-            }
-        }
-
-        public async Task Connect()
-        {
-            try
-            {
-                await adapter.ConnectToDeviceAsync(DeviceSelected);
             }
             catch (DeviceConnectionException ex)
             {

@@ -9,7 +9,8 @@ namespace MobileBle
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            MainPage = new NavigationPage(new MainPage()) 
+                { BarTextColor = Color.White, BarBackgroundColor = (Color)Current.Resources["ButtonActive"] };
         }
 
         protected override void OnStart()

@@ -10,6 +10,7 @@
             <Color x:Key="ButtonInactive">#555</Color>
 
             <Style x:Key="ButtonStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="#23ABE3" />
                 <Setter Property="TextColor" Value="White" />
                 <Setter Property="FontAttributes" Value="Bold" />
                 <Setter Property="CornerRadius" Value="5" />

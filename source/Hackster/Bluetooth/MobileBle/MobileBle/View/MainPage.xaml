@@ -2,10 +2,102 @@
 <ContentPage 
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    ios:Page.UseSafeArea="true"
     xmlns:colorpicker="clr-namespace:ColorPicker;assembly=ColorPicker"
-    x:Class="MobileBle.View.MainPage">
+    x:Class="MobileBle.View.MainPage"
+    BackgroundColor="White"
+    Title="Led Controller">
 
-    <Grid RowDefinitions="Auto, *, Auto, *, Auto, Auto">
+    <ContentPage.Content>
+        <Grid>
+            <Grid RowSpacing="10" Padding="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0" Text="Bluetooth devices:" FontSize="Medium" TextColor="Black" />
+
+                <Frame Grid.Row="1" BackgroundColor="#23ABE3" HasShadow="False" CornerRadius="5" Padding="10,0,0,0">
+                    <Grid ColumnDefinitions="*, Auto, 1, Auto" ColumnSpacing="0">
+                        <Grid Grid.Column="0">
+                            <Picker TextColor="White" FontSize="Medium" BackgroundColor="Transparent"
+                                ItemsSource="{Binding HostList}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedServer}"/>
+                            <Label IsVisible="{Binding IsServerListEmpty}" Text="Pick a server" 
+                                FontSize="Medium" TextColor="White" VerticalOptions="Center" />
+                        </Grid>
+
+                        <Grid Grid.Column="1" WidthRequest="50" HeightRequest="50">
+                            <Button Command="{Binding CmdToggleConnection}" BackgroundColor="Transparent" CornerRadius="5" />
+                            <Image Margin="10" InputTransparent="True" HorizontalOptions="Center">
+                                <Image.Triggers>
+                                    <DataTrigger TargetType="Image" Binding="{Binding IsConnected}" Value="true">
+                                        <Setter Property="Source" Value="icon_connected" />
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Image" Binding="{Binding IsConnected}" Value="false">
+                                        <Setter Property="Source" Value="icon_disconnected" />
+                                    </DataTrigger>
+                                </Image.Triggers>
+                            </Image>
+                        </Grid>
+
+                        <BoxView Grid.Column="2" Color="White" />
+
+                        <Grid Grid.Column="3" WidthRequest="50" HeightRequest="50">
+                            <Button Command="{Binding SearchServersCommand}" BackgroundColor="Transparent" CornerRadius="5" />
+                            <Image Source="icon_search.png" Margin="10" InputTransparent="True" HorizontalOptions="Center" />
+                        </Grid>
+                    </Grid>
+                </Frame>
+
+                <Label Grid.Row="2" Text="Choose a command:" TextColor="Black" FontSize="Medium" Margin="0,5" />
+
+                <colorpicker:ColorWheel Grid.Row="3" x:Name="ColorWheel1" Padding="5" />
+
+                <Button Grid.Row="4" Text="Set Color" Style="{StaticResource ButtonStyle}" BackgroundColor="#23ABE3"
+                    Command="{Binding SendCommand}" CommandParameter="StartPulse">
+                    <!--<Button.Triggers>
+                        <DataTrigger TargetType="Button" Binding="{Binding IsPulsing}" Value="true">
+                            <Setter Property="BackgroundColor" Value="{StaticResource ButtonActive}" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="Button" Binding="{Binding IsPulsing}" Value="false">
+                            <Setter Property="BackgroundColor" Value="{StaticResource ButtonInactive}" />
+                        </DataTrigger>
+                    </Button.Triggers>-->
+                </Button>
+
+                <Button Grid.Row="5" Text="Toggle LED On/Off" Style="{StaticResource ButtonStyle}" BackgroundColor="#23ABE3"
+                    Command="{Binding SendCommand}" CommandParameter="StartRunningColors">
+                    <!--<Button.Triggers>
+                        <DataTrigger TargetType="Button" Binding="{Binding IsRunningColors}" Value="true">
+                            <Setter Property="BackgroundColor" Value="{StaticResource ButtonActive}" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="Button" Binding="{Binding IsRunningColors}" Value="false">
+                            <Setter Property="BackgroundColor" Value="{StaticResource ButtonInactive}" />
+                        </DataTrigger>
+                    </Button.Triggers>-->
+                </Button>
+
+                <Label Grid.Row="6" Text="By Wilderness Labs" TextColor="Black" 
+                    HorizontalOptions="Center" VerticalOptions="EndAndExpand" />
+            </Grid>
+
+            <!--<Grid IsVisible="{Binding IsBusy}" BackgroundColor="#88000000">
+                <StackLayout Spacing="10" HorizontalOptions="Center" VerticalOptions="Center">
+                    <Label Text="Please Wait..." TextColor="White" HorizontalOptions="Center" />
+                    <ActivityIndicator Color="White" IsRunning="True"  />
+                </StackLayout>
+            </Grid>-->
+        </Grid>
+    </ContentPage.Content>
+    
+    <!--<Grid RowDefinitions="Auto, *, Auto, *, Auto, Auto">
         <Label Grid.Row="0" Text="Devices" />
 
         <ListView Grid.Row="1" ItemsSource="{Binding DeviceList}" SelectedItem="{Binding DeviceSelected}">
@@ -29,5 +121,5 @@
 
         <Button Grid.Row="4" Text="Set Color" Command="{Binding CmdSetColor}" />
         <Button Grid.Row="5" Text="Toggle LED" Command="{Binding CmdToggle}" />
-    </Grid>
+    </Grid>-->
 </ContentPage>
