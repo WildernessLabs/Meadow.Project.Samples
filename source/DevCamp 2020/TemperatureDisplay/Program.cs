@@ -1,7 +1,7 @@
 ﻿using Meadow;
 using System.Threading;
 
-namespace MF
+namespace TemperatureDisplay
 {
     class Program
     {

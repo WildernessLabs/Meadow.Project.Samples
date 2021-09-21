@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Span4_Ssd1309", "Games\Span
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Span4_St7789", "Games\Span4\Span4_ST7789\Span4_St7789.csproj", "{150FDA72-763C-4E67-A4C3-21B024F9F705}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloMeadowFoundation", "DevCamp 2020\HelloMeadowFoundation - DevCamp2020\MF\HelloMeadowFoundation.csproj", "{C4242722-9E0C-4384-8EF9-836829A9B947}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TemperatureDisplay", "DevCamp 2020\TemperatureDisplay\TemperatureDisplay.csproj", "{C4242722-9E0C-4384-8EF9-836829A9B947}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DevCamp 2020", "DevCamp 2020", "{E50DAA90-F76D-49B6-8AE2-94DB79589AB5}"
 EndProject
