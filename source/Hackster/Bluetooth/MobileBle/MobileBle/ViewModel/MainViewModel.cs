@@ -113,10 +113,8 @@ namespace MobileBle.ViewModel
             CmdSetColor = new Command(async () =>
             {
                 byte[] array;
-
-                string colorHex = SelectedColor.ToHex().Substring(1, 8);
-
-                var color = int.Parse(colorHex, System.Globalization.NumberStyles.HexNumber);
+                
+                var color = int.Parse(SelectedColor.ToHex().Substring(1, 8), System.Globalization.NumberStyles.HexNumber);
 
                 array = BitConverter.GetBytes(color);
 
@@ -164,7 +162,7 @@ namespace MobileBle.ViewModel
             }
         }
 
-        public async Task DiscoverDevices()
+        async Task DiscoverDevices()
         {
             try
             {

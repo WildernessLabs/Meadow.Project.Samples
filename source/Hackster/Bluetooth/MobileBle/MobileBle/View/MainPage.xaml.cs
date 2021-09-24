@@ -9,7 +9,7 @@ namespace MobileBle.View
         {
             InitializeComponent();
             BindingContext = new MainViewModel();
-            ColorWheel1.SelectedColorChanged += ColorWheel1_SelectedColorChanged;
+            ColorWheel.SelectedColorChanged += ColorWheel1_SelectedColorChanged;
         }
 
         private void ColorWheel1_SelectedColorChanged(object sender, ColorPicker.BaseClasses.ColorPickerEventArgs.ColorChangedEventArgs e)
