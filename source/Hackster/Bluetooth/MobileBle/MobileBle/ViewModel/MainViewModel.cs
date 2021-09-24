@@ -72,6 +72,8 @@ namespace MobileBle.ViewModel
         {
             DeviceList = new ObservableCollection<IDevice>();
 
+            IsLedOn = true;
+
             IBluetoothLE ble = CrossBluetoothLE.Current;
 
             adapter = CrossBluetoothLE.Current.Adapter;

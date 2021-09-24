@@ -61,22 +61,23 @@
                 <colorpicker:ColorWheel Grid.Row="3" x:Name="ColorWheel" Padding="5" />
 
                 <Button Grid.Row="4" Text="Set Color" Style="{StaticResource ButtonStyle}" BackgroundColor="#23ABE3"
-                    Command="{Binding CmdSetColor}" CommandParameter="StartPulse" IsEnabled="{Binding IsConnected}" />
+                    Command="{Binding CmdSetColor}" IsEnabled="{Binding IsConnected}" />
 
-
-                <Button Grid.Row="5" Text="Toggle LED On/Off" Style="{StaticResource ButtonStyle}" BackgroundColor="#23ABE3"
-                    Command="{Binding CmdToggle}" CommandParameter="StartRunningColors" IsEnabled="{Binding IsConnected}" />
+                <Button Grid.Row="5" Style="{StaticResource ButtonStyle}" BackgroundColor="#23ABE3"
+                    Command="{Binding CmdToggle}" IsEnabled="{Binding IsConnected}">
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button" Binding="{Binding IsLedOn}" Value="True">
+                            <Setter Property="Text" Value="Turn Off" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="Button" Binding="{Binding IsLedOn}" Value="False">
+                            <Setter Property="Text" Value="Turn On" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
 
                 <Label Grid.Row="6" Text="By Wilderness Labs" TextColor="Black" 
                     HorizontalOptions="Center" VerticalOptions="EndAndExpand" />
             </Grid>
-
-            <!--<Grid IsVisible="{Binding IsBusy}" BackgroundColor="#88000000">
-                <StackLayout Spacing="10" HorizontalOptions="Center" VerticalOptions="Center">
-                    <Label Text="Please Wait..." TextColor="White" HorizontalOptions="Center" />
-                    <ActivityIndicator Color="White" IsRunning="True"  />
-                </StackLayout>
-            </Grid>-->
         </Grid>
     </ContentPage.Content>
 </ContentPage>
