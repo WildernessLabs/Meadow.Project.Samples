@@ -25,7 +25,19 @@ namespace MobileBle.ViewModel
 
         public ObservableCollection<IDevice> DeviceList { get; set; }
 
-        public IDevice DeviceSelected { get; set; }
+        IDevice deviceSelected;
+        public IDevice DeviceSelected 
+        {
+            get => deviceSelected;
+            set { deviceSelected = value; OnPropertyChanged(nameof(DeviceSelected)); }
+        }
+
+        bool isDeviceListEmpty;
+        public bool IsDeviceListEmpty
+        {
+            get => isDeviceListEmpty;
+            set { isDeviceListEmpty = value; OnPropertyChanged(nameof(IsDeviceListEmpty)); }
+        }
 
         bool isLedOn;
         public bool IsLedOn
@@ -158,9 +170,16 @@ namespace MobileBle.ViewModel
             {
                 adapter.DeviceDiscovered += (s, a) =>
                 {
-                    if (DeviceList.FirstOrDefault(x => x.Name == a.Device.Name) == null)
+                    if (DeviceList.FirstOrDefault(x => x.Name == a.Device.Name) == null && 
+                        !string.IsNullOrEmpty(a.Device.Name))
                     {
                         DeviceList.Add(a.Device);
+                    }
+
+                    if (a.Device.Name == "MeadowRGB")
+                    {
+                        IsDeviceListEmpty = false;
+                        DeviceSelected = a.Device;
                     }
                 };
                 await adapter.StartScanningForDevicesAsync();

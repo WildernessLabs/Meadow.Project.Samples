@@ -5,7 +5,7 @@ using Android.OS;
 
 namespace MobileBle.Droid
 {
-    [Activity(Label = "Maple", Icon = "@mipmap/icon_launcher", RoundIcon = "@mipmap/icon_round_launcher", Theme = "@style/Theme.Splash",
+    [Activity(Label = "Bluetooth", Icon = "@mipmap/icon_launcher", RoundIcon = "@mipmap/icon_round_launcher", Theme = "@style/Theme.Splash",
         MainLauncher = true, NoHistory = true, ConfigurationChanges = ConfigChanges.ScreenSize, ScreenOrientation = ScreenOrientation.Portrait)]
     public class SplashActivity : Activity
     {

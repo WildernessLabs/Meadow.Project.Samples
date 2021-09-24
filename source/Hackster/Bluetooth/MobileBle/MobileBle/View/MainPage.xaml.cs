@@ -17,10 +17,10 @@ namespace MobileBle.View
             (BindingContext as MainViewModel).SelectedColor = e.NewColor;
         }
 
-        protected override async void OnAppearing()
+        protected override void OnAppearing()
         {
             base.OnAppearing();
-            await (BindingContext as MainViewModel).DiscoverDevices();
+            (BindingContext as MainViewModel).CmdSearchForDevices.Execute(null);
         }
     }
 }
