@@ -1,4 +1,4 @@
-﻿using MobileBle.ViewModel;
+﻿using System;
 using Xamarin.Forms;
 
 namespace MobileBle.View
@@ -8,19 +8,21 @@ namespace MobileBle.View
         public MainPage()
         {
             InitializeComponent();
-            BindingContext = new MainViewModel();
-            ColorWheel.SelectedColorChanged += ColorWheel1_SelectedColorChanged;
         }
 
-        private void ColorWheel1_SelectedColorChanged(object sender, ColorPicker.BaseClasses.ColorPickerEventArgs.ColorChangedEventArgs e)
+        void BtnLedClicked(object sender, EventArgs e)
         {
-            (BindingContext as MainViewModel).SelectedColor = e.NewColor;
+            Navigation.PushAsync(new LedControllerPage());
         }
 
-        protected override void OnAppearing()
+        void BtnServoClicked(object sender, EventArgs e)
         {
-            base.OnAppearing();
-            (BindingContext as MainViewModel).CmdSearchForDevices.Execute(null);
+            //Navigation.PushAsync(new ServoControllerPage());
+        }
+
+        void BtnTemperatureClicked(object sender, EventArgs e)
+        {
+            //Navigation.PushAsync(new TemperatureControllerPage());
         }
     }
 }
