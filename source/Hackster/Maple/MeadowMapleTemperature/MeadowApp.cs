@@ -1,15 +1,15 @@
-﻿using MeadowServerTemperature.Services;
-using Meadow;
+﻿using Meadow;
 using Meadow.Devices;
 using Meadow.Foundation;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Web.Maple.Server;
 using Meadow.Gateway.WiFi;
+using MeadowMapleTemperature.Models;
+using MeadowMapleTemperature.Services;
 using System;
 using System.Threading.Tasks;
-using MeadowServerTemperature.Models;
 
-namespace MeadowServerTemperature
+namespace MeadowMapleTemperature
 {
     public class MeadowApp : App<F7Micro, MeadowApp>
     {
@@ -56,7 +56,7 @@ namespace MeadowServerTemperature
             onboardLed.SetColor(Color.Green);
         }
 
-        async Task GetDateTime() 
+        async Task GetDateTime()
         {
             var dateTime = await DateTimeService.GetTimeAsync();
 

@@ -1,7 +1,7 @@
 ﻿using Meadow.Foundation.Sensors.Temperature;
 using System;
 
-namespace MeadowServerTemperature.Models
+namespace MeadowMapleTemperature.Models
 {
     public class TemperatureAgent
     {
@@ -9,7 +9,7 @@ namespace MeadowServerTemperature.Models
 
         public event EventHandler<TemperatureModel> TemperatureUpdated = delegate { };
 
-        public TemperatureAgent() 
+        public TemperatureAgent()
         {
             Initialize();
         }

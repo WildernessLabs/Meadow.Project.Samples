@@ -1,7 +1,7 @@
 ﻿using Meadow;
 using System.Threading;
 
-namespace MeadowServerTemperature
+namespace MeadowMapleServo
 {
     class Program
     {

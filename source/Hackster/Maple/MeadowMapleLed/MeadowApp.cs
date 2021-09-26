@@ -1,14 +1,13 @@
 ﻿using Meadow;
 using Meadow.Devices;
 using Meadow.Foundation;
-using Meadow.Foundation.Leds;
 using Meadow.Foundation.Web.Maple.Server;
 using Meadow.Gateway.WiFi;
-using MeadowServerServo.Controllers;
+using MeadowMapleLed.Controller;
 using System;
 using System.Threading.Tasks;
 
-namespace MeadowServerServo
+namespace MeadowMapleLed
 {
     public class MeadowApp : App<F7Micro, MeadowApp>
     {
@@ -19,17 +18,13 @@ namespace MeadowServerServo
             Initialize().Wait();
 
             mapleServer.Start();
+
+            LedController.Current.SetColor(Color.Green);
         }
 
         async Task Initialize()
         {
-            var onboardLed = new RgbPwmLed(device: Device,
-                redPwmPin: Device.Pins.OnboardLedRed,
-                greenPwmPin: Device.Pins.OnboardLedGreen,
-                bluePwmPin: Device.Pins.OnboardLedBlue);
-            onboardLed.SetColor(Color.Red);
-
-            ServoController.Current.Initialize(Device, Device.Pins.D08);
+            LedController.Current.Initialize();
 
             if (!Device.InitWiFiAdapter().Result)
             {
@@ -45,8 +40,6 @@ namespace MeadowServerServo
             mapleServer = new MapleServer(
                 Device.WiFiAdapter.IpAddress, 5417, true
             );
-
-            onboardLed.SetColor(Color.Green);
         }
     }
 }

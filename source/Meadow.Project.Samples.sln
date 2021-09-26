@@ -91,11 +91,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobileClient.iOS", "Hackste
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MobileClient", "Hackster\Maple\MobileClient\MobileClient\MobileClient.csproj", "{C7E77E06-97D4-44D4-9662-FE8DF233CB46}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeadowServerLed", "Hackster\Maple\MeadowServerLed\MeadowServerLed.csproj", "{6DB77DD2-27A7-43F2-A37B-9FA7ECD71874}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeadowMapleLed", "Hackster\Maple\MeadowMapleLed\MeadowMapleLed.csproj", "{6DB77DD2-27A7-43F2-A37B-9FA7ECD71874}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WifiWeatherClock", "Hackster\WifiWeatherClock\WifiWeatherClock.csproj", "{BEA5DEE2-7888-47B0-8C7C-6A29E6E4ADF6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeadowServerServo", "Hackster\Maple\MeadowServerServo\MeadowServerServo.csproj", "{55DB2BB4-E16E-4680-BCD6-DCE9174C977F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeadowMapleServo", "Hackster\Maple\MeadowMapleServo\MeadowMapleServo.csproj", "{55DB2BB4-E16E-4680-BCD6-DCE9174C977F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bluetooth", "Bluetooth", "{35706016-C4F5-4EBE-9F97-4051C4533ADC}"
 EndProject
@@ -109,7 +109,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BleRover.Client", "Hackster
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BleRover.Meadow", "Hackster\Rover\BleRover.Meadow\BleRover.Meadow.csproj", "{7E1F1758-B33F-41AF-9090-CD3DA0BBE3F3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeadowServerTemperature", "Hackster\Maple\MeadowServerTemperature\MeadowServerTemperature.csproj", "{5451B41A-AE55-4EF3-9172-9045F5D6096A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeadowMapleTemperature", "Hackster\Maple\MeadowMapleTemperature\MeadowMapleTemperature.csproj", "{5451B41A-AE55-4EF3-9172-9045F5D6096A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LedSample", "Hackster\LedSample\LedSample.csproj", "{927C9021-F471-4BBF-BF36-A58763026AD9}"
 EndProject

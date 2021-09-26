@@ -1,8 +1,8 @@
-﻿using System;
+﻿using SQLite;
+using System;
 using MU = Meadow.Units;
-using SQLite;
 
-namespace MeadowServerTemperature.Models
+namespace MeadowMapleTemperature.Models
 {
     [Table("TemperatureReadings")]
     public class TemperatureModel

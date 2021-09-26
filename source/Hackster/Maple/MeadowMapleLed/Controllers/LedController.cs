@@ -4,7 +4,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MeadowServerLed.Controller
+namespace MeadowMapleLed.Controller
 {
     public class LedController
     {
@@ -46,10 +46,10 @@ namespace MeadowServerLed.Controller
             cancellationTokenSource?.Cancel();
         }
 
-        public void SetColor(Color color) 
+        public void SetColor(Color color)
         {
             Stop();
-            rgbPwmLed.SetColor(color);            
+            rgbPwmLed.SetColor(color);
         }
 
         public void TurnOn()
@@ -75,7 +75,7 @@ namespace MeadowServerLed.Controller
         {
             Stop();
             rgbPwmLed.StartPulse(GetRandomColor());
-        }        
+        }
 
         public void StartRunningColors()
         {
@@ -89,7 +89,7 @@ namespace MeadowServerLed.Controller
             animationTask.Start();
         }
 
-        protected async Task StartRunningColors(CancellationToken cancellationToken) 
+        protected async Task StartRunningColors(CancellationToken cancellationToken)
         {
             while (true)
             {
@@ -99,7 +99,7 @@ namespace MeadowServerLed.Controller
                 }
 
                 rgbPwmLed.SetColor(GetRandomColor());
-                await Task.Delay(1000);                
+                await Task.Delay(1000);
             }
         }
 

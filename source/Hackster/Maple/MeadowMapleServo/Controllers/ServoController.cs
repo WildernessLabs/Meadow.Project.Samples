@@ -6,7 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AU = Meadow.Units.Angle.UnitType;
 
-namespace MeadowServerServo.Controllers
+namespace MeadowMapleServo.Controllers
 {
     public class ServoController
     {
@@ -37,7 +37,7 @@ namespace MeadowServerServo.Controllers
             initialized = true;
         }
 
-        public void RotateTo(Angle angle) 
+        public void RotateTo(Angle angle)
         {
             servo.RotateTo(angle);
         }

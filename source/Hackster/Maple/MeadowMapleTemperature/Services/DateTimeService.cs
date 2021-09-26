@@ -1,11 +1,11 @@
 ﻿using Json.Net;
+using MeadowMapleTemperature.Entities;
 using System;
 using System.Diagnostics;
 using System.Net.Http;
 using System.Threading.Tasks;
-using MeadowServerTemperature.Entities;
 
-namespace MeadowServerTemperature.Services
+namespace MeadowMapleTemperature.Services
 {
     public static class DateTimeService
     {

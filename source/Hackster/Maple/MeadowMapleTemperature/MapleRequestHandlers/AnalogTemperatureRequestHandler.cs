@@ -1,17 +1,17 @@
 ﻿using Meadow.Foundation.Web.Maple.Server;
 using Meadow.Foundation.Web.Maple.Server.Routing;
-using MeadowServerTemperature.Entities;
-using MeadowServerTemperature.Models;
+using MeadowMapleTemperature.Entities;
+using MeadowMapleTemperature.Models;
 using System.Collections.Generic;
 
-namespace MeadowServerTemperature.MapleRequestHandlers
+namespace MeadowMapleTemperature.MapleRequestHandlers
 {
     public class AnalogTemperatureRequestHandler : RequestHandlerBase
     {
         public AnalogTemperatureRequestHandler() { }
 
         [HttpGet]
-        public void GetTemperatureLogs() 
+        public void GetTemperatureLogs()
         {
             var logs = SQLiteDatabaseManager.Instance.GetTemperatureReadings();
 

@@ -1,7 +1,7 @@
 ﻿using Meadow;
 using System.Threading;
 
-namespace MeadowServerServo
+namespace MeadowMapleLed
 {
     class Program
     {

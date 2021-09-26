@@ -1,15 +1,15 @@
-﻿namespace MeadowServerTemperature
+﻿namespace MeadowMapleLed
 {
     public class Secrets
     {
         /// <summary>
         /// Name of the WiFi network to use.
         /// </summary>
-        public const string WIFI_NAME = "[SSID]";
+        public const string WIFI_NAME = "BunnyMesh";
 
         /// <summary>
         /// Password for the WiFi network names in WIFI_NAME.
         /// </summary>
-        public const string WIFI_PASSWORD = "[PASSWORD]";
+        public const string WIFI_PASSWORD = "zxpvi29wt8";
     }
 }

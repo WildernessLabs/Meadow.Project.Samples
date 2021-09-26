@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace MeadowServerTemperature.Models
+namespace MeadowMapleTemperature.Models
 {
     public class SQLiteDatabaseManager
     {
@@ -12,7 +12,7 @@ namespace MeadowServerTemperature.Models
 
         private static readonly Lazy<SQLiteDatabaseManager> instance =
             new Lazy<SQLiteDatabaseManager>(() => new SQLiteDatabaseManager());
-        
+
         public static SQLiteDatabaseManager Instance
         {
             get { return instance.Value; }

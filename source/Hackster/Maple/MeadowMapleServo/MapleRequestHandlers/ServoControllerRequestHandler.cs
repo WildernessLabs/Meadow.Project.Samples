@@ -1,10 +1,10 @@
 ﻿using Meadow.Foundation.Web.Maple.Server;
 using Meadow.Foundation.Web.Maple.Server.Routing;
 using Meadow.Units;
-using MeadowServerServo.Controllers;
+using MeadowMapleServo.Controllers;
 using AU = Meadow.Units.Angle.UnitType;
 
-namespace MeadowServerServo.MapleRequestHandlers
+namespace MeadowMapleServo.MapleRequestHandlers
 {
     public class ServoControllerRequestHandler : RequestHandlerBase
     {

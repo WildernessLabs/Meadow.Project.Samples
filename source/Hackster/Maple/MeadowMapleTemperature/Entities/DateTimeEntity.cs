@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MeadowServerTemperature.Entities
+namespace MeadowMapleTemperature.Entities
 {
     public class DateTimeEntity
     {
@@ -21,8 +21,8 @@ namespace MeadowServerTemperature.Entities
         public long week_number { get; set; }
     }
 
-    public class TemperatureLogEntity 
-    { 
+    public class TemperatureLogEntity
+    {
         public double? Temperature { get; set; }
         public DateTime DateTime { get; set; }
     }

@@ -1,4 +1,4 @@
-﻿namespace MeadowServerServo
+﻿namespace MeadowMapleTemperature
 {
     public class Secrets
     {
