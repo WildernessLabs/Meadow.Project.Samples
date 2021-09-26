@@ -83,13 +83,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WifiClock", "Hackster\WifiC
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Maple", "Maple", "{C18D8875-EBD9-4D8D-B1B4-479BFCB5CB9E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobileClient.UWP", "Hackster\Maple\MobileClient\MobileClient.UWP\MobileClient.UWP.csproj", "{788B9BFD-ADF0-40C6-ADC2-E3202BAFD2BA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobileMaple.UWP", "Hackster\Maple\MobileMaple\MobileMaple.UWP\MobileMaple.UWP.csproj", "{788B9BFD-ADF0-40C6-ADC2-E3202BAFD2BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobileClient.Android", "Hackster\Maple\MobileClient\MobileClient.Android\MobileClient.Android.csproj", "{89CE2441-91E3-495C-926C-6764B9C59A31}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobileMaple.Android", "Hackster\Maple\MobileMaple\MobileMaple.Android\MobileMaple.Android.csproj", "{89CE2441-91E3-495C-926C-6764B9C59A31}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobileClient.iOS", "Hackster\Maple\MobileClient\MobileClient.iOS\MobileClient.iOS.csproj", "{849731E7-0D9B-486A-97AA-12F79D4C219E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobileMaple.iOS", "Hackster\Maple\MobileMaple\MobileMaple.iOS\MobileMaple.iOS.csproj", "{849731E7-0D9B-486A-97AA-12F79D4C219E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MobileClient", "Hackster\Maple\MobileClient\MobileClient\MobileClient.csproj", "{C7E77E06-97D4-44D4-9662-FE8DF233CB46}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MobileMaple", "Hackster\Maple\MobileMaple\MobileMaple\MobileMaple.csproj", "{C7E77E06-97D4-44D4-9662-FE8DF233CB46}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeadowMapleLed", "Hackster\Maple\MeadowMapleLed\MeadowMapleLed.csproj", "{6DB77DD2-27A7-43F2-A37B-9FA7ECD71874}"
 EndProject
