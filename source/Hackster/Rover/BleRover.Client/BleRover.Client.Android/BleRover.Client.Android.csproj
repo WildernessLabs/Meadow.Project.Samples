@@ -16,7 +16,6 @@
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
-    <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
     <TargetFrameworkVersion>v11.0</TargetFrameworkVersion>
     <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
     <AndroidUseAapt2>true</AndroidUseAapt2>
@@ -37,7 +36,6 @@
     <EnableLLVM>false</EnableLLVM>
     <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
     <BundleAssemblies>false</BundleAssemblies>
-    <AndroidSupportedAbis />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -82,7 +80,7 @@
   <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\BleRover.Client\BleRover.Client.csproj">
-      <Project>{BF149FDB-B2B9-44F5-A22E-86B277DD0361}</Project>
+      <Project>{49A5A7C8-C573-45DF-B776-44CC7C02DAEA}</Project>
       <Name>BleRover.Client</Name>
     </ProjectReference>
   </ItemGroup>

@@ -135,7 +135,7 @@
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
     <ProjectReference Include="..\BleRover.Client\BleRover.Client.csproj">
-      <Project>{BF149FDB-B2B9-44F5-A22E-86B277DD0361}</Project>
+      <Project>{49A5A7C8-C573-45DF-B776-44CC7C02DAEA}</Project>
       <Name>BleRover.Client</Name>
     </ProjectReference>
   </ItemGroup>
