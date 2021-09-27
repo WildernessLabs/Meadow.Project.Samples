@@ -8,6 +8,7 @@ namespace MobileMaple.View
         public MainPage()
         {
             InitializeComponent();
+            NavigationPage.SetBackButtonTitle(this, "Back");
         }
 
         void BtnLedClicked(object sender, EventArgs e)

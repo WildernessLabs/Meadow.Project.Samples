@@ -13,6 +13,8 @@ namespace MobileMaple.iOS.Renderers
         {
             base.OnElementPropertyChanged(sender, e);
 
+            if (Control == null) return;
+
             Control.Layer.BorderWidth = 0;
             Control.BorderStyle = UITextBorderStyle.None;
         }

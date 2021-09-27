@@ -38,7 +38,12 @@ namespace MobileMaple.ViewModel
         public ServerModel SelectedServer
         {
             get => _selectedServer;
-            set { _selectedServer = value; OnPropertyChanged(nameof(SelectedServer)); }
+            set
+            {
+                if (value == null) return;
+                _selectedServer = value;
+                OnPropertyChanged(nameof(SelectedServer));
+            }
         }
 
         public ObservableCollection<ServerModel> HostList { get; set; }

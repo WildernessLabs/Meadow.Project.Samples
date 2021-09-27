@@ -15,7 +15,10 @@ namespace MobileMaple
             Current = this;
 
             MainPage = new NavigationPage(new MainPage()) 
-                { BarTextColor = Color.White, BarBackgroundColor = (Color)Current.Resources["ButtonActive"] };
+            {
+                BarTextColor = Color.White,
+                BarBackgroundColor = (Color)Current.Resources["ButtonActive"]
+            };
         }
 
         public async Task DisplayAlert(string title, string msg, string cancel)
