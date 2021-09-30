@@ -23,7 +23,7 @@ namespace MeadowMapleTemperature.Entities
 
     public class TemperatureLogEntity
     {
-        public double? Temperature { get; set; }
-        public DateTime DateTime { get; set; }
+        public string Temperature { get; set; }
+        public string DateTime { get; set; }
     }
 }

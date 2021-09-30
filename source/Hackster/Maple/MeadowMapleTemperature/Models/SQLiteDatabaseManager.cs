@@ -29,6 +29,7 @@ namespace MeadowMapleTemperature.Models
         bool isConfigured = false;
         protected void CreateTables()
         {
+            Database.DropTable<TemperatureModel>();
             Console.WriteLine("ConfigureDatabase");
             Database.CreateTable<TemperatureModel>();
             Console.WriteLine("Table created");
