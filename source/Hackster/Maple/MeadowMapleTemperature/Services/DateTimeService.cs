@@ -9,7 +9,8 @@ namespace MeadowMapleTemperature.Services
 {
     public static class DateTimeService
     {
-        static string clockDataUri = "http://worldtimeapi.org/api/timezone/America/Vancouver/";
+        static string City = "[CITY]";
+        static string clockDataUri = $"http://worldtimeapi.org/api/timezone/America/{City}/";
 
         static DateTimeService() { }
 

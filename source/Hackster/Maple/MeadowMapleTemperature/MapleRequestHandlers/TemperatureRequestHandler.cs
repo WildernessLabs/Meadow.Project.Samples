@@ -6,9 +6,9 @@ using System.Collections.Generic;
 
 namespace MeadowMapleTemperature.MapleRequestHandlers
 {
-    public class AnalogTemperatureRequestHandler : RequestHandlerBase
+    public class TemperatureRequestHandler : RequestHandlerBase
     {
-        public AnalogTemperatureRequestHandler() { }
+        public TemperatureRequestHandler() { }
 
         [HttpGet]
         public void GetTemperatureLogs()
