@@ -4,7 +4,7 @@ namespace BleRover.Meadow
 {
     public class CarController
     {
-        float SPEED = 0.75f;
+        float SPEED = 1.00f;
 
         HBridgeMotor motorLeft;
         HBridgeMotor motorRight;

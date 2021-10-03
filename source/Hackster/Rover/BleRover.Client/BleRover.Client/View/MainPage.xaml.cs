@@ -22,10 +22,10 @@ namespace BleRover.Client
             btnRight.Released   += async (s, e) => { await vm.TurnRight(false); };
         }
 
-        protected override async void OnAppearing()
+        protected override void OnAppearing()
         {
             base.OnAppearing();
-            await (BindingContext as MainViewModel).Connect();
+            vm.CmdSearchForDevices.Execute(null);
         }
     }
 }

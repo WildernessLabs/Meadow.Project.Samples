@@ -8,15 +8,17 @@ namespace BleRover.Meadow
 {
     public class MeadowApp : App<F7Micro, MeadowApp>
     {
+        Definition bleTreeDefinition;
+        CharacteristicBool up, down, left, right;
+
         RgbLed led;
-        PwmLed up, down, left, right;
+        PwmLed ledUp, ledDown, ledLeft, ledRight;
+        
         CarController carController;
 
         public MeadowApp()
         {
             Initialize();
-
-            InitializeBluetooth();
         }
 
         void Initialize() 
@@ -28,11 +30,11 @@ namespace BleRover.Meadow
                 Device.Pins.OnboardLedBlue);
             led.SetColor(RgbLed.Colors.Red);
 
-            up = new PwmLed(Device, Device.Pins.D13, TypicalForwardVoltage.Red);
-            down = new PwmLed(Device, Device.Pins.D10, TypicalForwardVoltage.Red);
-            left = new PwmLed(Device, Device.Pins.D11, TypicalForwardVoltage.Red);
-            right = new PwmLed(Device, Device.Pins.D12, TypicalForwardVoltage.Red);
-            up.IsOn = down.IsOn = left.IsOn = right.IsOn = false;
+            ledUp = new PwmLed(Device, Device.Pins.D13, TypicalForwardVoltage.Red);
+            ledDown = new PwmLed(Device, Device.Pins.D10, TypicalForwardVoltage.Red);
+            ledLeft = new PwmLed(Device, Device.Pins.D11, TypicalForwardVoltage.Red);
+            ledRight = new PwmLed(Device, Device.Pins.D12, TypicalForwardVoltage.Red);
+            ledUp.IsOn = ledDown.IsOn = ledLeft.IsOn = ledRight.IsOn = true;
 
             var motorLeft = new HBridgeMotor
             (
@@ -51,86 +53,88 @@ namespace BleRover.Meadow
 
             carController = new CarController(motorLeft, motorRight);
 
-            led.SetColor(RgbLed.Colors.Yellow);
-        }
-
-        void InitializeBluetooth() 
-        {
-            Definition bleTreeDefinition;
-
             led.SetColor(RgbLed.Colors.Blue);
 
             Device.InitCoprocessor();
 
-            bleTreeDefinition = new Definition(
-                "Meadow Rover",
-                new Service(
-                    "Service",
-                    253,
-                    new CharacteristicBool(
-                        "Up",
-                            uuid: "017e99d6-8a61-11eb-8dcd-0242ac1300aa",
-                            permissions: CharacteristicPermission.Write | CharacteristicPermission.Read,
-                            properties: CharacteristicProperty.Write | CharacteristicProperty.Read
-                        ),
-                    new CharacteristicBool(
-                        "Down",
-                            uuid: "017e99d6-8a61-11eb-8dcd-0242ac1300bb",
-                            permissions: CharacteristicPermission.Write | CharacteristicPermission.Read,
-                            properties: CharacteristicProperty.Write | CharacteristicProperty.Read
-                        ),
-                    new CharacteristicBool(
-                        "Left",
-                            uuid: "017e99d6-8a61-11eb-8dcd-0242ac1300cc",
-                            permissions: CharacteristicPermission.Write | CharacteristicPermission.Read,
-                            properties: CharacteristicProperty.Write | CharacteristicProperty.Read
-                        ),
-                    new CharacteristicBool(
-                        "Right",
-                            uuid: "017e99d6-8a61-11eb-8dcd-0242ac1300dd",
-                            permissions: CharacteristicPermission.Write | CharacteristicPermission.Read,
-                            properties: CharacteristicProperty.Write | CharacteristicProperty.Read
-                        )
-                    )
-                );
-
+            bleTreeDefinition = GetDefinition();
             Device.BluetoothAdapter.StartBluetoothServer(bleTreeDefinition);
 
-            foreach (var characteristic in bleTreeDefinition.Services[0].Characteristics)
-            {
-                characteristic.ValueSet += (c, d) =>
-                {
-                    if (!(bool)d)
-                    {
-                        up.IsOn = down.IsOn = left.IsOn = right.IsOn = false;
-                        carController.Stop();
-                    }
-                    else
-                    {
-                        switch (c.Name)
-                        {
-                            case "Up":
-                                up.IsOn = true;
-                                carController.MoveForward();
-                                break;
-                            case "Down":
-                                down.IsOn = true;
-                                carController.MoveBackward();
-                                break;
-                            case "Left":
-                                left.IsOn = true;
-                                carController.TurnLeft();
-                                break;
-                            case "Right":
-                                right.IsOn = true;
-                                carController.TurnRight();
-                                break;
-                        }
-                    }
-                };
-            }
+            up.ValueSet += UpValueSet;
+            down.ValueSet += DownValueSet;
+            left.ValueSet += LeftValueSet;
+            right.ValueSet += RightValueSet;
 
             led.SetColor(RgbLed.Colors.Green);
+        }
+
+        void UpValueSet(ICharacteristic c, object data)
+        {
+            ledUp.IsOn = (bool)data;
+            if ((bool)data)
+                carController.MoveForward();
+            else
+                carController.Stop();
+        }
+        void DownValueSet(ICharacteristic c, object data)
+        {
+            ledDown.IsOn = (bool)data;
+            if ((bool)data)
+                carController.MoveBackward();
+            else
+                carController.Stop();
+        }
+        void LeftValueSet(ICharacteristic c, object data)
+        {
+            ledLeft.IsOn = (bool)data;
+            if ((bool)data)
+                carController.TurnLeft();
+            else
+                carController.Stop();
+        }
+        void RightValueSet(ICharacteristic c, object data)
+        {
+            ledRight.IsOn = (bool)data;
+            if ((bool)data)
+                carController.TurnRight();
+            else
+                carController.Stop();
+        }
+
+        Definition GetDefinition()
+        {
+            up = new CharacteristicBool(
+                "Up",
+                    uuid: "017e99d6-8a61-11eb-8dcd-0242ac1300aa",
+                    permissions: CharacteristicPermission.Write | CharacteristicPermission.Read,
+                    properties: CharacteristicProperty.Write | CharacteristicProperty.Read
+                );
+            down = new CharacteristicBool(
+                "Down",
+                    uuid: "017e99d6-8a61-11eb-8dcd-0242ac1300bb",
+                    permissions: CharacteristicPermission.Write | CharacteristicPermission.Read,
+                    properties: CharacteristicProperty.Write | CharacteristicProperty.Read
+                );
+            left = new CharacteristicBool(
+                "Left",
+                    uuid: "017e99d6-8a61-11eb-8dcd-0242ac1300cc",
+                    permissions: CharacteristicPermission.Write | CharacteristicPermission.Read,
+                    properties: CharacteristicProperty.Write | CharacteristicProperty.Read
+                );
+            right = new CharacteristicBool(
+                "Right",
+                    uuid: "017e99d6-8a61-11eb-8dcd-0242ac1300dd",
+                    permissions: CharacteristicPermission.Write | CharacteristicPermission.Read,
+                    properties: CharacteristicProperty.Write | CharacteristicProperty.Read
+                );
+
+            var service = new Service(
+                name: "ServiceA",
+                uuid: 253,
+                up, down, left, right
+            );
+
+            return new Definition("MeadowRover", service);
         }
     }
 }
