@@ -5,14 +5,13 @@ using Meadow.Foundation.Leds;
 using Meadow.Foundation.Motors;
 using Meadow.Foundation.Sensors.Rotary;
 using System;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace MotorRotaryController
 {
     public class MeadowApp : App<F7Micro, MeadowApp>
     {
-        float SPEED = 0.02f;
+        float SPEED = 0.1f;
         double number = 0;
 
         RgbPwmLed led;
@@ -55,28 +54,44 @@ namespace MotorRotaryController
         {
             while (true)
             {
-                motor.Power = 0.75f;
                 await Task.Delay(1000);
-                motor.Power = 0.0f;
-                await Task.Delay(1000);
-                motor.Power = -0.75f;
-                await Task.Delay(1000);
-                motor.Power = 0.0f;
-                await Task.Delay(1000);
+
+                for (float i = -1; i <= 1; i = i + 0.1f)
+                {
+                    Console.WriteLine($"{i}");
+                    motor.Power = i;
+                    await Task.Delay(1000);
+                }
+
+                await Task.Delay(2000);
+
+                for (float i = 1; i >= -1; i = i - 0.1f)
+                {
+                    Console.WriteLine($"{i}");
+                    motor.Power = i;
+                    await Task.Delay(1000);
+                }
+
+                await Task.Delay(2000);
             }
         }
 
-        private void RotaryRotated(object sender, Meadow.Peripherals.Sensors.Rotary.RotaryChangeResult e)
+        void RotaryRotated(object sender, Meadow.Peripherals.Sensors.Rotary.RotaryChangeResult e)
         {
             if (e.New == Meadow.Peripherals.Sensors.Rotary.RotationDirection.Clockwise)
             {
-                motor.Power += SPEED;
+                motor.Power = 0.75f;
+                //number = number + SPEED > 1 ? 1.0 : number + SPEED;
+                //motor.Power = motor.Power + SPEED > 1.0f ? 0.75f : motor.Power + SPEED;
             }
             else
             {
-                motor.Power -= SPEED;
+                motor.Power = -0.75f;
+                //number = number - SPEED < -1 ? -1.0 : number - SPEED;
+                //motor.Power = motor.Power - SPEED < -1.0f ? -0.75f : motor.Power - SPEED;
             }
 
+            //Console.WriteLine($"{number}");
             Console.WriteLine($"{motor.Power}");
         }
     }
