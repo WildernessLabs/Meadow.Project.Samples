@@ -9,12 +9,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using Plugin.BLE.Abstractions.EventArgs;
 
 namespace BleRover.Client.ViewModel
 {
     public class MainViewModel : BaseViewModel
     {
-        protected ushort DEVICE_ID = 253;
+        byte[] MOVE = new byte[1] { 1 };
+        byte[] STOP = new byte[1] { 0 };
+
+        ushort DEVICE_ID = 253;
 
         IAdapter adapter;
         IService service;
@@ -74,7 +78,7 @@ namespace BleRover.Client.ViewModel
             return result;
         }
 
-        async void DeviceDiscovered(object sender, Plugin.BLE.Abstractions.EventArgs.DeviceEventArgs e)
+        async void DeviceDiscovered(object sender, DeviceEventArgs e)
         {
             if (DeviceList.FirstOrDefault(x => x.Name == e.Device.Name) == null &&
                 !string.IsNullOrEmpty(e.Device.Name))
@@ -90,23 +94,7 @@ namespace BleRover.Client.ViewModel
             }
         }
 
-        async Task DiscoverDevices()
-        {
-            try
-            {
-                await adapter.StartScanningForDevicesAsync();
-            }
-            catch (DeviceConnectionException ex)
-            {
-                Debug.WriteLine(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-            }
-        }
-
-        async void DeviceConnected(object sender, Plugin.BLE.Abstractions.EventArgs.DeviceEventArgs e)
+        async void DeviceConnected(object sender, DeviceEventArgs e)
         {
             IsConnected = true;
 
@@ -125,12 +113,11 @@ namespace BleRover.Client.ViewModel
             right = await service.GetCharacteristicAsync(Guid.Parse(CharacteristicsConstants.RIGHT));
         }
 
-        public async Task Connect() 
+        async Task DiscoverDevices()
         {
             try
             {
-                Guid guid = new Guid("00000000-0000-0000-0000-d8a01d697eaa");
-                await adapter.ConnectToKnownDeviceAsync(guid);
+                await adapter.StartScanningForDevicesAsync();
             }
             catch (DeviceConnectionException ex)
             {
@@ -144,34 +131,50 @@ namespace BleRover.Client.ViewModel
 
         public async Task MoveForward(bool go)
         {
-            byte[] array = new byte[1];
-            array[0] = go ? (byte)1 : (byte)0;
-
-            await up.WriteAsync(array);
+            try
+            {
+                await up.WriteAsync(go? MOVE : STOP);
+            }
+            catch (Exception e) 
+            {
+                await up.WriteAsync(STOP);
+            }
         }
 
         public async Task MoveBackward(bool go)
         {
-            byte[] array = new byte[1];
-            array[0] = go ? (byte)1 : (byte)0;
-
-            await down.WriteAsync(array);
+            try
+            {
+                await down.WriteAsync(go ? MOVE : STOP);
+            }
+            catch (Exception e)
+            {
+                await down.WriteAsync(STOP);
+            }
         }
 
         public async Task TurnLeft(bool go)
         {
-            byte[] array = new byte[1];
-            array[0] = go ? (byte)1 : (byte)0;
-
-            await left.WriteAsync(array);
+            try
+            {
+                await left.WriteAsync(go ? MOVE : STOP);
+            }
+            catch (Exception e)
+            {
+                await left.WriteAsync(STOP);
+            }
         }
 
         public async Task TurnRight(bool go)
         {
-            byte[] array = new byte[1];
-            array[0] = go ? (byte)1 : (byte)0;
-
-            await right.WriteAsync(array);
+            try
+            {
+                await right.WriteAsync(go ? MOVE : STOP);
+            }
+            catch (Exception e)
+            {
+                await right.WriteAsync(STOP);
+            }
         }
     }
 }
