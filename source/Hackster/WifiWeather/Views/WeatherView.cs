@@ -38,13 +38,13 @@ namespace WifiWeather.Views
                 dcPin: MeadowApp.Device.Pins.D01,
                 resetPin: MeadowApp.Device.Pins.D00,
                 width: 240, height: 240,
-                displayColorMode: DisplayColorMode.Format16bppRgb565
+                displayColorMode: ColorType.Format16bppRgb565
             );
 
             graphics = new GraphicsLibrary(display)
             {   
                 CurrentFont = new Font12x20(),
-                Rotation = GraphicsLibrary.RotationType._270Degrees
+                Rotation = RotationType._270Degrees
             };
 
             graphics.Clear();

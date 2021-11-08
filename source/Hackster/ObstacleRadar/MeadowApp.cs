@@ -54,7 +54,7 @@ namespace ObstacleRadar
 
             graphics = new GraphicsLibrary(display);
             graphics.CurrentFont = new Font12x20();
-            graphics.Rotation = GraphicsLibrary.RotationType._270Degrees;
+            graphics.Rotation = RotationType._270Degrees;
 
             var i2cBus = Device.CreateI2cBus(I2cBusSpeed.FastPlus);
             sensor = new Vl53l0x(Device, i2cBus);

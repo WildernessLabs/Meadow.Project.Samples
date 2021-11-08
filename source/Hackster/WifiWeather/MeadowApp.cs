@@ -41,8 +41,6 @@ namespace WifiWeather
 
             displayController = new WeatherView();
 
-            Device.InitWiFiAdapter().Wait();
-
             onboardLed.StartPulse(Color.Blue);
 
             var result = await Device.WiFiAdapter.Connect(Secrets.WIFI_NAME, Secrets.WIFI_PASSWORD);

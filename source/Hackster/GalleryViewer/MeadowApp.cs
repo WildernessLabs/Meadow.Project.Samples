@@ -53,7 +53,7 @@ namespace GalleryViewer
             );
 
             graphics = new GraphicsLibrary(display);
-            graphics.Rotation = GraphicsLibrary.RotationType._270Degrees;
+            graphics.Rotation = RotationType._270Degrees;
 
             DisplayJPG();
 

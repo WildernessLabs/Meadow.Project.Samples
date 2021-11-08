@@ -53,7 +53,7 @@ namespace RadioPlayer
 
             display = new Ssd1306(i2CBus, 60, Ssd1306.DisplayType.OLED128x32);
             graphics = new GraphicsLibrary(display);
-            graphics.Rotation = GraphicsLibrary.RotationType._180Degrees;
+            graphics.Rotation = RotationType._180Degrees;
 
             btnNext = new PushButton(Device, Device.Pins.D03, ResistorMode.InternalPullUp);
             btnNext.Clicked += BtnNextClicked;

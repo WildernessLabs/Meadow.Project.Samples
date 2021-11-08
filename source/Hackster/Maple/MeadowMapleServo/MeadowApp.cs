@@ -31,11 +31,6 @@ namespace MeadowMapleServo
 
             ServoController.Current.Initialize(Device, Device.Pins.D08);
 
-            if (!Device.InitWiFiAdapter().Result)
-            {
-                throw new Exception("Could not initialize the WiFi adapter.");
-            }
-
             var connectionResult = await Device.WiFiAdapter.Connect(Secrets.WIFI_NAME, Secrets.WIFI_PASSWORD);
             if (connectionResult.ConnectionStatus != ConnectionStatus.Success)
             {

@@ -34,7 +34,7 @@ namespace Mp3Player
 
             display = new Ssd1306(i2CBus, 60, Ssd1306.DisplayType.OLED128x32);
             graphics = new GraphicsLibrary(display);
-            graphics.Rotation = GraphicsLibrary.RotationType._180Degrees;
+            graphics.Rotation = RotationType._180Degrees;
             DisplayText("MUSIC PLAYER", 16);
             Thread.Sleep(1000);
             DisplayText("Song.mp3");

@@ -33,11 +33,6 @@ namespace MeadowMapleTemperature
                 bluePwmPin: Device.Pins.OnboardLedBlue);
             onboardLed.SetColor(Color.Red);
 
-            if (!Device.InitWiFiAdapter().Result)
-            {
-                throw new Exception("Could not initialize the WiFi adapter.");
-            }
-
             var connectionResult = await Device.WiFiAdapter.Connect(Secrets.WIFI_NAME, Secrets.WIFI_PASSWORD);
             if (connectionResult.ConnectionStatus != ConnectionStatus.Success)
             {

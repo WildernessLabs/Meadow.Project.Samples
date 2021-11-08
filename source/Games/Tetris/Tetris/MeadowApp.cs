@@ -138,7 +138,7 @@ namespace Tetris
 
             graphics = new GraphicsLibrary(display);
             graphics.CurrentFont = new Font4x8();
-            graphics.Rotation = GraphicsLibrary.RotationType._270Degrees;
+            graphics.Rotation = RotationType._270Degrees;
         }
     }
 }

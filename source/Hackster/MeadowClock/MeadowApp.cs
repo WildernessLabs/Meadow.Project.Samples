@@ -41,7 +41,7 @@ namespace MeadowClock
             //display = new Max7219(Device, Device.CreateSpiBus(), Device.Pins.D01, 4, Max7219.Max7219Type.Display);
             //graphics = new GraphicsLibrary(display);
             //graphics.CurrentFont = new Font4x8();
-            //graphics.Rotation = GraphicsLibrary.RotationType._180Degrees;
+            //graphics.Rotation = RotationType._180Degrees;
 
             hour = new PushButton(Device, Device.Pins.D15);
             hour.Clicked += HourClicked;            

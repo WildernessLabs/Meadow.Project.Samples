@@ -41,8 +41,6 @@ namespace WifiWeatherClock
 
             displayView = new DisplayView();
 
-            Device.InitWiFiAdapter().Wait();
-
             onboardLed.SetColor(Color.Blue);
 
             var result = await Device.WiFiAdapter.Connect(Secrets.WIFI_NAME, Secrets.WIFI_PASSWORD);

@@ -38,7 +38,7 @@ namespace MeadowClockGraphics
             displayHeight = Convert.ToInt32(st7789.Height);
 
             graphics = new GraphicsLibrary(st7789);
-            graphics.Rotation = GraphicsLibrary.RotationType._270Degrees;
+            graphics.Rotation = RotationType._270Degrees;
 
             led.SetColor(RgbLed.Colors.Green);
 

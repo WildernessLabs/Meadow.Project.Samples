@@ -28,7 +28,7 @@ namespace TouchKeypad
                 width: 240, height: 240);
 
             graphics = new GraphicsLibrary(display);
-            graphics.Rotation = GraphicsLibrary.RotationType._180Degrees;
+            graphics.Rotation = RotationType._180Degrees;
             graphics.CurrentFont = new Font12x16();
 
             sensor = new Mpr121(Device.CreateI2cBus(I2cBusSpeed.Standard), 90, 100);

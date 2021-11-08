@@ -49,7 +49,7 @@ namespace WifiClock
                 maxMode: Max7219.Max7219Type.Display);
             graphics = new GraphicsLibrary(display);
             graphics.CurrentFont = new Font4x8();
-            graphics.Rotation = GraphicsLibrary.RotationType._180Degrees;
+            graphics.Rotation = RotationType._180Degrees;
 
             graphics.Clear();
             graphics.DrawText(0, 1,  "WI");
@@ -66,8 +66,6 @@ namespace WifiClock
                 analogPin: Device.Pins.A00,
                 sensorType: AnalogTemperature.KnownSensorType.LM35
             );            
-
-            Device.InitWiFiAdapter().Wait();
 
             onboardLed.StartPulse(Color.Blue);
 

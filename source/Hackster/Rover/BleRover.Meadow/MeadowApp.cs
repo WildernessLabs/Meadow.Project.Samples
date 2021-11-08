@@ -55,8 +55,6 @@ namespace BleRover.Meadow
 
             led.SetColor(RgbLed.Colors.Blue);
 
-            Device.InitCoprocessor();
-
             bleTreeDefinition = GetDefinition();
             Device.BluetoothAdapter.StartBluetoothServer(bleTreeDefinition);
 
