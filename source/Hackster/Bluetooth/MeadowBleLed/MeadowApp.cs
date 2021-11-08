@@ -34,8 +34,6 @@ namespace MeadowBleLed
                 bluePwmPin: Device.Pins.OnboardLedBlue);
             PulseColor(Color.Red);
 
-            Device.InitCoprocessor();
-
             bleTreeDefinition = GetDefinition();
             Device.BluetoothAdapter.StartBluetoothServer(bleTreeDefinition);
             
