@@ -80,7 +80,7 @@
     <AndroidResource Include="Resources\values\colors.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\icon_connected.jpg" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\icon_connected.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MobileBle\MobileBle.csproj">
@@ -155,28 +155,28 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\icon_disconnected.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\icon_connected.jpg" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\icon_connected.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxhdpi\icon_disconnected.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\icon_connected.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\icon_connected.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xhdpi\icon_disconnected.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\icon_connected.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable-hdpi\icon_disconnected.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\icon_connected.jpg" />
+    <AndroidResource Include="Resources\drawable\icon_connected.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\icon_disconnected.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\icon_connected.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>
