@@ -101,6 +101,15 @@
     <BundleResource Include="Resources\splash_logo%403x.png" />
     <BundleResource Include="Resources\splash_logo%402x.png" />
     <BundleResource Include="Resources\splash_logo.png" />
+    <BundleResource Include="Resources\icon_connected%403x.png" />
+    <BundleResource Include="Resources\icon_disconnected%403x.png" />
+    <BundleResource Include="Resources\icon_search%403x.png" />
+    <BundleResource Include="Resources\icon_connected%402x.png" />
+    <BundleResource Include="Resources\icon_disconnected%402x.png" />
+    <BundleResource Include="Resources\icon_search%402x.png" />
+    <BundleResource Include="Resources\icon_connected.png" />
+    <BundleResource Include="Resources\icon_disconnected.png" />
+    <BundleResource Include="Resources\icon_search.png" />
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\1024.png">
