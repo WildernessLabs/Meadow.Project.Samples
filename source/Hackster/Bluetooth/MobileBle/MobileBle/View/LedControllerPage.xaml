@@ -35,22 +35,39 @@
 
                         <Grid Grid.Column="1" WidthRequest="50" HeightRequest="50">
                             <Button Command="{Binding CmdToggleConnection}" BackgroundColor="Transparent" CornerRadius="5" />
-                            <Image Margin="10" InputTransparent="True" HorizontalOptions="Center">
+                            <Image Margin="10" HorizontalOptions="Center">
                                 <Image.Triggers>
-                                    <DataTrigger TargetType="Image" Binding="{Binding IsConnected}" Value="true">
+                                    <DataTrigger TargetType="Image" Binding="{Binding IsDeviceListEmpty}" Value="True">
+                                        <Setter Property="Opacity" Value="0.5" />
+                                        <Setter Property="InputTransparent" Value="False" />
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Image" Binding="{Binding IsDeviceListEmpty}" Value="False">
+                                        <Setter Property="Opacity" Value="1" />
+                                        <Setter Property="InputTransparent" Value="True" />
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Image" Binding="{Binding IsScanning}" Value="True">
+                                        <Setter Property="IsVisible" Value="False" />
+                                        <Setter Property="InputTransparent" Value="False" />
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Image" Binding="{Binding IsScanning}" Value="False">
+                                        <Setter Property="IsVisible" Value="True" />
+                                        <Setter Property="InputTransparent" Value="True" />
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Image" Binding="{Binding IsConnected}" Value="True">
                                         <Setter Property="Source" Value="icon_connected" />
                                     </DataTrigger>
-                                    <DataTrigger TargetType="Image" Binding="{Binding IsConnected}" Value="false">
+                                    <DataTrigger TargetType="Image" Binding="{Binding IsConnected}" Value="False">
                                         <Setter Property="Source" Value="icon_disconnected" />
                                     </DataTrigger>
                                 </Image.Triggers>
                             </Image>
+                            <ActivityIndicator Color="White" IsRunning="True" IsVisible="{Binding IsScanning}" Margin="7" />
                         </Grid>
 
                         <BoxView Grid.Column="2" Color="White" />
 
                         <Grid Grid.Column="3" WidthRequest="50" HeightRequest="50">
-                            <Button Command="{Binding SearchServersCommand}" BackgroundColor="Transparent" CornerRadius="5" />
+                            <Button Command="{Binding CmdSearchForDevices}" BackgroundColor="Transparent" CornerRadius="5" />
                             <Image Source="icon_search.png" Margin="10" InputTransparent="True" HorizontalOptions="Center" />
                         </Grid>
                     </Grid>

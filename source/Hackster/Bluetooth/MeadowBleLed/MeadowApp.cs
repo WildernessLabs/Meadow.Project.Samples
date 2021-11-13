@@ -28,10 +28,11 @@ namespace MeadowBleLed
 
         void Initialize()
         {
-            onboardLed = new RgbPwmLed(device: Device,
-                redPwmPin: Device.Pins.OnboardLedRed,
-                greenPwmPin: Device.Pins.OnboardLedGreen,
-                bluePwmPin: Device.Pins.OnboardLedBlue);
+            onboardLed = new RgbPwmLed(
+                device: Device,
+                redPwmPin: Device.Pins.D11,
+                greenPwmPin: Device.Pins.D10,
+                bluePwmPin: Device.Pins.D09);
             PulseColor(Color.Red);
 
             bleTreeDefinition = GetDefinition();

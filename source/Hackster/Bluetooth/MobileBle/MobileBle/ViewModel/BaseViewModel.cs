@@ -1,6 +1,7 @@
 ﻿using Plugin.BLE;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Abstractions.Exceptions;
+using Plugin.BLE.Abstractions.EventArgs;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -15,6 +16,8 @@ namespace MobileBle.ViewModel
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
+        int listenTimeout = 5000;
+
         protected ushort DEVICE_ID = 253;
 
         protected IAdapter adapter;
@@ -27,6 +30,13 @@ namespace MobileBle.ViewModel
         {
             get => deviceSelected;
             set { deviceSelected = value; OnPropertyChanged(nameof(DeviceSelected)); }
+        }
+
+        bool isScanning;
+        public bool IsScanning
+        {
+            get => isScanning;
+            set { isScanning = value; OnPropertyChanged(nameof(IsScanning)); }
         }
 
         bool isConnected;
@@ -52,6 +62,7 @@ namespace MobileBle.ViewModel
             DeviceList = new ObservableCollection<IDevice>();
 
             adapter = CrossBluetoothLE.Current.Adapter;
+            adapter.ScanTimeout = listenTimeout;
             adapter.ScanMode = ScanMode.LowLatency;
             adapter.DeviceDiscovered += AdapterDeviceDiscovered;
 
@@ -60,7 +71,14 @@ namespace MobileBle.ViewModel
             CmdSearchForDevices = new Command(async () => await DiscoverDevices());
         }
 
-        void AdapterDeviceDiscovered(object sender, Plugin.BLE.Abstractions.EventArgs.DeviceEventArgs e)
+        async Task ScanTimeoutTask()
+        {
+            await Task.Delay(listenTimeout);
+            await adapter.StopScanningForDevicesAsync();
+            IsScanning = false;
+        }
+
+        async void AdapterDeviceDiscovered(object sender, DeviceEventArgs e)
         {
             if (DeviceList.FirstOrDefault(x => x.Name == e.Device.Name) == null &&
                 !string.IsNullOrEmpty(e.Device.Name))
@@ -70,6 +88,7 @@ namespace MobileBle.ViewModel
 
             if (e.Device.Name == "MeadowRGB")
             {
+                await adapter.StopScanningForDevicesAsync();
                 IsDeviceListEmpty = false;
                 DeviceSelected = e.Device;
             }
@@ -79,7 +98,15 @@ namespace MobileBle.ViewModel
         {
             try
             {
-                await adapter.StartScanningForDevicesAsync();
+                IsScanning = true;
+
+                var tasks = new Task[]
+                {
+                    ScanTimeoutTask(),
+                    adapter.StartScanningForDevicesAsync()
+                };
+
+                await Task.WhenAny(tasks);
             }
             catch (DeviceConnectionException ex)
             {
@@ -118,13 +145,7 @@ namespace MobileBle.ViewModel
 
         protected int UuidToUshort(string uuid)
         {
-            int result;
-
-            string id = uuid.Substring(4, 4);
-
-            result = int.Parse(id, System.Globalization.NumberStyles.HexNumber);
-
-            return result;
+            return int.Parse(uuid.Substring(4, 4), System.Globalization.NumberStyles.HexNumber); ;
         }
 
         #region INotifyPropertyChanged Implementation
