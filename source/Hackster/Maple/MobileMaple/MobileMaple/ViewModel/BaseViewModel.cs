@@ -34,6 +34,13 @@ namespace MobileMaple.ViewModel
             set { _isServerListEmpty = value; OnPropertyChanged(nameof(IsServerListEmpty)); }
         }
 
+        string ipAddress;
+        public string IpAddress 
+        {
+            get => ipAddress;
+            set { ipAddress = value; OnPropertyChanged(nameof(IpAddress)); }
+        }
+
         ServerModel _selectedServer;
         public ServerModel SelectedServer
         {
@@ -42,6 +49,7 @@ namespace MobileMaple.ViewModel
             {
                 if (value == null) return;
                 _selectedServer = value;
+                IpAddress = _selectedServer.IpAddress;
                 OnPropertyChanged(nameof(SelectedServer));
             }
         }

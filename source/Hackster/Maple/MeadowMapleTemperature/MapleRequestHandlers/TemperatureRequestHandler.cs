@@ -20,7 +20,7 @@ namespace MeadowMapleTemperature.MapleRequestHandlers
             {
                 data.Add(new TemperatureLogEntity()
                 {
-                    Temperature = log.TemperatureValue.Value.ToString("0.0"),
+                    Temperature = log.TemperatureValue?.ToString("00"),
                     DateTime = log.DateTime.ToString("yyyy-mm-dd hh:mm:ss tt")
                 });
             }

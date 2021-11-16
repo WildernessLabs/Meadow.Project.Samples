@@ -1,5 +1,4 @@
-﻿using Json.Net;
-using MeadowMapleTemperature.Entities;
+﻿using MeadowMapleTemperature.Entities;
 using System;
 using System.Diagnostics;
 using System.Net.Http;
@@ -29,7 +28,7 @@ namespace MeadowMapleTemperature.Services
 
                     response.EnsureSuccessStatusCode();
                     string json = await response.Content.ReadAsStringAsync();
-                    var values = JsonNet.Deserialize<DateTimeEntity>(json);
+                    var values = System.Text.Json.JsonSerializer.Deserialize<DateTimeEntity>(json);
 
                     stopwatch.Stop();
 
