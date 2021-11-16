@@ -81,11 +81,6 @@ namespace WifiWeatherClock
         {
             onboardLed.StartPulse(Color.Orange);
 
-            displayView.ClearLine(2);
-            displayView.WriteLine($"{DateTime.Now.ToString("Temperature...")}", 2);
-            displayView.ClearLine(3);
-            displayView.WriteLine($"{DateTime.Now.ToString("Weather...")}", 3);
-
             // Get indoor conditions
             var roomTemperature = await analogTemperature.Read();
 
@@ -93,7 +88,7 @@ namespace WifiWeatherClock
             var outdoorConditions = await WeatherService.GetWeatherForecast();
 
             // Format indoor/outdoor conditions data
-            var model = new WeatherViewModel(outdoorConditions, analogTemperature.Temperature);
+            var model = new WeatherViewModel(outdoorConditions, roomTemperature);
 
             // Send formatted data to display to render
             displayView.UpdateDisplay(model);

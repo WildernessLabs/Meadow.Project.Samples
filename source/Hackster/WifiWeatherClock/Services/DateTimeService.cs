@@ -1,5 +1,4 @@
-﻿using Json.Net;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -28,7 +27,7 @@ namespace WifiWeatherClock.Services
 
                     response.EnsureSuccessStatusCode();
                     string json = await response.Content.ReadAsStringAsync();
-                    var values = JsonNet.Deserialize<DateTimeEntity>(json);
+                    var values = System.Text.Json.JsonSerializer.Deserialize<DateTimeEntity>(json);
                     stopwatch.Stop();
 
                     return values.datetime.Add(stopwatch.Elapsed);
