@@ -2,7 +2,7 @@
 
 namespace MeadowMapleTemperature.Entities
 {
-    public class DateTimeEntity
+    public class CommonEntities
     {
         public string abbreviation { get; set; }
         public string client_ip { get; set; }

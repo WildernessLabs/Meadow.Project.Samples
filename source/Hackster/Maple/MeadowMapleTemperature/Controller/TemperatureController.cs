@@ -3,13 +3,13 @@ using System;
 
 namespace MeadowMapleTemperature.Models
 {
-    public class TemperatureAgent
+    public class TemperatureController
     {
         AnalogTemperature analogTemperature;
 
         public event EventHandler<TemperatureModel> TemperatureUpdated = delegate { };
 
-        public TemperatureAgent()
+        public TemperatureController()
         {
             Initialize();
         }

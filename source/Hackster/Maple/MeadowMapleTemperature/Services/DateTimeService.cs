@@ -28,7 +28,7 @@ namespace MeadowMapleTemperature.Services
 
                     response.EnsureSuccessStatusCode();
                     string json = await response.Content.ReadAsStringAsync();
-                    var values = System.Text.Json.JsonSerializer.Deserialize<DateTimeEntity>(json);
+                    var values = System.Text.Json.JsonSerializer.Deserialize<CommonEntities>(json);
 
                     stopwatch.Stop();
 

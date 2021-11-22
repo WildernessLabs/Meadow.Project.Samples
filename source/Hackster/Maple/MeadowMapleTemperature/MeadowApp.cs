@@ -13,7 +13,7 @@ namespace MeadowMapleTemperature
 {
     public class MeadowApp : App<F7Micro, MeadowApp>
     {
-        TemperatureAgent temperatureAgent;
+        TemperatureController temperatureAgent;
         MapleServer mapleServer;
 
         public MeadowApp()
@@ -41,7 +41,7 @@ namespace MeadowMapleTemperature
 
             await GetDateTime();
 
-            temperatureAgent = new TemperatureAgent();
+            temperatureAgent = new TemperatureController();
             temperatureAgent.TemperatureUpdated += TemperatureAgentUpdated;
 
             mapleServer = new MapleServer(
