@@ -4,39 +4,36 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace MeadowMapleTemperature.Models
+namespace MeadowMapleTemperature.Database
 {
-    public class SQLiteDatabaseManager
+    public class DatabaseManager
     {
+        bool isConfigured = false;
+
         SQLiteConnection Database { get; set; }
 
-        private static readonly Lazy<SQLiteDatabaseManager> instance =
-            new Lazy<SQLiteDatabaseManager>(() => new SQLiteDatabaseManager());
+        private static readonly Lazy<DatabaseManager> instance =
+            new Lazy<DatabaseManager>(() => new DatabaseManager());
+        public static DatabaseManager Instance => instance.Value;
 
-        public static SQLiteDatabaseManager Instance
+        private DatabaseManager()
         {
-            get { return instance.Value; }
+            Initialize();
         }
 
-        private SQLiteDatabaseManager()
+        protected void Initialize()
         {
             var databasePath = Path.Combine(MeadowOS.FileSystem.DataDirectory, "ClimateReadings.db");
             Database = new SQLiteConnection(databasePath);
 
-            CreateTables();
-        }
-
-        bool isConfigured = false;
-        protected void CreateTables()
-        {
-            Database.DropTable<TemperatureModel>();
+            Database.DropTable<TemperatureTable>();
             Console.WriteLine("ConfigureDatabase");
-            Database.CreateTable<TemperatureModel>();
+            Database.CreateTable<TemperatureTable>();
             Console.WriteLine("Table created");
             isConfigured = true;
         }
 
-        public bool SaveReading(TemperatureModel temperature)
+        public bool SaveReading(TemperatureTable temperature)
         {
             if (isConfigured == false)
             {
@@ -59,9 +56,9 @@ namespace MeadowMapleTemperature.Models
             return true;
         }
 
-        public List<TemperatureModel> GetTemperatureReadings()
+        public List<TemperatureTable> GetTemperatureReadings()
         {
-            return Database.Table<TemperatureModel>().ToList();
+            return Database.Table<TemperatureTable>().ToList();
         }
     }
 }

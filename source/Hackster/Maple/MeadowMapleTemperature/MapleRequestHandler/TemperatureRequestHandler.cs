@@ -1,7 +1,7 @@
 ﻿using Meadow.Foundation.Web.Maple.Server;
 using Meadow.Foundation.Web.Maple.Server.Routing;
+using MeadowMapleTemperature.Database;
 using MeadowMapleTemperature.Entities;
-using MeadowMapleTemperature.Models;
 using System.Collections.Generic;
 
 namespace MeadowMapleTemperature.MapleRequestHandlers
@@ -13,12 +13,12 @@ namespace MeadowMapleTemperature.MapleRequestHandlers
         [HttpGet]
         public void GetTemperatureLogs()
         {
-            var logs = SQLiteDatabaseManager.Instance.GetTemperatureReadings();
+            var logs = DatabaseManager.Instance.GetTemperatureReadings();
 
-            var data = new List<TemperatureLogEntity>();
+            var data = new List<TemperatureModel>();
             foreach (var log in logs)
             {
-                data.Add(new TemperatureLogEntity()
+                data.Add(new TemperatureModel()
                 {
                     Temperature = log.TemperatureValue?.ToString("00"),
                     DateTime = log.DateTime.ToString("yyyy-mm-dd hh:mm:ss tt")

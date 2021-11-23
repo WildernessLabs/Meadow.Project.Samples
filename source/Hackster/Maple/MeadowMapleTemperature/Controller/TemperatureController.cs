@@ -1,35 +1,42 @@
 ﻿using Meadow.Foundation.Sensors.Temperature;
+using Meadow.Units;
+using MeadowMapleTemperature.Database;
 using System;
 
-namespace MeadowMapleTemperature.Models
+namespace MeadowMapleTemperature.Controller
 {
     public class TemperatureController
     {
         AnalogTemperature analogTemperature;
 
-        public event EventHandler<TemperatureModel> TemperatureUpdated = delegate { };
+        private static readonly Lazy<TemperatureController> instance =
+            new Lazy<TemperatureController>(() => new TemperatureController());
+        public static TemperatureController Instance => instance.Value;
 
-        public TemperatureController()
+        private TemperatureController()
         {
             Initialize();
         }
 
-        void Initialize()
+        public void Initialize()
         {
             analogTemperature = new AnalogTemperature(MeadowApp.Device, MeadowApp.Device.Pins.A00, AnalogTemperature.KnownSensorType.LM35);
             analogTemperature.StartUpdating(TimeSpan.FromSeconds(30));
             analogTemperature.TemperatureUpdated += AnalogTemperatureUpdated;
         }
 
-        void AnalogTemperatureUpdated(object sender, Meadow.IChangeResult<Meadow.Units.Temperature> e)
+        void AnalogTemperatureUpdated(object sender, Meadow.IChangeResult<Temperature> e)
         {
-            var reading = new TemperatureModel()
+            Console.Write($"Saving ({e.New.Celsius},{DateTime.Now})...");
+
+            var reading = new TemperatureTable()
             {
                 Temperature = e.New,
                 DateTime = DateTime.Now
             };
+            DatabaseManager.Instance.SaveReading(reading);
 
-            TemperatureUpdated(this, reading);
+            Console.WriteLine("done!");
         }
     }
 }
