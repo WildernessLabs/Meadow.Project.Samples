@@ -1,5 +1,6 @@
 ﻿using MobileBle.Utils;
 using Plugin.BLE.Abstractions.Contracts;
+using Plugin.BLE.Abstractions.EventArgs;
 using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -42,12 +43,12 @@ namespace MobileBle.ViewModel
             CmdSetColor = new Command(async () => await LedSetColor());
         }
 
-        void AdapterDeviceDisconnected(object sender, Plugin.BLE.Abstractions.EventArgs.DeviceEventArgs e)
+        void AdapterDeviceDisconnected(object sender, DeviceEventArgs e)
         {
             IsConnected = false;
         }
 
-        async void AdapterDeviceConnected(object sender, Plugin.BLE.Abstractions.EventArgs.DeviceEventArgs e)
+        async void AdapterDeviceConnected(object sender, DeviceEventArgs e)
         {
             IsConnected = true;
 

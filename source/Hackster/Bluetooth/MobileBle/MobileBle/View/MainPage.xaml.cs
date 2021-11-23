@@ -17,7 +17,7 @@ namespace MobileBle.View
 
         void BtnServoClicked(object sender, EventArgs e)
         {
-            //Navigation.PushAsync(new ServoControllerPage());
+            Navigation.PushAsync(new ServoControllerPage());
         }
 
         void BtnTemperatureClicked(object sender, EventArgs e)
