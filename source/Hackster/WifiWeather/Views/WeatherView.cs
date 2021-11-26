@@ -8,17 +8,12 @@ using System.IO;
 using System.Reflection;
 using WifiWeather.Models;
 using WifiWeather.ViewModels;
-using static Meadow.Foundation.Displays.DisplayBase;
 
 namespace WifiWeather.Views
 {
     public class WeatherView
     {
-        St7789 display;
         GraphicsLibrary graphics;
-
-        bool isRendering = false;
-        object renderLock = new object();
 
         public WeatherView()
         {
@@ -30,7 +25,7 @@ namespace WifiWeather.Views
             var config = new SpiClockConfiguration(12000, SpiClockConfiguration.Mode.Mode3);
             var spiBus = MeadowApp.Device.CreateSpiBus(MeadowApp.Device.Pins.SCK, MeadowApp.Device.Pins.MOSI, MeadowApp.Device.Pins.MISO, config);
 
-            display = new St7789
+            var display = new St7789
             (
                 device: MeadowApp.Device,
                 spiBus: spiBus,
@@ -43,6 +38,7 @@ namespace WifiWeather.Views
 
             graphics = new GraphicsLibrary(display)
             {   
+                Stroke = 1,
                 CurrentFont = new Font12x20(),
                 Rotation = RotationType._270Degrees
             };
@@ -52,72 +48,36 @@ namespace WifiWeather.Views
 
         public void UpdateDisplay(WeatherViewModel model)
         {
-            lock (renderLock)
-            {
-                if (isRendering)
-                {
-                    Console.WriteLine("Already in a rendering loop, bailing out.");
-                    return;
-                }
-
-                isRendering = true;
-            }
-
             graphics.Clear();
 
-            graphics.Stroke = 1;
-            graphics.DrawRectangle(0, 0, display.Width, display.Height, Color.White, true);
+            graphics.DrawRectangle(0, 0, graphics.Width, graphics.Height, Color.White, true);
 
             DisplayJPG(model.WeatherCode, 5, 5);
 
-            string date = model.DateTime.ToString("MM/dd/yy"); // $"11/29/20";
-            graphics.DrawText(
-                x: 128,
-                y: 24,
-                text: date,
-                color: Color.Black);
-
-            string time = model.DateTime.AddHours(1).ToString("hh:mm"); // $"12:16 AM";
-            graphics.DrawText(
-                x: 116,
-                y: 66,
-                text: time,
-                color: Color.Black,
-                scaleFactor: GraphicsLibrary.ScaleFactor.X2);
-
-            string outdoor = $"Outdoor";
-            graphics.DrawText(
-                x: 134,
-                y: 143,
-                text: outdoor,
-                color: Color.Black);
+            graphics.DrawText(134, 143, "Outdoor", Color.Black);
 
             string outdoorTemp = model.OutdoorTemperature.ToString("00°C");
-            graphics.DrawText(
-                x: 128,
-                y: 178,
-                text: outdoorTemp,
-                color: Color.Black,
-                scaleFactor: GraphicsLibrary.ScaleFactor.X2);
+            graphics.DrawText(128, 178, outdoorTemp, Color.Black, GraphicsLibrary.ScaleFactor.X2);
 
-            string indoor = $"Indoor";
-            graphics.DrawText(
-                x: 23,
-                y: 143,
-                text: indoor,
-                color: Color.Black);
+            graphics.DrawText(23, 143, "Indoor", Color.Black);
 
             string indoorTemp = model.IndoorTemperature.ToString("00°C");
-            graphics.DrawText(
-                x: 11,
-                y: 178,
-                text: indoorTemp,
-                color: Color.Black,
-                scaleFactor: GraphicsLibrary.ScaleFactor.X2);
+            graphics.DrawText(11, 178, indoorTemp, Color.Black, GraphicsLibrary.ScaleFactor.X2);
 
             graphics.Show();
+        }
 
-            isRendering = false;
+        public void UpdateDateTime() 
+        {
+            Console.WriteLine($"{DateTime.Now}");
+
+            graphics.DrawRectangle(116, 24, 120, 82, Color.White, true);
+
+            graphics.DrawText(128, 24, DateTime.Now.ToString("MM/dd/yy"), color: Color.Black);
+            
+            graphics.DrawText(116, 66, DateTime.Now.ToString("hh:mm"), Color.Black, GraphicsLibrary.ScaleFactor.X2);
+
+            graphics.Show();
         }
 
         void DisplayJPG(int weatherCode, int xOffset, int yOffset)
