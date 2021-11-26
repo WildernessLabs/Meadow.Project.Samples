@@ -3,7 +3,6 @@ using Meadow.Devices;
 using Meadow.Foundation;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Temperature;
-using Meadow.Gateway.WiFi;
 using System;
 using System.Threading.Tasks;
 using WifiWeatherClock.Services;
@@ -20,14 +19,21 @@ namespace WifiWeatherClock
 
         public MeadowApp()
         {
-            Initialize().Wait();
+            Device.WiFiAdapter.WiFiConnected += WiFiConnected;
+        }
 
-            GetData().Wait();
+        void WiFiConnected(object sender, EventArgs e)
+        {
+            Device.SetClock(DateTime.Now.AddHours(-8));
+
+            Initialize();
+
+            GetTemperature().Wait();
 
             Start().Wait();
         }
 
-        async Task Initialize()
+        void Initialize()
         {
             onboardLed = new RgbPwmLed(device: Device,
                 redPwmPin: Device.Pins.OnboardLedRed,
@@ -35,46 +41,15 @@ namespace WifiWeatherClock
                 bluePwmPin: Device.Pins.OnboardLedBlue);
             onboardLed.SetColor(Color.Red);
 
+            onboardLed.SetColor(Color.Blue);
+
             analogTemperature = new AnalogTemperature(Device, Device.Pins.A00,
                 sensorType: AnalogTemperature.KnownSensorType.LM35);
             analogTemperature.StartUpdating(TimeSpan.FromMinutes(5));
 
             displayView = new DisplayView();
 
-            onboardLed.SetColor(Color.Blue);
-
-            var result = await Device.WiFiAdapter.Connect(Secrets.WIFI_NAME, Secrets.WIFI_PASSWORD);
-            if (result.ConnectionStatus != ConnectionStatus.Success)
-            {
-                throw new Exception($"Cannot connect to network: {result.ConnectionStatus}");
-            }
-
             onboardLed.SetColor(Color.Green);
-        }
-
-        async Task GetData() 
-        {
-            await GetTime();
-            await GetTemperature();
-        }
-
-        async Task GetTime() 
-        {
-            onboardLed.StartPulse(Color.Magenta);
-
-            var dateTime = await DateTimeService.GetDateTime();
-
-            Device.SetClock(new DateTime(
-                year: dateTime.Year,
-                month: dateTime.Month,
-                day: dateTime.Day,
-                hour: dateTime.Hour,
-                minute: dateTime.Minute,
-                second: dateTime.Second));
-
-            await GetTemperature();
-
-            onboardLed.StartPulse(Color.Green);
         }
 
         async Task GetTemperature()
