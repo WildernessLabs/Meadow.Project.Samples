@@ -31,3 +31,8 @@ Public project samples for Meadow and Meadow.Foundation. Click on any of the pro
 ## [TouchKeypad](https://www.hackster.io/wilderness-labs/working-with-a-touch-keypad-and-spi-display-using-meadow-ddb040)
 ## [WifiClock](https://www.hackster.io/wilderness-labs/build-a-wifi-connected-clock-using-meadow-e0c6b6)
 ## [WifiWeather](https://www.hackster.io/wilderness-labs/weather-station-using-public-web-service-using-meadow-e47765)
+
+# Presentations
+
+[DevCamp 2020](source/DevCamp%202020/)
+[Developer Day 2021](sources/DeveloperDat2021/)
