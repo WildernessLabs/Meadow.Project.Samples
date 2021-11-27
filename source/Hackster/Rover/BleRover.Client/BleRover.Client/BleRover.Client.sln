@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.810.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BleRover.Client", "BleRover.Client.csproj", "{131E05BB-1C5D-46F9-942B-7490F98D2648}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{131E05BB-1C5D-46F9-942B-7490F98D2648}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{131E05BB-1C5D-46F9-942B-7490F98D2648}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{131E05BB-1C5D-46F9-942B-7490F98D2648}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{131E05BB-1C5D-46F9-942B-7490F98D2648}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EF1F04E3-40C6-48EE-971F-AC96708C04D8}
+	EndGlobalSection
+EndGlobal
