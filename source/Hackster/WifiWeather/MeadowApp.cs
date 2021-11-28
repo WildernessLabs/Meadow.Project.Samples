@@ -33,6 +33,8 @@ namespace WifiWeather
 
         void Initialize()
         {
+            Device.SetClock(DateTime.Now.AddHours(-8));
+
             onboardLed = new RgbPwmLed(device: Device,
                 redPwmPin: Device.Pins.OnboardLedRed,
                 greenPwmPin: Device.Pins.OnboardLedGreen,

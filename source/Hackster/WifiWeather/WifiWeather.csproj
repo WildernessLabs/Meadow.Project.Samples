@@ -26,8 +26,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="w_drizzle.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="w_clear.jpg" />
     <EmbeddedResource Include="w_cloudy.jpg" />
     <EmbeddedResource Include="w_misc.jpg" />
