@@ -25,7 +25,11 @@ namespace GalleryViewer
 
         public MeadowApp()
         {
-            var led = new RgbLed(Device, Device.Pins.OnboardLedRed, Device.Pins.OnboardLedGreen, Device.Pins.OnboardLedBlue);
+            led = new RgbLed(
+                device: Device, 
+                redPin: Device.Pins.OnboardLedRed, 
+                greenPin: Device.Pins.OnboardLedGreen, 
+                bluePin: Device.Pins.OnboardLedBlue);
             led.SetColor(RgbLed.Colors.Red);
 
             buttonUp = new PushButton(Device, Device.Pins.D03);
