@@ -6,7 +6,7 @@
 
 Device:
     # Name of the device on the network.
-    Name: WifiWeatherClock
+    Name: ChristmasCountdown
 
 #===============================================================================
 # Control how the ESP coprocessor will start and operate.

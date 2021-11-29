@@ -14,16 +14,11 @@ namespace ChristmasCountdown
 
         public MeadowApp()
         {
-            Device.WiFiAdapter.WiFiConnected += WiFiConnected;
-        }
-
-        void WiFiConnected(object sender, EventArgs e)
-        {
-            Device.SetClock(DateTime.Now.AddHours(-8));
-
             Initialize();
 
-            StartCountdown();
+            ShowSplashScreen();
+
+            Device.WiFiAdapter.WiFiConnected += WiFiConnected;
         }
 
         void Initialize() 
@@ -49,24 +44,34 @@ namespace ChristmasCountdown
             led.SetColor(Color.Green);
         }
 
-        void StartCountdown() 
-        {            
+        void ShowSplashScreen() 
+        {
+            display.WriteLine("====================", 0);
+            display.WriteLine("Christmas Countdown!", 1);
+            display.WriteLine("=   Joining WIFI   =", 2);
+            display.WriteLine("====================", 3);
+        }
+
+        void WiFiConnected(object sender, EventArgs e)
+        {
             display.WriteLine($"{DateTime.Now.ToString("MMMM dd, yyyy")}", 0);
             display.WriteLine("Christmas Countdown:", 2);
 
             while (true)
-            {                
+            {
                 UpdateCountdown();
                 Thread.Sleep(1000);
             }
         }
 
         void UpdateCountdown()
-        {            
-            display.WriteLine($"{DateTime.Now.ToString("MMMM dd, yyyy")}", 0);
-            display.WriteLine($"{DateTime.Now.ToString("hh:mm:ss tt")}", 1);
-
+        {
+            // Adjust Time Zone (Pacific Time)
             var today = DateTime.Now.AddHours(-8);
+
+            display.WriteLine($"{today.ToString("MMMM dd, yyyy")}", 0);
+            display.WriteLine($"{today.ToString("hh:mm:ss tt")}", 1);
+            
             var christmasDate = new DateTime(today.Year, 12, 25);
             var countdown = christmasDate.Subtract(today);
             display.WriteLine($"  {countdown.Days}d {countdown.Hours}h {countdown.Minutes}m {countdown.Seconds}s!", 3);            
