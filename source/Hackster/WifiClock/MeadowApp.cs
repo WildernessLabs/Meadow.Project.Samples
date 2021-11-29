@@ -11,9 +11,6 @@ using Meadow.Hardware;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using WifiClock.Services;
-using Meadow.Units;
-using TU = Meadow.Units.Temperature.UnitType;
 
 namespace WifiClock
 {
@@ -28,13 +25,20 @@ namespace WifiClock
 
         public MeadowApp()
         {
-            Initialize();
+            Device.WiFiAdapter.WiFiConnected += WiFiConnected;
+        }
 
-            Start();
+        void WiFiConnected(object sender, EventArgs e)
+        {
+            Initialize().Wait();
+
+            Start().Wait();
         }
 
         async Task Initialize()
         {
+            Device.SetClock(DateTime.Now.AddHours(-8));
+
             var onboardLed = new RgbPwmLed(device: Device,
                 redPwmPin: Device.Pins.OnboardLedRed,
                 greenPwmPin: Device.Pins.OnboardLedGreen,
@@ -88,16 +92,6 @@ namespace WifiClock
 
         async Task Start() 
         {
-            var dateTime = await DateTimeService.GetTimeAsync();
-
-            Device.SetClock(new DateTime(
-                year: dateTime.Year, 
-                month: dateTime.Month, 
-                day: dateTime.Day, 
-                hour: dateTime.Hour, 
-                minute: dateTime.Minute, 
-                second: dateTime.Second));
-
             while (true)
             {
                 DateTime clock = DateTime.Now;

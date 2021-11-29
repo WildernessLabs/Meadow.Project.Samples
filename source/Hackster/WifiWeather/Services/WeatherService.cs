@@ -1,4 +1,4 @@
-﻿using Json.Net;
+﻿using System.Text.Json;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -26,7 +26,7 @@ namespace WifiWeather.Services
                 {
                     response.EnsureSuccessStatusCode();
                     string json = await response.Content.ReadAsStringAsync();
-                    var values = JsonNet.Deserialize<WeatherReading>(json);
+                    var values = JsonSerializer.Deserialize<WeatherReading>(json);
                     return values;
                 }
                 catch (TaskCanceledException)
