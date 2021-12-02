@@ -27,10 +27,10 @@ namespace RotationDetector
             var led = new RgbLed(Device, Device.Pins.OnboardLedRed, Device.Pins.OnboardLedGreen, Device.Pins.OnboardLedBlue);
             led.SetColor(RgbLed.Colors.Red);
 
-            up = new Led(Device.CreateDigitalOutputPort(Device.Pins.D15));
-            down = new Led(Device.CreateDigitalOutputPort(Device.Pins.D12));
-            left = new Led(Device.CreateDigitalOutputPort(Device.Pins.D13));
-            right = new Led(Device.CreateDigitalOutputPort(Device.Pins.D14));
+            up = new Led(Device.CreateDigitalOutputPort(Device.Pins.D13));
+            down = new Led(Device.CreateDigitalOutputPort(Device.Pins.D10));
+            left = new Led(Device.CreateDigitalOutputPort(Device.Pins.D11));
+            right = new Led(Device.CreateDigitalOutputPort(Device.Pins.D12));
 
             mpu = new Mpu6050(Device.CreateI2cBus());
             mpu.Updated += MpuUpdated;            
