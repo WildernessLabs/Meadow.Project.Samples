@@ -45,10 +45,5 @@ namespace WifiWeatherClock.Views
         {
             display.WriteLine($"{text}", lineNumber);
         }
-
-        public void ClearLine(byte lineNumber) 
-        {
-            display.ClearLine(lineNumber);
-        }
     }
 }

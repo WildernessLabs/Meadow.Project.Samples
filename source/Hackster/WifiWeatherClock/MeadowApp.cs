@@ -24,8 +24,6 @@ namespace WifiWeatherClock
 
         void WiFiConnected(object sender, EventArgs e)
         {
-            Device.SetClock(DateTime.Now.AddHours(-8));
-
             Initialize();
 
             GetTemperature().Wait();
@@ -75,7 +73,7 @@ namespace WifiWeatherClock
         {
             while (true) 
             {
-                var datetime = DateTime.Now;
+                var datetime = DateTime.Now.AddHours(-8);
 
                 if (datetime.Minute == 0 && datetime.Second == 0)
                 {
