@@ -1,6 +1,4 @@
 ﻿using Meadow.Foundation.Displays.Lcd;
-using System;
-using WifiWeatherClock.ViewModels;
 
 namespace WifiWeatherClock.Views
 {
@@ -31,14 +29,6 @@ namespace WifiWeatherClock.Views
                 pinD7:  MeadowApp.Device.Pins.D05,
                 rows: 4, columns: 20
             );
-        }
-
-        public void UpdateDisplay(WeatherViewModel model)
-        {
-            display.WriteLine($"{DateTime.Now.ToString("MMMM dd, yyyy")}", 0);
-            display.WriteLine($"{DateTime.Now.ToString("hh:mm:ss tt")}", 1);
-            display.WriteLine($"In: {model.IndoorTemperature.ToString("00")}C | Out: {model.OutdoorTemperature.ToString("00")}C", 2);
-            display.WriteLine($"{model.Weather}", 3);
         }
 
         public void WriteLine(string text, byte lineNumber) 

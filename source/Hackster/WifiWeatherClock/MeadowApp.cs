@@ -63,8 +63,9 @@ namespace WifiWeatherClock
             // Format indoor/outdoor conditions data
             var model = new WeatherViewModel(outdoorConditions, roomTemperature);
 
-            // Send formatted data to display to render
-            displayView.UpdateDisplay(model);
+            // Update Temperature values and weather description
+            displayView.WriteLine($"In: {model.IndoorTemperature.ToString("00")}C | Out: {model.OutdoorTemperature.ToString("00")}C", 2);
+            displayView.WriteLine($"{model.Weather}", 3);
 
             onboardLed.StartPulse(Color.Green);
         }
@@ -80,8 +81,8 @@ namespace WifiWeatherClock
                     await GetTemperature();
                 }
 
-                displayView.WriteLine($"{DateTime.Now.ToString("ddd, MMM dd, yyyy")}", 0);
-                displayView.WriteLine($"{DateTime.Now.ToString("hh:mm:ss tt")}", 1);
+                displayView.WriteLine($"{datetime.ToString("ddd, MMM dd, yyyy")}", 0);
+                displayView.WriteLine($"{datetime.ToString("hh:mm:ss tt")}", 1);
                 await Task.Delay(1000);
             }
         }
