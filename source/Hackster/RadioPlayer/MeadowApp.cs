@@ -5,14 +5,13 @@ using Meadow.Foundation.Displays.Ssd130x;
 using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Buttons;
-using Meadow.Hardware;
 using System;
 using System.Collections.Generic;
 using System.Threading;
 
 namespace RadioPlayer
 {
-    public class MeadowApp : App<F7Micro, MeadowApp>
+    public class MeadowApp : App<F7MicroV2, MeadowApp>
     {
         List<float> stations;
         int currentStation = 0;
@@ -44,7 +43,11 @@ namespace RadioPlayer
 
         void InitializePeripherals()
         {
-            var led = new RgbLed(Device, Device.Pins.OnboardLedRed, Device.Pins.OnboardLedGreen, Device.Pins.OnboardLedBlue);
+            var led = new RgbLed(
+                Device, 
+                Device.Pins.OnboardLedRed, 
+                Device.Pins.OnboardLedGreen, 
+                Device.Pins.OnboardLedBlue);
             led.SetColor(RgbLed.Colors.Red);
 
             var i2CBus = Device.CreateI2cBus();
@@ -55,10 +58,10 @@ namespace RadioPlayer
             graphics = new GraphicsLibrary(display);
             graphics.Rotation = RotationType._180Degrees;
 
-            btnNext = new PushButton(Device, Device.Pins.D03, ResistorMode.InternalPullUp);
+            btnNext = new PushButton(Device, Device.Pins.D03);
             btnNext.Clicked += BtnNextClicked;
 
-            btnPrevious = new PushButton(Device, Device.Pins.D04, ResistorMode.InternalPullUp);
+            btnPrevious = new PushButton(Device, Device.Pins.D04);
             btnPrevious.Clicked += BtnPreviousClicked;
 
             led.SetColor(RgbLed.Colors.Green);
