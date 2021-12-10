@@ -4,7 +4,7 @@ using Meadow.Foundation.Leds;
 using Meadow.Foundation.Motors;
 using System.Threading;
 
-namespace LedCar
+namespace RoverLed
 {
     public class MeadowApp : App<F7Micro, MeadowApp>
     {

@@ -1,7 +1,7 @@
 ﻿using Meadow;
 using System.Threading;
 
-namespace LedCar
+namespace RoverLed
 {
     class Program
     {
