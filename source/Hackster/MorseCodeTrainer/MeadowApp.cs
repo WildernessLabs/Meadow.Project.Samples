@@ -9,6 +9,7 @@ using Meadow.Hardware;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Timers;
 
 namespace MorseCodeTrainer
@@ -25,6 +26,7 @@ namespace MorseCodeTrainer
         Timer timer;
         Stopwatch stopWatch;
         string character;
+        string characterQuestion;
         string text;
 
         public MeadowApp()
@@ -61,8 +63,6 @@ namespace MorseCodeTrainer
             graphics.DrawRectangle(0, 0, 240, 240);
             graphics.DrawText(24, 15, "Morse Code Coach");
             graphics.DrawHorizontalLine(24, 41, 196, Color.Red);
-            graphics.DrawText(102, 70, "A", Color.White, GraphicsLibrary.ScaleFactor.X3);
-            //graphics.DrawText(50, 100, "-----", GraphicsLibrary.ScaleFactor.X3);
             graphics.Show();
 
             btnTyper = new PushButton(device: Device, Device.Pins.D02);
@@ -71,6 +71,8 @@ namespace MorseCodeTrainer
 
             btnFunction = new PushButton(device: Device, Device.Pins.D03);
             btnFunction.Clicked += BtnFunctionClicked;
+            btnFunction.LongClickedThreshold = TimeSpan.FromSeconds(2);
+            btnFunction.LongClicked += BtnFunctionLongClicked;
 
             stopWatch = new Stopwatch();
 
@@ -79,13 +81,21 @@ namespace MorseCodeTrainer
 
             LoadMorseCode();
 
+            ShowLetterQuestion();
+
             onboardLed.SetColor(Color.Green);
+        }
+
+        private void BtnFunctionLongClicked(object sender, EventArgs e)
+        {
+            character = string.Empty;
+            UpdateInput();
         }
 
         private void BtnFunctionClicked(object sender, EventArgs e)
         {
-            text = text.Substring(0, text.Length - 1);
-            Console.WriteLine(text);
+            //text = text.Substring(0, text.Length - 1);
+            //Console.WriteLine(text);
         }
 
         void LoadMorseCode() 
@@ -136,8 +146,14 @@ namespace MorseCodeTrainer
                 return;
             }
 
-            text += morseCode[character];
-            Console.WriteLine(text);
+            //text += morseCode[character];
+            //Console.WriteLine(text);
+
+            if (morseCode[character] == characterQuestion)
+                Console.WriteLine("correct");
+            else
+                Console.WriteLine("pelaste bolas");
+
             character = string.Empty;
             timer.Stop();
         }
@@ -162,7 +178,29 @@ namespace MorseCodeTrainer
                 character += "-";
             }
 
+            UpdateInput();
+
             timer.Start();
         }
+
+        void UpdateInput() 
+        {
+            graphics.DrawRectangle(2, 150, 236, 60, Color.Black, true);
+            graphics.DrawText(120, 150, character, Color.White, GraphicsLibrary.ScaleFactor.X3, GraphicsLibrary.TextAlignment.Center);
+            graphics.Show();
+        }
+
+        void ShowLetterQuestion() 
+        { 
+            Random rand = new Random();
+
+            characterQuestion = morseCode.ElementAt(rand.Next(0, morseCode.Count)).Value;
+
+            graphics.DrawRectangle(20, 70, 100, 60, Color.Black, true);
+            graphics.DrawText(120, 70, characterQuestion, Color.White, GraphicsLibrary.ScaleFactor.X3, GraphicsLibrary.TextAlignment.Center);
+            graphics.Show();
+        }
+
+
     }
 }
