@@ -10,12 +10,15 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Timers;
 
 namespace MorseCodeTrainer
 {
     public class MeadowApp : App<F7Micro, MeadowApp>
     {
+        readonly Color green = Color.FromHex("#16C60C");
+
         Dictionary<string, string> morseCode;
 
         RgbPwmLed onboardLed;
@@ -62,7 +65,7 @@ namespace MorseCodeTrainer
             graphics.Clear();
             graphics.DrawRectangle(0, 0, 240, 240);
             graphics.DrawText(24, 15, "Morse Code Coach");
-            graphics.DrawHorizontalLine(24, 41, 196, Color.Red);
+            graphics.DrawHorizontalLine(24, 41, 196, Color.White);
             graphics.Show();
 
             btnTyper = new PushButton(device: Device, Device.Pins.D02);
@@ -139,23 +142,32 @@ namespace MorseCodeTrainer
             morseCode.Add("----O", "9");
         }
 
-        void TimerElapsed(object sender, ElapsedEventArgs e)
+        async void TimerElapsed(object sender, ElapsedEventArgs e)
         {
             if (!morseCode.ContainsKey(character))
             {
                 return;
             }
 
-            //text += morseCode[character];
-            //Console.WriteLine(text);
+            timer.Stop();
 
             if (morseCode[character] == characterQuestion)
-                Console.WriteLine("correct");
-            else
-                Console.WriteLine("pelaste bolas");
+            {
+                graphics.DrawText(120, 60, characterQuestion, green, GraphicsLibrary.ScaleFactor.X3, GraphicsLibrary.TextAlignment.Center);
+                graphics.DrawText(120, 130, character, green, GraphicsLibrary.ScaleFactor.X3, GraphicsLibrary.TextAlignment.Center);
+                graphics.DrawText(120, 200, "Correct!", green, GraphicsLibrary.ScaleFactor.X1, GraphicsLibrary.TextAlignment.Center);
+                graphics.Show();
 
-            character = string.Empty;
-            timer.Stop();
+                await Task.Delay(2000);
+
+                ShowLetterQuestion();
+            }
+            else
+            {
+                graphics.DrawText(120, 60, characterQuestion, Color.Red, GraphicsLibrary.ScaleFactor.X3, GraphicsLibrary.TextAlignment.Center);
+                graphics.DrawText(120, 130, character, Color.Red, GraphicsLibrary.ScaleFactor.X3, GraphicsLibrary.TextAlignment.Center);
+                graphics.DrawText(120, 200, "Incorrect!", Color.Red, GraphicsLibrary.ScaleFactor.X1, GraphicsLibrary.TextAlignment.Center);
+            }            
         }
 
         void ButtonPressStarted(object sender, EventArgs e)
@@ -185,8 +197,8 @@ namespace MorseCodeTrainer
 
         void UpdateInput() 
         {
-            graphics.DrawRectangle(2, 150, 236, 60, Color.Black, true);
-            graphics.DrawText(120, 150, character, Color.White, GraphicsLibrary.ScaleFactor.X3, GraphicsLibrary.TextAlignment.Center);
+            graphics.DrawRectangle(2, 130, 236, 60, Color.Black, true);
+            graphics.DrawText(120, 130, character, Color.White, GraphicsLibrary.ScaleFactor.X3, GraphicsLibrary.TextAlignment.Center);
             graphics.Show();
         }
 
@@ -194,13 +206,14 @@ namespace MorseCodeTrainer
         { 
             Random rand = new Random();
 
-            characterQuestion = morseCode.ElementAt(rand.Next(0, morseCode.Count)).Value;
+            character = String.Empty;
 
-            graphics.DrawRectangle(20, 70, 100, 60, Color.Black, true);
-            graphics.DrawText(120, 70, characterQuestion, Color.White, GraphicsLibrary.ScaleFactor.X3, GraphicsLibrary.TextAlignment.Center);
+            characterQuestion = morseCode.ElementAt(rand.Next(0, morseCode.Count)).Value;
+            graphics.DrawRectangle(2, 60, 236, 60, Color.Black, true);
+            graphics.DrawText(120, 60, characterQuestion, Color.White, GraphicsLibrary.ScaleFactor.X3, GraphicsLibrary.TextAlignment.Center);
+            graphics.DrawRectangle(2, 130, 236, 60, Color.Black, true);
+            graphics.DrawRectangle(2, 200, 236, 20, Color.Black, true);            
             graphics.Show();
         }
-
-
     }
 }
