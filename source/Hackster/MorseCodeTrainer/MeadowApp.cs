@@ -21,10 +21,9 @@ namespace MorseCodeTrainer
 
         Dictionary<string, string> morseCode;
 
-        RgbPwmLed onboardLed;
+        DisplayControllers displayController;
         PushButton btnTyper;
         PushButton btnFunction;
-        GraphicsLibrary graphics;
 
         Timer timer;
         Stopwatch stopWatch;
@@ -39,34 +38,13 @@ namespace MorseCodeTrainer
 
         void Initialize()
         {
-            onboardLed = new RgbPwmLed(device: Device,
+            var onboardLed = new RgbPwmLed(device: Device,
                 redPwmPin: Device.Pins.OnboardLedRed,
                 greenPwmPin: Device.Pins.OnboardLedGreen,
                 bluePwmPin: Device.Pins.OnboardLedBlue);
             onboardLed.SetColor(Color.Red);
 
-            var config = new SpiClockConfiguration(12000, SpiClockConfiguration.Mode.Mode3);
-            var display = new St7789
-            (
-                device: Device,
-                spiBus: Device.CreateSpiBus(Device.Pins.SCK, Device.Pins.MOSI, Device.Pins.MISO, config),
-                chipSelectPin: null,
-                dcPin: Device.Pins.D01,
-                resetPin: Device.Pins.D00,
-                width: 240, height: 240,
-                displayColorMode: ColorType.Format16bppRgb565
-            );
-            graphics = new GraphicsLibrary(display)
-            {
-                Stroke = 1,
-                CurrentFont = new Font12x20(),
-                Rotation = RotationType._270Degrees
-            };
-            graphics.Clear();
-            graphics.DrawRectangle(0, 0, 240, 240);
-            graphics.DrawText(24, 15, "Morse Code Coach");
-            graphics.DrawHorizontalLine(24, 41, 196, Color.White);
-            graphics.Show();
+            displayController = new DisplayControllers();
 
             btnTyper = new PushButton(device: Device, Device.Pins.D02);
             btnTyper.PressStarted += ButtonPressStarted;
@@ -92,7 +70,7 @@ namespace MorseCodeTrainer
         private void BtnFunctionLongClicked(object sender, EventArgs e)
         {
             character = string.Empty;
-            UpdateInput();
+            displayController.ClearAnswer();
         }
 
         private void BtnFunctionClicked(object sender, EventArgs e)
@@ -144,29 +122,23 @@ namespace MorseCodeTrainer
 
         async void TimerElapsed(object sender, ElapsedEventArgs e)
         {
-            if (!morseCode.ContainsKey(character))
-            {
-                return;
-            }
+            if (!morseCode.ContainsKey(character)) { return; }
 
             timer.Stop();
 
-            if (morseCode[character] == characterQuestion)
+            bool isCorrect = morseCode[character] == characterQuestion;
+
+            displayController.DrawCorrectIncorrectMessage(characterQuestion, character, isCorrect);
+            
+            await Task.Delay(2000);
+
+            if (isCorrect)
             {
-                graphics.DrawText(120, 60, characterQuestion, green, GraphicsLibrary.ScaleFactor.X3, GraphicsLibrary.TextAlignment.Center);
-                graphics.DrawText(120, 130, character, green, GraphicsLibrary.ScaleFactor.X3, GraphicsLibrary.TextAlignment.Center);
-                graphics.DrawText(120, 200, "Correct!", green, GraphicsLibrary.ScaleFactor.X1, GraphicsLibrary.TextAlignment.Center);
-                graphics.Show();
-
-                await Task.Delay(2000);
-
                 ShowLetterQuestion();
             }
             else
             {
-                graphics.DrawText(120, 60, characterQuestion, Color.Red, GraphicsLibrary.ScaleFactor.X3, GraphicsLibrary.TextAlignment.Center);
-                graphics.DrawText(120, 130, character, Color.Red, GraphicsLibrary.ScaleFactor.X3, GraphicsLibrary.TextAlignment.Center);
-                graphics.DrawText(120, 200, "Incorrect!", Color.Red, GraphicsLibrary.ScaleFactor.X1, GraphicsLibrary.TextAlignment.Center);
+                // clear answer   
             }            
         }
 
@@ -190,30 +162,15 @@ namespace MorseCodeTrainer
                 character += "-";
             }
 
-            UpdateInput();
-
+            displayController.UpdateAnswer(character, Color.White);
             timer.Start();
-        }
-
-        void UpdateInput() 
-        {
-            graphics.DrawRectangle(2, 130, 236, 60, Color.Black, true);
-            graphics.DrawText(120, 130, character, Color.White, GraphicsLibrary.ScaleFactor.X3, GraphicsLibrary.TextAlignment.Center);
-            graphics.Show();
         }
 
         void ShowLetterQuestion() 
         { 
-            Random rand = new Random();
-
-            character = String.Empty;
-
-            characterQuestion = morseCode.ElementAt(rand.Next(0, morseCode.Count)).Value;
-            graphics.DrawRectangle(2, 60, 236, 60, Color.Black, true);
-            graphics.DrawText(120, 60, characterQuestion, Color.White, GraphicsLibrary.ScaleFactor.X3, GraphicsLibrary.TextAlignment.Center);
-            graphics.DrawRectangle(2, 130, 236, 60, Color.Black, true);
-            graphics.DrawRectangle(2, 200, 236, 20, Color.Black, true);            
-            graphics.Show();
+            character = string.Empty;
+            characterQuestion = morseCode.ElementAt(new Random().Next(0, morseCode.Count)).Value;
+            displayController.ShowLetterQuestion(characterQuestion);
         }
     }
 }
