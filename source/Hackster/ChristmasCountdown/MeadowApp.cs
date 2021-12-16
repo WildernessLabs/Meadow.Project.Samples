@@ -74,7 +74,7 @@ namespace ChristmasCountdown
             
             var christmasDate = new DateTime(today.Year, 12, 25);
             var countdown = christmasDate.Subtract(today);
-            display.WriteLine($"  {countdown.Days}d {countdown.Hours}h {countdown.Minutes}m {countdown.Seconds}s!", 3);            
+            display.WriteLine($"  {countdown.Days.ToString("D3")}d {countdown.Hours.ToString("D2")}h {countdown.Minutes.ToString("D2")}m {countdown.Seconds.ToString("D2")}s", 3);            
         }
     }
 }
