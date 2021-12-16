@@ -1,6 +1,7 @@
 ﻿using Meadow;
 using Meadow.Devices;
 using Meadow.Foundation;
+using Meadow.Foundation.Audio;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Buttons;
 using System;
@@ -15,9 +16,10 @@ namespace MorseCodeTrainer
     public class MeadowApp : App<F7Micro, MeadowApp>
     {
         Dictionary<string, string> morseCode;
-
-        DisplayControllers displayController;
+        
         PushButton button;
+        PiezoSpeaker piezo;
+        DisplayControllers displayController;
 
         Timer timer;
         Stopwatch stopWatch;
@@ -38,6 +40,8 @@ namespace MorseCodeTrainer
             onboardLed.SetColor(Color.Red);
 
             displayController = new DisplayControllers();
+
+            piezo = new PiezoSpeaker(Device, Device.Pins.D09);
 
             button = new PushButton(device: Device, Device.Pins.D04);
             button.PressStarted += ButtonPressStarted;
@@ -123,6 +127,7 @@ namespace MorseCodeTrainer
 
         void ButtonPressStarted(object sender, EventArgs e)
         {
+            piezo.PlayTone(440);
             stopWatch.Reset();
             stopWatch.Start();
             timer.Stop();
@@ -130,6 +135,7 @@ namespace MorseCodeTrainer
 
         void ButtonPressEnded(object sender, EventArgs e)
         {
+            piezo.StopTone();
             stopWatch.Stop();
 
             if (stopWatch.ElapsedMilliseconds < 200)
