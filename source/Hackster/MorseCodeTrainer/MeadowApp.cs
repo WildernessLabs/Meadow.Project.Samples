@@ -1,11 +1,8 @@
 ﻿using Meadow;
 using Meadow.Devices;
 using Meadow.Foundation;
-using Meadow.Foundation.Displays.TftSpi;
-using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Buttons;
-using Meadow.Hardware;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -17,19 +14,15 @@ namespace MorseCodeTrainer
 {
     public class MeadowApp : App<F7Micro, MeadowApp>
     {
-        readonly Color green = Color.FromHex("#16C60C");
-
         Dictionary<string, string> morseCode;
 
         DisplayControllers displayController;
-        PushButton btnTyper;
-        PushButton btnFunction;
+        PushButton button;
 
         Timer timer;
         Stopwatch stopWatch;
-        string character;
-        string characterQuestion;
-        string text;
+        string answer;
+        string question;
 
         public MeadowApp()
         {
@@ -46,14 +39,9 @@ namespace MorseCodeTrainer
 
             displayController = new DisplayControllers();
 
-            btnTyper = new PushButton(device: Device, Device.Pins.D02);
-            btnTyper.PressStarted += ButtonPressStarted;
-            btnTyper.PressEnded += ButtonPressEnded;
-
-            btnFunction = new PushButton(device: Device, Device.Pins.D03);
-            btnFunction.Clicked += BtnFunctionClicked;
-            btnFunction.LongClickedThreshold = TimeSpan.FromSeconds(2);
-            btnFunction.LongClicked += BtnFunctionLongClicked;
+            button = new PushButton(device: Device, Device.Pins.D04);
+            button.PressStarted += ButtonPressStarted;
+            button.PressEnded += ButtonPressEnded;
 
             stopWatch = new Stopwatch();
 
@@ -65,18 +53,6 @@ namespace MorseCodeTrainer
             ShowLetterQuestion();
 
             onboardLed.SetColor(Color.Green);
-        }
-
-        private void BtnFunctionLongClicked(object sender, EventArgs e)
-        {
-            character = string.Empty;
-            displayController.ClearAnswer();
-        }
-
-        private void BtnFunctionClicked(object sender, EventArgs e)
-        {
-            //text = text.Substring(0, text.Length - 1);
-            //Console.WriteLine(text);
         }
 
         void LoadMorseCode() 
@@ -122,13 +98,13 @@ namespace MorseCodeTrainer
 
         async void TimerElapsed(object sender, ElapsedEventArgs e)
         {
-            if (!morseCode.ContainsKey(character)) { return; }
+            if (!morseCode.ContainsKey(answer)) { return; }
 
             timer.Stop();
 
-            bool isCorrect = morseCode[character] == characterQuestion;
+            bool isCorrect = morseCode[answer] == question;
 
-            displayController.DrawCorrectIncorrectMessage(characterQuestion, character, isCorrect);
+            displayController.DrawCorrectIncorrectMessage(question, answer, isCorrect);
             
             await Task.Delay(2000);
 
@@ -138,8 +114,11 @@ namespace MorseCodeTrainer
             }
             else
             {
-                // clear answer   
-            }            
+                answer = string.Empty;
+                displayController.ShowLetterQuestion(question);
+            }
+
+            timer.Start();
         }
 
         void ButtonPressStarted(object sender, EventArgs e)
@@ -155,22 +134,22 @@ namespace MorseCodeTrainer
 
             if (stopWatch.ElapsedMilliseconds < 200)
             {
-                character += "O";
+                answer += "O";
             }
             else
             {
-                character += "-";
+                answer += "-";
             }
 
-            displayController.UpdateAnswer(character, Color.White);
+            displayController.UpdateAnswer(answer, Color.White);
             timer.Start();
         }
 
         void ShowLetterQuestion() 
         { 
-            character = string.Empty;
-            characterQuestion = morseCode.ElementAt(new Random().Next(0, morseCode.Count)).Value;
-            displayController.ShowLetterQuestion(characterQuestion);
+            answer = string.Empty;
+            question = morseCode.ElementAt(new Random().Next(0, morseCode.Count)).Value;
+            displayController.ShowLetterQuestion(question);
         }
     }
 }

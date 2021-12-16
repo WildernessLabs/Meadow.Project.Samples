@@ -61,7 +61,7 @@ namespace MorseCodeTrainer
         {
             graphics.DrawRectangle(2, 65, 236, 60, Color.Black, true);
             graphics.DrawText(120, 65, question, Color.White, GraphicsLibrary.ScaleFactor.X3, GraphicsLibrary.TextAlignment.Center);
-            ClearAnswer();
+            graphics.DrawRectangle(5, 120, 230, 110, Color.Black, true);
             graphics.Show();
         }
 
@@ -102,12 +102,6 @@ namespace MorseCodeTrainer
                 graphics.DrawCircle(x + 11, y + 10, 10, color, true);
             }
 
-            graphics.Show();
-        }
-
-        public void ClearAnswer() 
-        { 
-            graphics.DrawRectangle(5,120,230,110, Color.Black, true);
             graphics.Show();
         }
     }
