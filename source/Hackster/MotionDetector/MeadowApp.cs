@@ -15,9 +15,9 @@ using System.Threading;
 
 namespace MotionDetector
 {
-    public class MeadowApp : App<F7Micro, MeadowApp>
+    // public class MeadowApp : App<F7Micro, MeadowApp> <- If you have a Meadow F7 v1.*
+    public class MeadowApp : App<F7MicroV2, MeadowApp>
     {
-        St7789 display;
         MicroGraphics graphics;
         ParallaxPir motionSensor;     
 
@@ -39,7 +39,7 @@ namespace MotionDetector
                 copi: Device.Pins.MOSI,
                 cipo: Device.Pins.MISO,
                 config: config);
-            display = new St7789
+            var display = new St7789
             (
                 device: Device,
                 spiBus: spiBus,
@@ -71,20 +71,20 @@ namespace MotionDetector
             graphics.DrawRectangle(
                 x: 0,
                 y: 0,
-                width: (int)display.Width,
-                height: (int)display.Height,
+                width: graphics.Width,
+                height: graphics.Height,
                 color: Color.White);
             graphics.DrawRectangle(
                 x: 5,
                 y: 5,
-                width: (int)display.Width - 10,
-                height: (int)display.Height - 10,
+                width: graphics.Width - 10,
+                height: graphics.Height - 10,
                 color: Color.White);
 
             graphics.DrawCircle(
-                centerX: (int)display.Width / 2,
-                centerY: (int)display.Height / 2,
-                radius: (int)(display.Width / 2) - 10,
+                centerX: graphics.Width / 2,
+                centerY: graphics.Height / 2,
+                radius: (graphics.Width / 2) - 10,
                 color: Color.FromHex("#EF7D3B"),
                 filled: true);
 
@@ -94,7 +94,7 @@ namespace MotionDetector
             
             string textMotion = "MOTION";
             graphics.DrawText(
-                (int)(display.Width - textMotion.Length * 16) / 2, 
+                (graphics.Width - textMotion.Length * 16) / 2, 
                 140, 
                 textMotion, 
                 Color.Black, 
@@ -102,7 +102,7 @@ namespace MotionDetector
 
             string textDetector = "DETECTOR";
             graphics.DrawText(
-                (int)(display.Width - textDetector.Length * 16) / 2,
+                (graphics.Width - textDetector.Length * 16) / 2,
                 165,
                 textDetector, 
                 Color.Black,
@@ -137,7 +137,7 @@ namespace MotionDetector
                 }
             }
 
-            display.Show();
+            graphics.Show();
         }
 
         byte[] LoadResource(string filename)

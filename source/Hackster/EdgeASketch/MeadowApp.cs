@@ -12,10 +12,10 @@ using System;
 
 namespace EdgeASketch
 {
-    public class MeadowApp : App<F7Micro, MeadowApp>
+    // public class MeadowApp : App<F7Micro, MeadowApp> <- If you have a Meadow F7 v1.*
+    public class MeadowApp : App<F7MicroV2, MeadowApp>
     {
         int x, y;
-        St7789 st7789;
         MicroGraphics graphics;
         RotaryEncoderWithButton rotaryX;
         RotaryEncoderWithButton rotaryY;
@@ -30,13 +30,14 @@ namespace EdgeASketch
             var config = new SpiClockConfiguration(
                 speed: new Frequency(48000, Frequency.UnitType.Kilohertz),
                 mode: SpiClockConfiguration.Mode.Mode3);
-            st7789 = new St7789(
+            var spiBus = Device.CreateSpiBus(
+                clock: Device.Pins.SCK,
+                copi: Device.Pins.MOSI,
+                cipo: Device.Pins.MISO,
+                config: config);
+            var st7789 = new St7789(
                 device: Device,
-                spiBus: Device.CreateSpiBus(
-                    clock: Device.Pins.SCK,
-                    copi: Device.Pins.MOSI,
-                    cipo: Device.Pins.MISO,
-                    config: config),
+                spiBus: spiBus,
                 chipSelectPin: null,
                 dcPin: Device.Pins.D01,
                 resetPin: Device.Pins.D00,

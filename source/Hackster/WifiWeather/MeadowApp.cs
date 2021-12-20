@@ -11,7 +11,8 @@ using WifiWeather.Views;
 
 namespace WifiWeather
 {
-    public class MeadowApp : App<F7Micro, MeadowApp>
+    // public class MeadowApp : App<F7Micro, MeadowApp> <- If you have a Meadow F7 v1.*
+    public class MeadowApp : App<F7MicroV2, MeadowApp>
     {
         RgbPwmLed onboardLed;
         WeatherView displayController;
@@ -24,8 +25,6 @@ namespace WifiWeather
 
         void WiFiConnected(object sender, EventArgs e)
         {
-            Device.SetClock(DateTime.Now.AddHours(-8));
-
             Initialize();
 
             Start().Wait();
@@ -33,8 +32,6 @@ namespace WifiWeather
 
         void Initialize()
         {
-            Device.SetClock(DateTime.Now.AddHours(-8));
-
             onboardLed = new RgbPwmLed(device: Device,
                 redPwmPin: Device.Pins.OnboardLedRed,
                 greenPwmPin: Device.Pins.OnboardLedGreen,

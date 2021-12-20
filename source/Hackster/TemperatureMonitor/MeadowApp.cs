@@ -11,7 +11,8 @@ using System;
 
 namespace TemperatureMonitor
 {
-    public class MeadowApp : App<F7Micro, MeadowApp>
+    // public class MeadowApp : App<F7Micro, MeadowApp> <- If you have a Meadow F7 v1.*
+    public class MeadowApp : App<F7MicroV2, MeadowApp>
     {
         Color[] colors = new Color[4] 
         { 
@@ -21,14 +22,16 @@ namespace TemperatureMonitor
             Color.FromHex("#67E667") 
         };
 
-        St7789 st7789;
         MicroGraphics graphics;
         AnalogTemperature analogTemperature;               
-        int displayWidth, displayHeight;
 
         public MeadowApp()
         {
-            var led = new RgbLed(Device, Device.Pins.OnboardLedRed, Device.Pins.OnboardLedGreen, Device.Pins.OnboardLedBlue);
+            var led = new RgbLed(
+                Device, 
+                Device.Pins.OnboardLedRed, 
+                Device.Pins.OnboardLedGreen, 
+                Device.Pins.OnboardLedBlue);
             led.SetColor(RgbLed.Colors.Red);
 
             analogTemperature = new AnalogTemperature(
@@ -46,7 +49,7 @@ namespace TemperatureMonitor
                 copi: Device.Pins.MOSI,
                 cipo: Device.Pins.MISO,
                 config: config);
-            st7789 = new St7789
+            var st7789 = new St7789
             (
                 device: Device,
                 spiBus: spiBus,
@@ -54,9 +57,7 @@ namespace TemperatureMonitor
                 dcPin: Device.Pins.D01,
                 resetPin: Device.Pins.D00,
                 width: 240, height: 240
-            );
-            displayWidth = Convert.ToInt32(st7789.Width);
-            displayHeight = Convert.ToInt32(st7789.Height);
+            );            
 
             graphics = new MicroGraphics(st7789);
             graphics.Rotation = RotationType._270Degrees;
@@ -93,8 +94,8 @@ namespace TemperatureMonitor
             graphics.Clear();
 
             int radius = 225;
-            int originX = displayWidth / 2;
-            int originY = displayHeight / 2 + 130;
+            int originX = graphics.Width / 2;
+            int originY = graphics.Height / 2 + 130;
 
             graphics.Stroke = 3;
             for (int i = 1; i < 5; i++)

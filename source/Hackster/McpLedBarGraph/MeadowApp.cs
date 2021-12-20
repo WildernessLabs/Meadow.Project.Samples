@@ -8,7 +8,8 @@ using System.Threading;
 
 namespace McpLedBarGraph
 {
-    public class MeadowApp : App<F7Micro, MeadowApp>
+    // public class MeadowApp : App<F7Micro, MeadowApp> <- If you have a Meadow F7 v1.*
+    public class MeadowApp : App<F7MicroV2, MeadowApp>
     {
         Mcp23x08 mcp;
         LedBarGraph ledBarGraph;

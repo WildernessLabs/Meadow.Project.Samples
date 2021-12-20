@@ -18,11 +18,18 @@ namespace MorseCodeTrainer
 
         void Initialize() 
         {
-            var config = new SpiClockConfiguration(new Frequency(48000, Frequency.UnitType.Kilohertz), SpiClockConfiguration.Mode.Mode3);
+            var config = new SpiClockConfiguration(
+                new Frequency(48000, Frequency.UnitType.Kilohertz), 
+                SpiClockConfiguration.Mode.Mode3);
+            var spiBus = MeadowApp.Device.CreateSpiBus(
+                clock: MeadowApp.Device.Pins.SCK,
+                copi: MeadowApp.Device.Pins.MOSI,
+                cipo: MeadowApp.Device.Pins.MISO,
+                config: config);
             var display = new St7789
             (
                 device: MeadowApp.Device,
-                spiBus: MeadowApp.Device.CreateSpiBus(MeadowApp.Device.Pins.SCK, MeadowApp.Device.Pins.MOSI, MeadowApp.Device.Pins.MISO, config),
+                spiBus: spiBus,
                 chipSelectPin: null,
                 dcPin: MeadowApp.Device.Pins.D01,
                 resetPin: MeadowApp.Device.Pins.D00,

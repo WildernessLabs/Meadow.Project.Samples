@@ -11,11 +11,11 @@ using System.Threading;
 
 namespace MeadowClockGraphics
 {
-    public class MeadowApp : App<F7Micro, MeadowApp>
+    // public class MeadowApp : App<F7Micro, MeadowApp> <- If you have a Meadow F7 v1.*
+    public class MeadowApp : App<F7MicroV2, MeadowApp>
     {
         readonly Color WatchBackgroundColor = Color.White;
 
-        St7789 st7789;
         MicroGraphics graphics;
         int displayWidth, displayHeight;
         int hour, minute, second, tick;
@@ -33,7 +33,7 @@ namespace MeadowClockGraphics
                 copi: Device.Pins.MOSI,
                 cipo: Device.Pins.MISO,
                 config: config);
-            st7789 = new St7789
+            var st7789 = new St7789
             (
                 device: Device, 
                 spiBus: spiBus,

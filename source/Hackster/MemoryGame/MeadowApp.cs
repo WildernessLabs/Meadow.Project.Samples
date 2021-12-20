@@ -9,7 +9,8 @@ using System.Threading;
 
 namespace MemoryGame
 {
-    public class MeadowApp : App<F7Micro, MeadowApp>
+    // public class MeadowApp : App<F7Micro, MeadowApp> <- If you have a Meadow F7 v1.*
+    public class MeadowApp : App<F7MicroV2, MeadowApp>
     {
         Ssd1306 display;
         MicroGraphics graphics;

@@ -11,7 +11,8 @@ using System.Threading;
 
 namespace Frogger
 {
-    public class MeadowApp : App<F7Micro, MeadowApp>
+    // public class MeadowApp : App<F7Micro, MeadowApp> <- If you have a Meadow F7 v1.*
+    public class MeadowApp : App<F7MicroV2, MeadowApp>
     {
         Ssd1309 display;
         MicroGraphics graphics;
@@ -39,16 +40,20 @@ namespace Frogger
 
         void Initialize()
         {
-            Console.WriteLine("Initialize hardware...");
 
-            var config = new SpiClockConfiguration(new Frequency(12000, Frequency.UnitType.Kilohertz), SpiClockConfiguration.Mode.Mode0);
 
-            var bus = Device.CreateSpiBus(Device.Pins.SCK, Device.Pins.MOSI, Device.Pins.MISO, config);
-
+            var config = new SpiClockConfiguration(
+                speed: new Frequency(12000, Frequency.UnitType.Kilohertz),
+                mode: SpiClockConfiguration.Mode.Mode0);
+            var spiBus = Device.CreateSpiBus(
+                clock: Device.Pins.SCK,
+                copi: Device.Pins.MOSI,
+                cipo: Device.Pins.MISO,
+                config: config);
             display = new Ssd1309
             (
                 device: Device,
-                spiBus: bus,
+                spiBus: spiBus,
                 chipSelectPin: Device.Pins.D02,
                 dcPin: Device.Pins.D01,
                 resetPin: Device.Pins.D00
@@ -64,7 +69,7 @@ namespace Frogger
 
             speaker = new PiezoSpeaker(Device, Device.Pins.D13);
 
-            Console.WriteLine("Initialize hardware complete.");
+            
         }
 
         void StartGame()

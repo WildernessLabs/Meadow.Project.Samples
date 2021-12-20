@@ -14,10 +14,10 @@ using System.Threading.Tasks;
 
 namespace WifiClock
 {
-    public class MeadowApp : App<F7Micro, MeadowApp>
+    // public class MeadowApp : App<F7Micro, MeadowApp> <- If you have a Meadow F7 v1.*
+    public class MeadowApp : App<F7MicroV2, MeadowApp>
     {
         PushButton pushButton;
-        Max7219 display;
         MicroGraphics graphics;
         AnalogTemperature analogTemperature;
 
@@ -45,7 +45,7 @@ namespace WifiClock
                 bluePwmPin: Device.Pins.OnboardLedBlue);
             onboardLed.StartPulse(Color.Red);
 
-            display = new Max7219(
+            var display = new Max7219(
                 device: Device, 
                 spiBus: Device.CreateSpiBus(), 
                 csPin: Device.Pins.D01, 

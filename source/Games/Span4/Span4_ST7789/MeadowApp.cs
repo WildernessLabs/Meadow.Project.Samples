@@ -11,9 +11,9 @@ using System.Threading;
 
 namespace Span4
 {
-    public class MeadowApp : App<F7Micro, MeadowApp>
+    // public class MeadowApp : App<F7Micro, MeadowApp> <- If you have a Meadow F7 v1.*
+    public class MeadowApp : App<F7MicroV2, MeadowApp>
     {
-        St7789 display;
         MicroGraphics graphics;
 
         IDigitalInputPort portLeft;
@@ -24,7 +24,6 @@ namespace Span4
         PiezoSpeaker speaker;
 
         Span4Game connectGame;
-
        
         byte currentColumn = 0;
 
@@ -200,7 +199,7 @@ namespace Span4
                 copi: Device.Pins.MOSI,
                 cipo: Device.Pins.MISO,
                 config: config);
-            display = new St7789(
+            var display = new St7789(
                 device: Device, 
                 spiBus: spiBus,
                 chipSelectPin: Device.Pins.D10,

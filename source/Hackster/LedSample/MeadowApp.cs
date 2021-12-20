@@ -1,49 +1,29 @@
 ﻿using Meadow;
 using Meadow.Devices;
-using Meadow.Foundation.Audio;
 using Meadow.Foundation.Leds;
 using System;
 using System.Threading;
 
 namespace LedSample
 {
-    public class MeadowApp : App<F7Micro, MeadowApp>
+    // public class MeadowApp : App<F7Micro, MeadowApp> <- If you have a Meadow F7 v1.*
+    public class MeadowApp : App<F7MicroV2, MeadowApp>
     {
         Led led;
         PwmLed pwmLed;
-        PiezoSpeaker speaker;
 
         public MeadowApp()
         {
-            Console.WriteLine("Initializing...");
-
             led = new Led(Device.CreateDigitalOutputPort(Device.Pins.D01));
             //pwmLed = new PwmLed(Device.CreatePwmPort(Device.Pins.D02),
             //   TypicalForwardVoltage.Red);
 
-            speaker = new PiezoSpeaker(Device.CreatePwmPort(Device.Pins.D11));
-            speaker.PlayTone(261.63f, 100);
-
-
-            TestPiezo();
-            //TestLed();
+            TestLed();
             //TestPwmLed();
-        }
-
-        void TestPiezo() 
-        {
-            new Thread(() => 
-            {
-                led.IsOn = true;
-                speaker.PlayTone(261.63f, 400);
-                led.IsOn = false;
-            }).Start();            
         }
 
         void TestLed()
         {
-            Console.WriteLine("TestLeds...");
-
             while (true)
             {
                 Console.WriteLine("Turning on and off each led for 1 second");

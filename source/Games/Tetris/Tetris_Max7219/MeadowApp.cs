@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading;
-using System.Threading.Tasks;
 using Meadow;
 using Meadow.Devices;
 using Meadow.Foundation.Displays;
@@ -10,7 +9,8 @@ using Meadow.Peripherals.Sensors.Hid;
 
 namespace Tetris
 {
-    public class MeadowApp : App<F7Micro, MeadowApp>
+    // public class MeadowApp : App<F7Micro, MeadowApp> <- If you have a Meadow F7 v1.*
+    public class MeadowApp : App<F7MicroV2, MeadowApp>
     {
         MicroGraphics graphics;
         AnalogJoystick joystick;
@@ -28,8 +28,6 @@ namespace Tetris
 
         void Initialize()
         {
-            Console.WriteLine("Init");
-
             var display = new Max7219(
                 device: Device, 
                 spiBus: Device.CreateSpiBus(Max7219.DefaultSpiBusSpeed), 

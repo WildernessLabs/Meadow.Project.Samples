@@ -14,10 +14,10 @@ using System.Reflection;
 
 namespace MeadowMenu
 {
-    public class MeadowApp : App<F7Micro, MeadowApp>
+    // public class MeadowApp : App<F7Micro, MeadowApp> <- If you have a Meadow F7 v1.*
+    public class MeadowApp : App<F7MicroV2, MeadowApp>
     {        
         Menu menu;
-        St7789 st7789;
         RgbPwmLed onboardLed;       
         MicroGraphics graphics;        
         PushButton next, previous, select;
@@ -46,7 +46,7 @@ namespace MeadowMenu
                 copi: Device.Pins.MOSI, 
                 cipo: Device.Pins.MISO, 
                 config: config);
-            st7789 = new St7789
+            var st7789 = new St7789
             (
                 device: Device,
                 spiBus: spiBus,

@@ -15,10 +15,10 @@ using LU = Meadow.Units.Length.UnitType;
 
 namespace ObstacleRadar
 {
-    public class MeadowApp : App<F7Micro, MeadowApp>
+    // public class MeadowApp : App<F7Micro, MeadowApp> <- If you have a Meadow F7 v1.*
+    public class MeadowApp : App<F7MicroV2, MeadowApp>
     {
-        MicroGraphics graphics;
-        St7789 display;
+        MicroGraphics graphics;        
         Vl53l0x sensor;
         Servo servo;
 
@@ -47,7 +47,7 @@ namespace ObstacleRadar
                 Device.Pins.SCK, 
                 Device.Pins.MOSI, 
                 Device.Pins.MISO, config);
-            display = new St7789(
+            var display = new St7789(
                 device: Device, 
                 spiBus: spiBus,
                 chipSelectPin: Device.Pins.D02,
