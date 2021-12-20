@@ -11,13 +11,13 @@ using System.Threading;
 
 namespace RadioPlayer
 {
+    // public class MeadowApp : App<F7Micro, MeadowApp> <- If you have a Meadow F7 v1.*
     public class MeadowApp : App<F7MicroV2, MeadowApp>
     {
         List<float> stations;
         int currentStation = 0;
 
         Tea5767 radio;
-        Ssd1306 display;
         MicroGraphics graphics;
         PushButton btnNext;
         PushButton btnPrevious;
@@ -54,7 +54,7 @@ namespace RadioPlayer
 
             radio = new Tea5767(i2CBus);
 
-            display = new Ssd1306(i2CBus, 60, Ssd1306.DisplayType.OLED128x32);
+            var display = new Ssd1306(i2CBus, 60, Ssd1306.DisplayType.OLED128x32);
             graphics = new MicroGraphics(display);
             graphics.Rotation = RotationType._180Degrees;
 

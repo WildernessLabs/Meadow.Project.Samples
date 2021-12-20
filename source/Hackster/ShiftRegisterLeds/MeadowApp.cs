@@ -1,5 +1,6 @@
 ﻿using Meadow;
 using Meadow.Devices;
+using Meadow.Foundation;
 using Meadow.Foundation.ICs.IOExpanders;
 using Meadow.Foundation.Leds;
 using System.Threading;
@@ -20,8 +21,12 @@ namespace ShiftRegisterLeds
 
         void Initialize() 
         {
-            var led = new RgbLed(Device, Device.Pins.OnboardLedRed, Device.Pins.OnboardLedGreen, Device.Pins.OnboardLedBlue);
-            led.SetColor(RgbLed.Colors.Red);
+            var led = new RgbPwmLed(
+                Device, 
+                Device.Pins.OnboardLedRed, 
+                Device.Pins.OnboardLedGreen, 
+                Device.Pins.OnboardLedBlue);
+            led.SetColor(Color.Red);
 
             shiftRegister = new x74595(
                 device: Device,
@@ -29,7 +34,7 @@ namespace ShiftRegisterLeds
                 pinChipSelect: Device.Pins.D03,
                 pins: 8);
 
-            led.SetColor(RgbLed.Colors.Green);
+            led.SetColor(Color.Green);
         }
 
         void TestX74595()
