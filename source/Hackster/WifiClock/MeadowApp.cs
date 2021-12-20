@@ -39,11 +39,12 @@ namespace WifiClock
         {
             Device.SetClock(DateTime.Now.AddHours(-8));
 
-            var onboardLed = new RgbPwmLed(device: Device,
+            var onboardLed = new RgbPwmLed(
+                device: Device,
                 redPwmPin: Device.Pins.OnboardLedRed,
                 greenPwmPin: Device.Pins.OnboardLedGreen,
                 bluePwmPin: Device.Pins.OnboardLedBlue);
-            onboardLed.StartPulse(Color.Red);
+            onboardLed.SetColor(Color.Red);
 
             var display = new Max7219(
                 device: Device, 

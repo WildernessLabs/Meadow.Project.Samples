@@ -35,14 +35,11 @@ namespace PlantMonitor
 
         void Initialize()
         {
-            Console.WriteLine("Initialize hardware...");
-
-            onboardLed = new RgbPwmLed(device: Device,
+            onboardLed = new RgbPwmLed(
+                device: Device,
                 redPwmPin: Device.Pins.OnboardLedRed,
                 greenPwmPin: Device.Pins.OnboardLedGreen,
-                bluePwmPin: Device.Pins.OnboardLedBlue,
-                3.3f, 3.3f, 3.3f,
-                Meadow.Peripherals.Leds.IRgbLed.CommonType.CommonAnode);
+                bluePwmPin: Device.Pins.OnboardLedBlue);
             onboardLed.SetColor(Color.Red);
 
             button = new PushButton(Device, Device.Pins.D04, ResistorMode.InternalPullUp);
@@ -102,8 +99,6 @@ namespace PlantMonitor
                 filter: null
             );
             analogTemperature.Subscribe(analogTemperatureObserver);
-
-
             analogTemperature.StartUpdating(TimeSpan.FromHours(1));
 
             onboardLed.SetColor(Color.Green);

@@ -1,5 +1,6 @@
 ﻿using Meadow;
 using Meadow.Devices;
+using Meadow.Foundation;
 using Meadow.Foundation.Audio.Radio;
 using Meadow.Foundation.Displays.Ssd130x;
 using Meadow.Foundation.Graphics;
@@ -24,7 +25,7 @@ namespace RadioPlayer
 
         public MeadowApp()
         {
-            InitializePeripherals();
+            Initialize();
 
             stations = new List<float>();
             stations.Add(94.5f);
@@ -41,14 +42,14 @@ namespace RadioPlayer
             DisplayText($"<- FM {stations[currentStation]} ->");
         }
 
-        void InitializePeripherals()
+        void Initialize()
         {
-            var led = new RgbLed(
-                Device, 
-                Device.Pins.OnboardLedRed, 
-                Device.Pins.OnboardLedGreen, 
-                Device.Pins.OnboardLedBlue);
-            led.SetColor(RgbLed.Colors.Red);
+            var onboardLed = new RgbPwmLed(
+                device: Device,
+                redPwmPin: Device.Pins.OnboardLedRed,
+                greenPwmPin: Device.Pins.OnboardLedGreen,
+                bluePwmPin: Device.Pins.OnboardLedBlue);
+            onboardLed.SetColor(Color.Red);
 
             var i2CBus = Device.CreateI2cBus();
 
@@ -64,7 +65,7 @@ namespace RadioPlayer
             btnPrevious = new PushButton(Device, Device.Pins.D04);
             btnPrevious.Clicked += BtnPreviousClicked;
 
-            led.SetColor(RgbLed.Colors.Green);
+            onboardLed.SetColor(Color.Green);
         }
 
         void BtnNextClicked(object sender, EventArgs e)

@@ -18,12 +18,25 @@ namespace MeadowClockGraphics
 
         MicroGraphics graphics;
         int displayWidth, displayHeight;
-        int hour, minute, second, tick;
+        int hour, minute, tick;
 
         public MeadowApp()
         {
-            var led = new RgbLed(Device, Device.Pins.OnboardLedRed, Device.Pins.OnboardLedGreen, Device.Pins.OnboardLedBlue);
-            led.SetColor(RgbLed.Colors.Red);
+            Initialize();
+
+            //DrawShapes();            
+            //DrawTexts();
+            DrawClock();
+        }
+
+        void Initialize() 
+        {
+            var onboardLed = new RgbPwmLed(
+                device: Device,
+                redPwmPin: Device.Pins.OnboardLedRed,
+                greenPwmPin: Device.Pins.OnboardLedGreen,
+                bluePwmPin: Device.Pins.OnboardLedBlue);
+            onboardLed.SetColor(Color.Red);
 
             var config = new SpiClockConfiguration(
                 speed: new Frequency(48000, Frequency.UnitType.Kilohertz),
@@ -35,7 +48,7 @@ namespace MeadowClockGraphics
                 config: config);
             var st7789 = new St7789
             (
-                device: Device, 
+                device: Device,
                 spiBus: spiBus,
                 chipSelectPin: Device.Pins.D02,
                 dcPin: Device.Pins.D01,
@@ -48,11 +61,7 @@ namespace MeadowClockGraphics
             graphics = new MicroGraphics(st7789);
             graphics.Rotation = RotationType._270Degrees;
 
-            led.SetColor(RgbLed.Colors.Green);
-
-            //DrawShapes();            
-            //DrawTexts();
-            DrawClock();
+            onboardLed.SetColor(Color.Green);
         }
 
         void DrawShapes()

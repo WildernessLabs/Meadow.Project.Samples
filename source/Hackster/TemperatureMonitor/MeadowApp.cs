@@ -27,12 +27,20 @@ namespace TemperatureMonitor
 
         public MeadowApp()
         {
-            var led = new RgbLed(
-                Device, 
-                Device.Pins.OnboardLedRed, 
-                Device.Pins.OnboardLedGreen, 
-                Device.Pins.OnboardLedBlue);
-            led.SetColor(RgbLed.Colors.Red);
+            Initialize();
+
+            LoadScreen();
+            analogTemperature.StartUpdating(TimeSpan.FromSeconds(5));
+        }
+
+        void Initialize() 
+        {
+            var onboardLed = new RgbPwmLed(
+                device: Device,
+                redPwmPin: Device.Pins.OnboardLedRed,
+                greenPwmPin: Device.Pins.OnboardLedGreen,
+                bluePwmPin: Device.Pins.OnboardLedBlue);
+            onboardLed.SetColor(Color.Red);
 
             analogTemperature = new AnalogTemperature(
                 device: Device,
@@ -49,23 +57,18 @@ namespace TemperatureMonitor
                 copi: Device.Pins.MOSI,
                 cipo: Device.Pins.MISO,
                 config: config);
-            var st7789 = new St7789
-            (
+            var st7789 = new St7789(
                 device: Device,
                 spiBus: spiBus,
                 chipSelectPin: Device.Pins.D02,
                 dcPin: Device.Pins.D01,
                 resetPin: Device.Pins.D00,
-                width: 240, height: 240
-            );            
+                width: 240, height: 240);
 
             graphics = new MicroGraphics(st7789);
             graphics.Rotation = RotationType._270Degrees;
 
-            led.SetColor(RgbLed.Colors.Green);
-
-            LoadScreen();
-            analogTemperature.StartUpdating(TimeSpan.FromSeconds(5));
+            onboardLed.SetColor(Color.Green);
         }
 
         void AnalogTemperatureTemperatureUpdated(object sender, IChangeResult<Meadow.Units.Temperature> e)

@@ -23,13 +23,12 @@ namespace MotionDetector
 
         public MeadowApp()
         {
-            var rgbLed = new RgbLed(
-                Device,
-                Device.Pins.OnboardLedRed,
-                Device.Pins.OnboardLedGreen,
-                Device.Pins.OnboardLedBlue
-            );
-            rgbLed.SetColor(RgbLed.Colors.Red);
+            var onboardLed = new RgbPwmLed(
+                device: Device,
+                redPwmPin: Device.Pins.OnboardLedRed,
+                greenPwmPin: Device.Pins.OnboardLedGreen,
+                bluePwmPin: Device.Pins.OnboardLedBlue);
+            onboardLed.SetColor(Color.Red);
 
             var config = new SpiClockConfiguration(
                 speed: new Frequency(48000, Frequency.UnitType.Kilohertz),
@@ -56,7 +55,7 @@ namespace MotionDetector
             motionSensor.OnMotionStart += MotionSensorMotionStart;
             motionSensor.OnMotionEnd += MotionSensorMotionEnd;
 
-            rgbLed.SetColor(RgbLed.Colors.Green);
+            onboardLed.SetColor(Color.Green);
 
             LoadScreen();
         }

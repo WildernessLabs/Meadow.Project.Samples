@@ -1,5 +1,6 @@
 ﻿using Meadow;
 using Meadow.Devices;
+using Meadow.Foundation;
 using Meadow.Foundation.ICs.IOExpanders;
 using Meadow.Foundation.Leds;
 using System.Collections.Generic;
@@ -15,8 +16,19 @@ namespace McpLeds
 
         public MeadowApp()
         {
-            var led = new RgbLed(Device, Device.Pins.OnboardLedRed, Device.Pins.OnboardLedGreen, Device.Pins.OnboardLedBlue);
-            led.SetColor(RgbLed.Colors.Red);
+            Initialize();
+
+            CycleLeds();
+        }
+
+        void Initialize() 
+        {
+            var onboardLed = new RgbPwmLed(
+                device: Device,
+                redPwmPin: Device.Pins.OnboardLedRed,
+                greenPwmPin: Device.Pins.OnboardLedGreen,
+                bluePwmPin: Device.Pins.OnboardLedBlue);
+            onboardLed.SetColor(Color.Red);
 
             mcp = new Mcp23x08(Device.CreateI2cBus(), true, true, true);
 
@@ -30,9 +42,7 @@ namespace McpLeds
             leds.Add(new Led(mcp.CreateDigitalOutputPort(mcp.Pins.GP6)));
             leds.Add(new Led(mcp.CreateDigitalOutputPort(mcp.Pins.GP7)));
 
-            led.SetColor(RgbLed.Colors.Green);
-
-            CycleLeds();
+            onboardLed.SetColor(Color.Green);
         }
 
         void CycleLeds()

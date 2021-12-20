@@ -1,5 +1,6 @@
 ﻿using Meadow;
 using Meadow.Devices;
+using Meadow.Foundation;
 using Meadow.Foundation.Displays.Led;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Buttons;
@@ -20,20 +21,31 @@ namespace StopwatchDisplay
 
         public MeadowApp()
         {
-            var led = new RgbLed(Device, Device.Pins.OnboardLedRed, Device.Pins.OnboardLedGreen, Device.Pins.OnboardLedBlue);
-            led.SetColor(RgbLed.Colors.Red);
+            Initialize();
+
+            Start();
+        }
+
+        void Initialize() 
+        {
+            var onboardLed = new RgbPwmLed(
+                device: Device,
+                redPwmPin: Device.Pins.OnboardLedRed,
+                greenPwmPin: Device.Pins.OnboardLedGreen,
+                bluePwmPin: Device.Pins.OnboardLedBlue);
+            onboardLed.SetColor(Color.Red);
 
             stopwatch = new Stopwatch();
 
             startStop = new PushButton(
-                device: Device, 
-                inputPin: Device.Pins.D12, 
+                device: Device,
+                inputPin: Device.Pins.D12,
                 resistorMode: Meadow.Hardware.ResistorMode.InternalPullUp);
             startStop.Clicked += StartStopClicked;
 
             reset = new PushButton(
-                device: Device, 
-                inputPin: Device.Pins.D13, 
+                device: Device,
+                inputPin: Device.Pins.D13,
                 resistorMode: Meadow.Hardware.ResistorMode.InternalPullUp);
             reset.Clicked += ResetClicked;
 
@@ -55,14 +67,7 @@ namespace StopwatchDisplay
             );
             display.SetDisplay("0000".ToCharArray());
 
-            led.SetColor(RgbLed.Colors.Green);
-
-            while (true)
-            {
-                string time = stopwatch.Elapsed.Minutes.ToString("D2") + stopwatch.Elapsed.Seconds.ToString("D2");
-                display.SetDisplay(time.ToCharArray());
-                Thread.Sleep(1000);
-            }
+            onboardLed.SetColor(Color.Green);
         }
 
         void StartStopClicked(object sender, EventArgs e)
@@ -82,6 +87,16 @@ namespace StopwatchDisplay
         {
             display.SetDisplay("0000".ToCharArray());
             stopwatch.Reset();
+        }
+
+        void Start() 
+        {
+            while (true)
+            {
+                string time = stopwatch.Elapsed.Minutes.ToString("D2") + stopwatch.Elapsed.Seconds.ToString("D2");
+                display.SetDisplay(time.ToCharArray());
+                Thread.Sleep(1000);
+            }
         }
     }
 }

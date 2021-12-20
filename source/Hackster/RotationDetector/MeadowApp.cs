@@ -1,5 +1,6 @@
 ﻿using Meadow;
 using Meadow.Devices;
+using Meadow.Foundation;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Motion;
 using Meadow.Units;
@@ -25,8 +26,12 @@ namespace RotationDetector
 
         void Initialize() 
         {
-            var led = new RgbLed(Device, Device.Pins.OnboardLedRed, Device.Pins.OnboardLedGreen, Device.Pins.OnboardLedBlue);
-            led.SetColor(RgbLed.Colors.Red);
+            var onboardLed = new RgbPwmLed(
+                device: Device,
+                redPwmPin: Device.Pins.OnboardLedRed,
+                greenPwmPin: Device.Pins.OnboardLedGreen,
+                bluePwmPin: Device.Pins.OnboardLedBlue);
+            onboardLed.SetColor(Color.Red);
 
             up = new Led(Device.CreateDigitalOutputPort(Device.Pins.D13));
             down = new Led(Device.CreateDigitalOutputPort(Device.Pins.D10));
@@ -36,7 +41,7 @@ namespace RotationDetector
             mpu = new Mpu6050(Device.CreateI2cBus());
             mpu.Updated += MpuUpdated;            
 
-            led.SetColor(RgbLed.Colors.Green);
+            onboardLed.SetColor(Color.Green);
         }
 
         void MpuUpdated(object sender, IChangeResult<(Acceleration3D? Acceleration3D, AngularVelocity3D? AngularVelocity3D, Temperature? Temperature)> e)

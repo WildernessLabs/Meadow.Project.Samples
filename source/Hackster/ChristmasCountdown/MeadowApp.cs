@@ -24,11 +24,12 @@ namespace ChristmasCountdown
 
         void Initialize() 
         {
-            var led = new RgbPwmLed(Device, 
-                Device.Pins.OnboardLedRed, 
-                Device.Pins.OnboardLedGreen, 
-                Device.Pins.OnboardLedBlue);
-            led.SetColor(Color.Red);
+            var onboardLed = new RgbPwmLed(
+                device: Device,
+                redPwmPin: Device.Pins.OnboardLedRed,
+                greenPwmPin: Device.Pins.OnboardLedGreen,
+                bluePwmPin: Device.Pins.OnboardLedBlue);
+            onboardLed.SetColor(Color.Red);
 
             display = new CharacterDisplay
             (
@@ -42,7 +43,7 @@ namespace ChristmasCountdown
                 rows: 4, columns: 20
             );
 
-            led.SetColor(Color.Green);
+            onboardLed.SetColor(Color.Green);
         }
 
         void ShowSplashScreen() 

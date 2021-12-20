@@ -33,12 +33,12 @@ namespace ObstacleRadar
 
         void Initialize()
         {
-            var led = new RgbLed(
-                Device, 
-                Device.Pins.OnboardLedRed, 
-                Device.Pins.OnboardLedGreen, 
-                Device.Pins.OnboardLedBlue);
-            led.SetColor(RgbLed.Colors.Red);
+            var onboardLed = new RgbPwmLed(
+                device: Device,
+                redPwmPin: Device.Pins.OnboardLedRed,
+                greenPwmPin: Device.Pins.OnboardLedGreen,
+                bluePwmPin: Device.Pins.OnboardLedBlue);
+            onboardLed.SetColor(Color.Red);
 
             var config = new SpiClockConfiguration(
                 new Frequency(48000, Frequency.UnitType.Kilohertz), 
@@ -66,7 +66,7 @@ namespace ObstacleRadar
             servo = new Servo(Device.CreatePwmPort(Device.Pins.D05), NamedServoConfigs.SG90);
             servo.RotateTo(new Angle(0, AU.Degrees));
 
-            led.SetColor(RgbLed.Colors.Green);
+            onboardLed.SetColor(Color.Green);
         }
 
         void Draw()

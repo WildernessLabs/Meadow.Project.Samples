@@ -23,8 +23,6 @@ namespace MeadowBleLed
         public MeadowApp()
         {
             Initialize();
-
-            PulseColor(Color.Green);
         }
 
         void Initialize()
@@ -41,6 +39,8 @@ namespace MeadowBleLed
             
             colorCharacteristic.ValueSet += ColorCharacteristicValueSet;
             isOnCharacteristic.ValueSet += IsOnCharacteristicValueSet;
+
+            PulseColor(Color.Green);
         }
 
         void IsOnCharacteristicValueSet(ICharacteristic c, object data)

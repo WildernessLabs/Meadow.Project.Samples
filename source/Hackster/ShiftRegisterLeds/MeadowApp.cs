@@ -21,12 +21,12 @@ namespace ShiftRegisterLeds
 
         void Initialize() 
         {
-            var led = new RgbPwmLed(
-                Device, 
-                Device.Pins.OnboardLedRed, 
-                Device.Pins.OnboardLedGreen, 
-                Device.Pins.OnboardLedBlue);
-            led.SetColor(Color.Red);
+            var onboardLed = new RgbPwmLed(
+                device: Device,
+                redPwmPin: Device.Pins.OnboardLedRed,
+                greenPwmPin: Device.Pins.OnboardLedGreen,
+                bluePwmPin: Device.Pins.OnboardLedBlue);
+            onboardLed.SetColor(Color.Red);
 
             shiftRegister = new x74595(
                 device: Device,
@@ -34,7 +34,7 @@ namespace ShiftRegisterLeds
                 pinChipSelect: Device.Pins.D03,
                 pins: 8);
 
-            led.SetColor(Color.Green);
+            onboardLed.SetColor(Color.Green);
         }
 
         void TestX74595()

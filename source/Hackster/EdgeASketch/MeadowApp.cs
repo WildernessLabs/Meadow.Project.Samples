@@ -22,8 +22,12 @@ namespace EdgeASketch
 
         public MeadowApp()
         {
-            var led = new RgbLed(Device, Device.Pins.OnboardLedRed, Device.Pins.OnboardLedGreen, Device.Pins.OnboardLedBlue);
-            led.SetColor(RgbLed.Colors.Red);
+            var onboardLed = new RgbPwmLed(
+                device: Device,
+                redPwmPin: Device.Pins.OnboardLedRed,
+                greenPwmPin: Device.Pins.OnboardLedGreen,
+                bluePwmPin: Device.Pins.OnboardLedBlue);
+            onboardLed.SetColor(Color.Red);
 
             x = y = 120;
 
@@ -58,7 +62,7 @@ namespace EdgeASketch
             rotaryY.Rotated += RotaryYRotated;            
             rotaryY.Clicked += RotaryYClicked;
 
-            led.SetColor(RgbLed.Colors.Green);
+            onboardLed.SetColor(Color.Green);
         }
 
         void RotaryXRotated(object sender, RotaryChangeResult e)

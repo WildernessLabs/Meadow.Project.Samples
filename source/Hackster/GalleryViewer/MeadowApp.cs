@@ -17,8 +17,7 @@ namespace GalleryViewer
     // public class MeadowApp : App<F7Micro, MeadowApp> <- If you have a Meadow F7 v1.*
     public class MeadowApp : App<F7MicroV2, MeadowApp>
     {
-        RgbLed led;
-        Gc9a01 display;
+        RgbPwmLed led;
         MicroGraphics graphics;
         PushButton buttonUp;
         PushButton buttonDown;
@@ -27,12 +26,12 @@ namespace GalleryViewer
 
         public MeadowApp()
         {
-            led = new RgbLed(
-                device: Device, 
-                redPin: Device.Pins.OnboardLedRed, 
-                greenPin: Device.Pins.OnboardLedGreen, 
-                bluePin: Device.Pins.OnboardLedBlue);
-            led.SetColor(RgbLed.Colors.Red);
+            led = new RgbPwmLed(
+                device: Device,
+                redPwmPin: Device.Pins.OnboardLedRed,
+                greenPwmPin: Device.Pins.OnboardLedGreen,
+                bluePwmPin: Device.Pins.OnboardLedBlue);
+            led.SetColor(Color.Red);
 
             buttonUp = new PushButton(Device, Device.Pins.D03);
             buttonUp.Clicked += ButtonUpClicked;
@@ -48,7 +47,7 @@ namespace GalleryViewer
                 copi: Device.Pins.MOSI,
                 cipo: Device.Pins.MISO,
                 config: config);
-            display = new Gc9a01
+            var display = new Gc9a01
             (
                 device: Device,
                 spiBus: spiBus,
@@ -62,12 +61,12 @@ namespace GalleryViewer
 
             DisplayJPG();
 
-            led.SetColor(RgbLed.Colors.Green);
+            led.SetColor(Color.Green);
         }
 
         void ButtonUpClicked(object sender, EventArgs e)
         {
-            led.SetColor(RgbLed.Colors.Red);
+            led.SetColor(Color.Red);
 
             if (selectedIndex + 1 > 2)
                 selectedIndex = 0;
@@ -76,12 +75,12 @@ namespace GalleryViewer
 
             DisplayJPG();
 
-            led.SetColor(RgbLed.Colors.Green);
+            led.SetColor(Color.Green);
         }
 
         void ButtonDownClicked(object sender, EventArgs e)
         {
-            led.SetColor(RgbLed.Colors.Red);
+            led.SetColor(Color.Red);
 
             if (selectedIndex - 1 < 0)
                 selectedIndex = 2;
@@ -90,7 +89,7 @@ namespace GalleryViewer
 
             DisplayJPG();
 
-            led.SetColor(RgbLed.Colors.Green);
+            led.SetColor(Color.Green);
         }
 
         void DisplayJPG()
@@ -119,7 +118,7 @@ namespace GalleryViewer
                 }
             }
 
-            display.Show();
+            graphics.Show();
         }
 
         byte[] LoadResource(string filename)

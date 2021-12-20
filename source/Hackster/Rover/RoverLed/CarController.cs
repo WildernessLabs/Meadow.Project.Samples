@@ -41,8 +41,8 @@ namespace RoverLed
 
         public void MoveBackward()
         {
-            motorLeft.Speed = SPEED;
-            motorRight.Speed = SPEED;
+            motorLeft.Power = SPEED;
+            motorRight.Power = SPEED;
         }
     }
 }

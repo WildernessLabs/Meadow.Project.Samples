@@ -15,7 +15,20 @@ namespace RgbLedSample
 
         public MeadowApp()
         {
-            Console.WriteLine("Initializing...");
+            Initialize();
+
+            TestRgbLed();
+            TestRgbPwmLed();
+        }
+
+        void Initialize() 
+        {
+            var onboardLed = new RgbPwmLed(
+                device: Device,
+                redPwmPin: Device.Pins.OnboardLedRed,
+                greenPwmPin: Device.Pins.OnboardLedGreen,
+                bluePwmPin: Device.Pins.OnboardLedBlue);
+            onboardLed.SetColor(Color.Red);
 
             rgbLed = new RgbLed(
                 Device.CreateDigitalOutputPort(Device.Pins.D02),
@@ -28,8 +41,7 @@ namespace RgbLedSample
                 Device.CreatePwmPort(Device.Pins.D04)
             );
 
-            TestRgbLed();
-            TestRgbPwmLed();
+            onboardLed.SetColor(Color.Green);
         }
 
         void TestRgbLed()

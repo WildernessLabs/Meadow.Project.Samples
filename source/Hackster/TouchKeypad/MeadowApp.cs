@@ -1,5 +1,6 @@
 ﻿using Meadow;
 using Meadow.Devices;
+using Meadow.Foundation;
 using Meadow.Foundation.Displays.TftSpi;
 using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
@@ -17,8 +18,17 @@ namespace TouchKeypad
 
         public MeadowApp()
         {
-            var led = new RgbLed(Device, Device.Pins.OnboardLedRed, Device.Pins.OnboardLedGreen, Device.Pins.OnboardLedBlue);
-            led.SetColor(RgbLed.Colors.Red);
+            Initialize();
+        }
+
+        void Initialize() 
+        {
+            var onboardLed = new RgbPwmLed(
+                device: Device,
+                redPwmPin: Device.Pins.OnboardLedRed,
+                greenPwmPin: Device.Pins.OnboardLedGreen,
+                bluePwmPin: Device.Pins.OnboardLedBlue);
+            onboardLed.SetColor(Color.Red);
 
             var config = new SpiClockConfiguration(
                 speed: new Frequency(48000, Frequency.UnitType.Kilohertz),
@@ -29,7 +39,7 @@ namespace TouchKeypad
                 cipo: Device.Pins.MISO,
                 config: config);
             var display = new St7789(
-                device: Device, 
+                device: Device,
                 spiBus: spiBus,
                 chipSelectPin: Device.Pins.D02,
                 dcPin: Device.Pins.D01,
@@ -43,7 +53,7 @@ namespace TouchKeypad
             sensor = new Mpr121(Device.CreateI2cBus(I2cBusSpeed.Standard), 90, 100);
             sensor.ChannelStatusesChanged += SensorChannelStatusesChanged;
 
-            led.SetColor(RgbLed.Colors.Green);
+            onboardLed.SetColor(Color.Green);
         }
 
         void SensorChannelStatusesChanged(object sender, ChannelStatusChangedEventArgs e)

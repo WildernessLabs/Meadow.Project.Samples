@@ -32,11 +32,12 @@ namespace WifiWeather
 
         void Initialize()
         {
-            onboardLed = new RgbPwmLed(device: Device,
+            onboardLed = new RgbPwmLed(
+                device: Device,
                 redPwmPin: Device.Pins.OnboardLedRed,
                 greenPwmPin: Device.Pins.OnboardLedGreen,
                 bluePwmPin: Device.Pins.OnboardLedBlue);
-            onboardLed.StartPulse(Color.Red);
+            onboardLed.SetColor(Color.Red);
 
             analogTemperature = new AnalogTemperature(
                 device: Device,
