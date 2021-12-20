@@ -2,6 +2,7 @@
 using Meadow.Foundation.Displays.TftSpi;
 using Meadow.Foundation.Graphics;
 using Meadow.Hardware;
+using Meadow.Units;
 using SimpleJpegDecoder;
 using System;
 using System.IO;
@@ -13,7 +14,7 @@ namespace WifiWeather.Views
 {
     public class WeatherView
     {
-        GraphicsLibrary graphics;
+        MicroGraphics graphics;
 
         public WeatherView()
         {
@@ -22,9 +23,14 @@ namespace WifiWeather.Views
 
         void Initialize()
         {
-            var config = new SpiClockConfiguration(12000, SpiClockConfiguration.Mode.Mode3);
-            var spiBus = MeadowApp.Device.CreateSpiBus(MeadowApp.Device.Pins.SCK, MeadowApp.Device.Pins.MOSI, MeadowApp.Device.Pins.MISO, config);
-
+            var config = new SpiClockConfiguration(
+                 speed: new Frequency(48000, Frequency.UnitType.Kilohertz),
+                 mode: SpiClockConfiguration.Mode.Mode3);
+            var spiBus = MeadowApp.Device.CreateSpiBus(
+                clock: MeadowApp.Device.Pins.SCK,
+                copi: MeadowApp.Device.Pins.MOSI,
+                cipo: MeadowApp.Device.Pins.MISO,
+                config: config);
             var display = new St7789
             (
                 device: MeadowApp.Device,
@@ -36,7 +42,7 @@ namespace WifiWeather.Views
                 displayColorMode: ColorType.Format16bppRgb565
             );
 
-            graphics = new GraphicsLibrary(display)
+            graphics = new MicroGraphics(display)
             {   
                 Stroke = 1,
                 CurrentFont = new Font12x20(),
@@ -57,12 +63,12 @@ namespace WifiWeather.Views
             graphics.DrawText(134, 143, "Outdoor", Color.Black);
 
             string outdoorTemp = model.OutdoorTemperature.ToString("00°C");
-            graphics.DrawText(128, 178, outdoorTemp, Color.Black, GraphicsLibrary.ScaleFactor.X2);
+            graphics.DrawText(128, 178, outdoorTemp, Color.Black, ScaleFactor.X2);
 
             graphics.DrawText(23, 143, "Indoor", Color.Black);
 
             string indoorTemp = model.IndoorTemperature.ToString("00°C");
-            graphics.DrawText(11, 178, indoorTemp, Color.Black, GraphicsLibrary.ScaleFactor.X2);
+            graphics.DrawText(11, 178, indoorTemp, Color.Black, ScaleFactor.X2);
 
             graphics.Show();
         }
@@ -75,7 +81,7 @@ namespace WifiWeather.Views
 
             graphics.DrawText(128, 24, DateTime.Now.ToString("MM/dd/yy"), color: Color.Black);
             
-            graphics.DrawText(116, 66, DateTime.Now.ToString("hh:mm"), Color.Black, GraphicsLibrary.ScaleFactor.X2);
+            graphics.DrawText(116, 66, DateTime.Now.ToString("hh:mm"), Color.Black, ScaleFactor.X2);
 
             graphics.Show();
         }

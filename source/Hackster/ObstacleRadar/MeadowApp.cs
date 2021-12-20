@@ -17,7 +17,7 @@ namespace ObstacleRadar
 {
     public class MeadowApp : App<F7Micro, MeadowApp>
     {
-        GraphicsLibrary graphics;
+        MicroGraphics graphics;
         St7789 display;
         Vl53l0x sensor;
         Servo servo;
@@ -40,19 +40,22 @@ namespace ObstacleRadar
                 Device.Pins.OnboardLedBlue);
             led.SetColor(RgbLed.Colors.Red);
 
-            var config = new SpiClockConfiguration(24000, SpiClockConfiguration.Mode.Mode3);
+            var config = new SpiClockConfiguration(
+                new Frequency(48000, Frequency.UnitType.Kilohertz), 
+                SpiClockConfiguration.Mode.Mode3);
             var spiBus = Device.CreateSpiBus(
                 Device.Pins.SCK, 
                 Device.Pins.MOSI, 
                 Device.Pins.MISO, config);
-
-            display = new St7789(device: Device, spiBus: spiBus,
+            display = new St7789(
+                device: Device, 
+                spiBus: spiBus,
                 chipSelectPin: Device.Pins.D02,
                 dcPin: Device.Pins.D01,
                 resetPin: Device.Pins.D00,
                 width: 240, height: 240);
 
-            graphics = new GraphicsLibrary(display);
+            graphics = new MicroGraphics(display);
             graphics.CurrentFont = new Font12x20();
             graphics.Rotation = RotationType._270Degrees;
 

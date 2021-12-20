@@ -15,7 +15,7 @@ namespace TemperatureDisplay
     {
         Bmp180 sensor;
         RgbPwmLed onboardLed;
-        GraphicsLibrary graphics;
+        MicroGraphics graphics;
         IDigitalInputPort button;
 
         bool isMetric = true;
@@ -35,15 +35,22 @@ namespace TemperatureDisplay
                 bluePwmPin: Device.Pins.OnboardLedBlue);
             onboardLed.SetColor(Color.Red);
 
-            var config = new SpiClockConfiguration(3000, SpiClockConfiguration.Mode.Mode3);
+            var config = new SpiClockConfiguration(
+                speed: new Frequency(48000, Frequency.UnitType.Kilohertz),
+                mode: SpiClockConfiguration.Mode.Mode3);
+            var spiBus = Device.CreateSpiBus(
+                clock: Device.Pins.SCK,
+                copi: Device.Pins.MOSI,
+                cipo: Device.Pins.MISO,
+                config: config);
             var display = new St7789(
                 device: Device,
-                spiBus: Device.CreateSpiBus(Device.Pins.SCK, Device.Pins.MOSI, Device.Pins.MISO, config),
+                spiBus: spiBus,
                 chipSelectPin: Device.Pins.D02,
                 dcPin: Device.Pins.D01,
                 resetPin: Device.Pins.D00,
                 width: 240, height: 240);
-            graphics = new GraphicsLibrary(display);
+            graphics = new MicroGraphics(display);
             graphics.CurrentFont = new Font12x20();
 
             button = Device.CreateDigitalInputPort(Device.Pins.D12, InterruptMode.EdgeRising, ResistorMode.Disabled);
@@ -85,7 +92,7 @@ namespace TemperatureDisplay
 
                 graphics.DrawCircle(120, 84, 80, accentColor, true);
                 graphics.DrawCircle(120, 84, 80, primaryColor);
-                graphics.DrawText((int)xTempPos, 70, tempText, primaryColor, GraphicsLibrary.ScaleFactor.X2);
+                graphics.DrawText((int)xTempPos, 70, tempText, primaryColor, ScaleFactor.X2);
 
                 double barWidth = sensor.Pressure.Value.Bar;
                 graphics.DrawRectangle(10, 190, (int)barWidth, 30, accentColor, true);

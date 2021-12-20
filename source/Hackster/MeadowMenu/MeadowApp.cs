@@ -7,6 +7,7 @@ using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Buttons;
 using Meadow.Hardware;
+using Meadow.Units;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -18,7 +19,7 @@ namespace MeadowMenu
         Menu menu;
         St7789 st7789;
         RgbPwmLed onboardLed;       
-        GraphicsLibrary graphics;        
+        MicroGraphics graphics;        
         PushButton next, previous, select;
 
         public MeadowApp()
@@ -38,7 +39,7 @@ namespace MeadowMenu
             onboardLed.SetColor(Color.Red);
 
             var config = new SpiClockConfiguration(
-                speedKHz: 12000, 
+                speed: new Frequency(48000, Frequency.UnitType.Kilohertz), 
                 mode: SpiClockConfiguration.Mode.Mode3);
             var spiBus = Device.CreateSpiBus(
                 clock: Device.Pins.SCK, 
@@ -55,7 +56,7 @@ namespace MeadowMenu
                 width: 240, height: 240
             );
 
-            graphics = new GraphicsLibrary(st7789)
+            graphics = new MicroGraphics(st7789)
             {
                 CurrentFont = new Font12x20(),
             };

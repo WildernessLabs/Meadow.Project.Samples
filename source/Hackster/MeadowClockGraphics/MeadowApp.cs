@@ -5,6 +5,7 @@ using Meadow.Foundation.Displays.TftSpi;
 using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
 using Meadow.Hardware;
+using Meadow.Units;
 using System;
 using System.Threading;
 
@@ -15,7 +16,7 @@ namespace MeadowClockGraphics
         readonly Color WatchBackgroundColor = Color.White;
 
         St7789 st7789;
-        GraphicsLibrary graphics;
+        MicroGraphics graphics;
         int displayWidth, displayHeight;
         int hour, minute, second, tick;
 
@@ -24,11 +25,18 @@ namespace MeadowClockGraphics
             var led = new RgbLed(Device, Device.Pins.OnboardLedRed, Device.Pins.OnboardLedGreen, Device.Pins.OnboardLedBlue);
             led.SetColor(RgbLed.Colors.Red);
 
-            var config = new SpiClockConfiguration(6000, SpiClockConfiguration.Mode.Mode3);
+            var config = new SpiClockConfiguration(
+                speed: new Frequency(48000, Frequency.UnitType.Kilohertz),
+                mode: SpiClockConfiguration.Mode.Mode3);
+            var spiBus = Device.CreateSpiBus(
+                clock: Device.Pins.SCK,
+                copi: Device.Pins.MOSI,
+                cipo: Device.Pins.MISO,
+                config: config);
             st7789 = new St7789
             (
                 device: Device, 
-                spiBus: Device.CreateSpiBus(Device.Pins.SCK, Device.Pins.MOSI, Device.Pins.MISO, config),
+                spiBus: spiBus,
                 chipSelectPin: Device.Pins.D02,
                 dcPin: Device.Pins.D01,
                 resetPin: Device.Pins.D00,
@@ -37,7 +45,7 @@ namespace MeadowClockGraphics
             displayWidth = Convert.ToInt32(st7789.Width);
             displayHeight = Convert.ToInt32(st7789.Height);
 
-            graphics = new GraphicsLibrary(st7789);
+            graphics = new MicroGraphics(st7789);
             graphics.Rotation = RotationType._270Degrees;
 
             led.SetColor(RgbLed.Colors.Green);

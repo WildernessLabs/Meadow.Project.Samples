@@ -18,7 +18,7 @@ namespace RadioPlayer
 
         Tea5767 radio;
         Ssd1306 display;
-        GraphicsLibrary graphics;
+        MicroGraphics graphics;
         PushButton btnNext;
         PushButton btnPrevious;
 
@@ -55,7 +55,7 @@ namespace RadioPlayer
             radio = new Tea5767(i2CBus);
 
             display = new Ssd1306(i2CBus, 60, Ssd1306.DisplayType.OLED128x32);
-            graphics = new GraphicsLibrary(display);
+            graphics = new MicroGraphics(display);
             graphics.Rotation = RotationType._180Degrees;
 
             btnNext = new PushButton(Device, Device.Pins.D03);

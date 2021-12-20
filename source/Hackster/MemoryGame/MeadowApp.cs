@@ -12,7 +12,7 @@ namespace MemoryGame
     public class MeadowApp : App<F7Micro, MeadowApp>
     {
         Ssd1306 display;
-        GraphicsLibrary graphics;
+        MicroGraphics graphics;
 
         int currentColumn;
         IDigitalInputPort[] rowPorts = new IDigitalInputPort[4];
@@ -60,7 +60,7 @@ namespace MemoryGame
 
             var i2CBus = Device.CreateI2cBus();
             display = new Ssd1306(i2CBus, 60, Ssd1306.DisplayType.OLED128x32);
-            graphics = new GraphicsLibrary(display);
+            graphics = new MicroGraphics(display);
             graphics.Rotation = RotationType._180Degrees;
 
             rowPorts[0] = Device.CreateDigitalInputPort(Device.Pins.D15, InterruptMode.EdgeRising, ResistorMode.InternalPullDown, 0, 50);

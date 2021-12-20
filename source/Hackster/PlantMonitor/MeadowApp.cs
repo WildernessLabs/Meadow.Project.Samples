@@ -47,15 +47,18 @@ namespace PlantMonitor
             button = new PushButton(Device, Device.Pins.D04, ResistorMode.InternalPullUp);
             button.Clicked += ButtonClicked;
 
-            var config = new SpiClockConfiguration
-            (
-                speedKHz: 6000,
-                mode: SpiClockConfiguration.Mode.Mode3
-            );
+            var config = new SpiClockConfiguration(
+                speed: new Frequency(48000, Frequency.UnitType.Kilohertz),
+                mode: SpiClockConfiguration.Mode.Mode3);
+            var spiBus = Device.CreateSpiBus(
+                clock: Device.Pins.SCK,
+                copi: Device.Pins.MOSI,
+                cipo: Device.Pins.MISO,
+                config: config);
             var display = new St7789
             (
                 device: Device,
-                spiBus: Device.CreateSpiBus(Device.Pins.SCK, Device.Pins.MOSI, Device.Pins.MISO, config),
+                spiBus: spiBus,
                 chipSelectPin: Device.Pins.D02,
                 dcPin: Device.Pins.D01,
                 resetPin: Device.Pins.D00,

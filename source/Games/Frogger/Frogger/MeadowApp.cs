@@ -5,6 +5,7 @@ using Meadow.Foundation.Displays.Ssd130x;
 using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Sensors.Buttons;
 using Meadow.Hardware;
+using Meadow.Units;
 using System;
 using System.Threading;
 
@@ -13,7 +14,7 @@ namespace Frogger
     public class MeadowApp : App<F7Micro, MeadowApp>
     {
         Ssd1309 display;
-        GraphicsLibrary graphics;
+        MicroGraphics graphics;
 
         PushButton buttonLeft;
         PushButton buttonRight;
@@ -40,7 +41,7 @@ namespace Frogger
         {
             Console.WriteLine("Initialize hardware...");
 
-            var config = new SpiClockConfiguration(12000, SpiClockConfiguration.Mode.Mode0);
+            var config = new SpiClockConfiguration(new Frequency(12000, Frequency.UnitType.Kilohertz), SpiClockConfiguration.Mode.Mode0);
 
             var bus = Device.CreateSpiBus(Device.Pins.SCK, Device.Pins.MOSI, Device.Pins.MISO, config);
 
@@ -53,7 +54,7 @@ namespace Frogger
                 resetPin: Device.Pins.D00
             );
 
-            graphics = new GraphicsLibrary(display);
+            graphics = new MicroGraphics(display);
             graphics.CurrentFont = new Font12x16();
 
             buttonLeft = new PushButton(Device, Device.Pins.D11, ResistorMode.Disabled);

@@ -6,6 +6,7 @@ using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Buttons;
 using Meadow.Hardware;
+using Meadow.Units;
 using SimpleJpegDecoder;
 using System;
 using System.IO;
@@ -13,11 +14,11 @@ using System.Reflection;
 
 namespace GalleryViewer
 {
-    public class MeadowApp : App<F7Micro, MeadowApp>
+    public class MeadowApp : App<F7MicroV2, MeadowApp>
     {
         RgbLed led;
-        St7789 display;
-        GraphicsLibrary graphics;
+        Gc9a01 display;
+        MicroGraphics graphics;
         PushButton buttonUp;
         PushButton buttonDown;
         int selectedIndex;
@@ -39,25 +40,24 @@ namespace GalleryViewer
             buttonDown.Clicked += ButtonDownClicked;
 
             var config = new SpiClockConfiguration(
-                 speedKHz: 6000,
-                 mode: SpiClockConfiguration.Mode.Mode3);
-
-            display = new St7789
+                speed: new Frequency(48000, Frequency.UnitType.Kilohertz),
+                mode: SpiClockConfiguration.Mode.Mode3);
+            var spiBus = Device.CreateSpiBus(
+                clock: Device.Pins.SCK,
+                copi: Device.Pins.MOSI,
+                cipo: Device.Pins.MISO,
+                config: config);
+            display = new Gc9a01
             (
                 device: Device,
-                spiBus: Device.CreateSpiBus(
-                    clock: Device.Pins.SCK, 
-                    copi: Device.Pins.MOSI, 
-                    cipo: Device.Pins.MISO, 
-                    config: config),
-                chipSelectPin: null,
+                spiBus: spiBus,
+                chipSelectPin: Device.Pins.D02,
                 dcPin: Device.Pins.D01,
-                resetPin: Device.Pins.D00,
-                width: 240, height: 240
+                resetPin: Device.Pins.D00
             );
 
-            graphics = new GraphicsLibrary(display);
-            graphics.Rotation = RotationType._270Degrees;
+            graphics = new MicroGraphics(display);
+            graphics.Rotation = RotationType._90Degrees;
 
             DisplayJPG();
 

@@ -18,7 +18,7 @@ namespace WifiClock
     {
         PushButton pushButton;
         Max7219 display;
-        GraphicsLibrary graphics;
+        MicroGraphics graphics;
         AnalogTemperature analogTemperature;
 
         bool showDate;
@@ -51,7 +51,7 @@ namespace WifiClock
                 csPin: Device.Pins.D01, 
                 deviceCount: 4, 
                 maxMode: Max7219.Max7219Type.Display);
-            graphics = new GraphicsLibrary(display);
+            graphics = new MicroGraphics(display);
             graphics.CurrentFont = new Font4x8();
             graphics.Rotation = RotationType._180Degrees;
 

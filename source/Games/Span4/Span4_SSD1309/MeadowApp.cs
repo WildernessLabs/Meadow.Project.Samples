@@ -4,6 +4,7 @@ using Meadow.Foundation.Audio;
 using Meadow.Foundation.Displays.Ssd130x;
 using Meadow.Foundation.Graphics;
 using Meadow.Hardware;
+using Meadow.Units;
 using System;
 using System.Threading;
 
@@ -12,7 +13,7 @@ namespace Span4
     public class MeadowApp : App<F7Micro, MeadowApp>
     {
         Ssd1309 display;
-        GraphicsLibrary graphics;
+        MicroGraphics graphics;
 
         IDigitalInputPort portLeft;
         IDigitalInputPort portRight;
@@ -185,20 +186,24 @@ namespace Span4
 
             speaker = new PiezoSpeaker(Device.CreatePwmPort(Device.Pins.D05));
 
-            var config = new SpiClockConfiguration(12000, SpiClockConfiguration.Mode.Mode0);
-
-            var bus = Device.CreateSpiBus(Device.Pins.SCK, Device.Pins.MOSI, Device.Pins.MISO, config);
-
+            var config = new SpiClockConfiguration(
+                speed: new Frequency(12000, Frequency.UnitType.Kilohertz),
+                mode: SpiClockConfiguration.Mode.Mode0);
+            var spiBus = Device.CreateSpiBus(
+                clock: Device.Pins.SCK,
+                copi: Device.Pins.MOSI,
+                cipo: Device.Pins.MISO,
+                config: config);
             display = new Ssd1309
             (
                 device: Device,
-                spiBus: bus,
+                spiBus: spiBus,
                 chipSelectPin: Device.Pins.D02,
                 dcPin: Device.Pins.D01,
                 resetPin: Device.Pins.D00
             );
 
-            graphics = new GraphicsLibrary(display);
+            graphics = new MicroGraphics(display);
             graphics.CurrentFont = new Font4x8();
         }
     }

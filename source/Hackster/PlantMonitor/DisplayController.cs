@@ -10,11 +10,11 @@ namespace PlantMonitor
 {
     public class DisplayController
     {
-        GraphicsLibrary graphics;
+        MicroGraphics graphics;
 
         public DisplayController(St7789 display)
         { 
-            graphics = new GraphicsLibrary(display);
+            graphics = new MicroGraphics(display);
             graphics.CurrentFont = new Font12x20();
             graphics.Stroke = 3;
 
@@ -26,8 +26,8 @@ namespace PlantMonitor
             string monitor = "Monitor";
 
             graphics.CurrentFont = new Font12x16();
-            graphics.DrawText((240 - (plant.Length * 24)) / 2, 80, plant, Color.Black, GraphicsLibrary.ScaleFactor.X2);
-            graphics.DrawText((240 - (monitor.Length * 24)) / 2, 130, monitor, Color.Black, GraphicsLibrary.ScaleFactor.X2);
+            graphics.DrawText((240 - (plant.Length * 24)) / 2, 80, plant, Color.Black, ScaleFactor.X2);
+            graphics.DrawText((240 - (monitor.Length * 24)) / 2, 130, monitor, Color.Black, ScaleFactor.X2);
 
             graphics.Show();
         }
@@ -106,18 +106,18 @@ namespace PlantMonitor
             if (newValue > 1) newValue = 1f;
             else if (newValue < 0) newValue = 0f;
 
-            graphics.DrawText(0, 208, $"{(int)(oldValue * 100)}%", Color.White, GraphicsLibrary.ScaleFactor.X2);
-            graphics.DrawText(0, 208, $"{(int)(newValue * 100)}%", Color.Black, GraphicsLibrary.ScaleFactor.X2);
+            graphics.DrawText(0, 208, $"{(int)(oldValue * 100)}%", Color.White, ScaleFactor.X2);
+            graphics.DrawText(0, 208, $"{(int)(newValue * 100)}%", Color.Black, ScaleFactor.X2);
             graphics.Show();
         }
 
         public void UpdateTemperatureValue(Temperature newValue, Temperature oldValue) 
         {
             string t = $"{(int)oldValue.Celsius}C";           
-            graphics.DrawText(240 - t.Length * 24, 208, t, Color.White, GraphicsLibrary.ScaleFactor.X2);
+            graphics.DrawText(240 - t.Length * 24, 208, t, Color.White, ScaleFactor.X2);
 
             t = $"{(int)newValue.Celsius}C";
-            graphics.DrawText(240 - t.Length * 24, 208, t, Color.Black, GraphicsLibrary.ScaleFactor.X2);
+            graphics.DrawText(240 - t.Length * 24, 208, t, Color.Black, ScaleFactor.X2);
 
             graphics.Show();
         }

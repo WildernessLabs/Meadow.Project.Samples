@@ -2,12 +2,13 @@
 using Meadow.Foundation.Displays.TftSpi;
 using Meadow.Foundation.Graphics;
 using Meadow.Hardware;
+using Meadow.Units;
 
 namespace MorseCodeTrainer
 {
     public class DisplayControllers
     {
-        GraphicsLibrary graphics;
+        MicroGraphics graphics;
 
         public DisplayControllers() 
         {
@@ -17,7 +18,7 @@ namespace MorseCodeTrainer
 
         void Initialize() 
         {
-            var config = new SpiClockConfiguration(12000, SpiClockConfiguration.Mode.Mode3);
+            var config = new SpiClockConfiguration(new Frequency(48000, Frequency.UnitType.Kilohertz), SpiClockConfiguration.Mode.Mode3);
             var display = new St7789
             (
                 device: MeadowApp.Device,
@@ -28,7 +29,7 @@ namespace MorseCodeTrainer
                 width: 240, height: 240,
                 displayColorMode: ColorType.Format16bppRgb565
             );
-            graphics = new GraphicsLibrary(display)
+            graphics = new MicroGraphics(display)
             {
                 Stroke = 1,
                 CurrentFont = new Font12x20(),
@@ -51,16 +52,16 @@ namespace MorseCodeTrainer
         {
             Color color = isCorrect ? Color.GreenYellow : Color.Red;
 
-            graphics.DrawText(120, 65, question, color, GraphicsLibrary.ScaleFactor.X3, GraphicsLibrary.TextAlignment.Center);
+            graphics.DrawText(120, 65, question, color, ScaleFactor.X3, TextAlignment.Center);
             UpdateAnswer(answer, color);
-            graphics.DrawText(120, 190, isCorrect ? "Correct!" : "Try again!", color, GraphicsLibrary.ScaleFactor.X1, GraphicsLibrary.TextAlignment.Center);
+            graphics.DrawText(120, 190, isCorrect ? "Correct!" : "Try again!", color, ScaleFactor.X1, TextAlignment.Center);
             graphics.Show();
         }
 
         public void ShowLetterQuestion(string question)
         {
             graphics.DrawRectangle(2, 65, 236, 60, Color.Black, true);
-            graphics.DrawText(120, 65, question, Color.White, GraphicsLibrary.ScaleFactor.X3, GraphicsLibrary.TextAlignment.Center);
+            graphics.DrawText(120, 65, question, Color.White, ScaleFactor.X3, TextAlignment.Center);
             graphics.DrawRectangle(5, 120, 230, 110, Color.Black, true);
             graphics.Show();
         }

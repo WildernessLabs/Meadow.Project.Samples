@@ -6,6 +6,7 @@ using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Temperature;
 using Meadow.Hardware;
+using Meadow.Units;
 using System;
 
 namespace TemperatureMonitor
@@ -21,7 +22,7 @@ namespace TemperatureMonitor
         };
 
         St7789 st7789;
-        GraphicsLibrary graphics;
+        MicroGraphics graphics;
         AnalogTemperature analogTemperature;               
         int displayWidth, displayHeight;
 
@@ -38,12 +39,17 @@ namespace TemperatureMonitor
             analogTemperature.TemperatureUpdated += AnalogTemperatureTemperatureUpdated; //+= AnalogTemperatureUpdated;
 
             var config = new SpiClockConfiguration(
-                speedKHz: 6000, 
+                speed: new Frequency(48000, Frequency.UnitType.Kilohertz),
                 mode: SpiClockConfiguration.Mode.Mode3);
+            var spiBus = Device.CreateSpiBus(
+                clock: Device.Pins.SCK,
+                copi: Device.Pins.MOSI,
+                cipo: Device.Pins.MISO,
+                config: config);
             st7789 = new St7789
             (
                 device: Device,
-                spiBus: Device.CreateSpiBus(Device.Pins.SCK, Device.Pins.MOSI, Device.Pins.MISO, config),
+                spiBus: spiBus,
                 chipSelectPin: Device.Pins.D02,
                 dcPin: Device.Pins.D01,
                 resetPin: Device.Pins.D00,
@@ -52,7 +58,7 @@ namespace TemperatureMonitor
             displayWidth = Convert.ToInt32(st7789.Width);
             displayHeight = Convert.ToInt32(st7789.Height);
 
-            graphics = new GraphicsLibrary(st7789);
+            graphics = new MicroGraphics(st7789);
             graphics.Rotation = RotationType._270Degrees;
 
             led.SetColor(RgbLed.Colors.Green);
@@ -75,7 +81,7 @@ namespace TemperatureMonitor
                 x: 48, y: 160,
                 text: $"{e.New.Celsius:00.0}°C",
                 color: Color.White,
-                scaleFactor: GraphicsLibrary.ScaleFactor.X2);
+                scaleFactor: ScaleFactor.X2);
 
             graphics.Show();
         }

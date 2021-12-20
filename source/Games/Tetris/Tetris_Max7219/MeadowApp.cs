@@ -12,8 +12,7 @@ namespace Tetris
 {
     public class MeadowApp : App<F7Micro, MeadowApp>
     {
-        Max7219 display;
-        GraphicsLibrary graphics;
+        MicroGraphics graphics;
         AnalogJoystick joystick;
         TetrisGame game = new TetrisGame(8, 24);
 
@@ -31,9 +30,14 @@ namespace Tetris
         {
             Console.WriteLine("Init");
 
-            display = new Max7219(Device, Device.CreateSpiBus(Max7219.SpiClockFrequency), Device.Pins.D01, 4, Max7219.Max7219Type.Display);
+            var display = new Max7219(
+                device: Device, 
+                spiBus: Device.CreateSpiBus(Max7219.DefaultSpiBusSpeed), 
+                csPin: Device.Pins.D01, 
+                deviceCount: 4, 
+                maxMode: Max7219.Max7219Type.Display);
 
-            graphics = new GraphicsLibrary(display);
+            graphics = new MicroGraphics(display);
             graphics.CurrentFont = new Font4x8();
 
             joystick = new AnalogJoystick(Device, Device.Pins.A01, Device.Pins.A02, null, true);

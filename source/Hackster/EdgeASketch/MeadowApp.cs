@@ -7,6 +7,7 @@ using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Rotary;
 using Meadow.Hardware;
 using Meadow.Peripherals.Sensors.Rotary;
+using Meadow.Units;
 using System;
 
 namespace EdgeASketch
@@ -15,7 +16,7 @@ namespace EdgeASketch
     {
         int x, y;
         St7789 st7789;
-        GraphicsLibrary graphics;
+        MicroGraphics graphics;
         RotaryEncoderWithButton rotaryX;
         RotaryEncoderWithButton rotaryY;
 
@@ -27,7 +28,7 @@ namespace EdgeASketch
             x = y = 120;
 
             var config = new SpiClockConfiguration(
-                speedKHz: 6000,
+                speed: new Frequency(48000, Frequency.UnitType.Kilohertz),
                 mode: SpiClockConfiguration.Mode.Mode3);
             st7789 = new St7789(
                 device: Device,
@@ -41,7 +42,7 @@ namespace EdgeASketch
                 resetPin: Device.Pins.D00,
                 width: 240, height: 240);
 
-            graphics = new GraphicsLibrary(st7789);
+            graphics = new MicroGraphics(st7789);
             graphics.Clear(true);
             graphics.DrawRectangle(0, 0, 240, 240, Color.White, true);
             graphics.DrawPixel(x, y, Color.Red);

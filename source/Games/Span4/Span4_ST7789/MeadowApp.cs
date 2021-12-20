@@ -5,6 +5,7 @@ using Meadow.Foundation.Audio;
 using Meadow.Foundation.Displays.TftSpi;
 using Meadow.Foundation.Graphics;
 using Meadow.Hardware;
+using Meadow.Units;
 using System;
 using System.Threading;
 
@@ -13,7 +14,7 @@ namespace Span4
     public class MeadowApp : App<F7Micro, MeadowApp>
     {
         St7789 display;
-        GraphicsLibrary graphics;
+        MicroGraphics graphics;
 
         IDigitalInputPort portLeft;
         IDigitalInputPort portRight;
@@ -190,20 +191,25 @@ namespace Span4
             portReset = Device.CreateDigitalInputPort(Device.Pins.D05);
 
             speaker = new PiezoSpeaker(Device.CreatePwmPort(Device.Pins.D06));
-
-            var config = new SpiClockConfiguration(6000, SpiClockConfiguration.Mode.Mode3);
-            var spiBus = Device.CreateSpiBus(Device.Pins.SCK, Device.Pins.MOSI, Device.Pins.MISO, config);
-
-            Console.WriteLine("Create display driver instance");
-
-            display = new St7789(device: Device, spiBus: spiBus,
+            
+            var config = new SpiClockConfiguration(
+                speed: new Frequency(6000, Frequency.UnitType.Kilohertz),
+                mode: SpiClockConfiguration.Mode.Mode3);
+            var spiBus = Device.CreateSpiBus(
+                clock: Device.Pins.SCK,
+                copi: Device.Pins.MOSI,
+                cipo: Device.Pins.MISO,
+                config: config);
+            display = new St7789(
+                device: Device, 
+                spiBus: spiBus,
                 chipSelectPin: Device.Pins.D10,
                 dcPin: Device.Pins.D01,
                 resetPin: Device.Pins.D00,
                 width: 240, height: 240);
 
             Console.WriteLine("Create graphics library");
-            graphics = new GraphicsLibrary(display);
+            graphics = new MicroGraphics(display);
             graphics.CurrentFont = new Font12x16();
         }
     }

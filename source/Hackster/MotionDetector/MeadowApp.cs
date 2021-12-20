@@ -6,6 +6,7 @@ using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Motion;
 using Meadow.Hardware;
+using Meadow.Units;
 using SimpleJpegDecoder;
 using System;
 using System.IO;
@@ -17,7 +18,7 @@ namespace MotionDetector
     public class MeadowApp : App<F7Micro, MeadowApp>
     {
         St7789 display;
-        GraphicsLibrary graphics;
+        MicroGraphics graphics;
         ParallaxPir motionSensor;     
 
         public MeadowApp()
@@ -31,23 +32,24 @@ namespace MotionDetector
             rgbLed.SetColor(RgbLed.Colors.Red);
 
             var config = new SpiClockConfiguration(
-                speedKHz: 6000,
+                speed: new Frequency(48000, Frequency.UnitType.Kilohertz),
                 mode: SpiClockConfiguration.Mode.Mode3);
+            var spiBus = Device.CreateSpiBus(
+                clock: Device.Pins.SCK,
+                copi: Device.Pins.MOSI,
+                cipo: Device.Pins.MISO,
+                config: config);
             display = new St7789
             (
                 device: Device,
-                spiBus: Device.CreateSpiBus(
-                    Device.Pins.SCK,
-                    Device.Pins.MOSI,
-                    Device.Pins.MISO,
-                    config),
+                spiBus: spiBus,
                 chipSelectPin: null,
                 dcPin: Device.Pins.D01,
                 resetPin: Device.Pins.D00,
                 width: 240, height: 240
             );
 
-            graphics = new GraphicsLibrary(display);
+            graphics = new MicroGraphics(display);
             graphics.Rotation = RotationType._270Degrees;
 
             motionSensor = new ParallaxPir(Device, Device.Pins.D08, InterruptMode.EdgeFalling, ResistorMode.Disabled, 5, 0);
@@ -96,7 +98,7 @@ namespace MotionDetector
                 140, 
                 textMotion, 
                 Color.Black, 
-                GraphicsLibrary.ScaleFactor.X2);
+                ScaleFactor.X2);
 
             string textDetector = "DETECTOR";
             graphics.DrawText(
@@ -104,7 +106,7 @@ namespace MotionDetector
                 165,
                 textDetector, 
                 Color.Black,
-                GraphicsLibrary.ScaleFactor.X2);
+                ScaleFactor.X2);
 
             graphics.Show();
         }
