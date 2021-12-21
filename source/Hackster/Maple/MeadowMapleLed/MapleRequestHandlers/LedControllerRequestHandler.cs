@@ -8,35 +8,35 @@ namespace MeadowMapleLed.MapleRequestHandlers
     {
         public LedControllerRequestHandler() { }
 
-        [HttpPost]
+        [HttpPost("/turnon")]
         public void TurnOn()
         {
             LedController.Current.TurnOn();
             StatusResponse();
         }
 
-        [HttpPost]
+        [HttpPost("/turnoff")]
         public void TurnOff()
         {
             LedController.Current.TurnOff();
             StatusResponse();
         }
 
-        [HttpPost]
+        [HttpPost("/startblink")]
         public void StartBlink()
         {
             LedController.Current.StartBlink();
             StatusResponse();
         }
 
-        [HttpPost]
+        [HttpPost("/startblink")]
         public void StartPulse()
         {
             LedController.Current.StartPulse();
             StatusResponse();
         }
 
-        [HttpPost]
+        [HttpPost("/startblink")]
         public void StartRunningColors()
         {
             LedController.Current.StartRunningColors();
