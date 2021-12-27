@@ -10,32 +10,26 @@ namespace MeadowMapleServo.MapleRequestHandlers
     {
         public ServoControllerRequestHandler() { }
 
-        [HttpPost]
-        public void RotateTo()
+        [HttpPost("/rotateto")]
+        public IActionResult RotateTo()
         {
-            ServoController.Current.RotateTo(new Angle(int.Parse(Body), AU.Degrees));
-            StatusResponse();
+            int angle = int.Parse(Body);
+            ServoController.Current.RotateTo(new Angle(angle, AU.Degrees));
+            return new OkResult();
         }
 
-        [HttpPost]
-        public void StartSweep()
-        {
+        [HttpPost("/startsweep")]
+        public IActionResult StartSweep()
+         {
             ServoController.Current.StartSweep();
-            StatusResponse();
+            return new OkResult();
         }
 
-        [HttpPost]
-        public void StopSweep()
+        [HttpPost("/stopsweep")]
+        public IActionResult StopSweep()
         {
             ServoController.Current.StopSweep();
-            StatusResponse();
-        }
-
-        void StatusResponse()
-        {
-            Context.Response.ContentType = ContentTypes.Application_Text;
-            Context.Response.StatusCode = 200;
-            Send("OK");
+            return new OkResult();
         }
     }
 }
