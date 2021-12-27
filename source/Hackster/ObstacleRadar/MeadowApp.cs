@@ -15,10 +15,10 @@ using LU = Meadow.Units.Length.UnitType;
 
 namespace ObstacleRadar
 {
-    public class MeadowApp : App<F7Micro, MeadowApp>
+    // public class MeadowApp : App<F7Micro, MeadowApp> <- If you have a Meadow F7 v1.*
+    public class MeadowApp : App<F7MicroV2, MeadowApp>
     {
-        GraphicsLibrary graphics;
-        St7789 display;
+        MicroGraphics graphics;        
         Vl53l0x sensor;
         Servo servo;
 
@@ -33,26 +33,29 @@ namespace ObstacleRadar
 
         void Initialize()
         {
-            var led = new RgbLed(
-                Device, 
-                Device.Pins.OnboardLedRed, 
-                Device.Pins.OnboardLedGreen, 
-                Device.Pins.OnboardLedBlue);
-            led.SetColor(RgbLed.Colors.Red);
+            var onboardLed = new RgbPwmLed(
+                device: Device,
+                redPwmPin: Device.Pins.OnboardLedRed,
+                greenPwmPin: Device.Pins.OnboardLedGreen,
+                bluePwmPin: Device.Pins.OnboardLedBlue);
+            onboardLed.SetColor(Color.Red);
 
-            var config = new SpiClockConfiguration(24000, SpiClockConfiguration.Mode.Mode3);
+            var config = new SpiClockConfiguration(
+                new Frequency(48000, Frequency.UnitType.Kilohertz), 
+                SpiClockConfiguration.Mode.Mode3);
             var spiBus = Device.CreateSpiBus(
                 Device.Pins.SCK, 
                 Device.Pins.MOSI, 
                 Device.Pins.MISO, config);
-
-            display = new St7789(device: Device, spiBus: spiBus,
+            var display = new St7789(
+                device: Device, 
+                spiBus: spiBus,
                 chipSelectPin: Device.Pins.D02,
                 dcPin: Device.Pins.D01,
                 resetPin: Device.Pins.D00,
                 width: 240, height: 240);
 
-            graphics = new GraphicsLibrary(display);
+            graphics = new MicroGraphics(display);
             graphics.CurrentFont = new Font12x20();
             graphics.Rotation = RotationType._270Degrees;
 
@@ -63,7 +66,7 @@ namespace ObstacleRadar
             servo = new Servo(Device.CreatePwmPort(Device.Pins.D05), NamedServoConfigs.SG90);
             servo.RotateTo(new Angle(0, AU.Degrees));
 
-            led.SetColor(RgbLed.Colors.Green);
+            onboardLed.SetColor(Color.Green);
         }
 
         void Draw()

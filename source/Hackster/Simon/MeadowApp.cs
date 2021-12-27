@@ -1,5 +1,6 @@
 ﻿using Meadow;
 using Meadow.Devices;
+using Meadow.Foundation;
 using Meadow.Foundation.Audio;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Buttons;
@@ -8,7 +9,8 @@ using System.Threading.Tasks;
 
 namespace Simon
 {
-    public class MeadowApp : App<F7Micro, MeadowApp>
+    // public class MeadowApp : App<F7Micro, MeadowApp> <- If you have a Meadow F7 v1.*
+    public class MeadowApp : App<F7MicroV2, MeadowApp>
     {
         int ANIMATION_DELAY = 200;
 
@@ -32,8 +34,12 @@ namespace Simon
 
         void Initialize() 
         {
-            var led = new RgbLed(Device, Device.Pins.OnboardLedRed, Device.Pins.OnboardLedGreen, Device.Pins.OnboardLedBlue);
-            led.SetColor(RgbLed.Colors.Red);
+            var onboardLed = new RgbPwmLed(
+                device: Device,
+                redPwmPin: Device.Pins.OnboardLedRed,
+                greenPwmPin: Device.Pins.OnboardLedGreen,
+                bluePwmPin: Device.Pins.OnboardLedBlue);
+            onboardLed.SetColor(Color.Red);
 
             notes = new float[] { 261.63f, 329.63f, 392, 523.25f };
 
@@ -57,7 +63,7 @@ namespace Simon
 
             speaker = new PiezoSpeaker(Device, Device.Pins.D12);
 
-            led.SetColor(RgbLed.Colors.Green);
+            onboardLed.SetColor(Color.Green);
         }
 
         async void ButtonRedClicked(object sender, EventArgs e)

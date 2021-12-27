@@ -6,11 +6,13 @@ using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Temperature;
 using Meadow.Hardware;
+using Meadow.Units;
 using System;
 
 namespace TemperatureMonitor
 {
-    public class MeadowApp : App<F7Micro, MeadowApp>
+    // public class MeadowApp : App<F7Micro, MeadowApp> <- If you have a Meadow F7 v1.*
+    public class MeadowApp : App<F7MicroV2, MeadowApp>
     {
         Color[] colors = new Color[4] 
         { 
@@ -20,15 +22,25 @@ namespace TemperatureMonitor
             Color.FromHex("#67E667") 
         };
 
-        St7789 st7789;
-        GraphicsLibrary graphics;
+        MicroGraphics graphics;
         AnalogTemperature analogTemperature;               
-        int displayWidth, displayHeight;
 
         public MeadowApp()
         {
-            var led = new RgbLed(Device, Device.Pins.OnboardLedRed, Device.Pins.OnboardLedGreen, Device.Pins.OnboardLedBlue);
-            led.SetColor(RgbLed.Colors.Red);
+            Initialize();
+
+            LoadScreen();
+            analogTemperature.StartUpdating(TimeSpan.FromSeconds(5));
+        }
+
+        void Initialize() 
+        {
+            var onboardLed = new RgbPwmLed(
+                device: Device,
+                redPwmPin: Device.Pins.OnboardLedRed,
+                greenPwmPin: Device.Pins.OnboardLedGreen,
+                bluePwmPin: Device.Pins.OnboardLedBlue);
+            onboardLed.SetColor(Color.Red);
 
             analogTemperature = new AnalogTemperature(
                 device: Device,
@@ -38,27 +50,25 @@ namespace TemperatureMonitor
             analogTemperature.TemperatureUpdated += AnalogTemperatureTemperatureUpdated; //+= AnalogTemperatureUpdated;
 
             var config = new SpiClockConfiguration(
-                speedKHz: 6000, 
+                speed: new Frequency(48000, Frequency.UnitType.Kilohertz),
                 mode: SpiClockConfiguration.Mode.Mode3);
-            st7789 = new St7789
-            (
+            var spiBus = Device.CreateSpiBus(
+                clock: Device.Pins.SCK,
+                copi: Device.Pins.MOSI,
+                cipo: Device.Pins.MISO,
+                config: config);
+            var st7789 = new St7789(
                 device: Device,
-                spiBus: Device.CreateSpiBus(Device.Pins.SCK, Device.Pins.MOSI, Device.Pins.MISO, config),
+                spiBus: spiBus,
                 chipSelectPin: Device.Pins.D02,
                 dcPin: Device.Pins.D01,
                 resetPin: Device.Pins.D00,
-                width: 240, height: 240
-            );
-            displayWidth = Convert.ToInt32(st7789.Width);
-            displayHeight = Convert.ToInt32(st7789.Height);
+                width: 240, height: 240);
 
-            graphics = new GraphicsLibrary(st7789);
+            graphics = new MicroGraphics(st7789);
             graphics.Rotation = RotationType._270Degrees;
 
-            led.SetColor(RgbLed.Colors.Green);
-
-            LoadScreen();
-            analogTemperature.StartUpdating(TimeSpan.FromSeconds(5));
+            onboardLed.SetColor(Color.Green);
         }
 
         void AnalogTemperatureTemperatureUpdated(object sender, IChangeResult<Meadow.Units.Temperature> e)
@@ -75,7 +85,7 @@ namespace TemperatureMonitor
                 x: 48, y: 160,
                 text: $"{e.New.Celsius:00.0}°C",
                 color: Color.White,
-                scaleFactor: GraphicsLibrary.ScaleFactor.X2);
+                scaleFactor: ScaleFactor.X2);
 
             graphics.Show();
         }
@@ -87,8 +97,8 @@ namespace TemperatureMonitor
             graphics.Clear();
 
             int radius = 225;
-            int originX = displayWidth / 2;
-            int originY = displayHeight / 2 + 130;
+            int originX = graphics.Width / 2;
+            int originY = graphics.Height / 2 + 130;
 
             graphics.Stroke = 3;
             for (int i = 1; i < 5; i++)

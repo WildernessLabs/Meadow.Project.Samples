@@ -10,7 +10,8 @@ using System.Threading.Tasks;
 
 namespace MeadowMapleServo
 {
-    public class MeadowApp : App<F7Micro, MeadowApp>
+    // public class MeadowApp : App<F7Micro, MeadowApp> <- If you have a Meadow F7 v1.*
+    public class MeadowApp : App<F7MicroV2, MeadowApp>
     {
         MapleServer mapleServer;
 
@@ -29,7 +30,7 @@ namespace MeadowMapleServo
                 bluePwmPin: Device.Pins.OnboardLedBlue);
             onboardLed.SetColor(Color.Red);
 
-            ServoController.Current.Initialize(Device, Device.Pins.D08);
+            ServoController.Current.Initialize(Device, Device.Pins.D12);
 
             var connectionResult = await Device.WiFiAdapter.Connect(Secrets.WIFI_NAME, Secrets.WIFI_PASSWORD);
             if (connectionResult.ConnectionStatus != ConnectionStatus.Success)

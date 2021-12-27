@@ -6,7 +6,8 @@ using Meadow.Gateways.Bluetooth;
 
 namespace MeadowBleLed
 {
-    public class MeadowApp : App<F7Micro, MeadowApp>
+    // public class MeadowApp : App<F7Micro, MeadowApp> <- If you have a Meadow F7 v1.*
+    public class MeadowApp : App<F7MicroV2, MeadowApp>
     {
         Color selectedColor;
 
@@ -22,16 +23,15 @@ namespace MeadowBleLed
         public MeadowApp()
         {
             Initialize();
-
-            PulseColor(Color.Green);
         }
 
         void Initialize()
         {
-            onboardLed = new RgbPwmLed(device: Device,
-                redPwmPin: Device.Pins.OnboardLedRed,
-                greenPwmPin: Device.Pins.OnboardLedGreen,
-                bluePwmPin: Device.Pins.OnboardLedBlue);
+            onboardLed = new RgbPwmLed(
+                device: Device,
+                redPwmPin: Device.Pins.D11,
+                greenPwmPin: Device.Pins.D10,
+                bluePwmPin: Device.Pins.D09);
             PulseColor(Color.Red);
 
             bleTreeDefinition = GetDefinition();
@@ -39,6 +39,8 @@ namespace MeadowBleLed
             
             colorCharacteristic.ValueSet += ColorCharacteristicValueSet;
             isOnCharacteristic.ValueSet += IsOnCharacteristicValueSet;
+
+            PulseColor(Color.Green);
         }
 
         void IsOnCharacteristicValueSet(ICharacteristic c, object data)

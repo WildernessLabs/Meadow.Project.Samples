@@ -1,17 +1,19 @@
 ﻿using Meadow;
 using Meadow.Devices;
+using Meadow.Foundation;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Moisture;
 using Meadow.Hardware;
+using Meadow.Units;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Meadow.Units;
 using VU = Meadow.Units.Voltage.UnitType;
 
 namespace MoistureMeter
 {
-    public class MeadowApp : App<F7Micro, MeadowApp>
+    // public class MeadowApp : App<F7Micro, MeadowApp> <- If you have a Meadow F7 v1.*
+    public class MeadowApp : App<F7MicroV2, MeadowApp>
     {
         readonly Voltage MINIMUM_VOLTAGE_CALIBRATION = new Voltage(2.84, VU.Volts);
         readonly Voltage MAXIMUM_VOLTAGE_CALIBRATION = new Voltage(1.37, VU.Volts);
@@ -21,8 +23,19 @@ namespace MoistureMeter
 
         public MeadowApp()
         {
-            var led = new RgbLed(Device, Device.Pins.OnboardLedRed, Device.Pins.OnboardLedGreen, Device.Pins.OnboardLedBlue);
-            led.SetColor(RgbLed.Colors.Red);
+            Initialize();
+
+            StartReading();
+        }
+
+        void Initialize()
+        {
+            var onboardLed = new RgbPwmLed(
+                device: Device,
+                redPwmPin: Device.Pins.OnboardLedRed,
+                greenPwmPin: Device.Pins.OnboardLedGreen,
+                bluePwmPin: Device.Pins.OnboardLedBlue);
+            onboardLed.SetColor(Color.Red);
 
             IDigitalOutputPort[] ports =
             {
@@ -46,9 +59,7 @@ namespace MoistureMeter
                 MAXIMUM_VOLTAGE_CALIBRATION
             );
 
-            led.SetColor(RgbLed.Colors.Green);
-
-            StartReading();
+            onboardLed.SetColor(Color.Green);
         }
 
         async Task StartReading()

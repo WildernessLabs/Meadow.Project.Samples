@@ -4,23 +4,21 @@ using Meadow.Foundation;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Web.Maple.Server;
 using Meadow.Gateway.WiFi;
-using MeadowMapleTemperature.Models;
+using MeadowMapleTemperature.Controller;
 using MeadowMapleTemperature.Services;
 using System;
 using System.Threading.Tasks;
 
 namespace MeadowMapleTemperature
 {
-    public class MeadowApp : App<F7Micro, MeadowApp>
+    // public class MeadowApp : App<F7Micro, MeadowApp> <- If you have a Meadow F7 v1.*
+    public class MeadowApp : App<F7MicroV2, MeadowApp>
     {
-        TemperatureAgent temperatureAgent;
         MapleServer mapleServer;
 
         public MeadowApp()
         {
             Initialize().Wait();
-
-            GetDateTime().Wait();
 
             mapleServer.Start();
         }
@@ -39,36 +37,13 @@ namespace MeadowMapleTemperature
                 throw new Exception($"Cannot connect to network: {connectionResult.ConnectionStatus}");
             }
 
-            await GetDateTime();
+            await DateTimeService.GetTimeAsync();
 
-            temperatureAgent = new TemperatureAgent();
-            temperatureAgent.TemperatureUpdated += TemperatureAgentUpdated;
+            mapleServer = new MapleServer(Device.WiFiAdapter.IpAddress, 5417, true);
 
-            mapleServer = new MapleServer(
-                Device.WiFiAdapter.IpAddress, 5417, true
-            );
+            TemperatureController.Instance.Initialize();
 
             onboardLed.SetColor(Color.Green);
-        }
-
-        async Task GetDateTime()
-        {
-            var dateTime = await DateTimeService.GetTimeAsync();
-
-            Device.SetClock(new DateTime(
-                year: dateTime.Year,
-                month: dateTime.Month,
-                day: dateTime.Day,
-                hour: dateTime.Hour,
-                minute: dateTime.Minute,
-                second: dateTime.Second));
-        }
-
-        void TemperatureAgentUpdated(object sender, TemperatureModel e)
-        {
-            Console.Write($"Saving ({e.Temperature.Value.Celsius},{e.DateTime.ToString()})...");
-            SQLiteDatabaseManager.Instance.SaveReading(e);
-            Console.WriteLine("done!");
         }
     }
 }

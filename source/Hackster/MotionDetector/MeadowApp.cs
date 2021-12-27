@@ -6,6 +6,7 @@ using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Motion;
 using Meadow.Hardware;
+using Meadow.Units;
 using SimpleJpegDecoder;
 using System;
 using System.IO;
@@ -14,47 +15,47 @@ using System.Threading;
 
 namespace MotionDetector
 {
-    public class MeadowApp : App<F7Micro, MeadowApp>
+    // public class MeadowApp : App<F7Micro, MeadowApp> <- If you have a Meadow F7 v1.*
+    public class MeadowApp : App<F7MicroV2, MeadowApp>
     {
-        St7789 display;
-        GraphicsLibrary graphics;
+        MicroGraphics graphics;
         ParallaxPir motionSensor;     
 
         public MeadowApp()
         {
-            var rgbLed = new RgbLed(
-                Device,
-                Device.Pins.OnboardLedRed,
-                Device.Pins.OnboardLedGreen,
-                Device.Pins.OnboardLedBlue
-            );
-            rgbLed.SetColor(RgbLed.Colors.Red);
+            var onboardLed = new RgbPwmLed(
+                device: Device,
+                redPwmPin: Device.Pins.OnboardLedRed,
+                greenPwmPin: Device.Pins.OnboardLedGreen,
+                bluePwmPin: Device.Pins.OnboardLedBlue);
+            onboardLed.SetColor(Color.Red);
 
             var config = new SpiClockConfiguration(
-                speedKHz: 6000,
+                speed: new Frequency(48000, Frequency.UnitType.Kilohertz),
                 mode: SpiClockConfiguration.Mode.Mode3);
-            display = new St7789
+            var spiBus = Device.CreateSpiBus(
+                clock: Device.Pins.SCK,
+                copi: Device.Pins.MOSI,
+                cipo: Device.Pins.MISO,
+                config: config);
+            var display = new St7789
             (
                 device: Device,
-                spiBus: Device.CreateSpiBus(
-                    Device.Pins.SCK,
-                    Device.Pins.MOSI,
-                    Device.Pins.MISO,
-                    config),
+                spiBus: spiBus,
                 chipSelectPin: null,
                 dcPin: Device.Pins.D01,
                 resetPin: Device.Pins.D00,
                 width: 240, height: 240
             );
 
-            graphics = new GraphicsLibrary(display);
+            graphics = new MicroGraphics(display);
             graphics.Rotation = RotationType._270Degrees;
 
             motionSensor = new ParallaxPir(Device, Device.Pins.D08, InterruptMode.EdgeFalling, ResistorMode.Disabled, 5, 0);
             motionSensor.OnMotionStart += MotionSensorMotionStart;
             motionSensor.OnMotionEnd += MotionSensorMotionEnd;
 
-            rgbLed.SetColor(RgbLed.Colors.Green);
+            onboardLed.SetColor(Color.Green);
 
             LoadScreen();
         }
@@ -69,20 +70,20 @@ namespace MotionDetector
             graphics.DrawRectangle(
                 x: 0,
                 y: 0,
-                width: (int)display.Width,
-                height: (int)display.Height,
+                width: graphics.Width,
+                height: graphics.Height,
                 color: Color.White);
             graphics.DrawRectangle(
                 x: 5,
                 y: 5,
-                width: (int)display.Width - 10,
-                height: (int)display.Height - 10,
+                width: graphics.Width - 10,
+                height: graphics.Height - 10,
                 color: Color.White);
 
             graphics.DrawCircle(
-                centerX: (int)display.Width / 2,
-                centerY: (int)display.Height / 2,
-                radius: (int)(display.Width / 2) - 10,
+                centerX: graphics.Width / 2,
+                centerY: graphics.Height / 2,
+                radius: (graphics.Width / 2) - 10,
                 color: Color.FromHex("#EF7D3B"),
                 filled: true);
 
@@ -92,19 +93,19 @@ namespace MotionDetector
             
             string textMotion = "MOTION";
             graphics.DrawText(
-                (int)(display.Width - textMotion.Length * 16) / 2, 
+                (graphics.Width - textMotion.Length * 16) / 2, 
                 140, 
                 textMotion, 
                 Color.Black, 
-                GraphicsLibrary.ScaleFactor.X2);
+                ScaleFactor.X2);
 
             string textDetector = "DETECTOR";
             graphics.DrawText(
-                (int)(display.Width - textDetector.Length * 16) / 2,
+                (graphics.Width - textDetector.Length * 16) / 2,
                 165,
                 textDetector, 
                 Color.Black,
-                GraphicsLibrary.ScaleFactor.X2);
+                ScaleFactor.X2);
 
             graphics.Show();
         }
@@ -135,7 +136,7 @@ namespace MotionDetector
                 }
             }
 
-            display.Show();
+            graphics.Show();
         }
 
         byte[] LoadResource(string filename)

@@ -3,16 +3,16 @@ using Meadow.Devices;
 using Meadow.Foundation;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Temperature;
-using Meadow.Gateway.WiFi;
 using System;
 using System.Threading.Tasks;
-using WifiWeather.Views;
 using WifiWeather.Services;
 using WifiWeather.ViewModels;
+using WifiWeather.Views;
 
 namespace WifiWeather
 {
-    public class MeadowApp : App<F7Micro, MeadowApp>
+    // public class MeadowApp : App<F7Micro, MeadowApp> <- If you have a Meadow F7 v1.*
+    public class MeadowApp : App<F7MicroV2, MeadowApp>
     {
         RgbPwmLed onboardLed;
         WeatherView displayController;
@@ -20,18 +20,24 @@ namespace WifiWeather
 
         public MeadowApp()
         {
-            Initialize().Wait();
+            Device.WiFiAdapter.WiFiConnected += WiFiConnected;
+        }
+
+        void WiFiConnected(object sender, EventArgs e)
+        {
+            Initialize();
 
             Start().Wait();
         }
 
-        async Task Initialize()
+        void Initialize()
         {
-            onboardLed = new RgbPwmLed(device: Device,
+            onboardLed = new RgbPwmLed(
+                device: Device,
                 redPwmPin: Device.Pins.OnboardLedRed,
                 greenPwmPin: Device.Pins.OnboardLedGreen,
                 bluePwmPin: Device.Pins.OnboardLedBlue);
-            onboardLed.StartPulse(Color.Red);
+            onboardLed.SetColor(Color.Red);
 
             analogTemperature = new AnalogTemperature(
                 device: Device,
@@ -41,18 +47,10 @@ namespace WifiWeather
 
             displayController = new WeatherView();
 
-            onboardLed.StartPulse(Color.Blue);
-
-            var result = await Device.WiFiAdapter.Connect(Secrets.WIFI_NAME, Secrets.WIFI_PASSWORD);
-            if (result.ConnectionStatus != ConnectionStatus.Success)
-            {
-                throw new Exception($"Cannot connect to network: {result.ConnectionStatus}");
-            }
-
             onboardLed.StartPulse(Color.Green);
         }
 
-        async Task Start()
+        async Task GetTemperature()
         {
             onboardLed.StartPulse(Color.Magenta);
 
@@ -71,6 +69,22 @@ namespace WifiWeather
             displayController.UpdateDisplay(model);
 
             onboardLed.StartPulse(Color.Green);
+        }
+
+        async Task Start()
+        {
+            await GetTemperature();
+
+            while (true)
+            {
+                if (DateTime.Now.Minute == 0 && DateTime.Now.Second == 0)
+                {
+                    await GetTemperature();
+                }
+
+                displayController.UpdateDateTime();
+                await Task.Delay(TimeSpan.FromMinutes(1));
+            }
         }
     }
 }

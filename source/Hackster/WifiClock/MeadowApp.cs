@@ -11,43 +11,48 @@ using Meadow.Hardware;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using WifiClock.Services;
-using Meadow.Units;
-using TU = Meadow.Units.Temperature.UnitType;
 
 namespace WifiClock
 {
-    public class MeadowApp : App<F7Micro, MeadowApp>
+    // public class MeadowApp : App<F7Micro, MeadowApp> <- If you have a Meadow F7 v1.*
+    public class MeadowApp : App<F7MicroV2, MeadowApp>
     {
         PushButton pushButton;
-        Max7219 display;
-        GraphicsLibrary graphics;
+        MicroGraphics graphics;
         AnalogTemperature analogTemperature;
 
         bool showDate;
 
         public MeadowApp()
         {
-            Initialize();
+            Device.WiFiAdapter.WiFiConnected += WiFiConnected;
+        }
 
-            Start();
+        void WiFiConnected(object sender, EventArgs e)
+        {
+            Initialize().Wait();
+
+            Start().Wait();
         }
 
         async Task Initialize()
         {
-            var onboardLed = new RgbPwmLed(device: Device,
+            Device.SetClock(DateTime.Now.AddHours(-8));
+
+            var onboardLed = new RgbPwmLed(
+                device: Device,
                 redPwmPin: Device.Pins.OnboardLedRed,
                 greenPwmPin: Device.Pins.OnboardLedGreen,
                 bluePwmPin: Device.Pins.OnboardLedBlue);
-            onboardLed.StartPulse(Color.Red);
+            onboardLed.SetColor(Color.Red);
 
-            display = new Max7219(
+            var display = new Max7219(
                 device: Device, 
                 spiBus: Device.CreateSpiBus(), 
                 csPin: Device.Pins.D01, 
                 deviceCount: 4, 
                 maxMode: Max7219.Max7219Type.Display);
-            graphics = new GraphicsLibrary(display);
+            graphics = new MicroGraphics(display);
             graphics.CurrentFont = new Font4x8();
             graphics.Rotation = RotationType._180Degrees;
 
@@ -88,16 +93,6 @@ namespace WifiClock
 
         async Task Start() 
         {
-            var dateTime = await DateTimeService.GetTimeAsync();
-
-            Device.SetClock(new DateTime(
-                year: dateTime.Year, 
-                month: dateTime.Month, 
-                day: dateTime.Day, 
-                hour: dateTime.Hour, 
-                minute: dateTime.Minute, 
-                second: dateTime.Second));
-
             while (true)
             {
                 DateTime clock = DateTime.Now;

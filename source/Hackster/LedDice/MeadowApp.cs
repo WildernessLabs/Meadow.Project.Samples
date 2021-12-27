@@ -1,5 +1,6 @@
 ﻿using Meadow;
 using Meadow.Devices;
+using Meadow.Foundation;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Buttons;
 using System;
@@ -7,15 +8,27 @@ using System.Threading;
 
 namespace LedDice
 {
-    public class MeadowApp : App<F7Micro, MeadowApp>
+    // public class MeadowApp : App<F7Micro, MeadowApp> <- If you have a Meadow F7 v1.*
+    public class MeadowApp : App<F7MicroV2, MeadowApp>
     {
         PwmLed[] leds;
         PushButton button;
 
         public MeadowApp()
         {
-            var led = new RgbLed(Device, Device.Pins.OnboardLedRed, Device.Pins.OnboardLedGreen, Device.Pins.OnboardLedBlue);
-            led.SetColor(RgbLed.Colors.Red);
+            Initialize();
+
+            ShuffleAnimation();            
+        }
+
+        void Initialize() 
+        {
+            var onboardLed = new RgbPwmLed(
+                device: Device,
+                redPwmPin: Device.Pins.OnboardLedRed,
+                greenPwmPin: Device.Pins.OnboardLedGreen,
+                bluePwmPin: Device.Pins.OnboardLedBlue);
+            onboardLed.SetColor(Color.Red);
 
             leds = new PwmLed[7];
             leds[0] = new PwmLed(Device.CreatePwmPort(Device.Pins.D06), TypicalForwardVoltage.Red);  // 
@@ -29,9 +42,7 @@ namespace LedDice
             button = new PushButton(Device, Device.Pins.D05);
             button.Clicked += ButtonClicked;
 
-            led.SetColor(RgbLed.Colors.Green);
-
-            ShuffleAnimation();            
+            onboardLed.SetColor(Color.Green);
         }
 
         void ButtonClicked(object sender, EventArgs e)

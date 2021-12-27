@@ -135,9 +135,10 @@ namespace BleRover.Client.ViewModel
             {
                 await up.WriteAsync(go? MOVE : STOP);
             }
-            catch (Exception e) 
+            catch (Exception ex) 
             {
                 await up.WriteAsync(STOP);
+                Debug.WriteLine(ex.Message);
             }
         }
 
@@ -147,9 +148,10 @@ namespace BleRover.Client.ViewModel
             {
                 await down.WriteAsync(go ? MOVE : STOP);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
                 await down.WriteAsync(STOP);
+                Debug.WriteLine(ex.Message);
             }
         }
 

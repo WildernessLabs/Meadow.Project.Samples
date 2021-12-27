@@ -1,5 +1,6 @@
 ﻿using Meadow;
 using Meadow.Devices;
+using Meadow.Foundation;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Hid;
 using Meadow.Peripherals.Sensors.Hid;
@@ -7,15 +8,25 @@ using System;
 
 namespace LedJoystick
 {
-    public class MeadowApp : App<F7Micro, MeadowApp>
+    // public class MeadowApp : App<F7Micro, MeadowApp> <- If you have a Meadow F7 v1.*
+    public class MeadowApp : App<F7MicroV2, MeadowApp>
     {
         PwmLed Up, Down, Left, Right;
         AnalogJoystick joystick;
 
         public MeadowApp()
         {
-            var led = new RgbLed(Device, Device.Pins.OnboardLedRed, Device.Pins.OnboardLedGreen, Device.Pins.OnboardLedBlue);
-            led.SetColor(RgbLed.Colors.Red);
+            Initialize();
+        }
+
+        void Initialize() 
+        {
+            var onboardLed = new RgbPwmLed(
+                device: Device,
+                redPwmPin: Device.Pins.OnboardLedRed,
+                greenPwmPin: Device.Pins.OnboardLedGreen,
+                bluePwmPin: Device.Pins.OnboardLedBlue);
+            onboardLed.SetColor(Color.Red);
 
             Up = new PwmLed(Device.CreatePwmPort(Device.Pins.D07, 100, 0.0f), TypicalForwardVoltage.Red);
             Down = new PwmLed(Device.CreatePwmPort(Device.Pins.D04, 100, 0.0f), TypicalForwardVoltage.Red);
@@ -28,11 +39,13 @@ namespace LedJoystick
                 null, true);
 
             joystick.SetCenterPosition();
-            joystick.Updated += Joystick_Updated;
+            joystick.Updated += JoystickUpdated;
             joystick.StartUpdating(TimeSpan.FromMilliseconds(100));
+
+            onboardLed.SetColor(Color.Green);
         }
 
-        private void Joystick_Updated(object sender, IChangeResult<JoystickPosition> e)
+        void JoystickUpdated(object sender, IChangeResult<JoystickPosition> e)
         {
             if (e.New.Horizontal < 0.2f)
             {

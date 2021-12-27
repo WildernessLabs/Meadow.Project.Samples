@@ -27,17 +27,14 @@ namespace MeadowMapleLed.Controller
         {
             if (initialized) { return; }
 
-            Console.WriteLine("Initialize hardware...");
             rgbPwmLed = new RgbPwmLed(
                 device: MeadowApp.Device,
-                redPwmPin: MeadowApp.Device.Pins.OnboardLedRed,
-                greenPwmPin: MeadowApp.Device.Pins.OnboardLedGreen,
-                bluePwmPin: MeadowApp.Device.Pins.OnboardLedBlue);
+                redPwmPin: MeadowApp.Device.Pins.D12,
+                greenPwmPin: MeadowApp.Device.Pins.D11,
+                bluePwmPin: MeadowApp.Device.Pins.D10);
             rgbPwmLed.SetColor(Color.Red);
 
             initialized = true;
-
-            Console.WriteLine("Initialization complete.");
         }
 
         void Stop()

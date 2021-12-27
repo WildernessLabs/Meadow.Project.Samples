@@ -1,5 +1,6 @@
 ﻿using Meadow;
 using Meadow.Devices;
+using Meadow.Foundation;
 using Meadow.Foundation.ICs.IOExpanders;
 using Meadow.Foundation.Leds;
 using Meadow.Hardware;
@@ -8,15 +9,28 @@ using System.Threading;
 
 namespace McpLedBarGraph
 {
-    public class MeadowApp : App<F7Micro, MeadowApp>
+    // public class MeadowApp : App<F7Micro, MeadowApp> <- If you have a Meadow F7 v1.*
+    public class MeadowApp : App<F7MicroV2, MeadowApp>
     {
         Mcp23x08 mcp;
         LedBarGraph ledBarGraph;
 
         public MeadowApp()
         {
-            var led = new RgbLed(Device, Device.Pins.OnboardLedRed, Device.Pins.OnboardLedGreen, Device.Pins.OnboardLedBlue);
-            led.SetColor(RgbLed.Colors.Red);
+            Initialize();
+
+            ledBarGraph.Percentage = 1;
+            CycleLeds();
+        }
+
+        void Initialize() 
+        {
+            var onboardLed = new RgbPwmLed(
+                device: Device,
+                redPwmPin: Device.Pins.OnboardLedRed,
+                greenPwmPin: Device.Pins.OnboardLedGreen,
+                bluePwmPin: Device.Pins.OnboardLedBlue);
+            onboardLed.SetColor(Color.Red);
 
             mcp = new Mcp23x08(Device.CreateI2cBus(), true, true, true);
 
@@ -36,10 +50,7 @@ namespace McpLedBarGraph
 
             ledBarGraph = new LedBarGraph(ports);
 
-            led.SetColor(RgbLed.Colors.Green);
-
-            ledBarGraph.Percentage = 1;
-            //CycleLeds();
+            onboardLed.SetColor(Color.Green);
         }
 
         void CycleLeds()
@@ -53,7 +64,7 @@ namespace McpLedBarGraph
                 Console.WriteLine("Turning them on using SetLed...");
                 for (int i = 0; i < ledBarGraph.Count; i++)
                 {
-                    ledBarGraph.SetLed((uint)i, true);
+                    ledBarGraph.SetLed(i, true);
                     Thread.Sleep(300);
                 }
 
@@ -62,7 +73,7 @@ namespace McpLedBarGraph
                 Console.WriteLine("Turning them off using SetLed...");
                 for (int i = ledBarGraph.Count - 1; i >= 0; i--)
                 {
-                    ledBarGraph.SetLed((uint)i, false);
+                    ledBarGraph.SetLed(i, false);
                     Thread.Sleep(300);
                 }
 

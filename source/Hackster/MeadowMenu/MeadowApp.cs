@@ -7,18 +7,18 @@ using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Buttons;
 using Meadow.Hardware;
+using Meadow.Units;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 
 namespace MeadowMenu
 {
-    public class MeadowApp : App<F7Micro, MeadowApp>
+    // public class MeadowApp : App<F7Micro, MeadowApp> <- If you have a Meadow F7 v1.*
+    public class MeadowApp : App<F7MicroV2, MeadowApp>
     {        
-        Menu menu;
-        St7789 st7789;
-        RgbPwmLed onboardLed;       
-        GraphicsLibrary graphics;        
+        Menu menu;   
+        MicroGraphics graphics;        
         PushButton next, previous, select;
 
         public MeadowApp()
@@ -28,24 +28,22 @@ namespace MeadowMenu
 
         void Initialize()
         {
-            onboardLed = new RgbPwmLed(device: Device,
+            var onboardLed = new RgbPwmLed(
+                device: Device,
                 redPwmPin: Device.Pins.OnboardLedRed,
                 greenPwmPin: Device.Pins.OnboardLedGreen,
-                bluePwmPin: Device.Pins.OnboardLedBlue,
-                3.3f, 3.3f, 3.3f,
-                Meadow.Peripherals.Leds.IRgbLed.CommonType.CommonAnode);
-
+                bluePwmPin: Device.Pins.OnboardLedBlue);
             onboardLed.SetColor(Color.Red);
 
             var config = new SpiClockConfiguration(
-                speedKHz: 12000, 
+                speed: new Frequency(48000, Frequency.UnitType.Kilohertz), 
                 mode: SpiClockConfiguration.Mode.Mode3);
             var spiBus = Device.CreateSpiBus(
                 clock: Device.Pins.SCK, 
                 copi: Device.Pins.MOSI, 
                 cipo: Device.Pins.MISO, 
                 config: config);
-            st7789 = new St7789
+            var st7789 = new St7789
             (
                 device: Device,
                 spiBus: spiBus,
@@ -55,7 +53,7 @@ namespace MeadowMenu
                 width: 240, height: 240
             );
 
-            graphics = new GraphicsLibrary(st7789)
+            graphics = new MicroGraphics(st7789)
             {
                 CurrentFont = new Font12x20(),
             };

@@ -1,31 +1,31 @@
 ﻿using Meadow;
 using Meadow.Devices;
+using Meadow.Foundation;
 using Meadow.Foundation.Audio.Radio;
 using Meadow.Foundation.Displays.Ssd130x;
 using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Buttons;
-using Meadow.Hardware;
 using System;
 using System.Collections.Generic;
 using System.Threading;
 
 namespace RadioPlayer
 {
-    public class MeadowApp : App<F7Micro, MeadowApp>
+    // public class MeadowApp : App<F7Micro, MeadowApp> <- If you have a Meadow F7 v1.*
+    public class MeadowApp : App<F7MicroV2, MeadowApp>
     {
         List<float> stations;
         int currentStation = 0;
 
         Tea5767 radio;
-        Ssd1306 display;
-        GraphicsLibrary graphics;
+        MicroGraphics graphics;
         PushButton btnNext;
         PushButton btnPrevious;
 
         public MeadowApp()
         {
-            InitializePeripherals();
+            Initialize();
 
             stations = new List<float>();
             stations.Add(94.5f);
@@ -42,26 +42,30 @@ namespace RadioPlayer
             DisplayText($"<- FM {stations[currentStation]} ->");
         }
 
-        void InitializePeripherals()
+        void Initialize()
         {
-            var led = new RgbLed(Device, Device.Pins.OnboardLedRed, Device.Pins.OnboardLedGreen, Device.Pins.OnboardLedBlue);
-            led.SetColor(RgbLed.Colors.Red);
+            var onboardLed = new RgbPwmLed(
+                device: Device,
+                redPwmPin: Device.Pins.OnboardLedRed,
+                greenPwmPin: Device.Pins.OnboardLedGreen,
+                bluePwmPin: Device.Pins.OnboardLedBlue);
+            onboardLed.SetColor(Color.Red);
 
             var i2CBus = Device.CreateI2cBus();
 
             radio = new Tea5767(i2CBus);
 
-            display = new Ssd1306(i2CBus, 60, Ssd1306.DisplayType.OLED128x32);
-            graphics = new GraphicsLibrary(display);
+            var display = new Ssd1306(i2CBus, 60, Ssd1306.DisplayType.OLED128x32);
+            graphics = new MicroGraphics(display);
             graphics.Rotation = RotationType._180Degrees;
 
-            btnNext = new PushButton(Device, Device.Pins.D03, ResistorMode.InternalPullUp);
+            btnNext = new PushButton(Device, Device.Pins.D03);
             btnNext.Clicked += BtnNextClicked;
 
-            btnPrevious = new PushButton(Device, Device.Pins.D04, ResistorMode.InternalPullUp);
+            btnPrevious = new PushButton(Device, Device.Pins.D04);
             btnPrevious.Clicked += BtnPreviousClicked;
 
-            led.SetColor(RgbLed.Colors.Green);
+            onboardLed.SetColor(Color.Green);
         }
 
         void BtnNextClicked(object sender, EventArgs e)

@@ -3,15 +3,17 @@ using Meadow.Devices;
 using Meadow.Foundation.Displays.Ssd130x;
 using Meadow.Foundation.Graphics;
 using Meadow.Hardware;
+using Meadow.Units;
 using System;
 using System.Threading;
 
 namespace Tetris
 {
-    public class MeadowApp : App<F7Micro, MeadowApp>
+    // public class MeadowApp : App<F7Micro, MeadowApp> <- If you have a Meadow F7 v1.*
+    public class MeadowApp : App<F7MicroV2, MeadowApp>
     {
-        Ssd1309 display;
-        GraphicsLibrary graphics;
+        int tick = 0;
+        MicroGraphics graphics;
 
         IDigitalInputPort portLeft;
         IDigitalInputPort portUp;
@@ -26,7 +28,7 @@ namespace Tetris
         {
             Console.WriteLine("Tetris");
 
-            Init();
+            Initialize();
 
             graphics.Clear();
             graphics.DrawText(0, 0, "Meadow Tetris");
@@ -38,7 +40,35 @@ namespace Tetris
             StartGameLoop();
         }
 
-        int tick = 0;
+        void Initialize()
+        {
+            portLeft = Device.CreateDigitalInputPort(Device.Pins.D12);
+            portUp = Device.CreateDigitalInputPort(Device.Pins.D13);
+            portRight = Device.CreateDigitalInputPort(Device.Pins.D07);
+            portDown = Device.CreateDigitalInputPort(Device.Pins.D11);
+
+            var config = new SpiClockConfiguration(
+                speed: new Frequency(48000, Frequency.UnitType.Kilohertz),
+                mode: SpiClockConfiguration.Mode.Mode3);
+            var spiBus = Device.CreateSpiBus(
+                clock: Device.Pins.SCK,
+                copi: Device.Pins.MOSI,
+                cipo: Device.Pins.MISO,
+                config: config);
+            var display = new Ssd1309
+            (
+                device: Device,
+                spiBus: spiBus,
+                chipSelectPin: Device.Pins.D02,
+                dcPin: Device.Pins.D01,
+                resetPin: Device.Pins.D00
+            );
+
+            graphics = new MicroGraphics(display);
+            graphics.CurrentFont = new Font4x8();
+            graphics.Rotation = RotationType._270Degrees;
+        }
+        
         void StartGameLoop()
         {
             while(true)
@@ -112,33 +142,6 @@ namespace Tetris
                     }
                 }
             } 
-        }
-
-        void Init()
-        {
-            Console.WriteLine("Init");
-
-            portLeft = Device.CreateDigitalInputPort(Device.Pins.D12);
-            portUp = Device.CreateDigitalInputPort(Device.Pins.D13);
-            portRight = Device.CreateDigitalInputPort(Device.Pins.D07);
-            portDown = Device.CreateDigitalInputPort(Device.Pins.D11);
-
-            var config = new SpiClockConfiguration(12000, SpiClockConfiguration.Mode.Mode0);
-
-            var bus = Device.CreateSpiBus(Device.Pins.SCK, Device.Pins.MOSI, Device.Pins.MISO, config);
-
-            display = new Ssd1309
-            (
-                device: Device,
-                spiBus: bus,
-                chipSelectPin: Device.Pins.D02,
-                dcPin: Device.Pins.D01,
-                resetPin: Device.Pins.D00
-            );
-
-            graphics = new GraphicsLibrary(display);
-            graphics.CurrentFont = new Font4x8();
-            graphics.Rotation = RotationType._270Degrees;
         }
     }
 }

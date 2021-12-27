@@ -3,7 +3,6 @@ using Meadow.Devices;
 using Meadow.Foundation;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Temperature;
-using Meadow.Gateway.WiFi;
 using System;
 using System.Threading.Tasks;
 using WifiWeatherClock.Services;
@@ -12,7 +11,8 @@ using WifiWeatherClock.Views;
 
 namespace WifiWeatherClock
 {
-    public class MeadowApp : App<F7Micro, MeadowApp>
+    // public class MeadowApp : App<F7Micro, MeadowApp> <- If you have a Meadow F7 v1.*
+    public class MeadowApp : App<F7MicroV2, MeadowApp>
     {
         RgbPwmLed onboardLed;
         DisplayView displayView;
@@ -20,20 +20,28 @@ namespace WifiWeatherClock
 
         public MeadowApp()
         {
-            Initialize().Wait();
+            Device.WiFiAdapter.WiFiConnected += WiFiConnected;
+        }
 
-            GetData().Wait();
+        void WiFiConnected(object sender, EventArgs e)
+        {
+            Initialize();
+
+            GetTemperature().Wait();
 
             Start().Wait();
         }
 
-        async Task Initialize()
+        void Initialize()
         {
-            onboardLed = new RgbPwmLed(device: Device,
+            onboardLed = new RgbPwmLed(
+                device: Device,
                 redPwmPin: Device.Pins.OnboardLedRed,
                 greenPwmPin: Device.Pins.OnboardLedGreen,
                 bluePwmPin: Device.Pins.OnboardLedBlue);
             onboardLed.SetColor(Color.Red);
+
+            onboardLed.SetColor(Color.Blue);
 
             analogTemperature = new AnalogTemperature(Device, Device.Pins.A00,
                 sensorType: AnalogTemperature.KnownSensorType.LM35);
@@ -41,50 +49,12 @@ namespace WifiWeatherClock
 
             displayView = new DisplayView();
 
-            onboardLed.SetColor(Color.Blue);
-
-            var result = await Device.WiFiAdapter.Connect(Secrets.WIFI_NAME, Secrets.WIFI_PASSWORD);
-            if (result.ConnectionStatus != ConnectionStatus.Success)
-            {
-                throw new Exception($"Cannot connect to network: {result.ConnectionStatus}");
-            }
-
             onboardLed.SetColor(Color.Green);
-        }
-
-        async Task GetData() 
-        {
-            await GetTime();
-            await GetTemperature();
-        }
-
-        async Task GetTime() 
-        {
-            onboardLed.StartPulse(Color.Magenta);
-
-            var dateTime = await DateTimeService.GetDateTime();
-
-            Device.SetClock(new DateTime(
-                year: dateTime.Year,
-                month: dateTime.Month,
-                day: dateTime.Day,
-                hour: dateTime.Hour,
-                minute: dateTime.Minute,
-                second: dateTime.Second));
-
-            await GetTemperature();
-
-            onboardLed.StartPulse(Color.Green);
         }
 
         async Task GetTemperature()
         {
             onboardLed.StartPulse(Color.Orange);
-
-            displayView.ClearLine(2);
-            displayView.WriteLine($"{DateTime.Now.ToString("Temperature...")}", 2);
-            displayView.ClearLine(3);
-            displayView.WriteLine($"{DateTime.Now.ToString("Weather...")}", 3);
 
             // Get indoor conditions
             var roomTemperature = await analogTemperature.Read();
@@ -93,10 +63,11 @@ namespace WifiWeatherClock
             var outdoorConditions = await WeatherService.GetWeatherForecast();
 
             // Format indoor/outdoor conditions data
-            var model = new WeatherViewModel(outdoorConditions, analogTemperature.Temperature);
+            var model = new WeatherViewModel(outdoorConditions, roomTemperature);
 
-            // Send formatted data to display to render
-            displayView.UpdateDisplay(model);
+            // Update Temperature values and weather description
+            displayView.WriteLine($"In: {model.IndoorTemperature.ToString("00")}C | Out: {model.OutdoorTemperature.ToString("00")}C", 2);
+            displayView.WriteLine($"{model.Weather}", 3);
 
             onboardLed.StartPulse(Color.Green);
         }
@@ -105,15 +76,15 @@ namespace WifiWeatherClock
         {
             while (true) 
             {
-                var datetime = DateTime.Now;
+                var datetime = DateTime.Now.AddHours(-8);
 
                 if (datetime.Minute == 0 && datetime.Second == 0)
                 {
                     await GetTemperature();
                 }
 
-                displayView.WriteLine($"{DateTime.Now.ToString("ddd, MMM dd, yyyy")}", 0);
-                displayView.WriteLine($"{DateTime.Now.ToString("hh:mm:ss tt")}", 1);
+                displayView.WriteLine($"{datetime.ToString("ddd, MMM dd, yyyy")}", 0);
+                displayView.WriteLine($"{datetime.ToString("hh:mm:ss tt")}", 1);
                 await Task.Delay(1000);
             }
         }

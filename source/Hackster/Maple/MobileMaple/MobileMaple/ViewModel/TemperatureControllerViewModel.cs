@@ -1,5 +1,4 @@
-﻿using MobileMaple.Entity;
-using MobileMaple.Model;
+﻿using MobileMaple.Model;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -40,17 +39,20 @@ namespace MobileMaple.ViewModel
 
         public async Task GetTemperatureLogs()
         {
-            var response = await client.GetAsync(SelectedServer.IpAddress, ServerPort, "GetTemperatureLogs", null, null);
+            var response = await client.GetAsync(SelectedServer != null? SelectedServer.IpAddress : IpAddress, ServerPort, "GetTemperatureLogs", null, null);
 
-            var values = JsonConvert.DeserializeObject<List<TemperatureEntity>>(response);
+            var values = JsonConvert.DeserializeObject<List<TemperatureModel>>(response);
 
-            foreach (var value in values)
+            if (values != null)
             {
-                TemperatureLog.Add(new TemperatureModel()
+                foreach (var value in values)
                 {
-                    Temperature = value.ToString(),
-                    DateTime = value.DateTime.ToString("G")
-                });
+                    TemperatureLog.Add(new TemperatureModel()
+                    {
+                        Temperature = value.Temperature,
+                        DateTime = value.DateTime
+                    });
+                }
             }
         }
 

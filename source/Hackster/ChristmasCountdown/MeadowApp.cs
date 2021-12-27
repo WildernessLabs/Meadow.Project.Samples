@@ -4,60 +4,63 @@ using Meadow;
 using Meadow.Devices;
 using Meadow.Foundation.Displays.Lcd;
 using Meadow.Foundation.Leds;
-using Meadow.Foundation.RTCs;
 using Meadow.Foundation;
 
 namespace ChristmasCountdown
 {
-    public class MeadowApp : App<F7Micro, MeadowApp>
+    // public class MeadowApp : App<F7Micro, MeadowApp> <- If you have a Meadow F7 v1.*
+    public class MeadowApp : App<F7MicroV2, MeadowApp>
     {        
-        Ds1307 rtc;
-        DateTime currentDate;
         CharacterDisplay display;
 
         public MeadowApp()
         {
             Initialize();
 
-            StartCountdown();
+            ShowSplashScreen();
+
+            Device.WiFiAdapter.WiFiConnected += WiFiConnected;
         }
 
         void Initialize() 
         {
-            var led = new RgbPwmLed(Device, 
-                Device.Pins.OnboardLedRed, 
-                Device.Pins.OnboardLedGreen, 
-                Device.Pins.OnboardLedBlue);
-            led.SetColor(Color.Red);
-
-            rtc = new Ds1307(Device.CreateI2cBus());
-            // Uncomment only when setting the time
-            // rtc.SetTime(new DateTime(2019, 11, 23, 22, 55, 20));
+            var onboardLed = new RgbPwmLed(
+                device: Device,
+                redPwmPin: Device.Pins.OnboardLedRed,
+                greenPwmPin: Device.Pins.OnboardLedGreen,
+                bluePwmPin: Device.Pins.OnboardLedBlue);
+            onboardLed.SetColor(Color.Red);
 
             display = new CharacterDisplay
             (
                 device: Device,
-                pinRS: Device.Pins.D15,
-                pinE: Device.Pins.D14,
-                pinD4: Device.Pins.D13,
-                pinD5: Device.Pins.D12,
-                pinD6: Device.Pins.D11,
-                pinD7: Device.Pins.D10
+                pinRS:  Device.Pins.D10,
+                pinE:   Device.Pins.D09,
+                pinD4:  Device.Pins.D08,
+                pinD5:  Device.Pins.D07,
+                pinD6:  Device.Pins.D06,
+                pinD7:  Device.Pins.D05,
+                rows: 4, columns: 20
             );
 
-            led.SetColor(Color.Green);
+            onboardLed.SetColor(Color.Green);
         }
 
-        void StartCountdown() 
+        void ShowSplashScreen() 
         {
-            currentDate = rtc.GetTime();
+            display.WriteLine("====================", 0);
+            display.WriteLine("Christmas Countdown!", 1);
+            display.WriteLine("=   Joining WIFI   =", 2);
+            display.WriteLine("====================", 3);
+        }
 
-            display.WriteLine("Current Date:", 0);
-            display.WriteLine($"{currentDate.Month}/{currentDate.Day}/{currentDate.Year}", 1);
+        void WiFiConnected(object sender, EventArgs e)
+        {
+            display.WriteLine($"{DateTime.Now.ToString("MMMM dd, yyyy")}", 0);
             display.WriteLine("Christmas Countdown:", 2);
 
             while (true)
-            {                
+            {
                 UpdateCountdown();
                 Thread.Sleep(1000);
             }
@@ -65,17 +68,18 @@ namespace ChristmasCountdown
 
         void UpdateCountdown()
         {
-            var date = rtc.GetTime();
-            var christmasDate = new DateTime(date.Year, 12, 25);
+            // Adjust Time Zone (Pacific Time)
+            var today = DateTime.Now.AddHours(-8);
 
-            if (currentDate.Day != date.Day)
-            {
-                currentDate = date;
-                display.WriteLine(currentDate.Month + "/" + currentDate.Day + "/" + currentDate.Year, 1);
-            }
+            display.WriteLine($"{today.ToString("MMMM dd, yyyy")}", 0);
+            display.WriteLine($"{today.ToString("hh:mm:ss tt")}", 1);
             
-            var countdown = christmasDate.Subtract(date);
-            display.WriteLine($"{countdown.Days}d{countdown.Hours}h{countdown.Minutes}m{countdown.Seconds}s to go!", 3);            
+            var christmasDate = new DateTime(today.Year, 12, 25);
+            if (christmasDate < today)
+                christmasDate = new DateTime(today.Year + 1, 12, 25);
+
+            var countdown = christmasDate.Subtract(today);
+            display.WriteLine($"  {countdown.Days.ToString("D3")}d {countdown.Hours.ToString("D2")}h {countdown.Minutes.ToString("D2")}m {countdown.Seconds.ToString("D2")}s", 3);            
         }
     }
 }

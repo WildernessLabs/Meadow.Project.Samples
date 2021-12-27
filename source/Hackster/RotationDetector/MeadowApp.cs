@@ -1,5 +1,6 @@
 ﻿using Meadow;
 using Meadow.Devices;
+using Meadow.Foundation;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Motion;
 using Meadow.Units;
@@ -7,7 +8,8 @@ using System;
 
 namespace RotationDetector
 {
-    public class MeadowApp : App<F7Micro, MeadowApp>
+    // public class MeadowApp : App<F7Micro, MeadowApp> <- If you have a Meadow F7 v1.*
+    public class MeadowApp : App<F7MicroV2, MeadowApp>
     {
         Led up;
         Led down; 
@@ -24,18 +26,22 @@ namespace RotationDetector
 
         void Initialize() 
         {
-            var led = new RgbLed(Device, Device.Pins.OnboardLedRed, Device.Pins.OnboardLedGreen, Device.Pins.OnboardLedBlue);
-            led.SetColor(RgbLed.Colors.Red);
+            var onboardLed = new RgbPwmLed(
+                device: Device,
+                redPwmPin: Device.Pins.OnboardLedRed,
+                greenPwmPin: Device.Pins.OnboardLedGreen,
+                bluePwmPin: Device.Pins.OnboardLedBlue);
+            onboardLed.SetColor(Color.Red);
 
-            up = new Led(Device.CreateDigitalOutputPort(Device.Pins.D15));
-            down = new Led(Device.CreateDigitalOutputPort(Device.Pins.D12));
-            left = new Led(Device.CreateDigitalOutputPort(Device.Pins.D13));
-            right = new Led(Device.CreateDigitalOutputPort(Device.Pins.D14));
+            up = new Led(Device.CreateDigitalOutputPort(Device.Pins.D13));
+            down = new Led(Device.CreateDigitalOutputPort(Device.Pins.D10));
+            left = new Led(Device.CreateDigitalOutputPort(Device.Pins.D11));
+            right = new Led(Device.CreateDigitalOutputPort(Device.Pins.D12));
 
             mpu = new Mpu6050(Device.CreateI2cBus());
             mpu.Updated += MpuUpdated;            
 
-            led.SetColor(RgbLed.Colors.Green);
+            onboardLed.SetColor(Color.Green);
         }
 
         void MpuUpdated(object sender, IChangeResult<(Acceleration3D? Acceleration3D, AngularVelocity3D? AngularVelocity3D, Temperature? Temperature)> e)

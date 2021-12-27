@@ -53,7 +53,7 @@ namespace MobileMaple.ViewModel
 
                 if (response)
                 {
-                    IsCyclingStart = IsCyclingStop = false;
+                    IsCyclingStart = IsCyclingStop = IsRotateTo = false;
 
                     switch (command)
                     {

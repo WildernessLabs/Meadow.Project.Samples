@@ -6,9 +6,21 @@
     <AssemblyName>App</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Json.Net" Version="1.0.33" />
+    <None Remove="meadow.config.yaml" />
+    <None Remove="wifi.config.yaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="meadow.config.yaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wifi.config.yaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Meadow.Foundation.Displays.Lcd.CharacterDisplay" Version="0.*" />
     <PackageReference Include="Meadow.F7" Version="0.*" />
     <PackageReference Include="Meadow.Foundation" Version="0.*" />
+    <PackageReference Include="System.Text.Json" Version="6.0.1" />
   </ItemGroup>
 </Project>

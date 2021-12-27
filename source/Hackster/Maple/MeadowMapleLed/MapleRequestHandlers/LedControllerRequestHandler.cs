@@ -8,46 +8,39 @@ namespace MeadowMapleLed.MapleRequestHandlers
     {
         public LedControllerRequestHandler() { }
 
-        [HttpPost]
-        public void TurnOn()
+        [HttpPost("/turnon")]
+        public IActionResult TurnOn()
         {
             LedController.Current.TurnOn();
-            StatusResponse();
+            return new OkResult();
         }
 
-        [HttpPost]
-        public void TurnOff()
+        [HttpPost("/turnoff")]
+        public IActionResult TurnOff()
         {
             LedController.Current.TurnOff();
-            StatusResponse();
+            return new OkResult();
         }
 
-        [HttpPost]
-        public void StartBlink()
+        [HttpPost("/startblink")]
+        public IActionResult StartBlink()
         {
             LedController.Current.StartBlink();
-            StatusResponse();
+            return new OkResult();
         }
 
-        [HttpPost]
-        public void StartPulse()
+        [HttpPost("/startpulse")]
+        public IActionResult StartPulse()
         {
             LedController.Current.StartPulse();
-            StatusResponse();
+            return new OkResult();
         }
 
-        [HttpPost]
-        public void StartRunningColors()
+        [HttpPost("/startrunningcolors")]
+        public IActionResult StartRunningColors()
         {
             LedController.Current.StartRunningColors();
-            StatusResponse();
-        }
-
-        void StatusResponse()
-        {
-            Context.Response.ContentType = ContentTypes.Application_Text;
-            Context.Response.StatusCode = 200;
-            Send();
+            return new OkResult();
         }
     }
 }

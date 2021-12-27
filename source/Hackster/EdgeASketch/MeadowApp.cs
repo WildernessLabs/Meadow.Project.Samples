@@ -7,41 +7,47 @@ using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Rotary;
 using Meadow.Hardware;
 using Meadow.Peripherals.Sensors.Rotary;
+using Meadow.Units;
 using System;
 
 namespace EdgeASketch
 {
-    public class MeadowApp : App<F7Micro, MeadowApp>
+    // public class MeadowApp : App<F7Micro, MeadowApp> <- If you have a Meadow F7 v1.*
+    public class MeadowApp : App<F7MicroV2, MeadowApp>
     {
         int x, y;
-        St7789 st7789;
-        GraphicsLibrary graphics;
+        MicroGraphics graphics;
         RotaryEncoderWithButton rotaryX;
         RotaryEncoderWithButton rotaryY;
 
         public MeadowApp()
         {
-            var led = new RgbLed(Device, Device.Pins.OnboardLedRed, Device.Pins.OnboardLedGreen, Device.Pins.OnboardLedBlue);
-            led.SetColor(RgbLed.Colors.Red);
+            var onboardLed = new RgbPwmLed(
+                device: Device,
+                redPwmPin: Device.Pins.OnboardLedRed,
+                greenPwmPin: Device.Pins.OnboardLedGreen,
+                bluePwmPin: Device.Pins.OnboardLedBlue);
+            onboardLed.SetColor(Color.Red);
 
             x = y = 120;
 
             var config = new SpiClockConfiguration(
-                speedKHz: 6000,
+                speed: new Frequency(48000, Frequency.UnitType.Kilohertz),
                 mode: SpiClockConfiguration.Mode.Mode3);
-            st7789 = new St7789(
+            var spiBus = Device.CreateSpiBus(
+                clock: Device.Pins.SCK,
+                copi: Device.Pins.MOSI,
+                cipo: Device.Pins.MISO,
+                config: config);
+            var st7789 = new St7789(
                 device: Device,
-                spiBus: Device.CreateSpiBus(
-                    clock: Device.Pins.SCK,
-                    copi: Device.Pins.MOSI,
-                    cipo: Device.Pins.MISO,
-                    config: config),
+                spiBus: spiBus,
                 chipSelectPin: null,
                 dcPin: Device.Pins.D01,
                 resetPin: Device.Pins.D00,
                 width: 240, height: 240);
 
-            graphics = new GraphicsLibrary(st7789);
+            graphics = new MicroGraphics(st7789);
             graphics.Clear(true);
             graphics.DrawRectangle(0, 0, 240, 240, Color.White, true);
             graphics.DrawPixel(x, y, Color.Red);
@@ -56,7 +62,7 @@ namespace EdgeASketch
             rotaryY.Rotated += RotaryYRotated;            
             rotaryY.Clicked += RotaryYClicked;
 
-            led.SetColor(RgbLed.Colors.Green);
+            onboardLed.SetColor(Color.Green);
         }
 
         void RotaryXRotated(object sender, RotaryChangeResult e)

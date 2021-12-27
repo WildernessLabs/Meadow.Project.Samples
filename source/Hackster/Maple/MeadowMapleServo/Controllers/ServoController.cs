@@ -2,6 +2,7 @@
 using Meadow.Foundation.Servos;
 using Meadow.Hardware;
 using Meadow.Units;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using AU = Meadow.Units.Angle.UnitType;
@@ -14,7 +15,7 @@ namespace MeadowMapleServo.Controllers
         Task animationTask = null;
         CancellationTokenSource cancellationTokenSource = null;
 
-        protected Angle _rotationAngle;
+        protected int _rotationAngle;
 
         protected bool initialized = false;
 
@@ -32,7 +33,7 @@ namespace MeadowMapleServo.Controllers
             if (initialized) { return; }
 
             servo = new Servo(device, PwmPin, NamedServoConfigs.SG90);
-            servo.RotateTo(new Angle(0, AU.Degrees));
+            servo.RotateTo(NamedServoConfigs.SG90.MinimumAngle);
 
             initialized = true;
         }
@@ -62,21 +63,21 @@ namespace MeadowMapleServo.Controllers
             {
                 if (cancellationToken.IsCancellationRequested) { break; }
 
-                while (_rotationAngle < new Angle(180, AU.Degrees))
+                while (_rotationAngle < 180)
                 {
                     if (cancellationToken.IsCancellationRequested) { break; }
 
-                    _rotationAngle += new Angle(1, AU.Degrees);
-                    servo.RotateTo(_rotationAngle);
+                    _rotationAngle++;
+                    servo.RotateTo(new Angle(_rotationAngle, AU.Degrees));
                     await Task.Delay(50);
                 }
 
-                while (_rotationAngle > new Angle(0, AU.Degrees))
+                while (_rotationAngle > 0)
                 {
                     if (cancellationToken.IsCancellationRequested) { break; }
 
-                    _rotationAngle -= new Angle(1, AU.Degrees);
-                    servo.RotateTo(_rotationAngle);
+                    _rotationAngle--;
+                    servo.RotateTo(new Angle(_rotationAngle, AU.Degrees));
                     await Task.Delay(50);
                 }
             }

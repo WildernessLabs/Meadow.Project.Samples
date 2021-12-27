@@ -9,29 +9,27 @@ using System.Threading.Tasks;
 
 namespace MotorRotaryController
 {
-    public class MeadowApp : App<F7Micro, MeadowApp>
+    // public class MeadowApp : App<F7Micro, MeadowApp> <- If you have a Meadow F7 v1.*
+    public class MeadowApp : App<F7MicroV2, MeadowApp>
     {
-        float SPEED = 0.1f;
-        double number = 0;
-
-        RgbPwmLed led;
         HBridgeMotor motor;
         RotaryEncoder rotary;
 
         public MeadowApp()
         {
             Initialize();
+
+            //TestMotor();
         }
 
         void Initialize()
         {
-            Console.WriteLine("Initialize hardware...");
-
-            led = new RgbPwmLed(device: Device,
+            var onboardLed = new RgbPwmLed(
+                device: Device,
                 redPwmPin: Device.Pins.OnboardLedRed,
                 greenPwmPin: Device.Pins.OnboardLedGreen,
                 bluePwmPin: Device.Pins.OnboardLedBlue);
-            led.SetColor(Color.Red);
+            onboardLed.SetColor(Color.Red);
 
             motor = new HBridgeMotor
             (
@@ -45,9 +43,7 @@ namespace MotorRotaryController
             rotary = new RotaryEncoder(Device, Device.Pins.D02, Device.Pins.D03);
             rotary.Rotated += RotaryRotated;
 
-            led.SetColor(Color.Green);
-
-            //TestMotor();
+            onboardLed.SetColor(Color.Green);
         }
 
         async Task TestMotor() 

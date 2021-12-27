@@ -1,5 +1,6 @@
 ﻿using Meadow;
 using Meadow.Devices;
+using Meadow.Foundation;
 using Meadow.Foundation.Displays.Ssd130x;
 using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
@@ -9,10 +10,10 @@ using System.Threading;
 
 namespace MemoryGame
 {
-    public class MeadowApp : App<F7Micro, MeadowApp>
-    {
-        Ssd1306 display;
-        GraphicsLibrary graphics;
+    // public class MeadowApp : App<F7Micro, MeadowApp> <- If you have a Meadow F7 v1.*
+    public class MeadowApp : App<F7MicroV2, MeadowApp>
+    {        
+        MicroGraphics graphics;
 
         int currentColumn;
         IDigitalInputPort[] rowPorts = new IDigitalInputPort[4];
@@ -31,10 +32,40 @@ namespace MemoryGame
 
             option1 = option2 = -1;
 
-            InitializePeripherals();
+            Initialize();
+
             LoadMemoryBoard();
             StartGameAnimation();
             CyclingColumnVDD();
+        }
+
+        void Initialize()
+        {
+            var onboardLed = new RgbPwmLed(
+                device: Device,
+                redPwmPin: Device.Pins.OnboardLedRed,
+                greenPwmPin: Device.Pins.OnboardLedGreen,
+                bluePwmPin: Device.Pins.OnboardLedBlue);
+            onboardLed.SetColor(Color.Red);
+
+            var i2CBus = Device.CreateI2cBus();
+            var display = new Ssd1306(i2CBus, 60, Ssd1306.DisplayType.OLED128x32);
+            graphics = new MicroGraphics(display);
+            graphics.Rotation = RotationType._180Degrees;
+
+            rowPorts[0] = Device.CreateDigitalInputPort(Device.Pins.D15, InterruptMode.EdgeRising, ResistorMode.InternalPullDown, 0, 50);
+            rowPorts[1] = Device.CreateDigitalInputPort(Device.Pins.D14, InterruptMode.EdgeRising, ResistorMode.InternalPullDown, 0, 50);
+            rowPorts[2] = Device.CreateDigitalInputPort(Device.Pins.D13, InterruptMode.EdgeRising, ResistorMode.InternalPullDown, 0, 50);
+            rowPorts[3] = Device.CreateDigitalInputPort(Device.Pins.D12, InterruptMode.EdgeRising, ResistorMode.InternalPullDown, 0, 50);
+
+            columnPorts[0] = Device.CreateDigitalOutputPort(Device.Pins.D01);
+            columnPorts[1] = Device.CreateDigitalOutputPort(Device.Pins.D02);
+            columnPorts[2] = Device.CreateDigitalOutputPort(Device.Pins.D03);
+            columnPorts[3] = Device.CreateDigitalOutputPort(Device.Pins.D04);
+
+            currentColumn = 0;
+
+            onboardLed.SetColor(Color.Green);
         }
 
         bool IsLevelComplete()
@@ -51,31 +82,6 @@ namespace MemoryGame
             }
 
             return isComplete;
-        }
-
-        void InitializePeripherals()
-        {
-            var led = new RgbLed(Device, Device.Pins.OnboardLedRed, Device.Pins.OnboardLedGreen, Device.Pins.OnboardLedBlue);
-            led.SetColor(RgbLed.Colors.Red);
-
-            var i2CBus = Device.CreateI2cBus();
-            display = new Ssd1306(i2CBus, 60, Ssd1306.DisplayType.OLED128x32);
-            graphics = new GraphicsLibrary(display);
-            graphics.Rotation = RotationType._180Degrees;
-
-            rowPorts[0] = Device.CreateDigitalInputPort(Device.Pins.D15, InterruptMode.EdgeRising, ResistorMode.InternalPullDown, 0, 50);
-            rowPorts[1] = Device.CreateDigitalInputPort(Device.Pins.D14, InterruptMode.EdgeRising, ResistorMode.InternalPullDown, 0, 50);
-            rowPorts[2] = Device.CreateDigitalInputPort(Device.Pins.D13, InterruptMode.EdgeRising, ResistorMode.InternalPullDown, 0, 50);
-            rowPorts[3] = Device.CreateDigitalInputPort(Device.Pins.D12, InterruptMode.EdgeRising, ResistorMode.InternalPullDown, 0, 50);
-
-            columnPorts[0] = Device.CreateDigitalOutputPort(Device.Pins.D01);
-            columnPorts[1] = Device.CreateDigitalOutputPort(Device.Pins.D02);
-            columnPorts[2] = Device.CreateDigitalOutputPort(Device.Pins.D03);
-            columnPorts[3] = Device.CreateDigitalOutputPort(Device.Pins.D04);
-
-            currentColumn = 0;
-
-            led.SetColor(RgbLed.Colors.Green);
         }
 
         void LoadMemoryBoard()
