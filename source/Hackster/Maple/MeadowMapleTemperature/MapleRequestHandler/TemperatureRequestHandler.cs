@@ -3,7 +3,6 @@ using Meadow.Foundation.Web.Maple.Server.Routing;
 using MeadowMapleTemperature.Database;
 using MeadowMapleTemperature.Entities;
 using System.Collections.Generic;
-using System.Text.Json;
 
 namespace MeadowMapleTemperature.MapleRequestHandlers
 {
@@ -26,7 +25,7 @@ namespace MeadowMapleTemperature.MapleRequestHandlers
                 });
             }
 
-            return new JsonResult(JsonSerializer.Serialize(data));
+            return new JsonResult(data);
         }
     }
 }
