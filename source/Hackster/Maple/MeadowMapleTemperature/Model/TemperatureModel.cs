@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace MeadowMapleTemperature.Entities
+namespace MeadowMapleTemperature
 {    
     public class TemperatureModel
     {

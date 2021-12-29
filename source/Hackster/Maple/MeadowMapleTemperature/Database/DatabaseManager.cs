@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace MeadowMapleTemperature.Database
+namespace MeadowMapleTemperature
 {
     public class DatabaseManager
     {

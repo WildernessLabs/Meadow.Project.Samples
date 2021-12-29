@@ -1,10 +1,8 @@
 ﻿using Meadow.Foundation.Web.Maple.Server;
 using Meadow.Foundation.Web.Maple.Server.Routing;
-using MeadowMapleTemperature.Database;
-using MeadowMapleTemperature.Entities;
 using System.Collections.Generic;
 
-namespace MeadowMapleTemperature.MapleRequestHandlers
+namespace MeadowMapleTemperature
 {
     public class TemperatureRequestHandler : RequestHandlerBase
     {
@@ -20,7 +18,7 @@ namespace MeadowMapleTemperature.MapleRequestHandlers
             {
                 data.Add(new TemperatureModel()
                 {
-                    Temperature = log.TemperatureValue?.ToString("00"),
+                    Temperature = log.TemperatureCelcius?.ToString("00"),
                     DateTime = log.DateTime.ToString("yyyy-mm-dd hh:mm:ss tt")
                 });
             }

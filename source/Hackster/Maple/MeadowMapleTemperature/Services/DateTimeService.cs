@@ -4,11 +4,11 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace MeadowMapleTemperature.Services
+namespace MeadowMapleTemperature
 {
     public static class DateTimeService
     {
-        static string City = "Vancouver";
+        static string City = "[CITY]";
         static string clockDataUri = $"http://worldtimeapi.org/api/timezone/America/{City}/";
 
         static DateTimeService() { }

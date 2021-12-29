@@ -1,9 +1,8 @@
 ﻿using Meadow.Foundation.Sensors.Temperature;
 using Meadow.Units;
-using MeadowMapleTemperature.Database;
 using System;
 
-namespace MeadowMapleTemperature.Controller
+namespace MeadowMapleTemperature
 {
     public class TemperatureController
     {
@@ -20,7 +19,8 @@ namespace MeadowMapleTemperature.Controller
 
         public void Initialize()
         {
-            analogTemperature = new AnalogTemperature(MeadowApp.Device, MeadowApp.Device.Pins.A00, AnalogTemperature.KnownSensorType.LM35);
+            analogTemperature = new AnalogTemperature(MeadowApp.Device, 
+                MeadowApp.Device.Pins.A01, AnalogTemperature.KnownSensorType.LM35);
             analogTemperature.StartUpdating(TimeSpan.FromSeconds(30));
             analogTemperature.TemperatureUpdated += AnalogTemperatureUpdated;
         }
@@ -31,7 +31,7 @@ namespace MeadowMapleTemperature.Controller
 
             var reading = new TemperatureTable()
             {
-                Temperature = e.New,
+                TemperatureValue = e.New,
                 DateTime = DateTime.Now
             };
             DatabaseManager.Instance.SaveReading(reading);

@@ -1,8 +1,8 @@
 ﻿using SQLite;
 using System;
-using MU = Meadow.Units;
+using Meadow.Units;
 
-namespace MeadowMapleTemperature.Database
+namespace MeadowMapleTemperature
 {
     [Table("TemperatureReadings")]
     public class TemperatureTable
@@ -12,13 +12,14 @@ namespace MeadowMapleTemperature.Database
 
         public DateTime DateTime { get; set; }
 
-        public double? TemperatureValue
+        public double? TemperatureCelcius
         {
-            get => Temperature?.Celsius;
-            set => Temperature = new MU.Temperature(value.Value, MU.Temperature.UnitType.Celsius);
+            get => TemperatureValue?.Celsius;
+            set => TemperatureValue = new Temperature(value.Value, 
+                Temperature.UnitType.Celsius);
         }
 
         [Ignore]
-        public MU.Temperature? Temperature { get; set; }
+        public Temperature? TemperatureValue { get; set; }
     }
 }
