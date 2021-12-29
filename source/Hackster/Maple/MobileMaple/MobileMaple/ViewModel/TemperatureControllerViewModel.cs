@@ -39,7 +39,7 @@ namespace MobileMaple.ViewModel
 
         public async Task GetTemperatureLogs()
         {
-            var response = await client.GetAsync(SelectedServer != null? SelectedServer.IpAddress : IpAddress, ServerPort, "GetTemperatureLogs", null, null);
+            var response = await client.GetAsync(SelectedServer != null? SelectedServer.IpAddress : IpAddress, ServerPort, "gettemperaturelogs", null, null);
 
             var values = JsonConvert.DeserializeObject<List<TemperatureModel>>(response);
 

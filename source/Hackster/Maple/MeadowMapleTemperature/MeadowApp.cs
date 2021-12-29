@@ -39,7 +39,7 @@ namespace MeadowMapleTemperature
 
             await DateTimeService.GetTimeAsync();
 
-            mapleServer = new MapleServer(Device.WiFiAdapter.IpAddress, 5417, true);
+            mapleServer = new MapleServer(Device.WiFiAdapter.IpAddress, 5417, false);
 
             TemperatureController.Instance.Initialize();
 

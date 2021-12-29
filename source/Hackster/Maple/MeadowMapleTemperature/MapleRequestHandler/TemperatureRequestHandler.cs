@@ -3,6 +3,7 @@ using Meadow.Foundation.Web.Maple.Server.Routing;
 using MeadowMapleTemperature.Database;
 using MeadowMapleTemperature.Entities;
 using System.Collections.Generic;
+using System.Text.Json;
 
 namespace MeadowMapleTemperature.MapleRequestHandlers
 {
@@ -10,8 +11,8 @@ namespace MeadowMapleTemperature.MapleRequestHandlers
     {
         public TemperatureRequestHandler() { }
 
-        [HttpGet]
-        public void GetTemperatureLogs()
+        [HttpGet("/gettemperaturelogs")]
+        public IActionResult GetTemperatureLogs()
         {
             var logs = DatabaseManager.Instance.GetTemperatureReadings();
 
@@ -25,9 +26,7 @@ namespace MeadowMapleTemperature.MapleRequestHandlers
                 });
             }
 
-            Context.Response.ContentType = ContentTypes.Application_Json;
-            Context.Response.StatusCode = 200;
-            Send(data).Wait();
+            return new JsonResult(JsonSerializer.Serialize(data));
         }
     }
 }
