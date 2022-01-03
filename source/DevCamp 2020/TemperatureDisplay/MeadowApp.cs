@@ -11,7 +11,7 @@ using Meadow.Units;
 
 namespace TemperatureDisplay
 {
-    // public class MeadowApp : App<F7Micro, MeadowApp> <- If you have a Meadow F7 v1.*
+    // public class MeadowApp : App<F7Micro, MeadowApp> <- If you have a Meadow F7v1.*
     public class MeadowApp : App<F7MicroV2, MeadowApp>
     {
         Bmp180 sensor;

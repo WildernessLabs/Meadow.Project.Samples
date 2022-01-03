@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace WifiClock
 {
-    // public class MeadowApp : App<F7Micro, MeadowApp> <- If you have a Meadow F7 v1.*
+    // public class MeadowApp : App<F7Micro, MeadowApp> <- If you have a Meadow F7v1.*
     public class MeadowApp : App<F7MicroV2, MeadowApp>
     {
         PushButton pushButton;
@@ -25,20 +25,13 @@ namespace WifiClock
 
         public MeadowApp()
         {
-            Device.WiFiAdapter.WiFiConnected += WiFiConnected;
-        }
-
-        void WiFiConnected(object sender, EventArgs e)
-        {
             Initialize().Wait();
 
             Start().Wait();
         }
 
         async Task Initialize()
-        {
-            Device.SetClock(DateTime.Now.AddHours(-8));
-
+        { 
             var onboardLed = new RgbPwmLed(
                 device: Device,
                 redPwmPin: Device.Pins.OnboardLedRed,
@@ -70,15 +63,12 @@ namespace WifiClock
                 device: Device,
                 analogPin: Device.Pins.A00,
                 sensorType: AnalogTemperature.KnownSensorType.LM35
-            );            
+            );
 
-            onboardLed.StartPulse(Color.Blue);
-
-            var result = await Device.WiFiAdapter.Connect(Secrets.WIFI_NAME, Secrets.WIFI_PASSWORD);
-            if (result.ConnectionStatus != ConnectionStatus.Success)
+            var connectionResult = await Device.WiFiAdapter.Connect(Secrets.WIFI_NAME, Secrets.WIFI_PASSWORD);
+            if (connectionResult.ConnectionStatus != ConnectionStatus.Success)
             {
-                onboardLed.StartPulse(Color.Magenta);
-                throw new Exception($"Cannot connect to network: {result.ConnectionStatus}");
+                throw new Exception($"Cannot connect to network: {connectionResult.ConnectionStatus}");
             }
 
             onboardLed.StartPulse(Color.Green);
@@ -95,7 +85,7 @@ namespace WifiClock
         {
             while (true)
             {
-                DateTime clock = DateTime.Now;
+                DateTime clock = DateTime.Now.AddHours(-8);
 
                 graphics.Clear();
 
