@@ -2,12 +2,21 @@
 using Meadow.Devices;
 using Meadow.Foundation;
 using Meadow.Foundation.Leds;
+using Meadow.Gateways.Bluetooth;
+using MeadowBleServo.Controllers;
 
 namespace MeadowBleServo
 {
     // public class MeadowApp : App<F7Micro, MeadowApp> <- If you have a Meadow F7v1.*
     public class MeadowApp : App<F7MicroV2, MeadowApp>
     {
+        Definition bleTreeDefinition;
+        CharacteristicBool isSweepingCharacteristic;
+        CharacteristicInt32 angleCharacteristic;
+
+        readonly string IS_SWEEPING = "24517ccc888e4ffc9da521884353b08d";
+        readonly string ANGLE       = "5a0bb01669ab4a49a2f2de5b292458f3";
+
         public MeadowApp()
         {
             Initialize();
@@ -22,9 +31,60 @@ namespace MeadowBleServo
                 bluePwmPin: Device.Pins.OnboardLedBlue);
             onboardLed.SetColor(Color.Red);
 
+            ServoController.Current.Initialize();
 
+            bleTreeDefinition = GetDefinition();
+            Device.BluetoothAdapter.StartBluetoothServer(bleTreeDefinition);
+
+            isSweepingCharacteristic.ValueSet += IsSweepingCharacteristicValueSet;
+            angleCharacteristic.ValueSet += AngleCharacteristicValueSet;
 
             onboardLed.SetColor(Color.Green);
+        }
+
+        void IsSweepingCharacteristicValueSet(ICharacteristic c, object data)
+        {
+            if ((bool)data)
+            {
+                ServoController.Current.StartSweep();
+                isSweepingCharacteristic.SetValue(false);
+            }
+            else
+            {
+                ServoController.Current.StartSweep();
+                isSweepingCharacteristic.SetValue(true);
+            }
+        }
+
+        void AngleCharacteristicValueSet(ICharacteristic c, object data)
+        {
+            int angle = (int)data;
+
+            ServoController.Current.RotateTo(angle);
+        }
+
+        Definition GetDefinition()
+        {
+            isSweepingCharacteristic = new CharacteristicBool(
+                name: "IsSweeping",
+                uuid: IS_SWEEPING,
+                permissions: CharacteristicPermission.Read | CharacteristicPermission.Write,
+                properties: CharacteristicProperty.Read | CharacteristicProperty.Write);
+
+            angleCharacteristic = new CharacteristicInt32(
+                name: "Angle",
+                uuid: ANGLE,
+                permissions: CharacteristicPermission.Read | CharacteristicPermission.Write,
+                properties: CharacteristicProperty.Read | CharacteristicProperty.Write);
+
+            var service = new Service(
+                name: "ServiceA",
+                uuid: 253,
+                isSweepingCharacteristic,
+                angleCharacteristic
+            );
+
+            return new Definition("MeadowServo", service);
         }
     }
 }

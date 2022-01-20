@@ -10,7 +10,7 @@ namespace MobileBle.ViewModel
 {
     public class ServoControllerViewModel : BaseViewModel
     {
-        ICharacteristic toggleCycling;
+        ICharacteristic toggleServo;
         ICharacteristic setAngle;
 
         int _angleDegrees;
@@ -27,23 +27,16 @@ namespace MobileBle.ViewModel
             set { _isRotateTo = value; OnPropertyChanged(nameof(IsRotateTo)); }
         }
 
-        bool _isCyclingStart;
-        public bool IsCyclingStart
+        bool _isSweeping;
+        public bool IsSweeping
         {
-            get => _isCyclingStart;
-            set { _isCyclingStart = value; OnPropertyChanged(nameof(IsCyclingStart)); }
-        }
-
-        bool _isCyclingStop;
-        public bool IsCyclingStop
-        {
-            get => _isCyclingStop;
-            set { _isCyclingStop = value; OnPropertyChanged(nameof(IsCyclingStop)); }
+            get => _isSweeping;
+            set { _isSweeping = value; OnPropertyChanged(nameof(IsSweeping)); }
         }
 
         public ICommand CmdSetAngle { get; set; }
 
-        public ICommand CmdToggleCycling { get; set; }
+        public ICommand CmdToggle { get; set; }
 
         public ServoControllerViewModel()
         {
@@ -52,9 +45,9 @@ namespace MobileBle.ViewModel
             adapter.DeviceConnected += AdapterDeviceConnected;
             adapter.DeviceDisconnected += AdapterDeviceDisconnected;
 
-            CmdSetAngle = new Command(async () => await ServoSetAngle());
+            CmdToggle = new Command(async () => await ServoToggle());
 
-            CmdToggleCycling = new Command(async (b) => await ToggleCycling((bool)b));
+            CmdSetAngle = new Command(async () => await ServoSetAngle());
         }
 
         void AdapterDeviceDisconnected(object sender, DeviceEventArgs e)
@@ -78,32 +71,33 @@ namespace MobileBle.ViewModel
                 }
             }
 
-            toggleCycling = await service.GetCharacteristicAsync(Guid.Parse(CharacteristicsConstants.IS_CYCLING));
+            toggleServo = await service.GetCharacteristicAsync(Guid.Parse(CharacteristicsConstants.IS_CYCLING));
             setAngle = await service.GetCharacteristicAsync(Guid.Parse(CharacteristicsConstants.ANGLE));
+        }
+
+        async Task ServoToggle()
+        {
+            IsRotateTo = false;
+            IsSweeping = !IsSweeping;
+
+            byte[] array = new byte[1];
+            array[0] = IsSweeping ? (byte)1 : (byte)0;
+
+            await toggleServo.WriteAsync(array);
         }
 
         async Task ServoSetAngle()
         {
+            if (IsSweeping)
+            {
+                await ServoToggle();
+            }
             IsRotateTo = true;
-            IsCyclingStart = false;
-            IsCyclingStop = false;
 
             byte[] array = new byte[1];
             array[0] = (byte)AngleDegrees;
 
             await setAngle.WriteAsync(array);
-        }
-
-        async Task ToggleCycling(bool isCycling)
-        {
-            IsRotateTo = false;
-            IsCyclingStart = isCycling;
-            IsCyclingStop = !isCycling;
-
-            byte[] array = new byte[1];
-            array[0] = isCycling ? (byte)1 : (byte)0;
-
-            await toggleCycling.WriteAsync(array);
         }
     }
 }

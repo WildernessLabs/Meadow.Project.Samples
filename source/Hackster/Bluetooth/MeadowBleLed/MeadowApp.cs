@@ -36,9 +36,9 @@ namespace MeadowBleLed
 
             bleTreeDefinition = GetDefinition();
             Device.BluetoothAdapter.StartBluetoothServer(bleTreeDefinition);
-            
-            colorCharacteristic.ValueSet += ColorCharacteristicValueSet;
+
             isOnCharacteristic.ValueSet += IsOnCharacteristicValueSet;
+            colorCharacteristic.ValueSet += ColorCharacteristicValueSet;
 
             PulseColor(Color.Green);
         }

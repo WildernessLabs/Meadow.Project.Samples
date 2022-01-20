@@ -73,7 +73,7 @@ namespace MobileBle.ViewModel
             IsLedOn = !IsLedOn;
 
             byte[] array = new byte[1];
-            array[0] = isLedOn ? (byte)1 : (byte)0;
+            array[0] = IsLedOn ? (byte)1 : (byte)0;
 
             await toggleLed.WriteAsync(array);
         }

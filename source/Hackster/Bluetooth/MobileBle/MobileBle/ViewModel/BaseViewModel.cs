@@ -86,7 +86,10 @@ namespace MobileBle.ViewModel
                 DeviceList.Add(e.Device);
             }
 
-            if (e.Device.Name == "MeadowRGB")
+            if (e != null &&
+                e.Device != null &&
+                !string.IsNullOrEmpty(e.Device.Name) && 
+                e.Device.Name.Contains("Meadow"))
             {
                 await adapter.StopScanningForDevicesAsync();
                 IsDeviceListEmpty = false;

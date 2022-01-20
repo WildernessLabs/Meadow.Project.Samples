@@ -19,7 +19,6 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
@@ -83,42 +82,30 @@
                      ThumbColor="{StaticResource ButtonActive}" MinimumTrackColor="{StaticResource ButtonActive}" MaximumTrackColor="{StaticResource ButtonActive}" />
 
                 <Button Grid.Row="5" Text="{Binding Source={x:Reference slider}, Path=Value, StringFormat='Rotate Servo {0:F0} Degrees'}" 
-                    Style="{StaticResource ButtonStyle}" Command="{Binding CmdSetAngle}">
-                    <Button.Triggers>
+                    Style="{StaticResource ButtonStyle}" BackgroundColor="#23ABE3" Command="{Binding CmdSetAngle}" IsEnabled="{Binding IsConnected}">
+                    <!--<Button.Triggers>
                         <DataTrigger TargetType="Button" Binding="{Binding IsRotateTo}" Value="true">
                             <Setter Property="BackgroundColor" Value="{StaticResource ButtonActive}" />
                         </DataTrigger>
                         <DataTrigger TargetType="Button" Binding="{Binding IsRotateTo}" Value="false">
                             <Setter Property="BackgroundColor" Value="{StaticResource ButtonInactive}" />
                         </DataTrigger>
-                    </Button.Triggers>
+                    </Button.Triggers>-->
                 </Button>
 
-                <Button Grid.Row="6" Text="Start Sweep" Style="{StaticResource ButtonStyle}"
-                    Command="{Binding CmdToggleCycling}" CommandParameter="true" >
+                <Button Grid.Row="6" Style="{StaticResource ButtonStyle}" BackgroundColor="#23ABE3"
+                    Command="{Binding CmdToggle}" IsEnabled="{Binding IsConnected}">
                     <Button.Triggers>
-                        <DataTrigger TargetType="Button" Binding="{Binding IsCyclingStart}" Value="true">
-                            <Setter Property="BackgroundColor" Value="{StaticResource ButtonActive}" />
+                        <DataTrigger TargetType="Button" Binding="{Binding IsSweeping}" Value="True">
+                            <Setter Property="Text" Value="Stop Sweeping" />
                         </DataTrigger>
-                        <DataTrigger TargetType="Button" Binding="{Binding IsCyclingStart}" Value="false">
-                            <Setter Property="BackgroundColor" Value="{StaticResource ButtonInactive}" />
-                        </DataTrigger>
-                    </Button.Triggers>
-                </Button>
-
-                <Button Grid.Row="7" Text="Stop Sweep" Style="{StaticResource ButtonStyle}"
-                    Command="{Binding CmdToggleCycling}" CommandParameter="false">
-                    <Button.Triggers>
-                        <DataTrigger TargetType="Button" Binding="{Binding IsCyclingStop}" Value="true">
-                            <Setter Property="BackgroundColor" Value="{StaticResource ButtonActive}" />
-                        </DataTrigger>
-                        <DataTrigger TargetType="Button" Binding="{Binding IsCyclingStop}" Value="false">
-                            <Setter Property="BackgroundColor" Value="{StaticResource ButtonInactive}" />
+                        <DataTrigger TargetType="Button" Binding="{Binding IsSweeping}" Value="False">
+                            <Setter Property="Text" Value="Start Sweeping" />
                         </DataTrigger>
                     </Button.Triggers>
                 </Button>
 
-                <Label Grid.Row="9" Text="By Wilderness Labs" TextColor="Black" 
+                <Label Grid.Row="8" Text="By Wilderness Labs" TextColor="Black" 
                     HorizontalOptions="Center" VerticalOptions="EndAndExpand" />
             </Grid>
         </Grid>
