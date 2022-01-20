@@ -31,7 +31,7 @@ namespace MeadowBleServo
                 bluePwmPin: Device.Pins.OnboardLedBlue);
             onboardLed.SetColor(Color.Red);
 
-            ServoController.Current.Initialize();
+            ServoController.Instance.Initialize();
 
             bleTreeDefinition = GetDefinition();
             Device.BluetoothAdapter.StartBluetoothServer(bleTreeDefinition);
@@ -46,12 +46,12 @@ namespace MeadowBleServo
         {
             if ((bool)data)
             {
-                ServoController.Current.StartSweep();
+                ServoController.Instance.StartSweep();
                 isSweepingCharacteristic.SetValue(false);
             }
             else
             {
-                ServoController.Current.StartSweep();
+                ServoController.Instance.StartSweep();
                 isSweepingCharacteristic.SetValue(true);
             }
         }
@@ -60,7 +60,7 @@ namespace MeadowBleServo
         {
             int angle = (int)data;
 
-            ServoController.Current.RotateTo(angle);
+            ServoController.Instance.RotateTo(angle);
         }
 
         Definition GetDefinition()

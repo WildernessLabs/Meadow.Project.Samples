@@ -1,5 +1,6 @@
 ﻿using Meadow.Foundation.Servos;
 using Meadow.Units;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using AU = Meadow.Units.Angle.UnitType;
@@ -12,27 +13,21 @@ namespace MeadowBleServo.Controllers
         Task animationTask = null;
         CancellationTokenSource cancellationTokenSource = null;
 
+        private static readonly Lazy<ServoController> instance =
+            new Lazy<ServoController>(() => new ServoController());
+        public static ServoController Instance => instance.Value;
+
         protected int _rotationAngle;
 
-        protected bool initialized = false;
-
-        public static ServoController Current { get; private set; }
-
-        private ServoController() { }
-
-        static ServoController()
+        private ServoController() 
         {
-            Current = new ServoController();
+            Initialize();
         }
 
         public void Initialize()
         {
-            if (initialized) { return; }
-
             servo = new Servo(MeadowApp.Device, MeadowApp.Device.Pins.D10, NamedServoConfigs.SG90);
             servo.RotateTo(NamedServoConfigs.SG90.MinimumAngle);
-
-            initialized = true;
         }
 
         public void RotateTo(int angle)
