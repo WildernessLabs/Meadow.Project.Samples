@@ -52,7 +52,7 @@ YouTube: [https://www.youtube.com/c/WildernessLabs](https://www.youtube.com/c/Wi
 
 Mark has been developing software since the days of the BBC Micro and has worked on a wide variety of platforms and technologies. He rediscovered his love of electronics after receiving a Netduino board as a present back in 2010.  Mark is currently working on the firmware for the Meadow boards and can be found in the depths of the C and C++ code controlling the STM32 and ESP32 microcontrollers.  He occasionally surfaces to add new features to the Meadow .NET libraries.
 
-![](../SocialMediaIcons/Twitter/Twitter-circle-blue.png){:height="36px" width="36px"}Twitter: [https://twitter.com/nevynuk](https://twitter.com/nevynuk)
+<img src="../SocialMediaIcons/Twitter/Twitter-circle-blue.png" height="36px" width="36px">Twitter: [https://twitter.com/nevynuk](https://twitter.com/nevynuk)
 
 ![](../SocialMediaIcons/WWWIcon.png){:height="36px" width="36px"}Blog: [https://blog.mark-stevens.co.uk/](https://blog.mark-stevens.co.uk/)
 
