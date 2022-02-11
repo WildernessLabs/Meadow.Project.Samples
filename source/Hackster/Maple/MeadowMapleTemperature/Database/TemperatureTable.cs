@@ -1,6 +1,6 @@
-﻿using SQLite;
+﻿using Meadow.Units;
+using SQLite;
 using System;
-using Meadow.Units;
 
 namespace MeadowMapleTemperature
 {

@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace MeadowMapleTemperature
+namespace MeadowMapleTemperature.Database
 {
     public class DatabaseManager
     {
@@ -27,9 +27,7 @@ namespace MeadowMapleTemperature
             Database = new SQLiteConnection(databasePath);
 
             Database.DropTable<TemperatureTable>();
-            Console.WriteLine("ConfigureDatabase");
             Database.CreateTable<TemperatureTable>();
-            Console.WriteLine("Table created");
             isConfigured = true;
         }
 
@@ -47,11 +45,7 @@ namespace MeadowMapleTemperature
                 return false;
             }
 
-            Console.WriteLine("Saving climate reading to DB");
-
             Database.Insert(temperature);
-
-            Console.WriteLine($"Successfully saved to database");
 
             return true;
         }

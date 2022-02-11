@@ -1,9 +1,9 @@
 ﻿using Meadow;
 using Meadow.Devices;
 using Meadow.Foundation;
-using Meadow.Foundation.Leds;
 using Meadow.Foundation.Web.Maple.Server;
 using Meadow.Gateway.WiFi;
+using MeadowMapleTemperature.Controller;
 using System;
 using System.Threading.Tasks;
 
@@ -23,11 +23,7 @@ namespace MeadowMapleTemperature
 
         async Task Initialize()
         {
-            var onboardLed = new RgbPwmLed(device: Device,
-                redPwmPin: Device.Pins.OnboardLedRed,
-                greenPwmPin: Device.Pins.OnboardLedGreen,
-                bluePwmPin: Device.Pins.OnboardLedBlue);
-            onboardLed.SetColor(Color.Red);
+            LedController.Instance.SetColor(Color.Red);
 
             var connectionResult = await Device.WiFiAdapter.Connect(Secrets.WIFI_NAME, Secrets.WIFI_PASSWORD);
             if (connectionResult.ConnectionStatus != ConnectionStatus.Success)
@@ -37,11 +33,11 @@ namespace MeadowMapleTemperature
 
             await DateTimeService.GetTimeAsync();
 
-            mapleServer = new MapleServer(Device.WiFiAdapter.IpAddress, 5417, false);
+            mapleServer = new MapleServer(Device.WiFiAdapter.IpAddress, 5417, true);
 
             TemperatureController.Instance.Initialize();
 
-            onboardLed.SetColor(Color.Green);
+            LedController.Instance.SetColor(Color.Green);
         }
     }
 }

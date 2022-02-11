@@ -1,5 +1,8 @@
-﻿using Meadow.Foundation.Sensors.Temperature;
+﻿using Meadow.Foundation;
+using Meadow.Foundation.Sensors.Temperature;
 using Meadow.Units;
+using MeadowMapleTemperature.Controller;
+using MeadowMapleTemperature.Database;
 using System;
 
 namespace MeadowMapleTemperature
@@ -12,10 +15,7 @@ namespace MeadowMapleTemperature
             new Lazy<TemperatureController>(() => new TemperatureController());
         public static TemperatureController Instance => instance.Value;
 
-        private TemperatureController()
-        {
-            Initialize();
-        }
+        private TemperatureController() { }
 
         public void Initialize()
         {
@@ -27,7 +27,7 @@ namespace MeadowMapleTemperature
 
         void AnalogTemperatureUpdated(object sender, Meadow.IChangeResult<Temperature> e)
         {
-            Console.Write($"Saving ({e.New.Celsius},{DateTime.Now})...");
+            LedController.Instance.SetColor(Color.Magenta);
 
             var reading = new TemperatureTable()
             {
@@ -36,7 +36,7 @@ namespace MeadowMapleTemperature
             };
             DatabaseManager.Instance.SaveReading(reading);
 
-            Console.WriteLine("done!");
+            LedController.Instance.SetColor(Color.Green);
         }
     }
 }

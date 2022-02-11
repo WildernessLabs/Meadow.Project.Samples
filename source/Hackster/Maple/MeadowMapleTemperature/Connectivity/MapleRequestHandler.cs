@@ -1,16 +1,20 @@
-﻿using Meadow.Foundation.Web.Maple.Server;
+﻿using Meadow.Foundation;
+using Meadow.Foundation.Web.Maple.Server;
 using Meadow.Foundation.Web.Maple.Server.Routing;
+using MeadowMapleTemperature.Controller;
+using MeadowMapleTemperature.Database;
 using System.Collections.Generic;
 
 namespace MeadowMapleTemperature
 {
-    public class TemperatureRequestHandler : RequestHandlerBase
+    public class MapleRequestHandler : RequestHandlerBase
     {
-        public TemperatureRequestHandler() { }
+        public MapleRequestHandler() { }
 
         [HttpGet("/gettemperaturelogs")]
         public IActionResult GetTemperatureLogs()
         {
+            LedController.Instance.SetColor(Color.Cyan);
             var logs = DatabaseManager.Instance.GetTemperatureReadings();
 
             var data = new List<TemperatureModel>();
@@ -23,6 +27,7 @@ namespace MeadowMapleTemperature
                 });
             }
 
+            LedController.Instance.SetColor(Color.Green);
             return new JsonResult(data);
         }
     }
