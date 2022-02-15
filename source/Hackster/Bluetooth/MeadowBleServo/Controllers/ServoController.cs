@@ -9,15 +9,14 @@ namespace MeadowBleServo.Controllers
 {
     public class ServoController
     {
-        Servo servo;
-        Task animationTask = null;
-        CancellationTokenSource cancellationTokenSource = null;
-
         private static readonly Lazy<ServoController> instance =
             new Lazy<ServoController>(() => new ServoController());
         public static ServoController Instance => instance.Value;
 
-        protected int _rotationAngle;
+        Servo servo;
+        CancellationTokenSource cancellationTokenSource = null;
+
+        int _rotationAngle;
 
         private ServoController() 
         {
@@ -42,15 +41,18 @@ namespace MeadowBleServo.Controllers
 
         public void StartSweep()
         {
-            animationTask = new Task(async () =>
+            cancellationTokenSource = new CancellationTokenSource();
+
+            Task.Run(async () => 
             {
-                cancellationTokenSource = new CancellationTokenSource();
                 await StartSweep(cancellationTokenSource.Token);
-            });
-            animationTask.Start();
+            }, 
+            cancellationTokenSource.Token);
         }
-        protected async Task StartSweep(CancellationToken cancellationToken)
+        async Task StartSweep(CancellationToken cancellationToken)
         {
+            Console.WriteLine("Sweeping");
+
             while (true)
             {
                 if (cancellationToken.IsCancellationRequested) { break; }

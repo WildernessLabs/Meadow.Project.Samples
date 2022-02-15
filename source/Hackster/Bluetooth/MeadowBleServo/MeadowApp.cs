@@ -46,7 +46,7 @@ namespace MeadowBleServo
         {
             if ((bool)data)
             {
-                ServoController.Instance.StartSweep();
+                ServoController.Instance.StopSweep();
                 isSweepingCharacteristic.SetValue(false);
             }
             else
