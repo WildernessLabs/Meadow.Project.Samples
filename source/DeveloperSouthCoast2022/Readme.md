@@ -37,23 +37,23 @@ Rover project using the [EMOZNY Mecanum 4 wheel drive rover](https://www.amazon.
 
 Creators of Meadow. Makers of Netduino. We power connected things.
 
-Developer Resources: [http://developer.wildernesslabs.co/](http://developer.wildernesslabs.co/)
+<img src="../SocialMediaIcons/WWWIcon.png" height="32px" width="32px"> Developer Resources: [http://developer.wildernesslabs.co/](http://developer.wildernesslabs.co/)
 
-Twitter: [https://twitter.com/wildernesslabs](https://twitter.com/wildernesslabs)
+<img src="../SocialMediaIcons/Twitter/Twitter-circle-blue.png" height="32px" width="32px"> Twitter: [https://twitter.com/wildernesslabs](https://twitter.com/wildernesslabs)
 
-GitHub: [https://github.com/Wildernesslabs](https://github.com/Wildernesslabs)
+<img src="../SocialMediaIcons/GitHub/GitHub-Mark-32px.png" height="32px" width="32px"> GitHub: [https://github.com/Wildernesslabs](https://github.com/Wildernesslabs)
 
-Hackster Projects: [https://www.hackster.io/WildernessLabs](https://www.hackster.io/WildernessLabs)
+<img src="../SocialMediaIcons/Hackster/Hackster-Mark_RGB.png" height="32px" width="32px"> Hackster Projects: [https://www.hackster.io/WildernessLabs](https://www.hackster.io/WildernessLabs)
 
-YouTube: [https://www.youtube.com/c/WildernessLabs](https://www.youtube.com/c/WildernessLabs)
+<img src="../SocialMediaIcons/Youtube/youtube_social_icon_white.png" height="32px" width="32px"> YouTube: [https://www.youtube.com/c/WildernessLabs](https://www.youtube.com/c/WildernessLabs)
 
 
-### Mark Stevens
+### About the Speaker
 
 Mark has been developing software since the days of the BBC Micro and has worked on a wide variety of platforms and technologies. He rediscovered his love of electronics after receiving a Netduino board as a present back in 2010.  Mark is currently working on the firmware for the Meadow boards and can be found in the depths of the C and C++ code controlling the STM32 and ESP32 microcontrollers.  He occasionally surfaces to add new features to the Meadow .NET libraries.
 
-<img src="../SocialMediaIcons/Twitter/Twitter-circle-blue.png" height="16px" width="16px">Twitter: [https://twitter.com/nevynuk](https://twitter.com/nevynuk)
+<img src="../SocialMediaIcons/Twitter/Twitter-circle-blue.png" height="32px" width="32px"> Twitter: [https://twitter.com/nevynuk](https://twitter.com/nevynuk)
 
-<img src="../SocialMediaIcons/WWWIcon.png" height="16px" width="16px">Blog: [https://blog.mark-stevens.co.uk/](https://blog.mark-stevens.co.uk/)
+<img src="../SocialMediaIcons/WWWIcon.png" height="32px" width="32px"> Blog: [https://blog.mark-stevens.co.uk/](https://blog.mark-stevens.co.uk/)
 
-Linkedin: [https://www.linkedin.com/in/mark-stevens-a188614/](https://www.linkedin.com/in/mark-stevens-a188614/)
+<img src="../SocialMediaIcons/Linkedin/LI-Logo.png" height="32px" width="32px"> Linkedin: [https://www.linkedin.com/in/mark-stevens-a188614/](https://www.linkedin.com/in/mark-stevens-a188614/)
