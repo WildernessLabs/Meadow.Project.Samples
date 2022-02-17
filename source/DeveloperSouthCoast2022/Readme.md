@@ -25,13 +25,11 @@ F# application that cycles through a range of colours using the on board LED.
 
 ### [TSL2591 Light Sensor](02-LightSensor/Readme.md)
 
+The first part of this demonstration reads from a single sensor.  The second part of the demonstration reads from multiple sensors.
+
 [TSL2591 light sensor](https://coolcomponents.co.uk/products/tsl2591-high-dynamic-range-digital-light-sensor-stemma-qt?_pos=5&_sid=cb5eb073a&_ss=r) that takes light readings and sends the results to the cloud - [io.adafruit.com](https://io.adafruit.com/).
 
-### [Mars Rover](03-MarsRover/Readme.md)
-
-Rover project using the [EMOZNY Mecanum 4 wheel drive rover](https://www.amazon.co.uk/gp/product/B084TNLFYB/ref=ppx_yo_dt_b_asin_title_o01_s00?ie=UTF8&psc=1).  The rover is controlled using Bluetooth and also integrates the [VL53L0X distance sensor](https://coolcomponents.co.uk/products/vl53l0x-time-of-flight-distance-sensor-carrier-with-voltage-regulator-200cm-max?_pos=1&_sid=84ed08d55&_ss=r) for collision detection.
-
-## Additional Links
+A [BME280 Temperature, Humidity and Pressure Sensor](https://coolcomponents.co.uk/products/atmospheric-sensor-breakout-bme280?_pos=3&_sid=9ab60170b&_ss=r) is added to the board and both sensors will are read and the data sent to the console.
 
 ### Wilderness Labs
 
