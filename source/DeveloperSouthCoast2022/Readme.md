@@ -15,6 +15,10 @@ In this presentation we will look at the extensive collection of libraries and d
 
 Finally we will look at the road map and current plans to make the platform even more awesome.
 
+## Presentation
+
+[Developer South Coast 2022](./Meadow-DeveloperSouthCoast2022.pdf)
+
 ## Sample applications
 
 Three demonstrations were given during the presentation, the sample code can be found in the following locations:
