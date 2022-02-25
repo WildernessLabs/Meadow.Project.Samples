@@ -47,13 +47,14 @@ namespace GalleryViewer
                 copi: Device.Pins.MOSI,
                 cipo: Device.Pins.MISO,
                 config: config);
-            var display = new Gc9a01
+            var display = new St7789
             (
                 device: Device,
                 spiBus: spiBus,
                 chipSelectPin: Device.Pins.D02,
                 dcPin: Device.Pins.D01,
-                resetPin: Device.Pins.D00
+                resetPin: Device.Pins.D00, 
+                width: 240, height: 240
             );
 
             graphics = new MicroGraphics(display);
