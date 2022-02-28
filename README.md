@@ -1,7 +1,5 @@
 <img src="Image_Assets/banner.jpg" style="margin-bottom:10px" />
 
-# Meadow_Project_Samples
-
 Public project samples for Meadow and Meadow.Foundation. Click on any of the projects below to go to the Hackster projects and learn how to build them.
 
 # Projects
