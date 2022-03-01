@@ -31,9 +31,7 @@ namespace ServoButton
                 bluePwmPin: Device.Pins.OnboardLedBlue);
             onboardLed.SetColor(Color.Red);
 
-            servo = new Servo(Device.CreatePwmPort(Device.Pins.D03), NamedServoConfigs.SG90);
-            servo.RotateTo(NamedServoConfigs.SG90.MaximumAngle);
-            Thread.Sleep(1000);
+            servo = new Servo(Device.CreatePwmPort(Device.Pins.D10), NamedServoConfigs.SG90);
             servo.RotateTo(NamedServoConfigs.SG90.MinimumAngle);
 
             button = new PushButton(Device, Device.Pins.D04);
@@ -44,7 +42,7 @@ namespace ServoButton
 
         void ButtonClicked(object sender, EventArgs e)
         {
-            servo.RotateTo(new Angle(75, AU.Degrees));
+            servo.RotateTo(new Angle(90, AU.Degrees));
             Thread.Sleep(1000);
             servo.RotateTo(new Angle(0, AU.Degrees));
         }
