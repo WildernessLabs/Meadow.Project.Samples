@@ -2,7 +2,33 @@
 
 Public project samples for Meadow and Meadow.Foundation. Click on any of the projects below to go to the Hackster projects and learn how to build them.
 
-<table>    
+<table>
+<tr>
+<th align="center">
+<img width="441" height="1">
+<p> 
+<small>
+EXAMPLE TEXT
+</small>
+</p>
+</th>
+<th align="center">
+<img width="441" height="1">
+<p> 
+<small>
+EXAMPLE TEXT
+</small>
+</p>
+</th>
+<th align="center">
+<img width="441" height="1">
+<p> 
+<small>
+EXAMPLE TEXT
+</small>
+</p>
+</th>
+</tr>    
 <tr>
 <td>
 <img src="Design/WifiWeatherClock.jpg"/><br/>
@@ -53,7 +79,6 @@ EXAMPLE TEXT
   ]
 }
 \```
-  
 </td>
 <td>
 <!-- REMOVE THE BACKSLASHES -->
@@ -66,7 +91,6 @@ EXAMPLE TEXT
   ]
 }
 \```
-  
 </td>
 </tr>
 <tr>
