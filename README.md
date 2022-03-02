@@ -9,7 +9,7 @@ Public project samples for Meadow and Meadow.Foundation. Click on any of the pro
         <td style="width:25%">
             <img src="Design/WifiWeatherClock.jpg"/><br/>
             Make a Meadow indoor/outdoor temperature/weather desk clock<br/>
-            <a href="https://www.hackster.io/wilderness-labs/make-a-meadow-indoor-outdoor-temperature-weather-desk-clock-463839">Hackster</a> | Project
+            <a href="https://www.hackster.io/wilderness-labs/make-a-meadow-indoor-outdoor-temperature-weather-desk-clock-463839">Hackster</a> | <a href="Source/Hackster/WifiWeatherClock/">Project</a>
         </td>
         <td style="width:25%">
             <img src="Design/WifiWeather.jpg"/><br/>
