@@ -4,19 +4,19 @@ Public project samples for Meadow and Meadow.Foundation. Click on any of the pro
 
 # Projects
 
-<table style="table-layout: fixed; width: 100%;">
+<table style="fixed; width: 100%;">
     <tr>
-        <td style="width:100/3%">
+        <td style="width:(100/3)%">
             <img src="Design/WifiWeatherClock.jpg"/><br/>
             Make a Meadow indoor/outdoor temperature/weather desk clock<br/>
             <a href="https://www.hackster.io/wilderness-labs/make-a-meadow-indoor-outdoor-temperature-weather-desk-clock-463839">Hackster</a> | <a href="Source/Hackster/WifiWeatherClock/">Project</a>
         </td>
-        <td style="width:100/3%">
+        <td style="width:(100/3)%">
             <img src="Design/WifiWeather.jpg"/><br/>
             Weather Station Using Public Web Service Using Meadow<br/>
             <a href="https://www.hackster.io/wilderness-labs/weather-station-using-public-web-service-using-meadow-e47765">Hackster</a> | <a href="Source/Hackster/WifiWeather/">Project</a>
         </td>
-        <td style="width:100/3%">
+        <td style="width:(100/3)%">
             <img src="Design/WifiClock.jpg"/><br/>
             Build a WIFI Connected Clock Using Meadow<br/>
             <a href="https://www.hackster.io/wilderness-labs/build-a-wifi-connected-clock-using-meadow-e0c6b6">Hackster</a> | <a href="Source/Hackster/WifiClock/">Project</a>
