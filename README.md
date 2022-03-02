@@ -5,27 +5,19 @@ Public project samples for Meadow and Meadow.Foundation. Click on any of the pro
 <table>    
     <tr>
         <td>
-            <center>
-                <img src="Design/WifiWeatherClock.jpg"/><br/>
-                <a href="https://www.hackster.io/wilderness-labs/make-a-meadow-indoor-outdoor-temperature-weather-desk-clock-463839">Hackster</a> | <a href="Source/Hackster/WifiWeatherClock/">Project</a>
-            </center>
-        </td>
-        <td>
-            <center>
-                <img src="Design/WifiWeather.jpg"/><br/>
-                <a href="https://www.hackster.io/wilderness-labs/weather-station-using-public-web-service-using-meadow-e47765">Hackster</a> | <a href="Source/Hackster/WifiWeather/">Project</a>
-            </center>
-        </td>
-        <td>
-            <center>
-                <img src="Design/WifiClock.jpg"/><br/>
-                <a href="https://www.hackster.io/wilderness-labs/build-a-wifi-connected-clock-using-meadow-e0c6b6">Hackster</a> | <a href="Source/Hackster/WifiClock/">Project</a>
-            </center>
+            <img src="Design/WifiWeatherClock.jpg"/><br/>
+            <a href="https://www.hackster.io/wilderness-labs/make-a-meadow-indoor-outdoor-temperature-weather-desk-clock-463839">Hackster</a> | <a href="Source/Hackster/WifiWeatherClock/">Project</a>
         </td>        
+        <td>
+            <img src="Design/WifiClock.jpg"/><br/>
+            <a href="https://www.hackster.io/wilderness-labs/build-a-wifi-connected-clock-using-meadow-e0c6b6">Hackster</a> | <a href="Source/Hackster/WifiClock/">Project</a>
+        </td>
+        <td>
+            <img src="Design/WifiWeather.jpg"/><br/>
+            <a href="https://www.hackster.io/wilderness-labs/weather-station-using-public-web-service-using-meadow-e47765">Hackster</a> | <a href="Source/Hackster/WifiWeather/">Project</a>
+        </td>
     </tr>
 </table>
-
-
 
 # Presentations
 
