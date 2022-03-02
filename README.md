@@ -4,7 +4,7 @@ Public project samples for Meadow and Meadow.Foundation. Click on any of the pro
 
 # Projects
 
-<table>
+<table style="table-layout: fixed; width: 100%;">
     <tr>
         <td style="width:33%">
             <img src="Design/WifiWeatherClock.jpg"/><br/>
