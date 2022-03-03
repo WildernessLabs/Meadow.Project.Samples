@@ -24,7 +24,7 @@ Public project samples for Meadow and Meadow.Foundation. Click on any of the pro
         </td>        
         <td>
             <img src="Design/McpLeds.png"/><br/>
-            <a href="https://www.hackster.io/wilderness-labs/expanding-io-ports-on-meadow-with-an-mcp23008-23a512">Hackster</a> | <a href="Source/Hackster/ShiftRegisterLeds/">Source Code</a>
+            <a href="https://www.hackster.io/wilderness-labs/expanding-io-ports-on-meadow-with-an-mcp23008-23a512">Hackster</a> | <a href="Source/Hackster/McpLeds/">Source Code</a>
         </td>
         <td>
             <img src="Design/RotationDetector.png"/><br/>
@@ -34,15 +34,29 @@ Public project samples for Meadow and Meadow.Foundation. Click on any of the pro
     <tr>
         <td>
             <img src="Design/RotaryLedBar.png"/><br/>
-            <a href="https://www.hackster.io/wilderness-labs/control-a-ledbar-using-a-rotary-encoder-with-meadow-30efeb">Hackster</a> | <a href="Source/Hackster/WifiWeather/">Source Code</a>
+            <a href="https://www.hackster.io/wilderness-labs/control-a-ledbar-using-a-rotary-encoder-with-meadow-30efeb">Hackster</a> | <a href="Source/Hackster/RotaryLedBar/">Source Code</a>
         </td>
         <td>
             <img src="Design/RoverLed.png"/><br/>
-            <a href="https://www.hackster.io/wilderness-labs/meadow-rover-part-1-motor-control-with-directional-leds-85107d">Hackster</a> | <a href="Source/Hackster/WifiWeather/">Source Code</a>
+            <a href="https://www.hackster.io/wilderness-labs/meadow-rover-part-1-motor-control-with-directional-leds-85107d">Hackster</a> | <a href="Source/Hackster/Rover/RoverLed">Source Code</a>
         </td>
         <td>
             <img src="Design/ShiftRegisterLeds.png"/><br/>
-            <a href="https://www.hackster.io/wilderness-labs/expanding-io-ports-of-a-meadow-with-a-74hc595-dde681">Hackster</a> | <a href="Source/Hackster/WifiWeather/">Source Code</a>
+            <a href="https://www.hackster.io/wilderness-labs/expanding-io-ports-of-a-meadow-with-a-74hc595-dde681">Hackster</a> | <a href="Source/Hackster/ShiftRegisterLeds/">Source Code</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <img src="Design/MeadowClock.png"/><br/>
+            <a href="https://www.hackster.io/wilderness-labs/build-a-clock-with-meadow-s-onboard-real-time-clock-chip-2b1f85">Hackster</a> | <a href="Source/Hackster/MeadowClock/">Source Code</a>
+        </td>
+        <td>
+            <img src="Design/PlantMonitor.png"/><br/>
+            <a href="https://www.hackster.io/wilderness-labs/build-your-own-plant-monitor-using-meadow-5a4b6c">Hackster</a> | <a href="Source/Hackster/PlantMonitor/">Source Code</a>
+        </td>
+        <td>
+            <img src="Design/MeadowMenu.png"/><br/>
+            <a href="https://www.hackster.io/wilderness-labs/build-an-interactive-menu-with-textdisplaymenu-using-meadow-218884">Hackster</a> | <a href="Source/Hackster/MeadowMenu/">Source Code</a>
         </td>
     </tr>
 </table>
