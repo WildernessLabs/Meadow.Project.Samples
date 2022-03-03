@@ -80,7 +80,7 @@ Public project samples for Meadow and Meadow.Foundation. Click on any of the pro
         </td>
         <td>
             <img src="Design/OnAir.png"/><br/>
-            <a href="https://www.hackster.io/wilderness-labs/make-your-own-onair-sign-with-meadow-and-xamarin-ea0c9e">Hackster</a> | <a href="Source/Hackster/OnAir/">Source Code</a>
+            <a href="https://www.hackster.io/wilderness-labs/make-your-own-onair-sign-with-meadow-and-xamarin-ea0c9e">Hackster</a> | <a href="https://github.com/WildernessLabs/OnAir_Sign">Source Code</a>
         </td>
         <td>
             <img src="Design/RadioPlayer.png"/><br/>
