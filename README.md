@@ -20,15 +20,29 @@ Public project samples for Meadow and Meadow.Foundation. Click on any of the pro
     <tr>
         <td>
             <img src="Design/MorseCodeTrainer.png"/><br/>
-            <a href="https://www.hackster.io/wilderness-labs/train-your-morse-code-spelling-skills-with-meadow-3f2d9e">Hackster</a> | <a href="Source/Hackster/WifiWeatherClock/">Source Code</a>
+            <a href="https://www.hackster.io/wilderness-labs/train-your-morse-code-spelling-skills-with-meadow-3f2d9e">Hackster</a> | <a href="Source/Hackster/MorseCodeTrainer/">Source Code</a>
         </td>        
         <td>
-            <img src="Design/ShiftRegisterLeds.png"/><br/>
-            <a href="https://www.hackster.io/wilderness-labs/expanding-io-ports-on-meadow-with-an-mcp23008-23a512">Hackster</a> | <a href="Source/Hackster/WifiClock/">Source Code</a>
+            <img src="Design/McpLeds.png"/><br/>
+            <a href="https://www.hackster.io/wilderness-labs/expanding-io-ports-on-meadow-with-an-mcp23008-23a512">Hackster</a> | <a href="Source/Hackster/ShiftRegisterLeds/">Source Code</a>
         </td>
         <td>
             <img src="Design/RotationDetector.png"/><br/>
-            <a href="https://www.hackster.io/wilderness-labs/make-a-basic-level-with-an-mpu6050-four-leds-and-meadow-53a883">Hackster</a> | <a href="Source/Hackster/WifiWeather/">Source Code</a>
+            <a href="https://www.hackster.io/wilderness-labs/make-a-basic-level-with-an-mpu6050-four-leds-and-meadow-53a883">Hackster</a> | <a href="Source/Hackster/RotationDetector/">Source Code</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <img src="Design/RotaryLedBar.png"/><br/>
+            <a href="https://www.hackster.io/wilderness-labs/control-a-ledbar-using-a-rotary-encoder-with-meadow-30efeb">Hackster</a> | <a href="Source/Hackster/WifiWeather/">Source Code</a>
+        </td>
+        <td>
+            <img src="Design/RoverLed.png"/><br/>
+            <a href="https://www.hackster.io/wilderness-labs/meadow-rover-part-1-motor-control-with-directional-leds-85107d">Hackster</a> | <a href="Source/Hackster/WifiWeather/">Source Code</a>
+        </td>
+        <td>
+            <img src="Design/ShiftRegisterLeds.png"/><br/>
+            <a href="https://www.hackster.io/wilderness-labs/expanding-io-ports-of-a-meadow-with-a-74hc595-dde681">Hackster</a> | <a href="Source/Hackster/WifiWeather/">Source Code</a>
         </td>
     </tr>
 </table>
