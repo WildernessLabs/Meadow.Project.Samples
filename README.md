@@ -37,12 +37,12 @@ Public project samples for Meadow and Meadow.Foundation. Click on any of the pro
             <a href="https://www.hackster.io/wilderness-labs/control-a-ledbar-using-a-rotary-encoder-with-meadow-30efeb">Hackster</a> | <a href="Source/Hackster/RotaryLedBar/">Source Code</a>
         </td>
         <td>
-            <img src="Design/RoverLed.png"/><br/>
-            <a href="https://www.hackster.io/wilderness-labs/meadow-rover-part-1-motor-control-with-directional-leds-85107d">Hackster</a> | <a href="Source/Hackster/Rover/RoverLed">Source Code</a>
-        </td>
-        <td>
             <img src="Design/ShiftRegisterLeds.png"/><br/>
             <a href="https://www.hackster.io/wilderness-labs/expanding-io-ports-of-a-meadow-with-a-74hc595-dde681">Hackster</a> | <a href="Source/Hackster/ShiftRegisterLeds/">Source Code</a>
+        </td>
+        <td>
+            <img src="Design/RoverLed.png"/><br/>
+            <a href="https://www.hackster.io/wilderness-labs/meadow-rover-part-1-motor-control-with-directional-leds-85107d">Hackster</a> | <a href="Source/Hackster/Rover/RoverLed">Source Code</a>
         </td>
     </tr>
     <tr>
@@ -57,6 +57,20 @@ Public project samples for Meadow and Meadow.Foundation. Click on any of the pro
         <td>
             <img src="Design/MeadowMenu.png"/><br/>
             <a href="https://www.hackster.io/wilderness-labs/build-an-interactive-menu-with-textdisplaymenu-using-meadow-218884">Hackster</a> | <a href="Source/Hackster/MeadowMenu/">Source Code</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <img src="Design/MerryXmasLights.png"/><br/>
+            <a href="https://www.hackster.io/wilderness-labs/build-smart-holiday-lights-with-rgb-led-strips-using-meadow-1b0f53">Hackster</a> | <a href="Source/Hackster/MerryXmasLights/">Source Code</a>
+        </td>
+        <td>
+            <img src="Design/ObstacleRadar.png"/><br/>
+            <a href="https://www.hackster.io/wilderness-labs/build-an-obstacle-radar-with-meadow-d9bf2e">Hackster</a> | <a href="Source/Hackster/ObstacleRadar/">Source Code</a>
+        </td>
+        <td>
+            <img src="Design/RotaryServo.png"/><br/>
+            <a href="https://www.hackster.io/wilderness-labs/control-a-servo-with-a-rotary-encoder-using-meadow-47c003">Hackster</a> | <a href="Source/Hackster/RotaryServo/">Source Code</a>
         </td>
     </tr>
 </table>
