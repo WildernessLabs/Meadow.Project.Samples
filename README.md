@@ -6,29 +6,29 @@ Public project samples for Meadow and Meadow.Foundation. Click on any of the pro
     <tr>
         <td>
             <img src="Design/WifiWeatherClock.png"/><br/>
-            <a href="https://www.hackster.io/wilderness-labs/make-a-meadow-indoor-outdoor-temperature-weather-desk-clock-463839">Hackster</a> | <a href="Source/Hackster/WifiWeatherClock/">Project</a>
+            <a href="https://www.hackster.io/wilderness-labs/make-a-meadow-indoor-outdoor-temperature-weather-desk-clock-463839">Hackster</a> | <a href="Source/Hackster/WifiWeatherClock/">Source Code</a>
         </td>        
         <td>
             <img src="Design/WifiClock.png"/><br/>
-            <a href="https://www.hackster.io/wilderness-labs/build-a-wifi-connected-clock-using-meadow-e0c6b6">Hackster</a> | <a href="Source/Hackster/WifiClock/">Project</a>
+            <a href="https://www.hackster.io/wilderness-labs/build-a-wifi-connected-clock-using-meadow-e0c6b6">Hackster</a> | <a href="Source/Hackster/WifiClock/">Source Code</a>
         </td>
         <td>
             <img src="Design/WifiWeather.png"/><br/>
-            <a href="https://www.hackster.io/wilderness-labs/weather-station-using-public-web-service-using-meadow-e47765">Hackster</a> | <a href="Source/Hackster/WifiWeather/">Project</a>
+            <a href="https://www.hackster.io/wilderness-labs/weather-station-using-public-web-service-using-meadow-e47765">Hackster</a> | <a href="Source/Hackster/WifiWeather/">Source Code</a>
         </td>
     </tr>
     <tr>
         <td>
-            <img src="Design/MorseCodeTrainer.jpg"/><br/>
-            <a href="https://www.hackster.io/wilderness-labs/make-a-meadow-indoor-outdoor-temperature-weather-desk-clock-463839">Hackster</a> | <a href="Source/Hackster/WifiWeatherClock/">Project</a>
+            <img src="Design/MorseCodeTrainer.png"/><br/>
+            <a href="https://www.hackster.io/wilderness-labs/train-your-morse-code-spelling-skills-with-meadow-3f2d9e">Hackster</a> | <a href="Source/Hackster/WifiWeatherClock/">Source Code</a>
         </td>        
         <td>
-            <img src="Design/ShiftRegisterLeds.jpg"/><br/>
-            <a href="https://www.hackster.io/wilderness-labs/build-a-wifi-connected-clock-using-meadow-e0c6b6">Hackster</a> | <a href="Source/Hackster/WifiClock/">Project</a>
+            <img src="Design/ShiftRegisterLeds.png"/><br/>
+            <a href="https://www.hackster.io/wilderness-labs/expanding-io-ports-on-meadow-with-an-mcp23008-23a512">Hackster</a> | <a href="Source/Hackster/WifiClock/">Source Code</a>
         </td>
         <td>
-            <img src="Design/RotationDetector.jpg"/><br/>
-            <a href="https://www.hackster.io/wilderness-labs/weather-station-using-public-web-service-using-meadow-e47765">Hackster</a> | <a href="Source/Hackster/WifiWeather/">Project</a>
+            <img src="Design/RotationDetector.png"/><br/>
+            <a href="https://www.hackster.io/wilderness-labs/make-a-basic-level-with-an-mpu6050-four-leds-and-meadow-53a883">Hackster</a> | <a href="Source/Hackster/WifiWeather/">Source Code</a>
         </td>
     </tr>
 </table>
