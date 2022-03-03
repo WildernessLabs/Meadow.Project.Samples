@@ -73,6 +73,20 @@ Public project samples for Meadow and Meadow.Foundation. Click on any of the pro
             <a href="https://www.hackster.io/wilderness-labs/control-a-servo-with-a-rotary-encoder-using-meadow-47c003">Hackster</a> | <a href="Source/Hackster/RotaryServo/">Source Code</a>
         </td>
     </tr>
+    <tr>
+        <td>
+            <img src="Design/ChristmasCountdown.png"/><br/>
+            <a href="https://www.hackster.io/wilderness-labs/wifi-christmas-countdown-timer-w-an-lcd-display-and-meadow-e4cf9c">Hackster</a> | <a href="Source/Hackster/ChristmasCountdown/">Source Code</a>
+        </td>
+        <td>
+            <img src="Design/OnAir.png"/><br/>
+            <a href="https://www.hackster.io/wilderness-labs/make-your-own-onair-sign-with-meadow-and-xamarin-ea0c9e">Hackster</a> | <a href="Source/Hackster/OnAir/">Source Code</a>
+        </td>
+        <td>
+            <img src="Design/RadioPlayer.png"/><br/>
+            <a href="https://www.hackster.io/wilderness-labs/build-an-fm-radio-player-with-meadow-8c0a63">Hackster</a> | <a href="Source/Hackster/RadioPlayer/">Source Code</a>
+        </td>
+    </tr>
 </table>
 
 # Presentations
