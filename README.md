@@ -73,17 +73,18 @@ Public project samples for Meadow and Meadow.Foundation. Click on any of the pro
             <a href="https://www.hackster.io/wilderness-labs/build-a-clock-with-meadow-s-onboard-real-time-clock-chip-2b1f85">Hackster</a> | <a href="Source/Hackster/MeadowClock/">Source Code</a>
         </td>
     </tr>
-    <td>
-        <img src="Design/RoverLed.png"/><br/>
-            <a href="https://www.hackster.io/wilderness-labs/meadow-rover-part-1-motor-control-with-directional-leds-85107d">Hackster</a> | <a href="Source/Hackster/Rover/RoverLed">Source Code</a>
+    <tr>
+        <td>
+            <img src="Design/TemperatureMonitor.png"/><br/>
+            <a href="https://www.hackster.io/wilderness-labs/build-your-own-temperature-monitor-with-meadow-edc696">Hackster</a> | <a href="Source/Hackster/TemperatureMonitor">Source Code</a>
         </td>
         <td>
-            <img src="Design/ObstacleRadar.png"/><br/>
-            <a href="https://www.hackster.io/wilderness-labs/build-an-obstacle-radar-with-meadow-d9bf2e">Hackster</a> | <a href="Source/Hackster/ObstacleRadar/">Source Code</a>
+            <img src="Design/MeadowClockGraphics.png"/><br/>
+            <a href="https://www.hackster.io/wilderness-labs/working-with-graphics-on-a-st7789-display-using-meadow-e2295a">Hackster</a> | <a href="Source/Hackster/MeadowClockGraphics/">Source Code</a>
         </td>
         <td>
-            <img src="Design/MeadowClock.png"/><br/>
-            <a href="https://www.hackster.io/wilderness-labs/build-a-clock-with-meadow-s-onboard-real-time-clock-chip-2b1f85">Hackster</a> | <a href="Source/Hackster/MeadowClock/">Source Code</a>
+            <img src="Design/GalleryViewer.png"/><br/>
+            <a href="https://www.hackster.io/wilderness-labs/make-an-image-gallery-with-an-st7789-display-and-meadow-a80f5c">Hackster</a> | <a href="Source/Hackster/GalleryViewer/">Source Code</a>
         </td>
     </tr>
     <tr>
