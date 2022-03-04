@@ -16,10 +16,10 @@ namespace TemperatureMonitor
     {
         Color[] colors = new Color[4] 
         { 
-            Color.FromHex("#008500"), 
-            Color.FromHex("#269926"), 
-            Color.FromHex("#00CC00"), 
-            Color.FromHex("#67E667") 
+            Color.FromHex("#67E667"),
+            Color.FromHex("#00CC00"),
+            Color.FromHex("#269926"),
+            Color.FromHex("#008500")
         };
 
         MicroGraphics graphics;
@@ -47,7 +47,7 @@ namespace TemperatureMonitor
                 analogPin: Device.Pins.A00,
                 sensorType: AnalogTemperature.KnownSensorType.LM35
             );
-            analogTemperature.TemperatureUpdated += AnalogTemperatureTemperatureUpdated; //+= AnalogTemperatureUpdated;
+            analogTemperature.TemperatureUpdated += AnalogTemperatureUpdated;
 
             var config = new SpiClockConfiguration(
                 speed: new Frequency(48000, Frequency.UnitType.Kilohertz),
@@ -63,7 +63,10 @@ namespace TemperatureMonitor
                 chipSelectPin: Device.Pins.D02,
                 dcPin: Device.Pins.D01,
                 resetPin: Device.Pins.D00,
-                width: 240, height: 240);
+                width: 240, height: 240)
+            {
+                IgnoreOutOfBoundsPixels = true
+            };
 
             graphics = new MicroGraphics(st7789);
             graphics.Rotation = RotationType._270Degrees;
@@ -71,11 +74,10 @@ namespace TemperatureMonitor
             onboardLed.SetColor(Color.Green);
         }
 
-        void AnalogTemperatureTemperatureUpdated(object sender, IChangeResult<Meadow.Units.Temperature> e)
+        void AnalogTemperatureUpdated(object sender, IChangeResult<Meadow.Units.Temperature> e)
         {
             graphics.DrawRectangle(
-                x: 48,
-                y: 160,
+                x: 48, y: 160,
                 width: 144,
                 height: 40,
                 color: colors[colors.Length - 1],
@@ -92,9 +94,7 @@ namespace TemperatureMonitor
 
         void LoadScreen()
         {
-            Console.WriteLine("LoadScreen...");
-
-            graphics.Clear();
+            graphics.Clear(true);
 
             int radius = 225;
             int originX = graphics.Width / 2;
@@ -112,12 +112,11 @@ namespace TemperatureMonitor
                     filled: true
                 );
 
-                graphics.Show();
                 radius -= 20;
             }
 
-            graphics.DrawLine(0, 220, 240, 220, Color.White);
-            graphics.DrawLine(0, 230, 240, 230, Color.White);
+            graphics.DrawLine(0, 220, 239, 220, Color.White);
+            graphics.DrawLine(0, 230, 239, 230, Color.White);
 
             graphics.CurrentFont = new Font12x20();
             graphics.DrawText(54, 130, "TEMPERATURE", Color.White);
