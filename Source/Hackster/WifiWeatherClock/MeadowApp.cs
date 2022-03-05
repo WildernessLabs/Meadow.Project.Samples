@@ -3,6 +3,7 @@ using Meadow.Devices;
 using Meadow.Foundation;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Temperature;
+using Meadow.Gateway.WiFi;
 using System;
 using System.Threading.Tasks;
 using WifiWeatherClock.Services;
@@ -20,19 +21,12 @@ namespace WifiWeatherClock
 
         public MeadowApp()
         {
-            Device.WiFiAdapter.WiFiConnected += WiFiConnected;
-        }
-
-        void WiFiConnected(object sender, EventArgs e)
-        {
-            Initialize();
-
-            GetTemperature().Wait();
+            Initialize().Wait();
 
             Start().Wait();
         }
 
-        void Initialize()
+        async Task Initialize()
         {
             onboardLed = new RgbPwmLed(
                 device: Device,
@@ -41,13 +35,18 @@ namespace WifiWeatherClock
                 bluePwmPin: Device.Pins.OnboardLedBlue);
             onboardLed.SetColor(Color.Red);
 
-            onboardLed.SetColor(Color.Blue);
+            displayView = new DisplayView();
+
+            var connectionResult = await Device.WiFiAdapter.Connect(Secrets.WIFI_NAME, Secrets.WIFI_PASSWORD);
+            if (connectionResult.ConnectionStatus != ConnectionStatus.Success)
+            {
+                throw new Exception($"Cannot connect to network: {connectionResult.ConnectionStatus}");
+            }
 
             analogTemperature = new AnalogTemperature(Device, Device.Pins.A00,
                 sensorType: AnalogTemperature.KnownSensorType.LM35);
+            await analogTemperature.Read();
             analogTemperature.StartUpdating(TimeSpan.FromMinutes(5));
-
-            displayView = new DisplayView();
 
             onboardLed.SetColor(Color.Green);
         }
@@ -56,14 +55,11 @@ namespace WifiWeatherClock
         {
             onboardLed.StartPulse(Color.Orange);
 
-            // Get indoor conditions
-            var roomTemperature = await analogTemperature.Read();
-
             // Get outdoor conditions
             var outdoorConditions = await WeatherService.GetWeatherForecast();
 
             // Format indoor/outdoor conditions data
-            var model = new WeatherViewModel(outdoorConditions, roomTemperature);
+            var model = new WeatherViewModel(outdoorConditions, analogTemperature.Temperature);
 
             // Update Temperature values and weather description
             displayView.WriteLine($"In: {model.IndoorTemperature.ToString("00")}C | Out: {model.OutdoorTemperature.ToString("00")}C", 2);
@@ -74,9 +70,12 @@ namespace WifiWeatherClock
 
         async Task Start() 
         {
+            await GetTemperature();
+
             while (true) 
             {
-                var datetime = DateTime.Now.AddHours(-8);
+                int TimeZoneOffSet = -8; // PST
+                var datetime = DateTime.Now.AddHours(TimeZoneOffSet);
 
                 if (datetime.Minute == 0 && datetime.Second == 0)
                 {

@@ -1,6 +1,6 @@
 ﻿namespace WifiWeatherClock.Models
 {
-    public class WeatherReadingEntity
+    public class WeatherReading
     {
         public Coordinates coord { get; set; }
         public Weather[] weather { get; set; }

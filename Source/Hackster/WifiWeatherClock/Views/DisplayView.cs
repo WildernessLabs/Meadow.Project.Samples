@@ -10,10 +10,7 @@ namespace WifiWeatherClock.Views
         {
             Initialize();
 
-            display.WriteLine($"--------------------", 0);
-            display.WriteLine($" WIFI Weather Clock ", 1);
-            display.WriteLine($"     Loading...     ", 2);
-            display.WriteLine($"--------------------", 3);
+            ShowSplashScreen();
         }
 
         void Initialize()
@@ -29,6 +26,14 @@ namespace WifiWeatherClock.Views
                 pinD7:  MeadowApp.Device.Pins.D05,
                 rows: 4, columns: 20
             );
+        }
+
+        void ShowSplashScreen() 
+        {
+            display.WriteLine($"--------------------", 0);
+            display.WriteLine($" WIFI Weather Clock ", 1);
+            display.WriteLine($"     Loading...     ", 2);
+            display.WriteLine($"--------------------", 3);
         }
 
         public void WriteLine(string text, byte lineNumber) 
