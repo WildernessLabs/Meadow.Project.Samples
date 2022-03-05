@@ -75,13 +75,14 @@ namespace WifiWeather.Views
 
         public void UpdateDateTime() 
         {
-            Console.WriteLine($"{DateTime.Now}");
+            int TimeZoneOffSet = -8; // PST
+            var today = DateTime.Now.AddHours(TimeZoneOffSet);
 
             graphics.DrawRectangle(116, 24, 120, 82, Color.White, true);
 
-            graphics.DrawText(128, 24, DateTime.Now.ToString("MM/dd/yy"), color: Color.Black);
+            graphics.DrawText(128, 24, today.ToString("MM/dd/yy"), color: Color.Black);
             
-            graphics.DrawText(116, 66, DateTime.Now.ToString("hh:mm"), Color.Black, ScaleFactor.X2);
+            graphics.DrawText(116, 66, today.ToString("hh:mm"), Color.Black, ScaleFactor.X2);
 
             graphics.Show();
         }

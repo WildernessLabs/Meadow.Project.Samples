@@ -3,6 +3,7 @@ using Meadow.Devices;
 using Meadow.Foundation;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Temperature;
+using Meadow.Gateway.WiFi;
 using System;
 using System.Threading.Tasks;
 using WifiWeather.Services;
@@ -20,17 +21,12 @@ namespace WifiWeather
 
         public MeadowApp()
         {
-            Device.WiFiAdapter.WiFiConnected += WiFiConnected;
-        }
-
-        void WiFiConnected(object sender, EventArgs e)
-        {
-            Initialize();
+            Initialize().Wait();
 
             Start().Wait();
         }
 
-        void Initialize()
+        async Task Initialize()
         {
             onboardLed = new RgbPwmLed(
                 device: Device,
@@ -38,6 +34,12 @@ namespace WifiWeather
                 greenPwmPin: Device.Pins.OnboardLedGreen,
                 bluePwmPin: Device.Pins.OnboardLedBlue);
             onboardLed.SetColor(Color.Red);
+
+            var connectionResult = await Device.WiFiAdapter.Connect(Secrets.WIFI_NAME, Secrets.WIFI_PASSWORD);
+            if (connectionResult.ConnectionStatus != ConnectionStatus.Success)
+            {
+                throw new Exception($"Cannot connect to network: {connectionResult.ConnectionStatus}");
+            }
 
             analogTemperature = new AnalogTemperature(
                 device: Device,
