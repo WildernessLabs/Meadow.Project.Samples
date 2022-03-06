@@ -21,14 +21,24 @@ namespace MeadowClock
 
         public MeadowApp()
         {
-            Console.Write("Initializing...");
+            Initialize();
 
-            var led = new RgbLed(Device, Device.Pins.OnboardLedRed, Device.Pins.OnboardLedGreen, Device.Pins.OnboardLedBlue);
+            CharacterDisplayClock();
+            //RunClock();
+        }
+
+        void Initialize() 
+        {
+            var led = new RgbLed(
+                    Device,
+                    Device.Pins.OnboardLedRed,
+                    Device.Pins.OnboardLedGreen,
+                    Device.Pins.OnboardLedBlue);
             led.SetColor(RgbLed.Colors.Red);
 
             display = new CharacterDisplay
             (
-                device: Device, 
+                device: Device,
                 pinV0: Device.Pins.D11,
                 pinRS: Device.Pins.D10,
                 pinE: Device.Pins.D09,
@@ -43,18 +53,14 @@ namespace MeadowClock
             //graphics.CurrentFont = new Font4x8();
             //graphics.Rotation = RotationType._180Degrees;
 
-            hour = new PushButton(Device, Device.Pins.D15);
-            hour.Clicked += HourClicked;            
-            minute = new PushButton(Device, Device.Pins.D12);
+            hour = new PushButton(Device, Device.Pins.D14);
+            hour.Clicked += HourClicked;
+            minute = new PushButton(Device, Device.Pins.D13);
             minute.Clicked += MinuteClicked;
 
-            Device.SetClock(new DateTime(2020, 03, 31, 00, 45, 00));
+            Device.SetClock(new DateTime(2022, 03, 05, 19, 45, 00));
 
             led.SetColor(RgbLed.Colors.Green);
-            Console.WriteLine("done");
-
-            CharacterDisplayClock();
-            //RunClock();
         }
 
         void HourClicked(object sender, EventArgs e)
@@ -72,8 +78,8 @@ namespace MeadowClock
         void CharacterDisplayClock()
         {
             display.ClearLines();
-            display.WriteLine($"Meadow RTC is now", 0);
-            display.WriteLine($"available in b3.9", 1);
+            display.WriteLine($"Meadow F7 Micro  ", 0);
+            display.WriteLine($"Onboard RTC      ", 1);
             while (true)
             {
                 DateTime clock = DateTime.Now;
