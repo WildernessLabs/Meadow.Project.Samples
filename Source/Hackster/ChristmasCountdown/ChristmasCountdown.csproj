@@ -7,13 +7,9 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove="meadow.config.yaml" />
-    <None Remove="wifi.config.yaml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="meadow.config.yaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="wifi.config.yaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

@@ -5,24 +5,24 @@ using Meadow.Devices;
 using Meadow.Foundation.Displays.Lcd;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation;
+using System.Threading.Tasks;
+using Meadow.Gateway.WiFi;
 
 namespace ChristmasCountdown
 {
     // public class MeadowApp : App<F7Micro, MeadowApp> <- If you have a Meadow F7v1.*
-    public class MeadowApp : App<F7MicroV2, MeadowApp>
+    public class MeadowApp : App<F7Micro, MeadowApp>
     {        
         CharacterDisplay display;
 
         public MeadowApp()
         {
-            Initialize();
+            Initialize().Wait();
 
-            ShowSplashScreen();
-
-            Device.WiFiAdapter.WiFiConnected += WiFiConnected;
+            Start();
         }
 
-        void Initialize() 
+        async Task Initialize()
         {
             var onboardLed = new RgbPwmLed(
                 device: Device,
@@ -42,6 +42,13 @@ namespace ChristmasCountdown
                 pinD7:  Device.Pins.D05,
                 rows: 4, columns: 20
             );
+            ShowSplashScreen();
+
+            var connectionResult = await Device.WiFiAdapter.Connect(Secrets.WIFI_NAME, Secrets.WIFI_PASSWORD);
+            if (connectionResult.ConnectionStatus != ConnectionStatus.Success)
+            {
+                throw new Exception($"Cannot connect to network: {connectionResult.ConnectionStatus}");
+            }
 
             onboardLed.SetColor(Color.Green);
         }
@@ -54,7 +61,7 @@ namespace ChristmasCountdown
             display.WriteLine("====================", 3);
         }
 
-        void WiFiConnected(object sender, EventArgs e)
+        void Start()
         {
             display.WriteLine($"{DateTime.Now.ToString("MMMM dd, yyyy")}", 0);
             display.WriteLine("Christmas Countdown:", 2);
@@ -68,8 +75,8 @@ namespace ChristmasCountdown
 
         void UpdateCountdown()
         {
-            // Adjust Time Zone (Pacific Time)
-            var today = DateTime.Now.AddHours(-8);
+            int TimeZoneOffSet = -8; // PST
+            var today = DateTime.Now.AddHours(TimeZoneOffSet);
 
             display.WriteLine($"{today.ToString("MMMM dd, yyyy")}", 0);
             display.WriteLine($"{today.ToString("hh:mm:ss tt")}", 1);
