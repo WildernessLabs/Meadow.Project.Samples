@@ -6,6 +6,7 @@ using Meadow.Foundation.Displays.Ssd130x;
 using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Buttons;
+using Meadow.Units;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -15,7 +16,7 @@ namespace RadioPlayer
     // public class MeadowApp : App<F7Micro, MeadowApp> <- If you have a Meadow F7v1.*
     public class MeadowApp : App<F7MicroV2, MeadowApp>
     {
-        List<float> stations;
+        List<Frequency> stations;
         int currentStation = 0;
 
         Tea5767 radio;
@@ -27,14 +28,14 @@ namespace RadioPlayer
         {
             Initialize();
 
-            stations = new List<float>();
-            stations.Add(94.5f);
-            stations.Add(95.3f);
-            stations.Add(96.9f);
-            stations.Add(102.7f);
-            stations.Add(103.5f);
-            stations.Add(104.3f);
-            stations.Add(105.7f);
+            stations = new List<Frequency>();
+            stations.Add(new Frequency(94.5f, Frequency.UnitType.Megahertz));
+            stations.Add(new Frequency(95.3f, Frequency.UnitType.Megahertz));
+            stations.Add(new Frequency(96.9f, Frequency.UnitType.Megahertz));
+            stations.Add(new Frequency(102.7f, Frequency.UnitType.Megahertz));
+            stations.Add(new Frequency(103.5f, Frequency.UnitType.Megahertz));
+            stations.Add(new Frequency(104.3f, Frequency.UnitType.Megahertz));
+            stations.Add(new Frequency(105.7f, Frequency.UnitType.Megahertz));
 
             DisplayText("Radio Player");
             Thread.Sleep(1000);
