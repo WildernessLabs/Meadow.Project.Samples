@@ -42,9 +42,9 @@ namespace WifiClock
             var display = new Max7219(
                 device: Device, 
                 spiBus: Device.CreateSpiBus(), 
-                csPin: Device.Pins.D01, 
+                chipSelectPin: Device.Pins.D01, 
                 deviceCount: 4, 
-                maxMode: Max7219.Max7219Type.Display);
+                maxMode: Max7219.Max7219Mode.Display);
             graphics = new MicroGraphics(display);
             graphics.CurrentFont = new Font4x8();
             graphics.Rotation = RotationType._180Degrees;
