@@ -31,15 +31,17 @@ namespace Tetris
             var display = new Max7219(
                 device: Device, 
                 spiBus: Device.CreateSpiBus(Max7219.DefaultSpiBusSpeed), 
-                csPin: Device.Pins.D01, 
+                chipSelectPin: Device.Pins.D01, 
                 deviceCount: 4, 
-                maxMode: Max7219.Max7219Type.Display);
+                maxMode: Max7219.Max7219Mode.Display);
 
             graphics = new MicroGraphics(display);
             graphics.CurrentFont = new Font4x8();
+            graphics.Rotation = RotationType._180Degrees;
 
             joystick = new AnalogJoystick(Device, Device.Pins.A01, Device.Pins.A02, null, true);
-            joystick.StartUpdating(TimeSpan.FromMilliseconds(20));
+            _ = joystick.SetCenterPosition(); //fire and forget
+            joystick.StartUpdating(TimeSpan.FromMilliseconds(100));
         }
 
         int tick = 0;
@@ -69,11 +71,11 @@ namespace Tetris
 
             if (pos == DigitalJoystickPosition.Left)
             {
-                game.OnLeft();
+                game.OnRight();
             }
             if (pos == DigitalJoystickPosition.Right)
             {
-                game.OnRight();
+                game.OnLeft();
             }
             if (pos == DigitalJoystickPosition.Up)
             {
