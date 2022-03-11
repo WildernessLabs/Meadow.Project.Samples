@@ -40,7 +40,7 @@ namespace RadioPlayer
             DisplayText("Radio Player");
             Thread.Sleep(1000);
             radio.SelectFrequency(stations[currentStation]);
-            DisplayText($"<- FM {stations[currentStation]} ->");
+            DisplayText($"<- FM {stations[currentStation].Megahertz} ->");
         }
 
         void Initialize()
@@ -74,9 +74,9 @@ namespace RadioPlayer
             if (currentStation < stations.Count-1)
             {
                 DisplayText("      >>>>      ", 0);
-                currentStation++;
+                currentStation++; 
                 radio.SelectFrequency(stations[currentStation]);
-                DisplayText($"<- FM {stations[currentStation]} ->");
+                DisplayText($"<- FM {stations[currentStation].Megahertz} ->");
             }
         }
 
@@ -87,7 +87,7 @@ namespace RadioPlayer
                 DisplayText("      <<<<      ", 0);
                 currentStation--;
                 radio.SelectFrequency(stations[currentStation]);
-                DisplayText($"<- FM {stations[currentStation]} ->");
+                DisplayText($"<- FM {stations[currentStation].Megahertz} ->");
             }
         }
 
