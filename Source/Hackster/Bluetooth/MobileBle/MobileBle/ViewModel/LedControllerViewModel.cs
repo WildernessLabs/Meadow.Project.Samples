@@ -82,9 +82,7 @@ namespace MobileBle.ViewModel
         {
             byte[] array;
 
-            var color = int.Parse(SelectedColor.ToHex().Substring(1, 8), System.Globalization.NumberStyles.HexNumber);
-
-            array = BitConverter.GetBytes(color);
+            array = BitConverter.GetBytes(int.Parse(SelectedColor.ToHex().Substring(1, 8), System.Globalization.NumberStyles.HexNumber));
 
             await setColor.WriteAsync(array);
         }
