@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0F57101C-9E4C-4AEC-B222-5A3FF219EDCF}</ProjectGuid>
+    <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TemplateGuid>{c9e5eea5-ca05-42a1-839b-61506e0a37df}</TemplateGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>BleRover.Client.Droid</RootNamespace>
+    <AssemblyName>BleRover.Client.Android</AssemblyName>
+    <Deterministic>True</Deterministic>
+    <AndroidApplication>True</AndroidApplication>
+    <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
+    <AndroidResgenClass>Resource</AndroidResgenClass>
+    <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
+    <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
+    <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
+    <TargetFrameworkVersion>v11.0</TargetFrameworkVersion>
+    <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
+    <AndroidUseAapt2>true</AndroidUseAapt2>
+    <AndroidHttpClientHandlerType>Xamarin.Android.Net.AndroidClientHandler</AndroidHttpClientHandlerType>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>portable</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AndroidLinkMode>None</AndroidLinkMode>
+    <AotAssemblies>false</AotAssemblies>
+    <EnableLLVM>false</EnableLLVM>
+    <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
+    <BundleAssemblies>false</BundleAssemblies>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>portable</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AndroidManagedSymbols>true</AndroidManagedSymbols>
+    <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Mono.Android" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Acr.UserDialogs" Version="7.2.0.562" />
+    <PackageReference Include="Plugin.BLE" Version="2.1.2" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2291" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="MainActivity.cs" />
+    <Compile Include="Resources\Resource.designer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SplashActivity.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AboutResources.txt" />
+    <None Include="Assets\AboutAssets.txt" />
+    <None Include="Properties\AndroidManifest.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values\styles.xml" />
+    <AndroidResource Include="Resources\values\colors.xml" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\MobileBleRover\MobileBleRover.csproj">
+      <Project>{49A5A7C8-C573-45DF-B776-44CC7C02DAEA}</Project>
+      <Name>MobileBleRover</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-xxxhdpi\icon_round_launcher.png" />
+    <AndroidResource Include="Resources\mipmap-xxxhdpi\splash_logo.png" />
+    <AndroidResource Include="Resources\mipmap-xxxhdpi\icon_launcher.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\splash_logo.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\icon_launcher.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\icon_round_launcher.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\splash_logo.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\icon_launcher.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\icon_round_launcher.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\splash_logo.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\icon_launcher.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\icon_round_launcher.png" />
+    <AndroidResource Include="Resources\mipmap-hdpi\splash_logo.png" />
+    <AndroidResource Include="Resources\mipmap-hdpi\icon_launcher.png" />
+    <AndroidResource Include="Resources\mipmap-hdpi\icon_round_launcher.png" />
+    <AndroidResource Include="Resources\drawable\splash_screen.xml" />
+    <AndroidResource Include="Resources\drawable\img_dpad.png" />
+    <AndroidResource Include="Resources\drawable\img_meadow.png" />
+    <AndroidResource Include="Resources\drawable\icon_connect.png" />
+    <AndroidResource Include="Resources\drawable\icon_refresh.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\img_dpad.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\img_meadow.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\icon_connect.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\icon_refresh.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\img_dpad.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\img_meadow.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\icon_connect.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\icon_refresh.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\img_dpad.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\img_meadow.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\icon_connect.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\icon_refresh.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\img_meadow.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\icon_connect.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\icon_refresh.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\img_dpad.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
+</Project>

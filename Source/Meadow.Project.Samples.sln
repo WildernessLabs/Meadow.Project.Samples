@@ -91,15 +91,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeadowMapleServo", "Hackste
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bluetooth", "Bluetooth", "{35706016-C4F5-4EBE-9F97-4051C4533ADC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BleRover.Client.UWP", "Hackster\Rover\BleRover.Client\BleRover.Client.UWP\BleRover.Client.UWP.csproj", "{AC96E127-716C-41FF-BBCB-2011B9F402B2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobileBleRover.UWP", "Hackster\Rover\MobileBleRover\MobileBleRover.UWP\MobileBleRover.UWP.csproj", "{AC96E127-716C-41FF-BBCB-2011B9F402B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BleRover.Client.Android", "Hackster\Rover\BleRover.Client\BleRover.Client.Android\BleRover.Client.Android.csproj", "{0F57101C-9E4C-4AEC-B222-5A3FF219EDCF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobileBleRover.Android", "Hackster\Rover\MobileBleRover\MobileBleRover.Android\MobileBleRover.Android.csproj", "{0F57101C-9E4C-4AEC-B222-5A3FF219EDCF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BleRover.Client.iOS", "Hackster\Rover\BleRover.Client\BleRover.Client.iOS\BleRover.Client.iOS.csproj", "{2ED50F88-B61B-4F66-8325-8C8C9EE41FF8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobileBleRover.iOS", "Hackster\Rover\MobileBleRover\MobileBleRover.iOS\MobileBleRover.iOS.csproj", "{2ED50F88-B61B-4F66-8325-8C8C9EE41FF8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BleRover.Client", "Hackster\Rover\BleRover.Client\BleRover.Client\BleRover.Client.csproj", "{49A5A7C8-C573-45DF-B776-44CC7C02DAEA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MobileBleRover", "Hackster\Rover\MobileBleRover\MobileBleRover\MobileBleRover.csproj", "{49A5A7C8-C573-45DF-B776-44CC7C02DAEA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BleRover.Meadow", "Hackster\Rover\BleRover.Meadow\BleRover.Meadow.csproj", "{7E1F1758-B33F-41AF-9090-CD3DA0BBE3F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeadowBleRover", "Hackster\Rover\MeadowBleRover\MeadowBleRover.csproj", "{7E1F1758-B33F-41AF-9090-CD3DA0BBE3F3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeadowMapleTemperature", "Hackster\Maple\MeadowMapleTemperature\MeadowMapleTemperature.csproj", "{5451B41A-AE55-4EF3-9172-9045F5D6096A}"
 EndProject
@@ -129,7 +129,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MotorRotaryController", "Ha
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MorseCodeTrainer", "Hackster\MorseCodeTrainer\MorseCodeTrainer.csproj", "{DADA75D6-A111-400D-BB90-8EDA48F928F8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RoverLed", "Hackster\Rover\RoverLed\RoverLed.csproj", "{D39F79AB-D303-428F-BBFC-C6EEECADB578}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeadowLedRover", "Hackster\Rover\MeadowLedRover\MeadowLedRover.csproj", "{D39F79AB-D303-428F-BBFC-C6EEECADB578}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeadowClock", "Hackster\MeadowClock\MeadowClock.csproj", "{B7DA65AE-14B2-4873-8BB0-945C576E2CB1}"
 EndProject
