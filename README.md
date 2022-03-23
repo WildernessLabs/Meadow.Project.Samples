@@ -93,13 +93,41 @@ Public project samples for Meadow and Meadow.Foundation. Click on any of the pro
             <a href="https://www.hackster.io/wilderness-labs/make-your-own-onair-sign-with-meadow-and-xamarin-ea0c9e">Hackster</a> | <a href="https://github.com/WildernessLabs/OnAir_Sign">Source Code</a>
         </td>
         <td>
-            <img src="Design/ChristmasCountdown.png"/><br/>
-            <a href="https://www.hackster.io/wilderness-labs/wifi-christmas-countdown-timer-w-an-lcd-display-and-meadow-e4cf9c">Hackster</a> | <a href="Source/Hackster/ChristmasCountdown/">Source Code</a>
+            <img src="Design/MeadowRoverBle.png"/><br/>
+            <a href="https://www.hackster.io/wilderness-labs/meadow-rover-part-2-remote-control-over-bluetooth-fe43f5">Hackster</a> | <a href="Source/Hackster/Rover/">Source Code</a>
         </td>
         <td>
             <img src="Design/PlantMonitor.png"/><br/>
             <a href="https://www.hackster.io/wilderness-labs/build-your-own-plant-monitor-using-meadow-5a4b6c">Hackster</a> | <a href="Source/Hackster/PlantMonitor/">Source Code</a>
-        </td>        
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <img src="Design/MeadowBleLed.png"/><br/>
+            <a href="https://www.hackster.io/wilderness-labs/control-an-rgb-led-via-bluetooth-with-meadow-and-xamarin-9b2af3">Hackster</a> | <a href="Source/Hackster/Bluetooth/MeadowBleLed/">Source Code</a>
+        </td>
+        <td>
+            <img src="Design/MeadowBleServo.png"/><br/>
+            <a href="https://www.hackster.io/wildernesslabs/control-a-servo-via-bluetooth-with-meadow-and-xamarin-57940a">Hackster</a> | <a href="Source/Hackster/Bluetooth/MeadowBleServo/">Source Code</a>
+        </td>
+        <td>
+            <img src="Design/Simon.png"/><br/>
+            <a href="https://www.hackster.io/wilderness-labs/build-your-own-simon-game-with-meadow-3701d5">Hackster</a> | <a href="Source/Hackster/Simon/">Source Code</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <img src="Design/MeadowMapleLed.png"/><br/>
+            <a href="https://www.hackster.io/wilderness-labs/remotely-control-an-rgb-led-with-meadow-and-xamarin-w-rest-153a28">Hackster</a> | <a href="Source/Hackster/Maple/MeadowMapleLed/">Source Code</a>
+        </td>
+        <td>
+            <img src="Design/MeadowMapleServo.png"/><br/>
+            <a href="https://www.hackster.io/wilderness-labs/remote-control-a-servo-with-meadow-and-xamarin-using-rest-063cb0">Hackster</a> | <a href="Source/Hackster/Maple/MeadowMapleServo/">Source Code</a>
+        </td>
+        <td>
+            <img src="Design/ChristmasCountdown.png"/><br/>
+            <a href="https://www.hackster.io/wilderness-labs/wifi-christmas-countdown-timer-w-an-lcd-display-and-meadow-e4cf9c">Hackster</a> | <a href="Source/Hackster/ChristmasCountdown/">Source Code</a>
+        </td>
     </tr>
 </table>
 
