@@ -30,7 +30,7 @@ namespace MeadowMapleServo
                 bluePwmPin: Device.Pins.OnboardLedBlue);
             onboardLed.SetColor(Color.Red);
 
-            ServoController.Current.Initialize(Device, Device.Pins.D12);
+            ServoController.Current.Initialize(Device, Device.Pins.D10);
 
             var connectionResult = await Device.WiFiAdapter.Connect(Secrets.WIFI_NAME, Secrets.WIFI_PASSWORD);
             if (connectionResult.ConnectionStatus != ConnectionStatus.Success)
