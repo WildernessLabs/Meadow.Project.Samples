@@ -125,9 +125,13 @@ Public project samples for Meadow and Meadow.Foundation. Click on any of the pro
             <a href="https://www.hackster.io/wilderness-labs/remote-control-a-servo-with-meadow-and-xamarin-using-rest-063cb0">Hackster</a> | <a href="Source/Hackster/Maple/MeadowMapleServo/">Source Code</a>
         </td>
         <td>
+            <img src="Design/MeadowMapleServo.png"/><br/>
+            <a href="https://www.hackster.io/wilderness-labs/control-a-servo-with-a-push-button-using-meadow-c6c996">Hackster</a> | <a href="Source/Hackster/ServoButton">Source Code</a>
+        </td>
+        <!--<td>
             <img src="Design/ChristmasCountdown.png"/><br/>
             <a href="https://www.hackster.io/wilderness-labs/wifi-christmas-countdown-timer-w-an-lcd-display-and-meadow-e4cf9c">Hackster</a> | <a href="Source/Hackster/ChristmasCountdown/">Source Code</a>
-        </td>
+        </td>-->
     </tr>
 </table>
 
