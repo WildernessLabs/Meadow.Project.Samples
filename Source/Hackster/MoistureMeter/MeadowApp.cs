@@ -13,7 +13,7 @@ using VU = Meadow.Units.Voltage.UnitType;
 namespace MoistureMeter
 {
     // public class MeadowApp : App<F7Micro, MeadowApp> <- If you have a Meadow F7v1.*
-    public class MeadowApp : App<F7MicroV2, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2, MeadowApp>
     {
         readonly Voltage MINIMUM_VOLTAGE_CALIBRATION = new Voltage(2.84, VU.Volts);
         readonly Voltage MAXIMUM_VOLTAGE_CALIBRATION = new Voltage(1.37, VU.Volts);

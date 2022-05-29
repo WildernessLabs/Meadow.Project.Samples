@@ -3,13 +3,13 @@ using Meadow.Devices;
 using Meadow.Foundation;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Hid;
-using Meadow.Peripherals.Sensors.Hid;
+using Meadow.Units;
 using System;
 
 namespace LedJoystick
 {
     // public class MeadowApp : App<F7Micro, MeadowApp> <- If you have a Meadow F7v1.*
-    public class MeadowApp : App<F7MicroV2, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2, MeadowApp>
     {
         PwmLed Up, Down, Left, Right;
         AnalogJoystick joystick;
@@ -34,9 +34,9 @@ namespace LedJoystick
             Right = new PwmLed(Device.CreatePwmPort(Device.Pins.D03, 100, 0.0f), TypicalForwardVoltage.Red);
 
             joystick = new AnalogJoystick(
-                Device.CreateAnalogInputPort(Device.Pins.A01),
-                Device.CreateAnalogInputPort(Device.Pins.A00),
-                null, true);
+                Device.CreateAnalogInputPort(Device.Pins.A01, 1, TimeSpan.FromMilliseconds(10), new Voltage(3.3)),
+                Device.CreateAnalogInputPort(Device.Pins.A00, 1, TimeSpan.FromMilliseconds(10), new Voltage(3.3)),
+                null);
 
             joystick.SetCenterPosition();
             joystick.Updated += JoystickUpdated;
@@ -45,28 +45,28 @@ namespace LedJoystick
             onboardLed.SetColor(Color.Green);
         }
 
-        void JoystickUpdated(object sender, IChangeResult<JoystickPosition> e)
+        private void JoystickUpdated(object sender, IChangeResult<Meadow.Peripherals.Sensors.Hid.AnalogJoystickPosition> e)
         {
             if (e.New.Horizontal < 0.2f)
             {
-                Left.SetBrightness(0f);
-                Right.SetBrightness(0f);
+                Left.Brightness = 0f;
+                Right.Brightness = 0f;
             }
             if (e.New.Vertical < 0.2f)
             {
-                Up.SetBrightness(0f);
-                Down.SetBrightness(0f);
+                Up.Brightness = 0f;
+                Down.Brightness = 0f;
             }
 
             if (e.New.Horizontal > 0)
-                Left.SetBrightness(e.New.Horizontal.Value);
+                Left.Brightness = e.New.Horizontal.Value;
             else
-                Right.SetBrightness(Math.Abs(e.New.Horizontal.Value));
+                Right.Brightness = Math.Abs(e.New.Horizontal.Value);
 
             if (e.New.Vertical > 0)
-                Down.SetBrightness(Math.Abs(e.New.Vertical.Value));
+                Down.Brightness = Math.Abs(e.New.Vertical.Value);
             else
-                Up.SetBrightness(Math.Abs(e.New.Vertical.Value));
+                Up.Brightness = Math.Abs(e.New.Vertical.Value);
 
             Console.WriteLine($"({e.New.Horizontal.Value}, {e.New.Vertical.Value})");
         }
