@@ -10,7 +10,7 @@ using Meadow.Peripherals.Sensors.Hid;
 namespace Tetris
 {
     // public class MeadowApp : App<F7Micro, MeadowApp> <- If you have a Meadow F7v1.*
-    public class MeadowApp : App<F7MicroV2, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2, MeadowApp>
     {
         MicroGraphics graphics;
         AnalogJoystick joystick;
@@ -39,7 +39,7 @@ namespace Tetris
             graphics.CurrentFont = new Font4x8();
             graphics.Rotation = RotationType._180Degrees;
 
-            joystick = new AnalogJoystick(Device, Device.Pins.A01, Device.Pins.A02, null, true);
+            joystick = new AnalogJoystick(Device, Device.Pins.A01, Device.Pins.A02, null);
             _ = joystick.SetCenterPosition(); //fire and forget
             joystick.StartUpdating(TimeSpan.FromMilliseconds(100));
         }

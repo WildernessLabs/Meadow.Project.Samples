@@ -8,7 +8,7 @@ using Meadow.Foundation.Leds;
 namespace RgbLedSample
 {
     // public class MeadowApp : App<F7Micro, MeadowApp> <- If you have a Meadow F7v1.*
-    public class MeadowApp : App<F7MicroV2, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2, MeadowApp>
     {
         RgbLed rgbLed;
         RgbPwmLed rgbPwmLed;

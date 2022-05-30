@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace MeadowMapleLed
 {
     // public class MeadowApp : App<F7Micro, MeadowApp> <- If you have a Meadow F7v1.*
-    public class MeadowApp : App<F7MicroV2, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2, MeadowApp>
     {
         MapleServer mapleServer;
 
