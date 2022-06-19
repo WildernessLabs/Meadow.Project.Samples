@@ -10,7 +10,7 @@ using System.Threading;
 
 namespace MemoryGame
 {
-    // public class MeadowApp : App<F7Micro, MeadowApp> <- If you have a Meadow F7v1.*
+    // public class MeadowApp : App<F7FeatherV1, MeadowApp> <- If you have a Meadow F7v1.*
     public class MeadowApp : App<F7FeatherV2, MeadowApp>
     {        
         MicroGraphics graphics;

@@ -9,7 +9,7 @@ using AU = Meadow.Units.Angle.UnitType;
 
 namespace RotaryServo
 {
-    // public class MeadowApp : App<F7Micro, MeadowApp> <- If you have a Meadow F7v1.*
+    // public class MeadowApp : App<F7FeatherV1, MeadowApp> <- If you have a Meadow F7v1.*
     public class MeadowApp : App<F7FeatherV2, MeadowApp>
     {
         Angle angle = new Angle(0, AU.Degrees);
