@@ -57,7 +57,7 @@ Public project samples for Meadow and Meadow.Foundation. Click on any of the pro
     <tr>
         <td>
             <img src="Design/RadioPlayer.png"/><br/>
-            Build an FM Radio Player with Meadow</br>
+            Build an FM Radio Player with Meadow with an FM module, buttons and display</br>
             <a href="https://www.hackster.io/wilderness-labs/build-an-fm-radio-player-with-meadow-8c0a63">Hackster</a> | <a href="Source/Hackster/RadioPlayer/">Source Code</a>
         </td>
         <td>
@@ -79,7 +79,7 @@ Public project samples for Meadow and Meadow.Foundation. Click on any of the pro
         </td>
         <td>
             <img src="Design/ObstacleRadar.png"/><br/>
-            Build an Obstacle Radar with Meadow</br>
+            Build an Obstacle Radar with Meadow with a distance sensor and MicroGraphics</br>
             <a href="https://www.hackster.io/wilderness-labs/build-an-obstacle-radar-with-meadow-d9bf2e">Hackster</a> | <a href="Source/Hackster/ObstacleRadar/">Source Code</a>
         </td>
         <td>
@@ -91,7 +91,7 @@ Public project samples for Meadow and Meadow.Foundation. Click on any of the pro
     <tr>
         <td>
             <img src="Design/TemperatureMonitor.png"/><br/>
-            Build Your Own Temperature Monitor with Meadow</br>
+            Build Your a Temperature Monitor with Meadow</br>
             <a href="https://www.hackster.io/wilderness-labs/build-your-own-temperature-monitor-with-meadow-edc696">Hackster</a> | <a href="Source/Hackster/TemperatureMonitor">Source Code</a>
         </td>
         <td>
@@ -153,11 +153,29 @@ Public project samples for Meadow and Meadow.Foundation. Click on any of the pro
         <td>
             <img src="Design/ServoButton.png"/><br/>
             Control a Servo with a Push Button Using Meadow</br>
-            <a href="https://www.hackster.io/wilderness-labs/control-a-servo-with-a-push-button-using-meadow-c6c996">Hackster</a> | <a href="Source/Hackster/ServoButton">Source Code</a>
+            <a href="https://www.hackster.io/wilderness-labs/control-a-servo-with-a-push-button-using-meadow-c6c996">Hackster</a> | <a href="Source/Hackster/ServoButton/">Source Code</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <img src="Design/TouchKeypad.png"/><br/>
+            Working with a Touch Keypad and SPI Display Using Meadow</br>
+            <a href="https://www.hackster.io/wilderness-labs/working-with-a-touch-keypad-and-spi-display-using-meadow-ddb040">Hackster</a> | <a href="Source/Hackster/TouchKeypad/">Source Code</a>
+        </td>
+        <td>
+            <img src="Design/ChristmasCountdown.png"/><br/>
+            WIFI Christmas Countdown Timer w/ an LCD and Meadow</br>
+            <a href="https://www.hackster.io/wilderness-labs/wifi-christmas-countdown-timer-w-an-lcd-display-and-meadow-e4cf9c">Hackster</a> | <a href="Source/Hackster/ChristmasCountdown/">Source Code</a>
+        </td>
+        <td>
+            <img src="Design/LedJoystick.png"/><br/>
+            Using a 2-Axis Analog Joystick with Meadow</br>
+            <a href="https://www.hackster.io/wilderness-labs/using-a-2-axis-analog-joystick-with-meadow-e3188e">Hackster</a> | <a href="Source/Hackster/LedJoystick/">Source Code</a>
         </td>
         <!--<td>
             <img src="Design/ChristmasCountdown.png"/><br/>
-            <a href="https://www.hackster.io/wilderness-labs/wifi-christmas-countdown-timer-w-an-lcd-display-and-meadow-e4cf9c">Hackster</a> | <a href="Source/Hackster/ChristmasCountdown/">Source Code</a>
+            <a href="https://www.hackster.io/wilderness-labs/wifi-christmas-countdown-timer-w-an-lcd-display-and-meadow-e4cf9c">Hackster</a> | 
+    <a href="Source/Hackster/ChristmasCountdown/">Source Code</a>
         </td>-->
     </tr>
     <tr>

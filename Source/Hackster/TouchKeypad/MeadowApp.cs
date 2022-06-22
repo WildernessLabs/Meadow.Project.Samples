@@ -46,14 +46,34 @@ namespace TouchKeypad
                 resetPin: Device.Pins.D00,
                 width: 240, height: 240);
 
-            graphics = new MicroGraphics(display);
-            graphics.Rotation = RotationType._180Degrees;
-            graphics.CurrentFont = new Font12x16();
+            graphics = new MicroGraphics(display) 
+            {
+                Stroke = 1,
+                Rotation = RotationType._180Degrees,
+                CurrentFont = new Font12x16(),
+            };
+            DrawGrid();
 
             sensor = new Mpr121(Device.CreateI2cBus(I2cBusSpeed.Standard), 90, 100);
             sensor.ChannelStatusesChanged += SensorChannelStatusesChanged;
 
             onboardLed.SetColor(Color.Green);
+        }
+
+        void DrawGrid() 
+        {
+            bool fill = false;
+            graphics.Clear();
+            for (int columns = 0; columns < 3; columns++)
+            {
+                for (int rows = 3; rows >= 0; rows--)
+                {
+                    graphics.DrawRectangle(columns * 57 + 38, rows * 57 + 10, 51, 51, Color.Cyan, fill);
+                    fill = !fill;
+                }
+                fill = !fill;
+            }
+            graphics.Show();
         }
 
         void SensorChannelStatusesChanged(object sender, ChannelStatusChangedEventArgs e)
@@ -71,9 +91,9 @@ namespace TouchKeypad
                         if (numpadIndex == i)
                         {
                             if (e.ChannelStatus[(Mpr121.Channels)i])
-                                graphics.DrawRectangle(columns * 57 + 38, rows * 57 + 10, 51, 51, Meadow.Foundation.Color.Cyan, true);
+                                graphics.DrawRectangle(columns * 57 + 38, rows * 57 + 10, 51, 51, Color.Cyan, true);
                             else
-                                graphics.DrawRectangle(columns * 57 + 38, rows * 57 + 10, 51, 51, true);
+                                graphics.DrawRectangle(columns * 57 + 38, rows * 57 + 10, 51, 51, Color.Cyan);
                         }
                         numpadIndex++;
                     }
