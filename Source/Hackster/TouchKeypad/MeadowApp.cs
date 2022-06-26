@@ -48,7 +48,7 @@ namespace TouchKeypad
 
             graphics = new MicroGraphics(display) 
             {
-                Stroke = 1,
+                Stroke = 2,
                 Rotation = RotationType._180Degrees,
                 CurrentFont = new Font12x16(),
             };
@@ -62,16 +62,13 @@ namespace TouchKeypad
 
         void DrawGrid() 
         {
-            bool fill = false;
             graphics.Clear();
             for (int columns = 0; columns < 3; columns++)
             {
                 for (int rows = 3; rows >= 0; rows--)
                 {
-                    graphics.DrawRectangle(columns * 57 + 38, rows * 57 + 10, 51, 51, Color.Cyan, fill);
-                    fill = !fill;
+                    graphics.DrawRectangle(columns * 57 + 38, rows * 57 + 10, 51, 51, Color.Cyan);
                 }
-                fill = !fill;
             }
             graphics.Show();
         }
