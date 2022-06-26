@@ -113,7 +113,7 @@ Public project samples for Meadow and Meadow.Foundation. Click on any of the pro
         </td>
         <td>
             <img src="Design/MerryXmasLights.png"/><br/>
-            Build Smart Holiday Lights with RGB LED Strips Using Meadow</br>
+            Build Smart Holiday Lights with RGB LED Strips</br>
             <a href="https://www.hackster.io/wilderness-labs/build-smart-holiday-lights-with-rgb-led-strips-using-meadow-1b0f53">Hackster</a> | <a href="Source/Hackster/MerryXmasLights/">Source Code</a>
         </td>
         <td>
@@ -125,7 +125,7 @@ Public project samples for Meadow and Meadow.Foundation. Click on any of the pro
     <tr>
         <td>
             <img src="Design/RadioPlayer.png"/><br/>
-            Build an FM Radio Player with Meadow with an FM module, buttons and display</br>
+            Build an FM Radio Player Using Meadow</br>
             <a href="https://www.hackster.io/wilderness-labs/build-an-fm-radio-player-with-meadow-8c0a63">Hackster</a> | <a href="Source/Hackster/RadioPlayer/">Source Code</a>
         </td>
         <td>
@@ -159,12 +159,12 @@ Public project samples for Meadow and Meadow.Foundation. Click on any of the pro
     <tr>
         <td>
             <img src="Design/TouchKeypad.png"/><br/>
-            Working with a Touch Keypad and SPI Display Using Meadow</br>
+            Working with a Touch Keypad and SPI Display</br>
             <a href="https://www.hackster.io/wilderness-labs/working-with-a-touch-keypad-and-spi-display-using-meadow-ddb040">Hackster</a> | <a href="Source/Hackster/TouchKeypad/">Source Code</a>
         </td>
         <td>
             <img src="Design/ChristmasCountdown.png"/><br/>
-            WIFI Christmas Countdown Timer w/ an LCD and Meadow</br>
+            WIFI Christmas Countdown Timer with a LCD</br>
             <a href="https://www.hackster.io/wilderness-labs/wifi-christmas-countdown-timer-w-an-lcd-display-and-meadow-e4cf9c">Hackster</a> | <a href="Source/Hackster/ChristmasCountdown/">Source Code</a>
         </td>
         <td>
