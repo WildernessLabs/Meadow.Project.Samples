@@ -147,7 +147,7 @@ Public project samples for Meadow and Meadow.Foundation. Click on any of the pro
         </td>
         <td>
             <img src="Design/ObstacleRadar.png"/><br/>
-            Build an Obstacle Radar with Meadow with a distance sensor and MicroGraphics</br>
+            Build an Obstacle Radar with a distance sensor and MicroGraphics</br>
             <a href="https://www.hackster.io/wilderness-labs/build-an-obstacle-radar-with-meadow-d9bf2e">Hackster</a> | <a href="Source/Hackster/ObstacleRadar/">Source Code</a>
         </td>
         <td>
