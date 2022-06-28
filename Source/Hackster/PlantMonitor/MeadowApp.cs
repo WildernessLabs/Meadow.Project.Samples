@@ -13,7 +13,7 @@ using VU = Meadow.Units.Voltage.UnitType;
 
 namespace PlantMonitor
 {
-    // public class MeadowApp : App<F7Micro, MeadowApp> <- If you have a Meadow F7v1.*
+    // public class MeadowApp : App<F7FeatherV1, MeadowApp> <- If you have a Meadow F7v1.*
     public class MeadowApp : App<F7FeatherV2, MeadowApp>
     {
         readonly Voltage MINIMUM_VOLTAGE_CALIBRATION = new Voltage(2.81, VU.Volts);
