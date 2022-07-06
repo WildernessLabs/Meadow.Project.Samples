@@ -5,23 +5,17 @@ using Meadow.Foundation.ICs.IOExpanders;
 using Meadow.Foundation.Leds;
 using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace McpLeds
 {
     // public class MeadowApp : App<F7FeatherV1, MeadowApp> <- If you have a Meadow F7v1.*
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2>
     {
         List<Led> leds;
         Mcp23x08 mcp;
 
-        public MeadowApp()
-        {
-            Initialize();
-
-            CycleLeds();
-        }
-
-        void Initialize() 
+        public override Task Initialize() 
         {
             var onboardLed = new RgbPwmLed(
                 device: Device,
@@ -43,6 +37,8 @@ namespace McpLeds
             leds.Add(new Led(mcp.CreateDigitalOutputPort(mcp.Pins.GP7)));
 
             onboardLed.SetColor(Color.Green);
+
+            return base.Initialize();
         }
 
         void CycleLeds()
@@ -63,6 +59,13 @@ namespace McpLeds
                     Thread.Sleep(500);
                 }
             }
+        }
+
+        public override Task Run()
+        {
+            CycleLeds();
+
+            return base.Run();
         }
     }
 }

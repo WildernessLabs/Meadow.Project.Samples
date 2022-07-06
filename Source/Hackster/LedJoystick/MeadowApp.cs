@@ -6,16 +6,17 @@ using Meadow.Foundation.Sensors.Hid;
 using Meadow.Peripherals.Sensors.Hid;
 using Meadow.Units;
 using System;
+using System.Threading.Tasks;
 
 namespace LedJoystick
 {
     // public class MeadowApp : App<F7FeatherV1, MeadowApp> <- If you have a Meadow F7v1.*
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2>
     {
         AnalogJoystick joystick;
         Led Up, Down, Left, Right;
 
-        public MeadowApp()
+        public override Task Initialize()
         {
             var onboardLed = new RgbPwmLed(
                 device: Device,
@@ -41,6 +42,8 @@ namespace LedJoystick
             joystick.StartUpdating(TimeSpan.FromMilliseconds(20));
 
             onboardLed.SetColor(Color.Green);
+
+            return base.Initialize();
         }
 
         void JoystickUpdated(object sender, IChangeResult<AnalogJoystickPosition> e)

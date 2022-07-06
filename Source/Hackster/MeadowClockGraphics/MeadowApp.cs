@@ -8,11 +8,12 @@ using Meadow.Hardware;
 using Meadow.Units;
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace MeadowClockGraphics
 {
     // public class MeadowApp : App<F7FeatherV1, MeadowApp> <- If you have a Meadow F7v1.*
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2>
     {
         readonly Color WatchBackgroundColor = Color.White;
 
@@ -20,16 +21,7 @@ namespace MeadowClockGraphics
         int displayWidth, displayHeight;
         int hour, minute, tick;
 
-        public MeadowApp()
-        {
-            Initialize();
-
-            //DrawShapes();            
-            //DrawTexts();
-            DrawClock();
-        }
-
-        void Initialize() 
+        public override Task Initialize() 
         {
             var onboardLed = new RgbPwmLed(
                 device: Device,
@@ -62,6 +54,8 @@ namespace MeadowClockGraphics
             graphics.Rotation = RotationType._270Degrees;
 
             onboardLed.SetColor(Color.Green);
+
+            return base.Initialize();
         }
 
         void DrawShapes()
@@ -251,6 +245,15 @@ namespace MeadowClockGraphics
             y = (int)(yCenter - 70 * Math.Cos(second * Math.PI / 30));
             graphics.DrawLine(xCenter, yCenter, x, y, Color.Red);
             graphics.Show();
+        }
+
+        public override Task Run() 
+        {
+            //DrawShapes();
+            //DrawTexts();
+            DrawClock();
+
+            return base.Run();
         }
     }
 }

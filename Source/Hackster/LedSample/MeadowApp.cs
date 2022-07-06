@@ -3,23 +3,23 @@ using Meadow.Devices;
 using Meadow.Foundation.Leds;
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace LedSample
 {
     // public class MeadowApp : App<F7FeatherV1, MeadowApp> <- If you have a Meadow F7v1.*
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2>
     {
         Led led;
         PwmLed pwmLed;
 
-        public MeadowApp()
+        public override Task Initialize()
         {
             led = new Led(Device.CreateDigitalOutputPort(Device.Pins.D01));
             //pwmLed = new PwmLed(Device.CreatePwmPort(Device.Pins.D02),
             //   TypicalForwardVoltage.Red);
 
-            TestLed();
-            //TestPwmLed();
+            return base.Initialize();
         }
 
         void TestLed()
@@ -79,6 +79,14 @@ namespace LedSample
                     }
                 }
             }
+        }
+
+        public override Task Run()
+        {
+            TestLed();
+            //TestPwmLed();
+
+            return base.Run();
         }
     }
 }

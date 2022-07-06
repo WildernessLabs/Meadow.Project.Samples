@@ -5,30 +5,24 @@ using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Buttons;
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace MeadowClock
 {
     // public class MeadowApp : App<F7FeatherV1, MeadowApp> <- If you have a Meadow F7v1.*
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2>
     {
         PushButton minute;
         PushButton hour;
         CharacterDisplay display;
 
-        public MeadowApp()
-        {
-            Initialize();
-
-            CharacterDisplayClock();
-        }
-
-        void Initialize() 
+        public override Task Initialize() 
         {
             var led = new RgbLed(
-                    Device,
-                    Device.Pins.OnboardLedRed,
-                    Device.Pins.OnboardLedGreen,
-                    Device.Pins.OnboardLedBlue);
+                Device,
+                Device.Pins.OnboardLedRed,
+                Device.Pins.OnboardLedGreen,
+                Device.Pins.OnboardLedBlue);
             led.SetColor(RgbLed.Colors.Red);
 
             display = new CharacterDisplay
@@ -51,6 +45,8 @@ namespace MeadowClock
             Device.SetClock(new DateTime(2022, 03, 05, 19, 45, 00));
 
             led.SetColor(RgbLed.Colors.Green);
+
+            return base.Initialize();
         }
 
         void HourClicked(object sender, EventArgs e)
@@ -75,6 +71,13 @@ namespace MeadowClock
                 display.WriteLine($"{clock:hh}:{clock:mm}:{clock:ss} {clock:tt}", 3);
                 Thread.Sleep(1000);
             }
+        }
+
+        public override Task Run()
+        {
+            CharacterDisplayClock();
+
+            return base.Run();
         }
     }
 }

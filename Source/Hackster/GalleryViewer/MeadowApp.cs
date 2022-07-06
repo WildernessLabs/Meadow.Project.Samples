@@ -11,11 +11,12 @@ using SimpleJpegDecoder;
 using System;
 using System.IO;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace GalleryViewer
 {
     // public class MeadowApp : App<F7FeatherV1, MeadowApp> <- If you have a Meadow F7v1.*
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2>
     {
         RgbPwmLed led;
         MicroGraphics graphics;
@@ -24,7 +25,7 @@ namespace GalleryViewer
         int selectedIndex;
         string[] images = new string[3] { "image1.jpg", "image2.jpg", "image3.jpg" };
 
-        public MeadowApp()
+        public override Task Initialize()
         {
             led = new RgbPwmLed(
                 device: Device,
@@ -53,16 +54,18 @@ namespace GalleryViewer
                 spiBus: spiBus,
                 chipSelectPin: Device.Pins.D02,
                 dcPin: Device.Pins.D01,
-                resetPin: Device.Pins.D00, 
+                resetPin: Device.Pins.D00,
                 width: 240, height: 240
             );
 
             graphics = new MicroGraphics(display);
             graphics.Rotation = RotationType._90Degrees;
 
-            DisplayJPG();
+            selectedIndex = 0;
 
             led.SetColor(Color.Green);
+
+            return base.Initialize();
         }
 
         void ButtonUpClicked(object sender, EventArgs e)
@@ -135,6 +138,13 @@ namespace GalleryViewer
                     return ms.ToArray();
                 }
             }
+        }
+
+        public override Task Run()
+        {
+            DisplayJPG();
+
+            return base.Run();
         }
     }
 }
