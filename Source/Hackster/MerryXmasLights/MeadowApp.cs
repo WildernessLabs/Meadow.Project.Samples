@@ -6,35 +6,16 @@ using Meadow.Hardware;
 using System;
 using System.Threading;
 using Meadow.Peripherals.Leds;
+using System.Threading.Tasks;
 
 namespace MerryXmasLights
 {
     // public class MeadowApp : App<F7FeatherV1, MeadowApp> <- If you have a Meadow F7v1.*
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2>
     {
         Apa102 ledStrip;
 
-        public MeadowApp()
-        {
-            Initialize();
-
-            while (true)
-            {
-                WalkXmasColors();
-
-                Console.WriteLine("Cycle colors");
-                CycleColors(5000);
-
-                WalkColors(Color.Red, (int) ledStrip.NumberOfLeds);
-                WalkColors(Color.Green, (int) ledStrip.NumberOfLeds);
-                WalkColors(Color.Blue, (int) ledStrip.NumberOfLeds);
-                WalkColors(Color.Yellow, (int)ledStrip.NumberOfLeds);
-                WalkColors(Color.Cyan, (int)ledStrip.NumberOfLeds);
-                WalkColors(Color.Violet, (int)ledStrip.NumberOfLeds);
-            }
-        }
-
-        void Initialize()
+        public override Task Initialize()
         {
             var onboardLed = new RgbPwmLed(
                 device: Device,
@@ -52,6 +33,8 @@ namespace MerryXmasLights
                 pixelOrder: Apa102.PixelOrder.BGR);
 
             onboardLed.SetColor(Color.Green);
+
+            return base.Initialize();
         }
 
         void WalkXmasColors(int count = 100)
@@ -170,6 +153,26 @@ namespace MerryXmasLights
 
                 ledStrip.Show();
             }
+        }
+
+        public override Task Run()
+        {
+            while (true)
+            {
+                WalkXmasColors();
+
+                Console.WriteLine("Cycle colors");
+                CycleColors(5000);
+
+                WalkColors(Color.Red, (int)ledStrip.NumberOfLeds);
+                WalkColors(Color.Green, (int)ledStrip.NumberOfLeds);
+                WalkColors(Color.Blue, (int)ledStrip.NumberOfLeds);
+                WalkColors(Color.Yellow, (int)ledStrip.NumberOfLeds);
+                WalkColors(Color.Cyan, (int)ledStrip.NumberOfLeds);
+                WalkColors(Color.Violet, (int)ledStrip.NumberOfLeds);
+            }
+
+            return base.Run();
         }
     }
 }

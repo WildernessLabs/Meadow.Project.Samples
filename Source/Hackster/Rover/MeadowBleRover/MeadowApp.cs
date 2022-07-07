@@ -3,11 +3,12 @@ using Meadow.Devices;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Motors;
 using Meadow.Gateways.Bluetooth;
+using System.Threading.Tasks;
 
 namespace MeadowBleRover
 {
     // public class MeadowApp : App<F7FeatherV1, MeadowApp> <- If you have a Meadow F7v1.*
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2>
     {
         Definition bleTreeDefinition;
         CharacteristicBool up, down, left, right;
@@ -17,12 +18,7 @@ namespace MeadowBleRover
         
         CarController carController;
 
-        public MeadowApp()
-        {
-            Initialize();
-        }
-
-        void Initialize() 
+        public override Task Initialize() 
         {
             led = new RgbLed(
                 Device,
@@ -65,6 +61,8 @@ namespace MeadowBleRover
             right.ValueSet += RightValueSet;
 
             led.SetColor(RgbLed.Colors.Green);
+
+            return base.Initialize();
         }
 
         void UpValueSet(ICharacteristic c, object data)

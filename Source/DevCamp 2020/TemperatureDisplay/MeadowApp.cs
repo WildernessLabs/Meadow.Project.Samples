@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Meadow;
 using Meadow.Devices;
 using Meadow.Foundation;
@@ -12,7 +13,7 @@ using Meadow.Units;
 namespace TemperatureDisplay
 {
     // public class MeadowApp : App<F7FeatherV1, MeadowApp> <- If you have a Meadow F7v1.*
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2>
     {
         Bmp180 sensor;
         RgbPwmLed onboardLed;
@@ -21,15 +22,8 @@ namespace TemperatureDisplay
 
         bool isMetric = true;
 
-        public MeadowApp()
+        public override Task Initialize()
         {
-            Initialize();
-        }
-
-        void Initialize()
-        {
-            Console.WriteLine("Initialize hardware...");
-
             onboardLed = new RgbPwmLed(device: Device,
                 redPwmPin: Device.Pins.OnboardLedRed,
                 greenPwmPin: Device.Pins.OnboardLedGreen,
@@ -62,6 +56,8 @@ namespace TemperatureDisplay
             sensor.StartUpdating();
 
             onboardLed.SetColor(Color.Green);
+
+            return base.Initialize();
         }
 
         private void SensorUpdated(object sender, IChangeResult<(Meadow.Units.Temperature? Temperature, Meadow.Units.Pressure? Pressure)> result)

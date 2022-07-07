@@ -7,11 +7,12 @@ using Meadow.Hardware;
 using Meadow.Units;
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Span4
 {
     // public class MeadowApp : App<F7FeatherV1, MeadowApp> <- If you have a Meadow F7v1.*
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2>
     {
         MicroGraphics graphics;
 
@@ -26,34 +27,11 @@ namespace Span4
 
         byte currentColumn = 0;
 
-        public MeadowApp()
+        public override Task Initialize()
         {
             Console.WriteLine("Span 4");
 
             connectGame = new Span4Game();
-
-            Initialize();
-
-            graphics.Clear();
-            graphics.DrawText(0, 0, "Meadow Span4!");
-            graphics.DrawText(0, 10, "v0.0.4");
-            graphics.Show();
-
-            Thread.Sleep(250);
-
-            StartGameLoop();
-        }
-
-        void Initialize()
-        {
-            Console.WriteLine("Initialize hardware...");
-
-            portLeft = Device.CreateDigitalInputPort(Device.Pins.D13);
-            portRight = Device.CreateDigitalInputPort(Device.Pins.D11);
-            portDown = Device.CreateDigitalInputPort(Device.Pins.D12);
-            portReset = Device.CreateDigitalInputPort(Device.Pins.D07);
-
-            speaker = new PiezoSpeaker(Device.CreatePwmPort(Device.Pins.D05));
 
             var config = new SpiClockConfiguration(
                 speed: new Frequency(12000, Frequency.UnitType.Kilohertz),
@@ -74,6 +52,15 @@ namespace Span4
 
             graphics = new MicroGraphics(display);
             graphics.CurrentFont = new Font4x8();
+
+            portLeft = Device.CreateDigitalInputPort(Device.Pins.D13);
+            portRight = Device.CreateDigitalInputPort(Device.Pins.D11);
+            portDown = Device.CreateDigitalInputPort(Device.Pins.D12);
+            portReset = Device.CreateDigitalInputPort(Device.Pins.D07);
+
+            speaker = new PiezoSpeaker(Device, Device.Pins.D05);
+
+            return base.Initialize();
         }
 
         void StartGameLoop()
@@ -109,7 +96,7 @@ namespace Span4
             else if (portDown.State == true)
             {
                 connectGame.AddChip(currentColumn);
-                speaker.PlayTone(440, 200);
+                speaker.PlayTone(new Frequency(440), 200);
 
             }
             else if(portReset.State == true)
@@ -205,6 +192,18 @@ namespace Span4
         {
             graphics.DrawCircle(xCenter, yCenter, 3,
                             true, isFilled, true);
+        }
+
+        public override async Task Run()
+        {
+            graphics.Clear();
+            graphics.DrawText(0, 0, "Meadow Span4!");
+            graphics.DrawText(0, 10, "v0.0.4");
+            graphics.Show();
+
+            await Task.Delay(250);
+
+            StartGameLoop();
         }
     }
 }

@@ -4,22 +4,16 @@ using Meadow.Foundation;
 using Meadow.Foundation.ICs.IOExpanders;
 using Meadow.Foundation.Leds;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace ShiftRegisterLeds
 {
     // public class MeadowApp : App<F7FeatherV1, MeadowApp> <- If you have a Meadow F7v1.*
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2>
     {
         x74595 shiftRegister;
 
-        public MeadowApp()
-        {
-            Initialize();
-
-            TestX74595();
-        }
-
-        void Initialize() 
+        public override Task Initialize() 
         {
             var onboardLed = new RgbPwmLed(
                 device: Device,
@@ -35,9 +29,11 @@ namespace ShiftRegisterLeds
                 pins: 8);
 
             onboardLed.SetColor(Color.Green);
+
+            return base.Initialize();
         }
 
-        void TestX74595()
+        public override Task Run()
         {
             shiftRegister.Clear(true);
 

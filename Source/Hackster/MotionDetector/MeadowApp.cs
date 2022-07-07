@@ -12,16 +12,17 @@ using System;
 using System.IO;
 using System.Reflection;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace MotionDetector
 {
     // public class MeadowApp : App<F7FeatherV1, MeadowApp> <- If you have a Meadow F7v1.*
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2>
     {
         MicroGraphics graphics;
-        ParallaxPir motionSensor;     
+        ParallaxPir motionSensor;
 
-        public MeadowApp()
+        public override Task Initialize()
         {
             var onboardLed = new RgbPwmLed(
                 device: Device,
@@ -57,7 +58,7 @@ namespace MotionDetector
 
             onboardLed.SetColor(Color.Green);
 
-            LoadScreen();
+            return base.Initialize();
         }
 
         void LoadScreen()
@@ -165,6 +166,13 @@ namespace MotionDetector
             Console.WriteLine("Start");
             //displayonboardLed.SetColor(Color.Magenta);
             Thread.Sleep(1000);
+        }
+
+        public override Task Run()
+        {
+            LoadScreen();
+
+            return base.Run();
         }
     }
 }

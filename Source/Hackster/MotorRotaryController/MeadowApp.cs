@@ -10,19 +10,12 @@ using System.Threading.Tasks;
 namespace MotorRotaryController
 {
     // public class MeadowApp : App<F7FeatherV1, MeadowApp> <- If you have a Meadow F7v1.*
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2>
     {
         HBridgeMotor motor;
         RotaryEncoder rotary;
 
-        public MeadowApp()
-        {
-            Initialize();
-
-            //TestMotor();
-        }
-
-        void Initialize()
+        public override Task Initialize()
         {
             var onboardLed = new RgbPwmLed(
                 device: Device,
@@ -44,6 +37,8 @@ namespace MotorRotaryController
             rotary.Rotated += RotaryRotated;
 
             onboardLed.SetColor(Color.Green);
+
+            return base.Initialize();
         }
 
         async Task TestMotor() 
@@ -89,6 +84,13 @@ namespace MotorRotaryController
 
             //Console.WriteLine($"{number}");
             Console.WriteLine($"{motor.Power}");
+        }
+
+        public override Task Run()
+        {
+            //TestMotor();
+
+            return base.Run();
         }
     }
 }

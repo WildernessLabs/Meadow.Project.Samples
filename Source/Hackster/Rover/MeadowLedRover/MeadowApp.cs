@@ -3,16 +3,17 @@ using Meadow.Devices;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Motors;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace MeadowLedRover
 {
     // public class MeadowApp : App<F7FeatherV1, MeadowApp> <- If you have a Meadow F7v1.*
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2>
     {
         PwmLed up, down, left, right;
         CarController carController;
 
-        public MeadowApp()
+        public override Task Initialize()
         {
             var led = new RgbLed(
                 Device, 
@@ -46,44 +47,44 @@ namespace MeadowLedRover
 
             led.SetColor(RgbLed.Colors.Green);
 
-            TestCar();
+            return base.Initialize();
         }
 
-        void TestCar()
+        public override async Task Run()
         {
             while (true)
             {
-                up.SetBrightness(0.1f);
+                up.Brightness = 0.1f;
                 carController.MoveForward();
-                Thread.Sleep(1000);
-                up.SetBrightness(0.0f);
+                await Task.Delay(1000);
+                up.Brightness = 0.0f;
 
                 carController.Stop();
-                Thread.Sleep(500);
+                await Task.Delay(500);
 
-                down.SetBrightness(0.1f);
+                down.Brightness = 0.1f;
                 carController.MoveBackward();
-                Thread.Sleep(1000);
-                down.SetBrightness(0.0f);
+                await Task.Delay(1000);
+                down.Brightness = 0.0f;
 
                 carController.Stop();
-                Thread.Sleep(500);
+                await Task.Delay(500);
 
-                left.SetBrightness(0.1f);
+                left.Brightness = 0.1f;
                 carController.TurnLeft();
-                Thread.Sleep(1000);
-                left.SetBrightness(0.0f);
+                await Task.Delay(1000);
+                left.Brightness = 0.0f;
 
                 carController.Stop();
-                Thread.Sleep(500);
+                await Task.Delay(500);
 
-                right.SetBrightness(0.1f);
+                right.Brightness = 0.1f;
                 carController.TurnRight();
-                Thread.Sleep(1000);
-                right.SetBrightness(0.0f);
+                await Task.Delay(1000);
+                right.Brightness = 0.0f;
 
                 carController.Stop();
-                Thread.Sleep(500);
+                await Task.Delay(500);
             }
         }
     }

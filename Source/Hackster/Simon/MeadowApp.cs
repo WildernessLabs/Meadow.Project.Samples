@@ -4,18 +4,19 @@ using Meadow.Foundation;
 using Meadow.Foundation.Audio;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Buttons;
+using Meadow.Units;
 using System;
 using System.Threading.Tasks;
 
 namespace Simon
 {
     // public class MeadowApp : App<F7FeatherV1, MeadowApp> <- If you have a Meadow F7v1.*
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2>
     {
         int ANIMATION_DELAY = 200;
 
         bool isAnimating;
-        float[] notes;
+        Frequency[] notes;
 
         SimonGame game;
 
@@ -23,16 +24,7 @@ namespace Simon
         PushButton[] buttons; 
         PiezoSpeaker speaker;
 
-        public MeadowApp()
-        {
-            Initialize();
-
-            SetAllLEDs(true);            
-            game.OnGameStateChanged += OnGameStateChanged;            
-            game.Reset();            
-        }
-
-        void Initialize() 
+        public override Task Initialize() 
         {
             var onboardLed = new RgbPwmLed(
                 device: Device,
@@ -41,7 +33,13 @@ namespace Simon
                 bluePwmPin: Device.Pins.OnboardLedBlue);
             onboardLed.SetColor(Color.Red);
 
-            notes = new float[] { 261.63f, 329.63f, 392, 523.25f };
+            notes = new Frequency[] 
+            { 
+                new Frequency(261.63f), 
+                new Frequency(329.63f), 
+                new Frequency(392),
+                new Frequency(523.25f)
+            };
 
             game = new SimonGame();
 
@@ -64,6 +62,8 @@ namespace Simon
             speaker = new PiezoSpeaker(Device, Device.Pins.D12);
 
             onboardLed.SetColor(Color.Green);
+
+            return base.Initialize();
         }
 
         async void ButtonRedClicked(object sender, EventArgs e)
@@ -122,7 +122,7 @@ namespace Simon
         async Task TurnOnLED(int index, int duration = 400)
         {
             leds[index].IsOn = true;
-            await speaker.PlayTone(notes[index], duration);            
+            await speaker.PlayTone(notes[index], duration);
             leds[index].IsOn = false;
         }
 
@@ -196,7 +196,7 @@ namespace Simon
                 return;
             isAnimating = true;
 
-            await speaker.PlayTone(123.47f, 750);
+            await speaker.PlayTone(new Frequency(123.47f), 750);
 
             for (int i = 0; i < 20; i++)
             {
@@ -215,6 +215,15 @@ namespace Simon
             await ShowStartAnimation();
             await ShowStartAnimation();
             await ShowStartAnimation();
+        }
+
+        public override Task Run()
+        {
+            SetAllLEDs(true);
+            game.OnGameStateChanged += OnGameStateChanged;
+            game.Reset();
+
+            return base.Run();
         }
     }
 }

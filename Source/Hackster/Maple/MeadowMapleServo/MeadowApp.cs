@@ -2,7 +2,7 @@
 using Meadow.Devices;
 using Meadow.Foundation;
 using Meadow.Foundation.Leds;
-using Meadow.Foundation.Web.Maple.Server;
+using Meadow.Foundation.Web.Maple;
 using Meadow.Gateway.WiFi;
 using MeadowMapleServo.Controllers;
 using System;
@@ -11,18 +11,11 @@ using System.Threading.Tasks;
 namespace MeadowMapleServo
 {
     // public class MeadowApp : App<F7FeatherV1, MeadowApp> <- If you have a Meadow F7v1.*
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2>
     {
         MapleServer mapleServer;
 
-        public MeadowApp()
-        {
-            Initialize().Wait();
-
-            mapleServer.Start();
-        }
-
-        async Task Initialize()
+        public override async Task Initialize()
         {
             var onboardLed = new RgbPwmLed(device: Device,
                 redPwmPin: Device.Pins.OnboardLedRed,
@@ -41,6 +34,7 @@ namespace MeadowMapleServo
             mapleServer = new MapleServer(
                 Device.WiFiAdapter.IpAddress, 5417, true
             );
+            mapleServer.Start();
 
             onboardLed.SetColor(Color.Green);
         }

@@ -13,22 +13,15 @@ using VU = Meadow.Units.Voltage.UnitType;
 namespace MoistureMeter
 {
     // public class MeadowApp : App<F7FeatherV1, MeadowApp> <- If you have a Meadow F7v1.*
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2>
     {
         readonly Voltage MINIMUM_VOLTAGE_CALIBRATION = new Voltage(2.84, VU.Volts);
         readonly Voltage MAXIMUM_VOLTAGE_CALIBRATION = new Voltage(1.37, VU.Volts);
 
         Capacitive capacitive;
-        LedBarGraph ledBarGraph;        
+        LedBarGraph ledBarGraph;
 
-        public MeadowApp()
-        {
-            Initialize();
-
-            StartReading();
-        }
-
-        void Initialize()
+        public override Task Initialize()
         {
             var onboardLed = new RgbPwmLed(
                 device: Device,
@@ -60,9 +53,11 @@ namespace MoistureMeter
             );
 
             onboardLed.SetColor(Color.Green);
+
+            return base.Initialize();
         }
 
-        async Task StartReading()
+        public override async Task Run()
         {
             while (true)
             {
@@ -75,7 +70,7 @@ namespace MoistureMeter
                 if (moisture < 0)
                     moisture = 0f;
 
-                ledBarGraph.Percentage = (float) moisture;
+                ledBarGraph.Percentage = (float)moisture;
                 Console.WriteLine($"Moisture {moisture * 100}%");
                 Thread.Sleep(1000);
             }

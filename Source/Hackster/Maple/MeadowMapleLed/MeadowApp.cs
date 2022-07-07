@@ -1,7 +1,7 @@
 ﻿using Meadow;
 using Meadow.Devices;
 using Meadow.Foundation;
-using Meadow.Foundation.Web.Maple.Server;
+using Meadow.Foundation.Web.Maple;
 using Meadow.Gateway.WiFi;
 using MeadowMapleLed.Controller;
 using System;
@@ -10,20 +10,11 @@ using System.Threading.Tasks;
 namespace MeadowMapleLed
 {
     // public class MeadowApp : App<F7FeatherV1, MeadowApp> <- If you have a Meadow F7v1.*
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2>
     {
         MapleServer mapleServer;
 
-        public MeadowApp()
-        {
-            Initialize().Wait();
-
-            mapleServer.Start();
-
-            LedController.Current.SetColor(Color.Green);
-        }
-
-        async Task Initialize()
+        public override async Task Initialize()
         {
             LedController.Current.Initialize();
 
@@ -33,9 +24,11 @@ namespace MeadowMapleLed
                 throw new Exception($"Cannot connect to network: {connectionResult.ConnectionStatus}");
             }
 
-            mapleServer = new MapleServer(
-                Device.WiFiAdapter.IpAddress, 5417, true
-            );
+            mapleServer = new MapleServer(Device.WiFiAdapter.IpAddress, 5417, true);
+
+            mapleServer.Start();
+
+            LedController.Current.SetColor(Color.Green);
         }
     }
 }

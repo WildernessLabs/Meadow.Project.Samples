@@ -13,20 +13,13 @@ using WifiWeather.Views;
 namespace WifiWeather
 {
     // public class MeadowApp : App<F7FeatherV1, MeadowApp> <- If you have a Meadow F7v1.*
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2>
     {
         RgbPwmLed onboardLed;
         WeatherView displayController;
         AnalogTemperature analogTemperature;
 
-        public MeadowApp()
-        {
-            Initialize().Wait();
-
-            Start().Wait();
-        }
-
-        async Task Initialize()
+        public override async Task Initialize()
         {
             onboardLed = new RgbPwmLed(
                 device: Device,
@@ -73,7 +66,7 @@ namespace WifiWeather
             onboardLed.StartPulse(Color.Green);
         }
 
-        async Task Start()
+        public override async Task Run()
         {
             await GetTemperature();
 

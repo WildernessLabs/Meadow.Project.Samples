@@ -3,11 +3,12 @@ using Meadow.Devices;
 using Meadow.Foundation;
 using Meadow.Foundation.Leds;
 using Meadow.Gateways.Bluetooth;
+using System.Threading.Tasks;
 
 namespace MeadowBleLed
 {
     // public class MeadowApp : App<F7FeatherV1, MeadowApp> <- If you have a Meadow F7v1.*
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2>
     {
         Color selectedColor;
 
@@ -20,12 +21,7 @@ namespace MeadowBleLed
         readonly string IS_ON = "24517ccc888e4ffc9da521884353b08d";
         readonly string COLOR = "5a0bb01669ab4a49a2f2de5b292458f3";
 
-        public MeadowApp()
-        {
-            Initialize();
-        }
-
-        void Initialize()
+        public override Task Initialize()
         {
             onboardLed = new RgbPwmLed(
                 device: Device,
@@ -41,6 +37,8 @@ namespace MeadowBleLed
             colorCharacteristic.ValueSet += ColorCharacteristicValueSet;
 
             PulseColor(Color.Green);
+
+            return base.Initialize();
         }
 
         void IsOnCharacteristicValueSet(ICharacteristic c, object data)

@@ -10,30 +10,26 @@ using Meadow.Hardware;
 using System;
 using Meadow.Units;
 using VU = Meadow.Units.Voltage.UnitType;
+using System.Threading.Tasks;
 
 namespace PlantMonitor
 {
     // public class MeadowApp : App<F7FeatherV1, MeadowApp> <- If you have a Meadow F7v1.*
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2>
     {
         readonly Voltage MINIMUM_VOLTAGE_CALIBRATION = new Voltage(2.81, VU.Volts);
-        readonly Voltage MAXIMUM_VOLTAGE_CALIBRATION = new Voltage(1.50, VU.Volts);        
+        readonly Voltage MAXIMUM_VOLTAGE_CALIBRATION = new Voltage(1.50, VU.Volts);
 
         double moisture;
         Temperature temperature;
 
         RgbPwmLed onboardLed;
         PushButton button;
-        Capacitive capacitive;        
+        Capacitive capacitive;
         AnalogTemperature analogTemperature;
         DisplayController displayController;
-       
-        public MeadowApp()
-        {
-            Initialize();            
-        }
 
-        void Initialize()
+        public override Task Initialize()
         {
             onboardLed = new RgbPwmLed(
                 device: Device,
@@ -102,6 +98,8 @@ namespace PlantMonitor
             analogTemperature.StartUpdating(TimeSpan.FromHours(1));
 
             onboardLed.SetColor(Color.Green);
+
+            return base.Initialize();
         }
 
         async void ButtonClicked(object sender, EventArgs e)

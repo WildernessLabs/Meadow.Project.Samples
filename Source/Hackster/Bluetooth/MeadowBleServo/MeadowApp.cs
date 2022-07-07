@@ -4,11 +4,12 @@ using Meadow.Foundation;
 using Meadow.Foundation.Leds;
 using Meadow.Gateways.Bluetooth;
 using MeadowBleServo.Controllers;
+using System.Threading.Tasks;
 
 namespace MeadowBleServo
 {
     // public class MeadowApp : App<F7FeatherV1, MeadowApp> <- If you have a Meadow F7v1.*
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2>
     {
         Definition bleTreeDefinition;
         CharacteristicBool isSweepingCharacteristic;
@@ -17,12 +18,7 @@ namespace MeadowBleServo
         readonly string IS_SWEEPING = "24517ccc888e4ffc9da521884353b08d";
         readonly string ANGLE       = "5a0bb01669ab4a49a2f2de5b292458f3";
 
-        public MeadowApp()
-        {
-            Initialize();
-        }
-
-        void Initialize()
+        public override Task Initialize()
         {
             var onboardLed = new RgbPwmLed(
                 device: Device,
@@ -40,6 +36,8 @@ namespace MeadowBleServo
             angleCharacteristic.ValueSet += AngleCharacteristicValueSet;
 
             onboardLed.SetColor(Color.Green);
+
+            return base.Initialize();
         }
 
         void IsSweepingCharacteristicValueSet(ICharacteristic c, object data)

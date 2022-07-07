@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 namespace WifiClock
 {
     // public class MeadowApp : App<F7FeatherV1, MeadowApp> <- If you have a Meadow F7v1.*
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2>
     {
         PushButton pushButton;
         MicroGraphics graphics;
@@ -23,14 +23,7 @@ namespace WifiClock
 
         bool showDate;
 
-        public MeadowApp()
-        {
-            Initialize().Wait();
-
-            Start().Wait();
-        }
-
-        async Task Initialize()
+        public override async Task Initialize()
         { 
             var onboardLed = new RgbPwmLed(
                 device: Device,
@@ -81,7 +74,7 @@ namespace WifiClock
             showDate = false;
         }
 
-        async Task Start() 
+        public override async Task Run() 
         {
             while (true)
             {
