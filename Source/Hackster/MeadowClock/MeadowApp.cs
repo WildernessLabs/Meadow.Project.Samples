@@ -3,6 +3,7 @@ using Meadow.Devices;
 using Meadow.Foundation.Displays.Lcd;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Buttons;
+using Meadow.Peripherals.Leds;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,7 +24,7 @@ namespace MeadowClock
                 Device.Pins.OnboardLedRed,
                 Device.Pins.OnboardLedGreen,
                 Device.Pins.OnboardLedBlue);
-            led.SetColor(RgbLed.Colors.Red);
+            led.SetColor(RgbLedColors.Red);
 
             display = new CharacterDisplay
             (
@@ -44,7 +45,7 @@ namespace MeadowClock
 
             Device.SetClock(new DateTime(2022, 03, 05, 19, 45, 00));
 
-            led.SetColor(RgbLed.Colors.Green);
+            led.SetColor(RgbLedColors.Green);
 
             return base.Initialize();
         }

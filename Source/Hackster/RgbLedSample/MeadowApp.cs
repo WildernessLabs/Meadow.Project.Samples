@@ -5,6 +5,7 @@ using Meadow;
 using Meadow.Devices;
 using Meadow.Foundation;
 using Meadow.Foundation.Leds;
+using Meadow.Peripherals.Leds;
 
 namespace RgbLedSample
 {
@@ -48,9 +49,9 @@ namespace RgbLedSample
             while (true)
             {
                 Console.WriteLine("Going through each color on each RGB LED...");
-                for (int i = 0; i < (int)RgbLed.Colors.count; i++)
+                for (int i = 0; i < (int)RgbLedColors.count; i++)
                 {
-                    rgbLed.SetColor((RgbLed.Colors)i);
+                    rgbLed.SetColor((RgbLedColors)i);
                     await Task.Delay(500);
                 }
             }

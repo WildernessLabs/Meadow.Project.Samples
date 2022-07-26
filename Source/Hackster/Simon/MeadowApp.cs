@@ -122,7 +122,7 @@ namespace Simon
         async Task TurnOnLED(int index, int duration = 400)
         {
             leds[index].IsOn = true;
-            await speaker.PlayTone(notes[index], duration);
+            await speaker.PlayTone(notes[index], TimeSpan.FromMilliseconds(duration));
             leds[index].IsOn = false;
         }
 
@@ -196,7 +196,7 @@ namespace Simon
                 return;
             isAnimating = true;
 
-            await speaker.PlayTone(new Frequency(123.47f), 750);
+            await speaker.PlayTone(new Frequency(123.47f), TimeSpan.FromMilliseconds(750));
 
             for (int i = 0; i < 20; i++)
             {

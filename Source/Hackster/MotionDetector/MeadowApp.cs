@@ -52,7 +52,7 @@ namespace MotionDetector
             graphics = new MicroGraphics(display);
             graphics.Rotation = RotationType._270Degrees;
 
-            motionSensor = new ParallaxPir(Device, Device.Pins.D08, InterruptMode.EdgeFalling, ResistorMode.Disabled, 5, 0);
+            motionSensor = new ParallaxPir(Device, Device.Pins.D08, InterruptMode.EdgeFalling, ResistorMode.Disabled, TimeSpan.FromMilliseconds(5), TimeSpan.FromMilliseconds(0));
             motionSensor.OnMotionStart += MotionSensorMotionStart;
             motionSensor.OnMotionEnd += MotionSensorMotionEnd;
 

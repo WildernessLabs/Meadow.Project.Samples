@@ -3,6 +3,7 @@ using Meadow.Devices;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Motors;
 using Meadow.Gateways.Bluetooth;
+using Meadow.Peripherals.Leds;
 using System.Threading.Tasks;
 
 namespace MeadowBleRover
@@ -25,7 +26,7 @@ namespace MeadowBleRover
                 Device.Pins.OnboardLedRed,
                 Device.Pins.OnboardLedGreen,
                 Device.Pins.OnboardLedBlue);
-            led.SetColor(RgbLed.Colors.Red);
+            led.SetColor(RgbLedColors.Red);
 
             ledUp = new PwmLed(Device, Device.Pins.D13, TypicalForwardVoltage.Red);
             ledDown = new PwmLed(Device, Device.Pins.D10, TypicalForwardVoltage.Red);
@@ -50,7 +51,7 @@ namespace MeadowBleRover
 
             carController = new CarController(motorLeft, motorRight);
 
-            led.SetColor(RgbLed.Colors.Blue);
+            led.SetColor(RgbLedColors.Blue);
 
             bleTreeDefinition = GetDefinition();
             Device.BluetoothAdapter.StartBluetoothServer(bleTreeDefinition);
@@ -60,7 +61,7 @@ namespace MeadowBleRover
             left.ValueSet += LeftValueSet;
             right.ValueSet += RightValueSet;
 
-            led.SetColor(RgbLed.Colors.Green);
+            led.SetColor(RgbLedColors.Green);
 
             return base.Initialize();
         }

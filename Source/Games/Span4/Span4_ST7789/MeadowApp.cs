@@ -103,7 +103,7 @@ namespace Span4
             else if (portDown.State == false)
             {
                 connectGame.AddChip(currentColumn);
-                speaker?.PlayTone(new Frequency(440), 200);
+                speaker?.PlayTone(new Frequency(440), TimeSpan.FromMilliseconds(200));
 
             }
          /*   else if (portReset.State == true)

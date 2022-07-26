@@ -93,22 +93,22 @@ namespace Frogger
             if (buttonUp.State == true)
             {
                 frogger.OnUp();
-                speaker.PlayTone(new Frequency(440), 100);
+                speaker.PlayTone(new Frequency(440), TimeSpan.FromMilliseconds(100));
             }
             else if (buttonLeft.State == true)
             {
                 frogger.OnLeft();
-                speaker.PlayTone(new Frequency(440), 100);
+                speaker.PlayTone(new Frequency(440), TimeSpan.FromMilliseconds(100));
             }
             else if (buttonRight.State == true)
             {
                 frogger.OnRight();
-                speaker.PlayTone(new Frequency(440), 100);
+                speaker.PlayTone(new Frequency(440), TimeSpan.FromMilliseconds(100));
             }
             else if (buttonDown.State == true)
             {
                 frogger.OnDown();
-                speaker.PlayTone(new Frequency(440), 100);
+                speaker.PlayTone(new Frequency(440), TimeSpan.FromMilliseconds(100));
             }
         }
 

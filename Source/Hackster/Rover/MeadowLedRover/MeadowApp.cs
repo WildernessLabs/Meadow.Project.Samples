@@ -2,6 +2,7 @@
 using Meadow.Devices;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Motors;
+using Meadow.Peripherals.Leds;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -20,7 +21,7 @@ namespace MeadowLedRover
                 Device.Pins.OnboardLedRed, 
                 Device.Pins.OnboardLedGreen, 
                 Device.Pins.OnboardLedBlue);
-            led.SetColor(RgbLed.Colors.Red);
+            led.SetColor(RgbLedColors.Red);
 
             up = new PwmLed(Device, Device.Pins.D13, TypicalForwardVoltage.Red);
             down = new PwmLed(Device, Device.Pins.D10, TypicalForwardVoltage.Red);
@@ -45,7 +46,7 @@ namespace MeadowLedRover
 
             carController = new CarController(motorLeft, motorRight);
 
-            led.SetColor(RgbLed.Colors.Green);
+            led.SetColor(RgbLedColors.Green);
 
             return base.Initialize();
         }
