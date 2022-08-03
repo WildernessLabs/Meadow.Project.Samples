@@ -59,7 +59,7 @@ namespace EdgeASketch
             rotaryX.Rotated += RotaryXRotated;
 
             rotaryY = new RotaryEncoderWithButton(Device,
-            Device.Pins.D02, Device.Pins.D03, Device.Pins.D04);
+            Device.Pins.D01, Device.Pins.D03, Device.Pins.D04);
             rotaryY.Rotated += RotaryYRotated;
             rotaryY.Clicked += RotaryYClicked;
 

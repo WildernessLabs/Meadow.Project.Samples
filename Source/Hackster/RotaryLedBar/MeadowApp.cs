@@ -48,7 +48,7 @@ namespace RotaryLedBar
             ledBarGraph = new LedBarGraph(ports);
             ledBarGraph.Percentage = 1;
 
-            rotaryEncoder = new RotaryEncoder(Device, Device.Pins.D02, Device.Pins.D03);
+            rotaryEncoder = new RotaryEncoder(Device, Device.Pins.D01, Device.Pins.D03);
             rotaryEncoder.Rotated += RotaryEncoderRotated;
 
             onboardLed.SetColor(Color.Green);

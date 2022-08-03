@@ -65,7 +65,7 @@ namespace MeadowMenu
             select = new PushButton(Device, Device.Pins.D04, ResistorMode.InternalPullUp);
             select.Clicked += (s, e) => { menu.Select(); };
 
-            previous = new PushButton(Device, Device.Pins.D02, ResistorMode.InternalPullUp);
+            previous = new PushButton(Device, Device.Pins.D01, ResistorMode.InternalPullUp);
             previous.Clicked += (s, e) => { menu.Previous(); };
 
             menu.Enable();

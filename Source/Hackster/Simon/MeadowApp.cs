@@ -50,9 +50,9 @@ namespace Simon
             leds[3] = new PwmLed(Device, Device.Pins.D07, TypicalForwardVoltage.Yellow);
 
             buttons = new PushButton[4];
-            buttons[0] = new PushButton(Device, Device.Pins.MISO);
+            buttons[0] = new PushButton(Device, Device.Pins.CIPO);
             buttons[0].Clicked += ButtonRedClicked;
-            buttons[1] = new PushButton(Device, Device.Pins.D02);
+            buttons[1] = new PushButton(Device, Device.Pins.D01);
             buttons[1].Clicked += ButtonGreenClicked;
             buttons[2] = new PushButton(Device, Device.Pins.D03);
             buttons[2].Clicked += ButtonBlueClicked;

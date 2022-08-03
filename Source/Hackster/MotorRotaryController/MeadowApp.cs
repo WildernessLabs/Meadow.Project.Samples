@@ -33,7 +33,7 @@ namespace MotorRotaryController
             );
             motor.Power = 0f;
 
-            rotary = new RotaryEncoder(Device, Device.Pins.D02, Device.Pins.D03);
+            rotary = new RotaryEncoder(Device, Device.Pins.D01, Device.Pins.D03);
             rotary.Rotated += RotaryRotated;
 
             onboardLed.SetColor(Color.Green);

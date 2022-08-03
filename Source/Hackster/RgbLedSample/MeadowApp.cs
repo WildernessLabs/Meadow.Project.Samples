@@ -30,12 +30,12 @@ namespace RgbLedSample
                 Device.Pins.D03,
                 Device.Pins.D04
             );
-            rgbPwmLed = new RgbPwmLed(
-                Device,
-                Device.Pins.D02,
-                Device.Pins.D03,
-                Device.Pins.D04
-            );
+            //rgbPwmLed = new RgbPwmLed(
+            //    Device,
+            //    Device.Pins.D02,
+            //    Device.Pins.D03,
+            //    Device.Pins.D04
+            //);
 
             onboardLed.SetColor(Color.Green);
 

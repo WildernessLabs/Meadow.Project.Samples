@@ -29,7 +29,7 @@ namespace RotaryServo
             servo = new Servo(Device, Device.Pins.D08, NamedServoConfigs.SG90);
             await servo.RotateTo(new Angle(0, AU.Degrees));
 
-            rotaryEncoder = new RotaryEncoder(Device, Device.Pins.D02, Device.Pins.D03);
+            rotaryEncoder = new RotaryEncoder(Device, Device.Pins.D01, Device.Pins.D03);
             rotaryEncoder.Rotated += RotaryEncoderRotated;
 
             onboardLed.SetColor(Color.Green);
