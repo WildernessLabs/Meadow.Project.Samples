@@ -7,10 +7,11 @@ using Meadow.Foundation.Leds;
 using Meadow.Foundation;
 using System.Threading.Tasks;
 using Meadow.Gateway.WiFi;
+using Meadow.Hardware;
 
 namespace ChristmasCountdown
 {
-    // public class MeadowApp : App<F7FeatherV1, MeadowApp> <- If you have a Meadow F7v1.*
+    // public class MeadowApp : App<F7FeatherV1> <- If you have a Meadow F7v1.*
     public class MeadowApp : App<F7FeatherV2>
     {        
         CharacterDisplay display;
@@ -37,7 +38,9 @@ namespace ChristmasCountdown
             );
             ShowSplashScreen();
 
-            var connectionResult = await Device.WiFiAdapter.Connect(Secrets.WIFI_NAME, Secrets.WIFI_PASSWORD);
+            var wifi = Device.NetworkAdapters.Primary<IWiFiNetworkAdapter>();
+
+            var connectionResult = await wifi.Connect(Secrets.WIFI_NAME, Secrets.WIFI_PASSWORD, TimeSpan.FromSeconds(45));
             if (connectionResult.ConnectionStatus != ConnectionStatus.Success)
             {
                 throw new Exception($"Cannot connect to network: {connectionResult.ConnectionStatus}");

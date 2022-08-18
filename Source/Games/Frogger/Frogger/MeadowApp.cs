@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Frogger
 {
-    // public class MeadowApp : App<F7FeatherV1, MeadowApp> <- If you have a Meadow F7v1.*
+    // public class MeadowApp : App<F7FeatherV1> <- If you have a Meadow F7v1.*
     public class MeadowApp : App<F7FeatherV2>
     {
         Ssd1309 display;

@@ -1,8 +1,7 @@
-﻿using Meadow.Devices;
+﻿using Meadow;
 using Meadow.Foundation.Servos;
 using Meadow.Hardware;
 using Meadow.Units;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 using AU = Meadow.Units.Angle.UnitType;
