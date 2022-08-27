@@ -8,7 +8,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Meadow.Core\source\Meadow.F7\Meadow.F7.csproj" />
     <ProjectReference Include="..\..\..\..\Meadow.Foundation\Source\Meadow.Foundation.Core\Meadow.Foundation.Core.csproj" />
-    <ProjectReference Include="..\..\..\..\Meadow.Foundation\Source\Meadow.Foundation.Peripherals\ICs.IOExpanders.Mcp23x08\Driver\ICs.IOExpanders.Mcp23x08.csproj" />
+    <ProjectReference Include="..\..\..\..\Meadow.Foundation\Source\Meadow.Foundation.Peripherals\ICs.IOExpanders.Mcp23xxx\Driver\ICs.IOExpanders.Mcp23xxx.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="meadow.config.yaml">

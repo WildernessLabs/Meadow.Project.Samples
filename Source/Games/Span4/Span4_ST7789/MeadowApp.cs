@@ -2,7 +2,7 @@
 using Meadow.Devices;
 using Meadow.Foundation;
 using Meadow.Foundation.Audio;
-using Meadow.Foundation.Displays.TftSpi;
+using Meadow.Foundation.Displays;
 using Meadow.Foundation.Graphics;
 using Meadow.Hardware;
 using Meadow.Units;

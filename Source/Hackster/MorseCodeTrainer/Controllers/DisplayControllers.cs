@@ -1,5 +1,5 @@
 ﻿using Meadow.Foundation;
-using Meadow.Foundation.Displays.TftSpi;
+using Meadow.Foundation.Displays;
 using Meadow.Foundation.Graphics;
 using Meadow.Hardware;
 using Meadow.Units;
@@ -34,7 +34,7 @@ namespace MorseCodeTrainer
                 dcPin: MeadowApp.Device.Pins.D01,
                 resetPin: MeadowApp.Device.Pins.D00,
                 width: 240, height: 240,
-                displayColorMode: ColorType.Format16bppRgb565
+                colorMode: ColorType.Format16bppRgb565
             );
             graphics = new MicroGraphics(display)
             {

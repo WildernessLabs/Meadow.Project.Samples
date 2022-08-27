@@ -13,7 +13,7 @@ namespace McpLeds
     public class MeadowApp : App<F7FeatherV2>
     {
         List<Led> leds;
-        Mcp23x08 mcp;
+        Mcp23008 mcp;
 
         public override Task Initialize() 
         {
@@ -24,7 +24,7 @@ namespace McpLeds
                 bluePwmPin: Device.Pins.OnboardLedBlue);
             onboardLed.SetColor(Color.Red);
 
-            mcp = new Mcp23x08(Device.CreateI2cBus(), true, true, true);
+            mcp = new Mcp23008(Device.CreateI2cBus());
 
             leds = new List<Led>();
             leds.Add(new Led(mcp.CreateDigitalOutputPort(mcp.Pins.GP0)));

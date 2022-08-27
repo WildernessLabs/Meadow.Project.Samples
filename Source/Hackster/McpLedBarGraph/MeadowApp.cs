@@ -13,7 +13,7 @@ namespace McpLedBarGraph
     // public class MeadowApp : App<F7FeatherV1> <- If you have a Meadow F7v1.*
     public class MeadowApp : App<F7FeatherV2>
     {
-        Mcp23x08 mcp;
+        Mcp23008 mcp;
         LedBarGraph ledBarGraph;
 
         public override Task Initialize() 
@@ -25,7 +25,7 @@ namespace McpLedBarGraph
                 bluePwmPin: Device.Pins.OnboardLedBlue);
             onboardLed.SetColor(Color.Red);
 
-            mcp = new Mcp23x08(Device.CreateI2cBus(), true, true, true);
+            mcp = new Mcp23008(Device.CreateI2cBus());
 
             IDigitalOutputPort[] ports =
             {

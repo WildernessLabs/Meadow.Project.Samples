@@ -1,7 +1,7 @@
 ﻿using Meadow;
 using Meadow.Devices;
 using Meadow.Foundation;
-using Meadow.Foundation.Displays.TftSpi;
+using Meadow.Foundation.Displays;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Buttons;
 using Meadow.Foundation.Sensors.Moisture;
