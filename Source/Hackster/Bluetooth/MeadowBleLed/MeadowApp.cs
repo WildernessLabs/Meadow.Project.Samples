@@ -1,8 +1,8 @@
 ﻿using Meadow;
 using Meadow.Devices;
 using Meadow.Foundation;
-using Meadow.Foundation.Leds;
 using Meadow.Gateways.Bluetooth;
+using MeadowBleLed.Controller;
 using System.Threading.Tasks;
 
 namespace MeadowBleLed
@@ -10,92 +10,69 @@ namespace MeadowBleLed
     // public class MeadowApp : App<F7FeatherV1> <- If you have a Meadow F7v1.*
     public class MeadowApp : App<F7FeatherV2>
     {
-        Color selectedColor;
-
-        RgbPwmLed onboardLed;
+        readonly string ON = "73cfbc6f61fa4d80a92feec2a90f8a3e";
+        readonly string OFF = "6315119dd61949bba21def9e99941948";
+        readonly string PULSING = "d755180131fc435da9941e7f15e17baf";
+        readonly string BLINKING = "3a6cc4f2a6ab4709a9bfc9611c6bf892";
+        readonly string RUNNING_COLORS = "30df1258f42b4788af2ea8ed9d0b932f";
 
         Definition bleTreeDefinition;
-        CharacteristicBool isOnCharacteristic;
-        CharacteristicInt32 colorCharacteristic;
 
-        readonly string IS_ON = "24517ccc888e4ffc9da521884353b08d";
-        readonly string COLOR = "5a0bb01669ab4a49a2f2de5b292458f3";
+        CharacteristicBool On;
+        CharacteristicBool Off;
+        CharacteristicBool StartPulse;
+        CharacteristicBool StartBlink;
+        CharacteristicBool StartRunningColors;
 
         public override Task Initialize()
         {
-            onboardLed = new RgbPwmLed(
-                device: Device,
-                redPwmPin: Device.Pins.D12,
-                greenPwmPin: Device.Pins.D11,
-                bluePwmPin: Device.Pins.D10);
-            PulseColor(Color.Red);
+            LedController.Current.Initialize();
+            LedController.Current.SetColor(Color.Red);
 
             bleTreeDefinition = GetDefinition();
             Device.BluetoothAdapter.StartBluetoothServer(bleTreeDefinition);
 
-            isOnCharacteristic.ValueSet += IsOnCharacteristicValueSet;
-            colorCharacteristic.ValueSet += ColorCharacteristicValueSet;
+            On.ValueSet += (s,e) => { LedController.Current.TurnOn(); };
+            Off.ValueSet += (s, e) => { LedController.Current.TurnOff(); };
+            StartPulse.ValueSet += (s, e) => { LedController.Current.StartPulse(); };
+            StartBlink.ValueSet += (s, e) => { LedController.Current.StartBlink(); };
+            StartRunningColors.ValueSet += (s, e) => { LedController.Current.StartRunningColors(); };
 
-            PulseColor(Color.Green);
+            LedController.Current.SetColor(Color.Green);
 
             return base.Initialize();
         }
 
-        void IsOnCharacteristicValueSet(ICharacteristic c, object data)
-        {
-            if ((bool)data)
-            {
-                PulseColor(selectedColor);
-                onboardLed.IsOn = true;
-                isOnCharacteristic.SetValue(false);
-            }
-            else
-            {
-                onboardLed.Stop();
-                onboardLed.IsOn = false;
-                isOnCharacteristic.SetValue(true);
-            }
-        }
-
-        void ColorCharacteristicValueSet(ICharacteristic c, object data)
-        {
-            int color = (int)data;
-
-            byte r = (byte)((color >> 16) & 0xff);
-            byte g = (byte)((color >> 8) & 0xff);
-            byte b = (byte)((color >> 0) & 0xff);
-
-            PulseColor(new Color(r / 255.0, g / 255.0, b / 255.0));
-
-            colorCharacteristic.SetValue(color);
-        }
-
-        void PulseColor(Color color)
-        {
-            selectedColor = color;
-            onboardLed.Stop();
-            onboardLed.StartPulse(color);
-        }
-
         Definition GetDefinition()
         {
-            isOnCharacteristic = new CharacteristicBool(
-                name: "On_Off",
-                uuid: IS_ON,
-                permissions: CharacteristicPermission.Read | CharacteristicPermission.Write,
-                properties: CharacteristicProperty.Read | CharacteristicProperty.Write);
-
-            colorCharacteristic = new CharacteristicInt32(
-                name: "CurrentColor",
-                uuid: COLOR,
-                permissions: CharacteristicPermission.Read | CharacteristicPermission.Write,
-                properties: CharacteristicProperty.Read | CharacteristicProperty.Write);
-
             var service = new Service(
-                name: "ServiceA",
+                name: "MeadowRGBService",
                 uuid: 253,
-                isOnCharacteristic, 
-                colorCharacteristic
+                On = new CharacteristicBool(
+                    name: nameof(On),
+                    uuid: ON,
+                    permissions: CharacteristicPermission.Read | CharacteristicPermission.Write,
+                    properties: CharacteristicProperty.Read | CharacteristicProperty.Write), 
+                Off = new CharacteristicBool(
+                    name: nameof(Off),
+                    uuid: OFF,
+                    permissions: CharacteristicPermission.Read | CharacteristicPermission.Write,
+                    properties: CharacteristicProperty.Read | CharacteristicProperty.Write),
+                StartPulse = new CharacteristicBool(
+                    name: nameof(StartPulse),
+                    uuid: PULSING,
+                    permissions: CharacteristicPermission.Read | CharacteristicPermission.Write,
+                    properties: CharacteristicProperty.Read | CharacteristicProperty.Write),
+                StartBlink = new CharacteristicBool(
+                    name: nameof(StartBlink),
+                    uuid: BLINKING,
+                    permissions: CharacteristicPermission.Read | CharacteristicPermission.Write,
+                    properties: CharacteristicProperty.Read | CharacteristicProperty.Write),
+                StartRunningColors = new CharacteristicBool(
+                    name: nameof(StartRunningColors),
+                    uuid: RUNNING_COLORS,
+                    permissions: CharacteristicPermission.Read | CharacteristicPermission.Write,
+                    properties: CharacteristicProperty.Read | CharacteristicProperty.Write)
             );
 
             return new Definition("MeadowRGB", service);
