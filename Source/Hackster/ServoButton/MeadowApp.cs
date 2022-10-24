@@ -43,9 +43,9 @@ namespace ServoButton
 
         async void ButtonClicked(object sender, EventArgs e)
         {
-            await servo.RotateTo(ANGLE_ZERO);
+            servo.RotateTo(ANGLE_ZERO);
             await Task.Delay(1000);
-            await servo.RotateTo(ANGLE_NINETY);
+            servo.RotateTo(ANGLE_NINETY);
         }
     }
 }
