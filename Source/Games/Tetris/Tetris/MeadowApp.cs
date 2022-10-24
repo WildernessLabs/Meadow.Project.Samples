@@ -1,16 +1,17 @@
 ﻿using Meadow;
 using Meadow.Devices;
-using Meadow.Foundation.Displays.Ssd130x;
+using Meadow.Foundation.Displays;
 using Meadow.Foundation.Graphics;
 using Meadow.Hardware;
 using Meadow.Units;
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Tetris
 {
-    // public class MeadowApp : App<F7FeatherV1, MeadowApp> <- If you have a Meadow F7v1.*
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    // public class MeadowApp : App<F7FeatherV1> <- If you have a Meadow F7v1.*
+    public class MeadowApp : App<F7FeatherV2>
     {
         int tick = 0;
         MicroGraphics graphics;
@@ -20,32 +21,15 @@ namespace Tetris
         IDigitalInputPort portRight;
         IDigitalInputPort portDown;
 
-        TetrisGame game = new TetrisGame(8, 18);
+        TetrisGame game;
 
         int BLOCK_SIZE = 6;
 
-        public MeadowApp()
+        public override Task Initialize()
         {
             Console.WriteLine("Tetris");
 
-            Initialize();
-
-            graphics.Clear();
-            graphics.DrawText(0, 0, "Meadow Tetris");
-            graphics.DrawText(0, 10, "v0.0.2");
-            graphics.Show();
-
-            Thread.Sleep(1000);
-
-            StartGameLoop();
-        }
-
-        void Initialize()
-        {
-            portLeft = Device.CreateDigitalInputPort(Device.Pins.D12);
-            portUp = Device.CreateDigitalInputPort(Device.Pins.D13);
-            portRight = Device.CreateDigitalInputPort(Device.Pins.D07);
-            portDown = Device.CreateDigitalInputPort(Device.Pins.D11);
+            game = new TetrisGame(8, 18);
 
             var config = new SpiClockConfiguration(
                 speed: new Frequency(48000, Frequency.UnitType.Kilohertz),
@@ -67,8 +51,15 @@ namespace Tetris
             graphics = new MicroGraphics(display);
             graphics.CurrentFont = new Font4x8();
             graphics.Rotation = RotationType._270Degrees;
+
+            portLeft = Device.CreateDigitalInputPort(Device.Pins.D12);
+            portUp = Device.CreateDigitalInputPort(Device.Pins.D13);
+            portRight = Device.CreateDigitalInputPort(Device.Pins.D07);
+            portDown = Device.CreateDigitalInputPort(Device.Pins.D11);
+
+            return base.Initialize();
         }
-        
+
         void StartGameLoop()
         {
             while(true)
@@ -142,6 +133,20 @@ namespace Tetris
                     }
                 }
             } 
+        }
+
+        public override Task Run()
+        {
+            graphics.Clear();
+            graphics.DrawText(0, 0, "Meadow Tetris");
+            graphics.DrawText(0, 10, "v0.0.2");
+            graphics.Show();
+
+            Thread.Sleep(1000);
+
+            StartGameLoop();
+
+            return base.Run();
         }
     }
 }

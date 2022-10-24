@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <AssemblyName>App</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
@@ -10,6 +10,11 @@
     <PackageReference Include="Meadow.Foundation" Version="0.*" />
     <PackageReference Include="Meadow.Foundation.Displays.TftSpi" Version="0.*" />
     <PackageReference Include="Meadow.Foundation.Sensors.Distance.Vl53l0x" Version="0.*" />
-    <PackageReference Include="Meadow.Foundation.ServoCore" Version="0.*" />
+    <PackageReference Include="Meadow.Foundation.Servos.ServoCore" Version="0.*" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="meadow.config.yaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>

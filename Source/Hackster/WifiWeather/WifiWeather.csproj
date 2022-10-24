@@ -2,11 +2,10 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <AssemblyName>App</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="meadow.config.yaml" />
     <None Remove="w_clear.jpg" />
     <None Remove="w_cloudy.jpg" />
     <None Remove="w_drizzle.jpg" />
@@ -14,11 +13,6 @@
     <None Remove="w_rain.jpg" />
     <None Remove="w_snow.jpg" />
     <None Remove="w_storm.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="meadow.config.yaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="w_drizzle.jpg" />
@@ -35,5 +29,10 @@
     <PackageReference Include="Meadow.Foundation" Version="0.*" />
     <PackageReference Include="Meadow.Foundation.Displays.TftSpi" Version="0.*" />
     <PackageReference Include="System.Text.Json" Version="6.0.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="meadow.config.yaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>

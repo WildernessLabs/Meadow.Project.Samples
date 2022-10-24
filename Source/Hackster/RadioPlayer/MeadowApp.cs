@@ -2,19 +2,19 @@
 using Meadow.Devices;
 using Meadow.Foundation;
 using Meadow.Foundation.Audio.Radio;
-using Meadow.Foundation.Displays.Ssd130x;
+using Meadow.Foundation.Displays;
 using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Buttons;
 using Meadow.Units;
 using System;
 using System.Collections.Generic;
-using System.Threading;
+using System.Threading.Tasks;
 
 namespace RadioPlayer
 {
-    // public class MeadowApp : App<F7FeatherV1, MeadowApp> <- If you have a Meadow F7v1.*
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    // public class MeadowApp : App<F7FeatherV1> <- If you have a Meadow F7v1.*
+    public class MeadowApp : App<F7FeatherV2>
     {
         List<Frequency> stations;
         int currentStation = 0;
@@ -24,26 +24,7 @@ namespace RadioPlayer
         PushButton btnNext;
         PushButton btnPrevious;
 
-        public MeadowApp()
-        {
-            Initialize();
-
-            stations = new List<Frequency>();
-            stations.Add(new Frequency(94.5f, Frequency.UnitType.Megahertz));
-            stations.Add(new Frequency(95.3f, Frequency.UnitType.Megahertz));
-            stations.Add(new Frequency(96.9f, Frequency.UnitType.Megahertz));
-            stations.Add(new Frequency(102.7f, Frequency.UnitType.Megahertz));
-            stations.Add(new Frequency(103.5f, Frequency.UnitType.Megahertz));
-            stations.Add(new Frequency(104.3f, Frequency.UnitType.Megahertz));
-            stations.Add(new Frequency(105.7f, Frequency.UnitType.Megahertz));
-
-            DisplayText("Radio Player");
-            Thread.Sleep(1000);
-            radio.SelectFrequency(stations[currentStation]);
-            DisplayText($"<- FM {stations[currentStation].Megahertz} ->");
-        }
-
-        void Initialize()
+        public override Task Initialize()
         {
             var onboardLed = new RgbPwmLed(
                 device: Device,
@@ -66,7 +47,18 @@ namespace RadioPlayer
             btnPrevious = new PushButton(Device, Device.Pins.D04);
             btnPrevious.Clicked += BtnPreviousClicked;
 
+            stations = new List<Frequency>();
+            stations.Add(new Frequency(94.5f, Frequency.UnitType.Megahertz));
+            stations.Add(new Frequency(95.3f, Frequency.UnitType.Megahertz));
+            stations.Add(new Frequency(96.9f, Frequency.UnitType.Megahertz));
+            stations.Add(new Frequency(102.7f, Frequency.UnitType.Megahertz));
+            stations.Add(new Frequency(103.5f, Frequency.UnitType.Megahertz));
+            stations.Add(new Frequency(104.3f, Frequency.UnitType.Megahertz));
+            stations.Add(new Frequency(105.7f, Frequency.UnitType.Megahertz));
+
             onboardLed.SetColor(Color.Green);
+
+            return base.Initialize();
         }
 
         void BtnNextClicked(object sender, EventArgs e)
@@ -98,6 +90,14 @@ namespace RadioPlayer
             graphics.DrawRectangle(0, 0, 128, 32);
             graphics.DrawText(x, 12, text);
             graphics.Show();
+        }
+
+        public override async Task Run()
+        {
+            DisplayText("Radio Player");
+            await Task.Delay(1000);
+            radio.SelectFrequency(stations[currentStation]);
+            DisplayText($"<- FM {stations[currentStation].Megahertz} ->");
         }
     }
 }

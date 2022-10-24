@@ -1,6 +1,6 @@
 ﻿using Meadow.Foundation;
-using Meadow.Foundation.Web.Maple.Server;
-using Meadow.Foundation.Web.Maple.Server.Routing;
+using Meadow.Foundation.Web.Maple;
+using Meadow.Foundation.Web.Maple.Routing;
 using MeadowMapleTemperature.Controller;
 using MeadowMapleTemperature.Database;
 using System.Collections.Generic;

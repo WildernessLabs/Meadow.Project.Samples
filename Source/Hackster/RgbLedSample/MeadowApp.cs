@@ -1,27 +1,21 @@
 ﻿using System;
 using System.Threading;
+using System.Threading.Tasks;
 using Meadow;
 using Meadow.Devices;
 using Meadow.Foundation;
 using Meadow.Foundation.Leds;
+using Meadow.Peripherals.Leds;
 
 namespace RgbLedSample
 {
-    // public class MeadowApp : App<F7FeatherV1, MeadowApp> <- If you have a Meadow F7v1.*
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    // public class MeadowApp : App<F7FeatherV1> <- If you have a Meadow F7v1.*
+    public class MeadowApp : App<F7FeatherV2>
     {
         RgbLed rgbLed;
         RgbPwmLed rgbPwmLed;
 
-        public MeadowApp()
-        {
-            Initialize();
-
-            TestRgbLed();
-            TestRgbPwmLed();
-        }
-
-        void Initialize() 
+        public override Task Initialize() 
         {
             var onboardLed = new RgbPwmLed(
                 device: Device,
@@ -31,35 +25,39 @@ namespace RgbLedSample
             onboardLed.SetColor(Color.Red);
 
             rgbLed = new RgbLed(
-                Device.CreateDigitalOutputPort(Device.Pins.D02),
-                Device.CreateDigitalOutputPort(Device.Pins.D03),
-                Device.CreateDigitalOutputPort(Device.Pins.D04)
+                Device,
+                Device.Pins.D02,
+                Device.Pins.D03,
+                Device.Pins.D04
             );
-            rgbPwmLed = new RgbPwmLed(
-                Device.CreatePwmPort(Device.Pins.D02),
-                Device.CreatePwmPort(Device.Pins.D03),
-                Device.CreatePwmPort(Device.Pins.D04)
-            );
+            //rgbPwmLed = new RgbPwmLed(
+            //    Device,
+            //    Device.Pins.D02,
+            //    Device.Pins.D03,
+            //    Device.Pins.D04
+            //);
 
             onboardLed.SetColor(Color.Green);
+
+            return base.Initialize();
         }
 
-        void TestRgbLed()
+        async Task TestRgbLed()
         {
             Console.WriteLine("TestRgbLed...");
 
             while (true)
             {
                 Console.WriteLine("Going through each color on each RGB LED...");
-                for (int i = 0; i < (int)RgbLed.Colors.count; i++)
+                for (int i = 0; i < (int)RgbLedColors.count; i++)
                 {
-                    rgbLed.SetColor((RgbLed.Colors)i);
-                    Thread.Sleep(500);
+                    rgbLed.SetColor((RgbLedColors)i);
+                    await Task.Delay(500);
                 }
             }
         }
 
-        void TestRgbPwmLed()
+        async Task TestRgbPwmLed()
         {
             Console.WriteLine("TestRgbPwmLed...");
 
@@ -70,9 +68,15 @@ namespace RgbLedSample
                     var hue = ((double)i / 360F);
                     rgbPwmLed.SetColor(Color.FromHsba(((double)i / 360F), 1, 1));
                     Console.WriteLine($"Hue {hue}");
-                    Thread.Sleep(25);
+                    await Task.Delay(25);
                 }
             }
+        }
+
+        public override async Task Run()
+        {
+            await TestRgbLed();
+            await TestRgbPwmLed();
         }
     }
 }

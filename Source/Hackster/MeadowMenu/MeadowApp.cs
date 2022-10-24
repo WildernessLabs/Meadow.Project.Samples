@@ -2,7 +2,7 @@
 using Meadow.Devices;
 using Meadow.Foundation;
 using Meadow.Foundation.Displays.TextDisplayMenu;
-using Meadow.Foundation.Displays.TftSpi;
+using Meadow.Foundation.Displays;
 using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Buttons;
@@ -11,22 +11,18 @@ using Meadow.Units;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace MeadowMenu
 {
-    // public class MeadowApp : App<F7FeatherV1, MeadowApp> <- If you have a Meadow F7v1.*
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    // public class MeadowApp : App<F7FeatherV1> <- If you have a Meadow F7v1.*
+    public class MeadowApp : App<F7FeatherV2>
     {        
-        Menu menu;   
-        MicroGraphics graphics;        
+        Menu menu;
+        MicroGraphics graphics;
         PushButton next, previous, select;
 
-        public MeadowApp()
-        {
-            Initialize();
-        }
-
-        void Initialize()
+        public override Task Initialize()
         {
             var onboardLed = new RgbPwmLed(
                 device: Device,
@@ -69,12 +65,14 @@ namespace MeadowMenu
             select = new PushButton(Device, Device.Pins.D04, ResistorMode.InternalPullUp);
             select.Clicked += (s, e) => { menu.Select(); };
 
-            previous = new PushButton(Device, Device.Pins.D02, ResistorMode.InternalPullUp);
+            previous = new PushButton(Device, Device.Pins.D01, ResistorMode.InternalPullUp);
             previous.Clicked += (s, e) => { menu.Previous(); };
+
+            menu.Enable();
 
             onboardLed.SetColor(Color.Green);
 
-            menu.Enable();
+            return base.Initialize();
         }
 
         byte[] LoadFromJson(string filename)

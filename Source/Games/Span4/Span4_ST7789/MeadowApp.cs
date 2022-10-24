@@ -2,17 +2,18 @@
 using Meadow.Devices;
 using Meadow.Foundation;
 using Meadow.Foundation.Audio;
-using Meadow.Foundation.Displays.TftSpi;
+using Meadow.Foundation.Displays;
 using Meadow.Foundation.Graphics;
 using Meadow.Hardware;
 using Meadow.Units;
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Span4
 {
-    // public class MeadowApp : App<F7FeatherV1, MeadowApp> <- If you have a Meadow F7v1.*
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    // public class MeadowApp : App<F7FeatherV1> <- If you have a Meadow F7v1.*
+    public class MeadowApp : App<F7FeatherV2>
     {
         MicroGraphics graphics;
 
@@ -21,28 +22,52 @@ namespace Span4
         IDigitalInputPort portDown;
         IDigitalInputPort portReset;
 
+        int ChipRadius = 11;
+        int CellSize = 33;
+        int CellOffset = 17;
+        int yStart = 33;
+        int xStart = 4;
+
         PiezoSpeaker speaker;
 
         Span4Game connectGame;
        
         byte currentColumn = 0;
 
-        public MeadowApp()
+        public override Task Initialize()
         {
-            Console.WriteLine("Span 4");
+            Console.WriteLine("Initialize hardware...");
 
             connectGame = new Span4Game();
 
-            Initialize();
+            portLeft = Device.CreateDigitalInputPort(Device.Pins.D02);
+            portRight = Device.CreateDigitalInputPort(Device.Pins.D03);
+            portDown = Device.CreateDigitalInputPort(Device.Pins.D04);
+            portReset = Device.CreateDigitalInputPort(Device.Pins.D05);
 
-            graphics.Clear();
-            graphics.DrawText(0, 0, "Meadow Span4!");
-            graphics.DrawText(0, 10, "v0.0.4");
-            graphics.Show();
+            speaker = new PiezoSpeaker(Device, Device.Pins.D06);
 
-            Thread.Sleep(250);
+            var config = new SpiClockConfiguration(
+                speed: new Frequency(6000, Frequency.UnitType.Kilohertz),
+                mode: SpiClockConfiguration.Mode.Mode3);
+            var spiBus = Device.CreateSpiBus(
+                clock: Device.Pins.SCK,
+                copi: Device.Pins.MOSI,
+                cipo: Device.Pins.MISO,
+                config: config);
+            var display = new St7789(
+                device: Device,
+                spiBus: spiBus,
+                chipSelectPin: Device.Pins.D10,
+                dcPin: Device.Pins.D01,
+                resetPin: Device.Pins.D00,
+                width: 240, height: 240);
 
-            StartGameLoop();
+            Console.WriteLine("Create graphics library");
+            graphics = new MicroGraphics(display);
+            graphics.CurrentFont = new Font12x16();
+
+            return base.Initialize();
         }
 
         void StartGameLoop()
@@ -78,7 +103,7 @@ namespace Span4
             else if (portDown.State == false)
             {
                 connectGame.AddChip(currentColumn);
-                speaker?.PlayTone(440, 200);
+                speaker?.PlayTone(new Frequency(440), TimeSpan.FromMilliseconds(200));
 
             }
          /*   else if (portReset.State == true)
@@ -86,12 +111,6 @@ namespace Span4
                 connectGame.Reset();
             } */
         }
-
-        int ChipRadius = 11;
-        int CellSize = 33;
-        int CellOffset = 17;
-        int yStart = 33;
-        int xStart = 4;
 
         void DrawGame()
         {
@@ -180,36 +199,18 @@ namespace Span4
                             isFilled ? Color.Red : Color.Yellow, true,  true);
         }
 
-        void Initialize()
+        public override Task Run()
         {
-            Console.WriteLine("Initialize hardware...");
+            graphics.Clear();
+            graphics.DrawText(0, 0, "Meadow Span4!");
+            graphics.DrawText(0, 10, "v0.0.4");
+            graphics.Show();
 
-            portLeft = Device.CreateDigitalInputPort(Device.Pins.D02);
-            portRight = Device.CreateDigitalInputPort(Device.Pins.D03);
-            portDown = Device.CreateDigitalInputPort(Device.Pins.D04);
-            portReset = Device.CreateDigitalInputPort(Device.Pins.D05);
+            Thread.Sleep(250);
 
-            speaker = new PiezoSpeaker(Device.CreatePwmPort(Device.Pins.D06));
-            
-            var config = new SpiClockConfiguration(
-                speed: new Frequency(6000, Frequency.UnitType.Kilohertz),
-                mode: SpiClockConfiguration.Mode.Mode3);
-            var spiBus = Device.CreateSpiBus(
-                clock: Device.Pins.SCK,
-                copi: Device.Pins.MOSI,
-                cipo: Device.Pins.MISO,
-                config: config);
-            var display = new St7789(
-                device: Device, 
-                spiBus: spiBus,
-                chipSelectPin: Device.Pins.D10,
-                dcPin: Device.Pins.D01,
-                resetPin: Device.Pins.D00,
-                width: 240, height: 240);
+            StartGameLoop();
 
-            Console.WriteLine("Create graphics library");
-            graphics = new MicroGraphics(display);
-            graphics.CurrentFont = new Font12x16();
+            return base.Run();
         }
     }
 }

@@ -5,23 +5,17 @@ using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Buttons;
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace LedDice
 {
-    // public class MeadowApp : App<F7FeatherV1, MeadowApp> <- If you have a Meadow F7v1.*
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    // public class MeadowApp : App<F7FeatherV1> <- If you have a Meadow F7v1.*
+    public class MeadowApp : App<F7FeatherV2>
     {
         PwmLed[] leds;
         PushButton button;
 
-        public MeadowApp()
-        {
-            Initialize();
-
-            ShuffleAnimation();            
-        }
-
-        void Initialize() 
+        public override Task Initialize() 
         {
             var onboardLed = new RgbPwmLed(
                 device: Device,
@@ -31,18 +25,20 @@ namespace LedDice
             onboardLed.SetColor(Color.Red);
 
             leds = new PwmLed[7];
-            leds[0] = new PwmLed(Device.CreatePwmPort(Device.Pins.D06), TypicalForwardVoltage.Red);  // 
-            leds[1] = new PwmLed(Device.CreatePwmPort(Device.Pins.D07), TypicalForwardVoltage.Red);  // [6]       [5]
-            leds[2] = new PwmLed(Device.CreatePwmPort(Device.Pins.D08), TypicalForwardVoltage.Red);  // 
-            leds[3] = new PwmLed(Device.CreatePwmPort(Device.Pins.D09), TypicalForwardVoltage.Red);  // [4]  [3]  [2]
-            leds[4] = new PwmLed(Device.CreatePwmPort(Device.Pins.D10), TypicalForwardVoltage.Red);  // 
-            leds[5] = new PwmLed(Device.CreatePwmPort(Device.Pins.D11), TypicalForwardVoltage.Red);  // [1]       [0]
-            leds[6] = new PwmLed(Device.CreatePwmPort(Device.Pins.D12), TypicalForwardVoltage.Red);  // 
+            leds[0] = new PwmLed(Device, Device.Pins.D06, TypicalForwardVoltage.Red);  // 
+            leds[1] = new PwmLed(Device, Device.Pins.D07, TypicalForwardVoltage.Red);  // [6]       [5]
+            leds[2] = new PwmLed(Device, Device.Pins.D08, TypicalForwardVoltage.Red);  // 
+            leds[3] = new PwmLed(Device, Device.Pins.D09, TypicalForwardVoltage.Red);  // [4]  [3]  [2]
+            leds[4] = new PwmLed(Device, Device.Pins.D10, TypicalForwardVoltage.Red);  // 
+            leds[5] = new PwmLed(Device, Device.Pins.D11, TypicalForwardVoltage.Red);  // [1]       [0]
+            leds[6] = new PwmLed(Device, Device.Pins.D12, TypicalForwardVoltage.Red);  // 
 
             button = new PushButton(Device, Device.Pins.D05);
             button.Clicked += ButtonClicked;
 
             onboardLed.SetColor(Color.Green);
+
+            return base.Initialize();
         }
 
         void ButtonClicked(object sender, EventArgs e)
@@ -77,6 +73,13 @@ namespace LedDice
             leds[4].IsOn = (number == 6);
             leds[5].IsOn = (number == 6 || number == 5 || number == 4 || number == 3 || number == 2);
             leds[6].IsOn = (number == 6 || number == 5 || number == 4);
+        }
+
+        public override Task Run()
+        {
+            ShuffleAnimation();
+
+            return base.Run();
         }
     }
 }

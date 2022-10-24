@@ -1,7 +1,7 @@
 ﻿using Meadow;
 using Meadow.Devices;
 using Meadow.Foundation;
-using Meadow.Foundation.Displays.TftSpi;
+using Meadow.Foundation.Displays;
 using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Distance;
@@ -10,28 +10,22 @@ using Meadow.Hardware;
 using Meadow.Units;
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 using AU = Meadow.Units.Angle.UnitType;
 using LU = Meadow.Units.Length.UnitType;
 
 namespace ObstacleRadar
 {
-    // public class MeadowApp : App<F7FeatherV1, MeadowApp> <- If you have a Meadow F7v1.*
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    // public class MeadowApp : App<F7FeatherV1> <- If you have a Meadow F7v1.*
+    public class MeadowApp : App<F7FeatherV2>
     {
-        MicroGraphics graphics;        
+        MicroGraphics graphics;
         Vl53l0x sensor;
         Servo servo;
 
         float[] radarData = new float[181];
 
-        public MeadowApp()
-        {
-            Initialize();
-
-            Draw();
-        }
-
-        void Initialize()
+        public override async Task Initialize()
         {
             var onboardLed = new RgbPwmLed(
                 device: Device,
@@ -63,8 +57,8 @@ namespace ObstacleRadar
             sensor = new Vl53l0x(Device, i2cBus);
             sensor.StartUpdating(TimeSpan.FromMilliseconds(200));
 
-            servo = new Servo(Device.CreatePwmPort(Device.Pins.D05), NamedServoConfigs.SG90);
-            servo.RotateTo(new Angle(0, AU.Degrees));
+            servo = new Servo(Device, Device.Pins.D05, NamedServoConfigs.SG90);
+            await servo.RotateTo(new Angle(0, AU.Degrees));
 
             onboardLed.SetColor(Color.Green);
         }
@@ -130,6 +124,13 @@ namespace ObstacleRadar
             {
                 graphics.DrawLine(xCenter, yCenter, 105, (float)(i * Math.PI / 6), radarColor);
             }
+        }
+
+        public override Task Run()
+        {
+            Draw();
+
+            return base.Run();
         }
     }
 }

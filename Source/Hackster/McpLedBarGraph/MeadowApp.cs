@@ -6,24 +6,17 @@ using Meadow.Foundation.Leds;
 using Meadow.Hardware;
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace McpLedBarGraph
 {
-    // public class MeadowApp : App<F7FeatherV1, MeadowApp> <- If you have a Meadow F7v1.*
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    // public class MeadowApp : App<F7FeatherV1> <- If you have a Meadow F7v1.*
+    public class MeadowApp : App<F7FeatherV2>
     {
-        Mcp23x08 mcp;
+        Mcp23008 mcp;
         LedBarGraph ledBarGraph;
 
-        public MeadowApp()
-        {
-            Initialize();
-
-            ledBarGraph.Percentage = 1;
-            CycleLeds();
-        }
-
-        void Initialize() 
+        public override Task Initialize() 
         {
             var onboardLed = new RgbPwmLed(
                 device: Device,
@@ -32,7 +25,7 @@ namespace McpLedBarGraph
                 bluePwmPin: Device.Pins.OnboardLedBlue);
             onboardLed.SetColor(Color.Red);
 
-            mcp = new Mcp23x08(Device.CreateI2cBus(), true, true, true);
+            mcp = new Mcp23008(Device.CreateI2cBus());
 
             IDigitalOutputPort[] ports =
             {
@@ -51,6 +44,8 @@ namespace McpLedBarGraph
             ledBarGraph = new LedBarGraph(ports);
 
             onboardLed.SetColor(Color.Green);
+
+            return base.Initialize();
         }
 
         void CycleLeds()
@@ -106,6 +101,14 @@ namespace McpLedBarGraph
 
                 Thread.Sleep(1000);
             }
+        }
+
+        public override Task Run()
+        {
+            ledBarGraph.Percentage = 1;
+            CycleLeds();
+
+            return base.Run();
         }
     }
 }

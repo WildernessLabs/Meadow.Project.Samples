@@ -1,5 +1,5 @@
 ﻿using Meadow.Foundation;
-using Meadow.Foundation.Displays.TftSpi;
+using Meadow.Foundation.Displays;
 using Meadow.Foundation.Graphics;
 using SimpleJpegDecoder;
 using System.IO;

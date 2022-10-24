@@ -2,21 +2,18 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <AssemblyName>App</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="meadow.config.yaml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="meadow.config.yaml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Meadow.Foundation.Displays.Lcd.CharacterDisplay" Version="0.*" />
+    <PackageReference Include="System.Text.Json" Version="6.0.1" />
     <PackageReference Include="Meadow.F7" Version="0.*" />
     <PackageReference Include="Meadow.Foundation" Version="0.*" />
-    <PackageReference Include="System.Text.Json" Version="6.0.1" />
+    <PackageReference Include="Meadow.Foundation.Displays.Lcd.CharacterDisplay" Version="0.*" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="meadow.config.yaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>

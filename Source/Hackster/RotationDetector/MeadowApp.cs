@@ -5,11 +5,12 @@ using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Motion;
 using Meadow.Units;
 using System;
+using System.Threading.Tasks;
 
 namespace RotationDetector
 {
-    // public class MeadowApp : App<F7FeatherV1, MeadowApp> <- If you have a Meadow F7v1.*
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    // public class MeadowApp : App<F7FeatherV1> <- If you have a Meadow F7v1.*
+    public class MeadowApp : App<F7FeatherV2>
     {
         Led up;
         Led down; 
@@ -17,14 +18,7 @@ namespace RotationDetector
         Led right;
         Mpu6050 mpu;
 
-        public MeadowApp()
-        {
-            Initialize();
-
-            mpu.StartUpdating(TimeSpan.FromMilliseconds(100));
-        }
-
-        void Initialize() 
+        public override Task Initialize() 
         {
             var onboardLed = new RgbPwmLed(
                 device: Device,
@@ -39,9 +33,11 @@ namespace RotationDetector
             right = new Led(Device.CreateDigitalOutputPort(Device.Pins.D12));
 
             mpu = new Mpu6050(Device.CreateI2cBus());
-            mpu.Updated += MpuUpdated;            
+            mpu.Updated += MpuUpdated;
 
             onboardLed.SetColor(Color.Green);
+
+            return base.Initialize();
         }
 
         void MpuUpdated(object sender, IChangeResult<(Acceleration3D? Acceleration3D, AngularVelocity3D? AngularVelocity3D, Temperature? Temperature)> e)
@@ -50,6 +46,13 @@ namespace RotationDetector
             down.IsOn = e.New.Acceleration3D?.Y.CentimetersPerSecondSquared > 100;
             left.IsOn = e.New.Acceleration3D?.X.CentimetersPerSecondSquared > 50;
             right.IsOn = e.New.Acceleration3D?.X.CentimetersPerSecondSquared < -100;
+        }
+
+        public override Task Run()
+        {
+            mpu.StartUpdating(TimeSpan.FromMilliseconds(100));
+
+            return base.Run();
         }
     }
 }

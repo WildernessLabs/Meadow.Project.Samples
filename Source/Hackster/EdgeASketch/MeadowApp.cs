@@ -1,7 +1,7 @@
 ﻿using Meadow;
 using Meadow.Devices;
 using Meadow.Foundation;
-using Meadow.Foundation.Displays.TftSpi;
+using Meadow.Foundation.Displays;
 using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Rotary;
@@ -9,18 +9,19 @@ using Meadow.Hardware;
 using Meadow.Peripherals.Sensors.Rotary;
 using Meadow.Units;
 using System;
+using System.Threading.Tasks;
 
 namespace EdgeASketch
 {
-    // public class MeadowApp : App<F7FeatherV1, MeadowApp> <- If you have a Meadow F7v1.*
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    // public class MeadowApp : App<F7FeatherV1> <- If you have a Meadow F7v1.*
+    public class MeadowApp : App<F7FeatherV2>
     {
         int x, y;
         MicroGraphics graphics;
         RotaryEncoderWithButton rotaryX;
         RotaryEncoderWithButton rotaryY;
 
-        public MeadowApp()
+        public override Task Initialize()
         {
             var onboardLed = new RgbPwmLed(
                 device: Device,
@@ -58,11 +59,13 @@ namespace EdgeASketch
             rotaryX.Rotated += RotaryXRotated;
 
             rotaryY = new RotaryEncoderWithButton(Device,
-            Device.Pins.D02, Device.Pins.D03, Device.Pins.D04);
-            rotaryY.Rotated += RotaryYRotated;            
+            Device.Pins.D01, Device.Pins.D03, Device.Pins.D04);
+            rotaryY.Rotated += RotaryYRotated;
             rotaryY.Clicked += RotaryYClicked;
 
             onboardLed.SetColor(Color.Green);
+
+            return base.Initialize();
         }
 
         void RotaryXRotated(object sender, RotaryChangeResult e)

@@ -1,18 +1,19 @@
 ﻿using Meadow;
 using Meadow.Devices;
 using Meadow.Foundation.Audio;
-using Meadow.Foundation.Displays.Ssd130x;
+using Meadow.Foundation.Displays;
 using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Sensors.Buttons;
 using Meadow.Hardware;
 using Meadow.Units;
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Frogger
 {
-    // public class MeadowApp : App<F7FeatherV1, MeadowApp> <- If you have a Meadow F7v1.*
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    // public class MeadowApp : App<F7FeatherV1> <- If you have a Meadow F7v1.*
+    public class MeadowApp : App<F7FeatherV2>
     {
         Ssd1309 display;
         MicroGraphics graphics;
@@ -24,23 +25,12 @@ namespace Frogger
 
         PiezoSpeaker speaker;
 
-        readonly FroggerGame frogger;
+        FroggerGame frogger;
         readonly byte cellSize = 8;
 
-        public MeadowApp()
+        public override Task Initialize()
         {
             frogger = new FroggerGame(cellSize);
-
-            Initialize();
-
-            DrawTitleMenu();
-
-            StartGame();
-        }
-
-        void Initialize()
-        {
-
 
             var config = new SpiClockConfiguration(
                 speed: new Frequency(12000, Frequency.UnitType.Kilohertz),
@@ -69,7 +59,7 @@ namespace Frogger
 
             speaker = new PiezoSpeaker(Device, Device.Pins.D13);
 
-            
+            return base.Initialize();
         }
 
         void StartGame()
@@ -100,25 +90,25 @@ namespace Frogger
 
         void CheckInput()
         {
-            if(buttonUp.State == true)
+            if (buttonUp.State == true)
             {
                 frogger.OnUp();
-                speaker.PlayTone(440, 100);
+                speaker.PlayTone(new Frequency(440), TimeSpan.FromMilliseconds(100));
             }
             else if (buttonLeft.State == true)
             {
                 frogger.OnLeft();
-                speaker.PlayTone(440, 100);
+                speaker.PlayTone(new Frequency(440), TimeSpan.FromMilliseconds(100));
             }
             else if (buttonRight.State == true)
             {
                 frogger.OnRight();
-                speaker.PlayTone(440, 100);
+                speaker.PlayTone(new Frequency(440), TimeSpan.FromMilliseconds(100));
             }
             else if (buttonDown.State == true)
             {
                 frogger.OnDown();
-                speaker.PlayTone(440, 100);
+                speaker.PlayTone(new Frequency(440), TimeSpan.FromMilliseconds(100));
             }
         }
 
@@ -317,6 +307,15 @@ namespace Frogger
                 graphics.Show();
                 Thread.Sleep(400);
             }
+        }
+
+        public override Task Run()
+        {
+            DrawTitleMenu();
+
+            StartGame();
+
+            return base.Run();
         }
     }
 }

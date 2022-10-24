@@ -7,11 +7,12 @@ using Meadow.Foundation.Sensors.Buttons;
 using System;
 using System.Diagnostics;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace StopwatchDisplay
 {
-    // public class MeadowApp : App<F7FeatherV1, MeadowApp> <- If you have a Meadow F7v1.*
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    // public class MeadowApp : App<F7FeatherV1> <- If you have a Meadow F7v1.*
+    public class MeadowApp : App<F7FeatherV2>
     {
         bool isRunning;
         Stopwatch stopwatch;
@@ -19,14 +20,7 @@ namespace StopwatchDisplay
         PushButton startStop;
         FourDigitSevenSegment display;
 
-        public MeadowApp()
-        {
-            Initialize();
-
-            Start();
-        }
-
-        void Initialize() 
+        public override Task Initialize() 
         {
             var onboardLed = new RgbPwmLed(
                 device: Device,
@@ -68,6 +62,8 @@ namespace StopwatchDisplay
             display.SetDisplay("0000".ToCharArray());
 
             onboardLed.SetColor(Color.Green);
+
+            return base.Initialize();
         }
 
         void StartStopClicked(object sender, EventArgs e)
@@ -89,7 +85,7 @@ namespace StopwatchDisplay
             stopwatch.Reset();
         }
 
-        void Start() 
+        public override Task Run() 
         {
             while (true)
             {

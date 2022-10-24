@@ -1,5 +1,5 @@
-﻿using Meadow.Foundation.Web.Maple.Server;
-using Meadow.Foundation.Web.Maple.Server.Routing;
+﻿using Meadow.Foundation.Web.Maple;
+using Meadow.Foundation.Web.Maple.Routing;
 using Meadow.Units;
 using MeadowMapleServo.Controllers;
 using AU = Meadow.Units.Angle.UnitType;

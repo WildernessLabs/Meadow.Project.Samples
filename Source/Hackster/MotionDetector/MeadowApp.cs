@@ -1,7 +1,7 @@
 ﻿using Meadow;
 using Meadow.Devices;
 using Meadow.Foundation;
-using Meadow.Foundation.Displays.TftSpi;
+using Meadow.Foundation.Displays;
 using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Motion;
@@ -12,16 +12,17 @@ using System;
 using System.IO;
 using System.Reflection;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace MotionDetector
 {
-    // public class MeadowApp : App<F7FeatherV1, MeadowApp> <- If you have a Meadow F7v1.*
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    // public class MeadowApp : App<F7FeatherV1> <- If you have a Meadow F7v1.*
+    public class MeadowApp : App<F7FeatherV2>
     {
         MicroGraphics graphics;
-        ParallaxPir motionSensor;     
+        ParallaxPir motionSensor;
 
-        public MeadowApp()
+        public override Task Initialize()
         {
             var onboardLed = new RgbPwmLed(
                 device: Device,
@@ -51,13 +52,13 @@ namespace MotionDetector
             graphics = new MicroGraphics(display);
             graphics.Rotation = RotationType._270Degrees;
 
-            motionSensor = new ParallaxPir(Device, Device.Pins.D08, InterruptMode.EdgeFalling, ResistorMode.Disabled, 5, 0);
+            motionSensor = new ParallaxPir(Device, Device.Pins.D08, InterruptMode.EdgeFalling, ResistorMode.Disabled, TimeSpan.FromMilliseconds(5), TimeSpan.FromMilliseconds(0));
             motionSensor.OnMotionStart += MotionSensorMotionStart;
             motionSensor.OnMotionEnd += MotionSensorMotionEnd;
 
             onboardLed.SetColor(Color.Green);
 
-            LoadScreen();
+            return base.Initialize();
         }
 
         void LoadScreen()
@@ -165,6 +166,13 @@ namespace MotionDetector
             Console.WriteLine("Start");
             //displayonboardLed.SetColor(Color.Magenta);
             Thread.Sleep(1000);
+        }
+
+        public override Task Run()
+        {
+            LoadScreen();
+
+            return base.Run();
         }
     }
 }

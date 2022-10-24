@@ -1,33 +1,26 @@
-﻿using System;
-using System.Threading;
-using Meadow;
+﻿using Meadow;
 using Meadow.Devices;
 using Meadow.Foundation.Displays;
 using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Sensors.Hid;
 using Meadow.Peripherals.Sensors.Hid;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Tetris
 {
-    // public class MeadowApp : App<F7FeatherV1, MeadowApp> <- If you have a Meadow F7v1.*
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    // public class MeadowApp : App<F7FeatherV1> <- If you have a Meadow F7v1.*
+    public class MeadowApp : App<F7FeatherV2>
     {
         MicroGraphics graphics;
         AnalogJoystick joystick;
         TetrisGame game = new TetrisGame(8, 24);
 
-        public MeadowApp()
+        public override Task Initialize()
         {
             Console.WriteLine("Tetris");
 
-            Initialize();
-
-            Console.WriteLine("Start game");
-            StartGameLoop();
-        }
-
-        void Initialize()
-        {
             var display = new Max7219(
                 device: Device, 
                 spiBus: Device.CreateSpiBus(Max7219.DefaultSpiBusSpeed), 
@@ -42,6 +35,8 @@ namespace Tetris
             joystick = new AnalogJoystick(Device, Device.Pins.A01, Device.Pins.A02, null);
             _ = joystick.SetCenterPosition(); //fire and forget
             joystick.StartUpdating(TimeSpan.FromMilliseconds(100));
+
+            return base.Initialize();
         }
 
         int tick = 0;
@@ -116,6 +111,15 @@ namespace Tetris
                     }
                 }
             }
+        }
+
+        public override Task Run()
+        {
+            Console.WriteLine("Start game");
+
+            StartGameLoop();
+
+            return base.Run();
         }
     }
 }

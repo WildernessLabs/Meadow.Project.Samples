@@ -1,17 +1,18 @@
 ﻿using Meadow;
 using Meadow.Devices;
 using Meadow.Foundation;
-using Meadow.Foundation.Displays.Ssd130x;
+using Meadow.Foundation.Displays;
 using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
 using Meadow.Hardware;
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace MemoryGame
 {
-    // public class MeadowApp : App<F7FeatherV1, MeadowApp> <- If you have a Meadow F7v1.*
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    // public class MeadowApp : App<F7FeatherV1> <- If you have a Meadow F7v1.*
+    public class MeadowApp : App<F7FeatherV2>
     {        
         MicroGraphics graphics;
 
@@ -24,22 +25,7 @@ namespace MemoryGame
         char[] optionsPossible;
         int option1, option2;
 
-        public MeadowApp()
-        {
-            options = new char[16];
-            optionsSolved = new bool[16];
-            optionsPossible = new char[8] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H' };
-
-            option1 = option2 = -1;
-
-            Initialize();
-
-            LoadMemoryBoard();
-            StartGameAnimation();
-            CyclingColumnVDD();
-        }
-
-        void Initialize()
+        public override Task Initialize()
         {
             var onboardLed = new RgbPwmLed(
                 device: Device,
@@ -53,10 +39,10 @@ namespace MemoryGame
             graphics = new MicroGraphics(display);
             graphics.Rotation = RotationType._180Degrees;
 
-            rowPorts[0] = Device.CreateDigitalInputPort(Device.Pins.D15, InterruptMode.EdgeRising, ResistorMode.InternalPullDown, 0, 50);
-            rowPorts[1] = Device.CreateDigitalInputPort(Device.Pins.D14, InterruptMode.EdgeRising, ResistorMode.InternalPullDown, 0, 50);
-            rowPorts[2] = Device.CreateDigitalInputPort(Device.Pins.D13, InterruptMode.EdgeRising, ResistorMode.InternalPullDown, 0, 50);
-            rowPorts[3] = Device.CreateDigitalInputPort(Device.Pins.D12, InterruptMode.EdgeRising, ResistorMode.InternalPullDown, 0, 50);
+            rowPorts[0] = Device.CreateDigitalInputPort(Device.Pins.D13, InterruptMode.EdgeRising, ResistorMode.InternalPullDown, TimeSpan.FromMilliseconds(0), TimeSpan.FromMilliseconds(50));
+            rowPorts[1] = Device.CreateDigitalInputPort(Device.Pins.D12, InterruptMode.EdgeRising, ResistorMode.InternalPullDown, TimeSpan.FromMilliseconds(0), TimeSpan.FromMilliseconds(50));
+            rowPorts[2] = Device.CreateDigitalInputPort(Device.Pins.D10, InterruptMode.EdgeRising, ResistorMode.InternalPullDown, TimeSpan.FromMilliseconds(0), TimeSpan.FromMilliseconds(50));
+            rowPorts[3] = Device.CreateDigitalInputPort(Device.Pins.D09, InterruptMode.EdgeRising, ResistorMode.InternalPullDown, TimeSpan.FromMilliseconds(0), TimeSpan.FromMilliseconds(50));
 
             columnPorts[0] = Device.CreateDigitalOutputPort(Device.Pins.D01);
             columnPorts[1] = Device.CreateDigitalOutputPort(Device.Pins.D02);
@@ -65,7 +51,15 @@ namespace MemoryGame
 
             currentColumn = 0;
 
+            options = new char[16];
+            optionsSolved = new bool[16];
+            optionsPossible = new char[8] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H' };
+
+            option1 = option2 = -1;
+
             onboardLed.SetColor(Color.Green);
+
+            return base.Initialize();
         }
 
         bool IsLevelComplete()
@@ -258,6 +252,15 @@ namespace MemoryGame
             graphics.DrawRectangle(0, 0, 128, 32);
             graphics.DrawText(x, 12, text);
             graphics.Show();
+        }
+
+        public override Task Run()
+        {
+            LoadMemoryBoard();
+            StartGameAnimation();
+            CyclingColumnVDD();
+
+            return base.Run();
         }
     }
 }

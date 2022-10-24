@@ -1,27 +1,23 @@
 ﻿using Meadow;
 using Meadow.Devices;
 using Meadow.Foundation;
-using Meadow.Foundation.Displays.TftSpi;
+using Meadow.Foundation.Displays;
 using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Hid;
 using Meadow.Hardware;
 using Meadow.Units;
+using System.Threading.Tasks;
 
 namespace TouchKeypad
 {
-    // public class MeadowApp : App<F7FeatherV1, MeadowApp> <- If you have a Meadow F7v1.*
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    // public class MeadowApp : App<F7FeatherV1> <- If you have a Meadow F7v1.*
+    public class MeadowApp : App<F7FeatherV2>
     {
         Mpr121 sensor;
         MicroGraphics graphics;
 
-        public MeadowApp()
-        {
-            Initialize();
-        }
-
-        void Initialize() 
+        public override Task Initialize() 
         {
             var onboardLed = new RgbPwmLed(
                 device: Device,
@@ -52,12 +48,13 @@ namespace TouchKeypad
                 Rotation = RotationType._180Degrees,
                 CurrentFont = new Font12x16(),
             };
-            DrawGrid();
 
             sensor = new Mpr121(Device.CreateI2cBus(I2cBusSpeed.Standard), 90, 100);
             sensor.ChannelStatusesChanged += SensorChannelStatusesChanged;
 
             onboardLed.SetColor(Color.Green);
+
+            return base.Initialize();
         }
 
         void DrawGrid() 
@@ -98,6 +95,13 @@ namespace TouchKeypad
             }
 
             graphics.Show();
+        }
+
+        public override Task Run()
+        {
+            DrawGrid();
+
+            return base.Run();
         }
     }
 }

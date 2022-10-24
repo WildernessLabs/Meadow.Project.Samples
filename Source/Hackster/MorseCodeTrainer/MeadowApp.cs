@@ -13,8 +13,8 @@ using System.Timers;
 
 namespace MorseCodeTrainer
 {
-    // public class MeadowApp : App<F7FeatherV1, MeadowApp> <- If you have a Meadow F7v1.*
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    // public class MeadowApp : App<F7FeatherV1> <- If you have a Meadow F7v1.*
+    public class MeadowApp : App<F7FeatherV2>
     {
         Dictionary<string, string> morseCode;
         
@@ -27,12 +27,7 @@ namespace MorseCodeTrainer
         string answer;
         string question;
 
-        public MeadowApp()
-        {
-            Initialize();
-        }
-
-        void Initialize()
+        public override Task Initialize()
         {
             var onboardLed = new RgbPwmLed(device: Device,
                 redPwmPin: Device.Pins.OnboardLedRed,
@@ -55,14 +50,14 @@ namespace MorseCodeTrainer
 
             LoadMorseCode();
 
-            ShowLetterQuestion();
-
             onboardLed.SetColor(Color.Green);
+
+            return base.Initialize();
         }
 
         void LoadMorseCode() 
         {
-            morseCode = new Dictionary<string, string>();            
+            morseCode = new Dictionary<string, string>();
             morseCode.Add("O-"   , "A");
             morseCode.Add("-OOO" , "B");
             morseCode.Add("-O-O" , "C");
@@ -128,7 +123,7 @@ namespace MorseCodeTrainer
 
         void ButtonPressStarted(object sender, EventArgs e)
         {
-            piezo.PlayTone(440);
+            piezo.PlayTone(new Meadow.Units.Frequency(440));
             stopWatch.Reset();
             stopWatch.Start();
             timer.Stop();
@@ -157,6 +152,13 @@ namespace MorseCodeTrainer
             answer = string.Empty;
             question = morseCode.ElementAt(new Random().Next(0, morseCode.Count)).Value;
             displayController.ShowLetterQuestion(question);
+        }
+
+        public override Task Run()
+        {
+            ShowLetterQuestion();
+
+            return base.Run();
         }
     }
 }

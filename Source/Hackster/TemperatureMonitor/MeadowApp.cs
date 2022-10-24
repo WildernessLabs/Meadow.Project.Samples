@@ -1,18 +1,19 @@
 ﻿using Meadow;
 using Meadow.Devices;
 using Meadow.Foundation;
-using Meadow.Foundation.Displays.TftSpi;
+using Meadow.Foundation.Displays;
 using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Temperature;
 using Meadow.Hardware;
 using Meadow.Units;
 using System;
+using System.Threading.Tasks;
 
 namespace TemperatureMonitor
 {
-    // public class MeadowApp : App<F7FeatherV1, MeadowApp> <- If you have a Meadow F7v1.*
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    // public class MeadowApp : App<F7FeatherV1> <- If you have a Meadow F7v1.*
+    public class MeadowApp : App<F7FeatherV2>
     {
         Color[] colors = new Color[4] 
         { 
@@ -23,17 +24,9 @@ namespace TemperatureMonitor
         };
 
         MicroGraphics graphics;
-        AnalogTemperature analogTemperature;               
+        AnalogTemperature analogTemperature;
 
-        public MeadowApp()
-        {
-            Initialize();
-
-            LoadScreen();
-            analogTemperature.StartUpdating(TimeSpan.FromSeconds(5));
-        }
-
-        void Initialize() 
+        public override Task Initialize() 
         {
             var onboardLed = new RgbPwmLed(
                 device: Device,
@@ -63,15 +56,16 @@ namespace TemperatureMonitor
                 chipSelectPin: Device.Pins.D02,
                 dcPin: Device.Pins.D01,
                 resetPin: Device.Pins.D00,
-                width: 240, height: 240)
+                width: 240, height: 240);
+            graphics = new MicroGraphics(st7789)
             {
-                IgnoreOutOfBoundsPixels = true
+                IgnoreOutOfBoundsPixels = true,
+                Rotation = RotationType._270Degrees
             };
 
-            graphics = new MicroGraphics(st7789);
-            graphics.Rotation = RotationType._270Degrees;
-
             onboardLed.SetColor(Color.Green);
+
+            return base.Initialize();
         }
 
         void AnalogTemperatureUpdated(object sender, IChangeResult<Meadow.Units.Temperature> e)
@@ -122,6 +116,14 @@ namespace TemperatureMonitor
             graphics.DrawText(54, 130, "TEMPERATURE", Color.White);
 
             graphics.Show();
+        }
+
+        public override Task Run()
+        {
+            LoadScreen();
+            analogTemperature.StartUpdating(TimeSpan.FromSeconds(5));
+
+            return base.Run();
         }
     }
 }
