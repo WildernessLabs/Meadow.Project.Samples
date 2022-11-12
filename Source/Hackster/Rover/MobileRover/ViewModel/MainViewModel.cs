@@ -1,4 +1,4 @@
-﻿using MobileMaple.Utils;
+﻿using MobileRover.Utils;
 using Plugin.BLE;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Abstractions.EventArgs;
@@ -7,7 +7,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Windows.Input;
 
-namespace MobileMaple.ViewModel
+namespace MobileRover.ViewModel
 {
     public class MainViewModel : BaseViewModel
     {

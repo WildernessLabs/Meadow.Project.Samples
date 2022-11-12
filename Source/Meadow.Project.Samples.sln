@@ -113,7 +113,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MobileBle", "Hackster\Bluet
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MobileMaple", "Hackster\Maple\MobileMaple\MobileMaple.csproj", "{3059D6A5-FB49-44F6-A1F8-94C52E42C9C9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MobileMaple", "Hackster\Rover\MobileBle\MobileMaple\MobileMaple.csproj", "{32F2530C-825A-4671-A3AB-612CA20BBA50}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MobileRover", "Hackster\Rover\MobileRover\MobileRover.csproj", "{32F2530C-825A-4671-A3AB-612CA20BBA50}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

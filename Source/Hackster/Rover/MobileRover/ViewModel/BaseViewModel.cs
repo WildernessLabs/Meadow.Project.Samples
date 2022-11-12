@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace MobileMaple.ViewModel
+namespace MobileRover.ViewModel
 {
     public class BaseViewModel : INotifyPropertyChanged
     {

@@ -1,7 +1,7 @@
 ﻿using ObjCRuntime;
 using UIKit;
 
-namespace MobileMaple;
+namespace MobileRover;
 
 public class Program
 {

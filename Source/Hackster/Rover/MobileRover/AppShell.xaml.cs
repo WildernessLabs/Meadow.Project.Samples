@@ -1,4 +1,4 @@
-﻿namespace MobileMaple;
+﻿namespace MobileRover;
 
 public partial class AppShell : Shell
 {

@@ -1,6 +1,6 @@
 ﻿using Foundation;
 
-namespace MobileMaple;
+namespace MobileRover;
 
 [Register("AppDelegate")]
 public class AppDelegate : MauiUIApplicationDelegate

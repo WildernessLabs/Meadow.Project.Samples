@@ -1,6 +1,6 @@
-﻿using MobileMaple.ViewModel;
+﻿using MobileRover.ViewModel;
 
-namespace MobileMaple.View
+namespace MobileRover.View
 {
     public partial class MainPage : ContentPage
     {

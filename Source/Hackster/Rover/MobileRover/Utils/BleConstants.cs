@@ -1,4 +1,4 @@
-﻿namespace MobileMaple.Utils
+﻿namespace MobileRover.Utils
 {
     public static class CharacteristicsConstants
     {

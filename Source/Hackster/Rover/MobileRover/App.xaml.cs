@@ -1,6 +1,6 @@
-﻿using MobileMaple.View;
+﻿using MobileRover.View;
 
-namespace MobileMaple
+namespace MobileRover
 {
     public partial class App : Application
     {

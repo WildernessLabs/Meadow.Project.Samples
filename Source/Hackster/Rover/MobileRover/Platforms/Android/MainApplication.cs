@@ -1,7 +1,7 @@
 ﻿using Android.App;
 using Android.Runtime;
 
-namespace MobileMaple;
+namespace MobileRover;
 
 [Application]
 public class MainApplication : MauiApplication
