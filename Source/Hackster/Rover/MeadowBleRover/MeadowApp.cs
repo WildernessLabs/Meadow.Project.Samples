@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 namespace MeadowBleRover
 {
     // public class MeadowApp : App<F7FeatherV1> <- If you have a Meadow F7v1.*
-    public class MeadowApp : App<F7FeatherV2>
+    public class MeadowApp : App<F7FeatherV1>
     {
         Definition bleTreeDefinition;
         CharacteristicBool up, down, left, right;
 
         RgbLed led;
-        PwmLed ledUp, ledDown, ledLeft, ledRight;
+        Led ledUp, ledDown, ledLeft, ledRight;
         
         CarController carController;
 
@@ -28,10 +28,10 @@ namespace MeadowBleRover
                 Device.Pins.OnboardLedBlue);
             led.SetColor(RgbLedColors.Red);
 
-            ledUp = new PwmLed(Device, Device.Pins.D13, TypicalForwardVoltage.Red);
-            ledDown = new PwmLed(Device, Device.Pins.D10, TypicalForwardVoltage.Red);
-            ledLeft = new PwmLed(Device, Device.Pins.D11, TypicalForwardVoltage.Red);
-            ledRight = new PwmLed(Device, Device.Pins.D12, TypicalForwardVoltage.Red);
+            ledUp = new Led(Device, Device.Pins.D13);
+            ledDown = new Led(Device, Device.Pins.D10);
+            ledLeft = new Led(Device, Device.Pins.D11);
+            ledRight = new Led(Device, Device.Pins.D12);
             ledUp.IsOn = ledDown.IsOn = ledLeft.IsOn = ledRight.IsOn = true;
 
             var motorLeft = new HBridgeMotor

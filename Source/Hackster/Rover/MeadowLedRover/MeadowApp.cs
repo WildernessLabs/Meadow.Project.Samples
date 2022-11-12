@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 namespace MeadowLedRover
 {
     // public class MeadowApp : App<F7FeatherV1> <- If you have a Meadow F7v1.*
-    public class MeadowApp : App<F7FeatherV2>
+    public class MeadowApp : App<F7FeatherV1>
     {
-        PwmLed up, down, left, right;
+        Led up, down, left, right;
         CarController carController;
 
         public override Task Initialize()
@@ -23,10 +23,10 @@ namespace MeadowLedRover
                 Device.Pins.OnboardLedBlue);
             led.SetColor(RgbLedColors.Red);
 
-            up = new PwmLed(Device, Device.Pins.D13, TypicalForwardVoltage.Red);
-            down = new PwmLed(Device, Device.Pins.D10, TypicalForwardVoltage.Red);
-            left = new PwmLed(Device, Device.Pins.D11, TypicalForwardVoltage.Red);
-            right = new PwmLed(Device, Device.Pins.D12, TypicalForwardVoltage.Red);
+            up = new Led(Device, Device.Pins.D13);
+            down = new Led(Device, Device.Pins.D10);
+            left = new Led(Device, Device.Pins.D11);
+            right = new Led(Device, Device.Pins.D12);
             up.IsOn = down.IsOn = left.IsOn = right.IsOn = false;
 
             var motorLeft = new HBridgeMotor
@@ -55,34 +55,34 @@ namespace MeadowLedRover
         {
             while (true)
             {
-                up.Brightness = 0.1f;
+                up.IsOn = true;
                 carController.MoveForward();
                 await Task.Delay(1000);
-                up.Brightness = 0.0f;
+                up.IsOn = false;
 
                 carController.Stop();
                 await Task.Delay(500);
 
-                down.Brightness = 0.1f;
+                down.IsOn = true;
                 carController.MoveBackward();
                 await Task.Delay(1000);
-                down.Brightness = 0.0f;
+                down.IsOn = false;
 
                 carController.Stop();
                 await Task.Delay(500);
 
-                left.Brightness = 0.1f;
+                left.IsOn = true;
                 carController.TurnLeft();
                 await Task.Delay(1000);
-                left.Brightness = 0.0f;
+                left.IsOn = false;
 
                 carController.Stop();
                 await Task.Delay(500);
 
-                right.Brightness = 0.1f;
+                right.IsOn = true;
                 carController.TurnRight();
                 await Task.Delay(1000);
-                right.Brightness = 0.0f;
+                right.IsOn = false;
 
                 carController.Stop();
                 await Task.Delay(500);
