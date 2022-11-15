@@ -93,10 +93,7 @@
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
 
-                        <Grid Grid.Row="0">
-                            <Grid Grid.Row="0" BackgroundColor="#808080" />
-                            <Frame Grid.RowSpan="2" BackgroundColor="#808080" HasShadow="False" CornerRadius="10" />
-                        </Grid>
+                        <Grid Grid.Row="0" BackgroundColor="#808080" />
 
                         <Frame Grid.Row="1" BackgroundColor="#808080" HasShadow="False" CornerRadius="10" />
 
@@ -106,10 +103,7 @@
 
                         <Frame Grid.Row="3" BackgroundColor="#808080" HasShadow="False" Padding="5" CornerRadius="10" />
 
-                        <Grid Grid.Row="4">
-                            <Frame Grid.RowSpan="2" BackgroundColor="#808080" HasShadow="False" CornerRadius="10" />
-                            <Grid Grid.Row="1" BackgroundColor="#808080" />
-                        </Grid>
+                        <Grid Grid.Row="4" BackgroundColor="#808080" />
                     </Grid>
 
                     <!-- Red Buttons -->

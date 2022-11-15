@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace MeadowBleRover
 {
     // public class MeadowApp : App<F7FeatherV1> <- If you have a Meadow F7v1.*
-    public class MeadowApp : App<F7FeatherV1>
+    public class MeadowApp : App<F7FeatherV2>
     {
         Definition bleTreeDefinition;
         CharacteristicBool up, down, left, right;
@@ -37,9 +37,9 @@ namespace MeadowBleRover
             var motorLeft = new HBridgeMotor
             (
                 device: Device,
-                a1Pin: Device.Pins.D05,
-                a2Pin: Device.Pins.D06,
-                enablePin: Device.Pins.D07
+                a1Pin: Device.Pins.D07,
+                a2Pin: Device.Pins.D08,
+                enablePin: Device.Pins.D09
             );
             var motorRight = new HBridgeMotor
             (

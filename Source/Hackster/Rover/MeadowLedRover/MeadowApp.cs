@@ -3,13 +3,12 @@ using Meadow.Devices;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Motors;
 using Meadow.Peripherals.Leds;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace MeadowLedRover
 {
     // public class MeadowApp : App<F7FeatherV1> <- If you have a Meadow F7v1.*
-    public class MeadowApp : App<F7FeatherV1>
+    public class MeadowApp : App<F7FeatherV2>
     {
         Led up, down, left, right;
         CarController carController;
@@ -32,9 +31,9 @@ namespace MeadowLedRover
             var motorLeft = new HBridgeMotor
             (   
                 device: Device,
-                a1Pin: Device.Pins.D05,
-                a2Pin: Device.Pins.D06,
-                enablePin: Device.Pins.D07
+                a1Pin: Device.Pins.D07,
+                a2Pin: Device.Pins.D08,
+                enablePin: Device.Pins.D09
             );
             var motorRight = new HBridgeMotor
             (
