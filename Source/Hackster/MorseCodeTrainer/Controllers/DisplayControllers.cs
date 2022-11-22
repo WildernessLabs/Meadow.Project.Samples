@@ -59,16 +59,16 @@ namespace MorseCodeTrainer
         {
             Color color = isCorrect ? Color.GreenYellow : Color.Red;
 
-            graphics.DrawText(120, 65, question, color, ScaleFactor.X3, TextAlignment.Center);
+            graphics.DrawText(120, 65, question, color, ScaleFactor.X3, HorizontalAlignment.Center);
             UpdateAnswer(answer, color);
-            graphics.DrawText(120, 190, isCorrect ? "Correct!" : "Try again!", color, ScaleFactor.X1, TextAlignment.Center);
+            graphics.DrawText(120, 190, isCorrect ? "Correct!" : "Try again!", color, ScaleFactor.X1, HorizontalAlignment.Center);
             graphics.Show();
         }
 
         public void ShowLetterQuestion(string question)
         {
             graphics.DrawRectangle(2, 65, 236, 60, Color.Black, true);
-            graphics.DrawText(120, 65, question, Color.White, ScaleFactor.X3, TextAlignment.Center);
+            graphics.DrawText(120, 65, question, Color.White, ScaleFactor.X3, HorizontalAlignment.Center);
             graphics.DrawRectangle(5, 120, 230, 110, Color.Black, true);
             graphics.Show();
         }
