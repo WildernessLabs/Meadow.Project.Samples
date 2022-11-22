@@ -62,7 +62,7 @@ namespace PlantMonitor
             
             capacitive = new Capacitive(
                 device: Device,
-                analogPin: Device.Pins.A01,
+                analogInputPin: Device.Pins.A01,
                 minimumVoltageCalibration: MINIMUM_VOLTAGE_CALIBRATION,
                 maximumVoltageCalibration: MAXIMUM_VOLTAGE_CALIBRATION);
 
