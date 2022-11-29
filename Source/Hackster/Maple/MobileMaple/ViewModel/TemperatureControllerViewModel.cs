@@ -17,6 +17,10 @@ namespace MobileMaple.ViewModel
 
         async Task GetTemperatureLogs()
         {
+            if(IsBusy) 
+                return;
+            IsBusy= true;
+
             try
             {
                 var response = await client.GetAsync(
@@ -38,6 +42,10 @@ namespace MobileMaple.ViewModel
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+            }
+            finally
+            { 
+                IsBusy = false; 
             }
         }
 
