@@ -11,13 +11,13 @@
             <Label Text="Select a device:" TextColor="Black" FontSize="Medium" Margin="0,0,0,10" />
 
             <Button x:Name="btnLed" Text="RGB LED Controller" Clicked="BtnLedClicked" HeightRequest="60"
-                TextColor="White" BackgroundColor="{StaticResource ButtonActive}" />
+                FontSize="Medium" TextColor="White" BackgroundColor="{StaticResource ButtonActive}" />
 
             <Button x:Name="btnServo" Text="Servo Controller" Clicked="BtnServoClicked" HeightRequest="60"
-                TextColor="White" BackgroundColor="{StaticResource ButtonActive}" />
+                FontSize="Medium" TextColor="White" BackgroundColor="{StaticResource ButtonActive}" />
 
             <Button x:Name="btnAnalogTemperature" Text="Temperature Controller" Clicked="BtnTemperatureClicked" HeightRequest="60"
-                TextColor="White" BackgroundColor="{StaticResource ButtonActive}" IsEnabled="False" />
+                FontSize="Medium" TextColor="White" BackgroundColor="{StaticResource ButtonActive}" />
         </VerticalStackLayout>
 
         <Label Text="By Wilderness Labs" TextColor="Black" 

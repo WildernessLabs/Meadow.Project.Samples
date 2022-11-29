@@ -1,13 +1,8 @@
-﻿using Newtonsoft.Json;
-
-namespace MobileMaple.Model
-{    
-    [JsonObject]
+﻿namespace MobileMaple.Model
+{
     public class TemperatureModel
     {
-        [JsonProperty("dateTime")]
-        public string DateTime { get; set; }
-        [JsonProperty("temperature")]
         public string Temperature { get; set; }
+        public string DateTime { get; set; }
     }
 }

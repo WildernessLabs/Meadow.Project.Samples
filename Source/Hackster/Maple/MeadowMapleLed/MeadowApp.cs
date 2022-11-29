@@ -28,7 +28,7 @@ namespace MeadowMapleLed
                 throw new Exception($"Cannot connect to network: {connectionResult.ConnectionStatus}");
             }
 
-            mapleServer = new MapleServer(wifi.IpAddress, 5417, true);
+            mapleServer = new MapleServer(wifi.IpAddress, 5417, true, logger: Resolver.Log);
             mapleServer.Start();
 
             LedController.Current.SetColor(Color.Green);

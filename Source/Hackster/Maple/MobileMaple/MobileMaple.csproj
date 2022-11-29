@@ -53,4 +53,10 @@
         <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <MauiXaml Update="View\TemperatureControllerPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
 </Project>

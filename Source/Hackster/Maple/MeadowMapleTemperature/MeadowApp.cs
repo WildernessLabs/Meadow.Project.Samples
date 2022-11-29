@@ -31,7 +31,7 @@ namespace MeadowMapleTemperature
 
             TemperatureController.Instance.Initialize();
 
-            mapleServer = new MapleServer(wifi.IpAddress, 5417, true);
+            mapleServer = new MapleServer(wifi.IpAddress, 5417, true, logger: Resolver.Log);
             mapleServer.Start();
 
             LedController.Instance.SetColor(Color.Green);
