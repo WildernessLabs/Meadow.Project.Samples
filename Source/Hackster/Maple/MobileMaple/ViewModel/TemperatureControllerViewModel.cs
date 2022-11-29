@@ -24,7 +24,7 @@ namespace MobileMaple.ViewModel
                     port: ServerPort,
                     endPoint: "gettemperaturelogs");
 
-                if (response == null)
+                if (string.IsNullOrEmpty(response))
                     return;
 
                 var values = System.Text.Json.JsonSerializer.Deserialize<List<TemperatureModel>>(response);

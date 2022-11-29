@@ -29,15 +29,13 @@
                         </Grid.ColumnDefinitions>
 
                         <Grid Grid.Column="0">
-                            <Picker TextColor="White" FontSize="Medium" BackgroundColor="Transparent"
+                            <Picker TextColor="White" FontSize="Medium" BackgroundColor="Transparent" Margin="0,4,0,0"
                                 ItemsSource="{Binding HostList}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedServer}"/>
-                            <Label IsVisible="{Binding IsServerListEmpty}" Text="Pick a server" 
-                                FontSize="Medium" TextColor="White" VerticalOptions="Center" />
                         </Grid>
 
                         <Grid Grid.Column="1" WidthRequest="50" HeightRequest="50">
                             <Button Command="{Binding SearchServersCommand}" BackgroundColor="Transparent" CornerRadius="5" />
-                            <Image Source="icon_search.png" Margin="10" InputTransparent="True" />
+                            <Image Source="img_search.png" Margin="10" InputTransparent="True" />
                         </Grid>
                     </Grid>
                 </Frame>
@@ -72,7 +70,7 @@
 
                 <Frame Grid.Row="5" BackgroundColor="#F0F5F5" BorderColor="Transparent" HasShadow="False" Padding="0">
                     <Grid>
-                        <ListView ItemsSource="{Binding WeatherLog}" SeparatorVisibility="None" BackgroundColor="Transparent" 
+                        <ListView ItemsSource="{Binding TemperatureLog}" SeparatorVisibility="None" BackgroundColor="Transparent"
                             HasUnevenRows="True">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
@@ -81,40 +79,10 @@
                                             <Border.StrokeShape>
                                                 <RoundRectangle CornerRadius="5" />
                                             </Border.StrokeShape>
-                                            <Grid ColumnDefinitions="Auto, *" RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto" RowSpacing="0">
-                                                <Label Grid.Row="0" Grid.Column="0" Text="Date" FontSize="Medium"
+                                            <Grid>
+                                                <Label Text="{Binding DateTime}" FontSize="Medium"
                                                     TextColor="White" VerticalOptions="Center" />
-                                                <Label Grid.Row="0" Grid.Column="1" Text="{Binding Date}" FontSize="Medium"
-                                                    TextColor="White" HorizontalOptions="End" VerticalOptions="Center" />
-
-                                                <Label Grid.Row="1" Grid.Column="0" Text="Temperature" FontSize="Medium"
-                                                    TextColor="White" VerticalOptions="Center" />
-                                                <Label Grid.Row="1" Grid.Column="1" Text="{Binding Temperature, StringFormat='{0} °C'}" FontSize="Medium"
-                                                    TextColor="White" HorizontalOptions="End" VerticalOptions="Center" />
-
-                                                <Label Grid.Row="2" Grid.Column="0" Text="Pressure" FontSize="Medium"
-                                                    TextColor="White" VerticalOptions="Center" />
-                                                <Label Grid.Row="2" Grid.Column="1" Text="{Binding Pressure, StringFormat='{0} bar'}" FontSize="Medium"
-                                                    TextColor="White" HorizontalOptions="End" VerticalOptions="Center" />
-
-                                                <Label Grid.Row="3" Grid.Column="0" Text="Humidity" FontSize="Medium"
-                                                    TextColor="White" VerticalOptions="Center" />
-                                                <Label Grid.Row="3" Grid.Column="1" Text="{Binding Humidity, StringFormat='{0} %'}" FontSize="Medium"
-                                                    TextColor="White" HorizontalOptions="End" VerticalOptions="Center" />
-
-                                                <Label Grid.Row="4" Grid.Column="0" Text="WindSpeed" FontSize="Medium"
-                                                    TextColor="White" VerticalOptions="Center" />
-                                                <Label Grid.Row="4" Grid.Column="1" Text="{Binding WindSpeed, StringFormat='{0} Kph'}" FontSize="Medium"
-                                                    TextColor="White" HorizontalOptions="End" VerticalOptions="Center" />
-
-                                                <Label Grid.Row="5" Grid.Column="0" Text="Wind Direction" FontSize="Medium"
-                                                    TextColor="White" VerticalOptions="Center" />
-                                                <Label Grid.Row="5" Grid.Column="1" Text="{Binding WindDirection}" FontSize="Medium"
-                                                    TextColor="White" HorizontalOptions="End" VerticalOptions="Center" />
-
-                                                <Label Grid.Row="6" Grid.Column="0" Text="Rain Volume" FontSize="Medium"
-                                                    TextColor="White" VerticalOptions="Center" />
-                                                <Label Grid.Row="6" Grid.Column="1" Text="{Binding Rain, StringFormat='{0} mm'}" FontSize="Medium"
+                                                <Label Text="{Binding Path=Temperature, StringFormat='{0}°C'}" FontSize="Medium"
                                                     TextColor="White" HorizontalOptions="End" VerticalOptions="Center" />
                                             </Grid>
                                         </Border>
@@ -122,8 +90,6 @@
                                 </DataTemplate>
                             </ListView.ItemTemplate>
                         </ListView>
-
-
                     </Grid>
                 </Frame>
 
