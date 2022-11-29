@@ -4,7 +4,7 @@ using Meadow.Foundation;
 using Meadow.Foundation.Web.Maple;
 using Meadow.Gateway.WiFi;
 using Meadow.Hardware;
-using MeadowMapleTemperature.Controller;
+using MeadowMapleTemperature.Controllers;
 using System;
 using System.Threading.Tasks;
 
