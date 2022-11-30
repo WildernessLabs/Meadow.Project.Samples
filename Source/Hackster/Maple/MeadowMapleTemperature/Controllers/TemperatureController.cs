@@ -31,12 +31,14 @@ namespace MeadowMapleTemperature.Controllers
 
         void AnalogTemperatureUpdated(object sender, Meadow.IChangeResult<Temperature> e)
         {
+            int TIMEZONE_OFFSET = -8;
+
             LedController.Instance.SetColor(Color.Magenta);
 
             TemperatureLogs.Add(new TemperatureModel()
             {
                 Temperature = e.New.Celsius.ToString("00"),
-                DateTime = DateTime.Now.ToString("yyyy-mm-dd hh:mm:ss tt")
+                DateTime = DateTime.Now.AddHours(TIMEZONE_OFFSET).ToString("yyyy-MM-dd hh:mm:ss tt")
             });
 
             LedController.Instance.SetColor(Color.Green);

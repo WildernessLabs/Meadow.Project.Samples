@@ -27,8 +27,6 @@ namespace MeadowMapleTemperature
                 throw new Exception($"Cannot connect to network: {connectionResult.ConnectionStatus}");
             }
 
-            await DateTimeService.GetTimeAsync();
-
             TemperatureController.Instance.Initialize();
 
             mapleServer = new MapleServer(wifi.IpAddress, 5417, true, logger: Resolver.Log);
