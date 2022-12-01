@@ -51,7 +51,7 @@ Public project samples for Meadow and Meadow.Foundation. Click on any of the pro
         <td>
         <img src="Design/MeadowMapleTemperature.png"/><br/>
             Get temperature logs with Meadow and MAUI using REST</br>
-            <a href="https://www.hackster.io/wilderness-labs/remote-control-a-servo-with-meadow-and-xamarin-using-rest-063cb0">Hackster</a> | <a href="Source/Hackster/Maple/MeadowMapleServo/">Source Code</a>
+            <a href="https://www.hackster.io/wilderness-labs/get-temperature-logs-with-meadow-and-maui-using-rest-e529df">Hackster</a> | <a href="Source/Hackster/Maple/MeadowMapleTemperature/">Source Code</a>
             <!--<img src="Design/MorseCodeTrainer.png"/><br/>
             Train your Morse Code spelling skills with Meadow</br>
             <a href="https://www.hackster.io/wilderness-labs/train-your-morse-code-spelling-skills-with-meadow-3f2d9e">Hackster</a> | <a href="Source/Hackster/MorseCodeTrainer/">Source Code</a>-->
