@@ -23,12 +23,12 @@ Public project samples for Meadow and Meadow.Foundation. Click on any of the pro
     <tr>
         <td>
             <img src="Design/MeadowBleLed.png"/><br/>
-            Control a RGB LED with Meadow and Xamarin using Bluetooth</br>
+            Control a RGB LED with Meadow and MAUI using Bluetooth</br>
             <a href="https://www.hackster.io/wilderness-labs/control-an-rgb-led-via-bluetooth-with-meadow-and-xamarin-9b2af3">Hackster</a> | <a href="Source/Hackster/Bluetooth/MeadowBleLed/">Source Code</a>
         </td>
         <td>
             <img src="Design/MeadowBleServo.png"/><br/>
-            Control a Servo with Meadow and Xamarin using Bluetooth</br>
+            Control a Servo with Meadow and MAUI using Bluetooth</br>
             <a href="https://www.hackster.io/wildernesslabs/control-a-servo-via-bluetooth-with-meadow-and-xamarin-57940a">Hackster</a> | <a href="Source/Hackster/Bluetooth/MeadowBleServo/">Source Code</a>
         </td>
         <td>
@@ -40,18 +40,21 @@ Public project samples for Meadow and Meadow.Foundation. Click on any of the pro
     <tr>
         <td>
             <img src="Design/MeadowMapleLed.png"/><br/>
-            Control a RGB LED with Meadow and Xamarin using REST!</br>
+            Control a RGB LED with Meadow and MAUI using REST</br>
             <a href="https://www.hackster.io/wilderness-labs/remotely-control-an-rgb-led-with-meadow-and-xamarin-w-rest-153a28">Hackster</a> | <a href="Source/Hackster/Maple/MeadowMapleLed/">Source Code</a>
         </td>
         <td>
             <img src="Design/MeadowMapleServo.png"/><br/>
-            Control a Servo with Meadow and Xamarin using Bluetooth</br>
+            Control a Servo with Meadow and MAUI using REST</br>
             <a href="https://www.hackster.io/wilderness-labs/remote-control-a-servo-with-meadow-and-xamarin-using-rest-063cb0">Hackster</a> | <a href="Source/Hackster/Maple/MeadowMapleServo/">Source Code</a>
         </td>
         <td>
-            <img src="Design/MorseCodeTrainer.png"/><br/>
+        <img src="Design/MeadowMapleTemperature.png"/><br/>
+            Get temperature logs with Meadow and MAUI using REST</br>
+            <a href="https://www.hackster.io/wilderness-labs/remote-control-a-servo-with-meadow-and-xamarin-using-rest-063cb0">Hackster</a> | <a href="Source/Hackster/Maple/MeadowMapleServo/">Source Code</a>
+            <!--<img src="Design/MorseCodeTrainer.png"/><br/>
             Train your Morse Code spelling skills with Meadow</br>
-            <a href="https://www.hackster.io/wilderness-labs/train-your-morse-code-spelling-skills-with-meadow-3f2d9e">Hackster</a> | <a href="Source/Hackster/MorseCodeTrainer/">Source Code</a>
+            <a href="https://www.hackster.io/wilderness-labs/train-your-morse-code-spelling-skills-with-meadow-3f2d9e">Hackster</a> | <a href="Source/Hackster/MorseCodeTrainer/">Source Code</a>-->
         </td>
     </tr>
     <tr>
