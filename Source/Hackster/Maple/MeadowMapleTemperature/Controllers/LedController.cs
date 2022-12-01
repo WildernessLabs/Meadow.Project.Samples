@@ -2,7 +2,7 @@
 using Meadow.Foundation.Leds;
 using System;
 
-namespace MeadowMapleTemperature.Controller
+namespace MeadowMapleTemperature.Controllers
 {
     public class LedController
     {

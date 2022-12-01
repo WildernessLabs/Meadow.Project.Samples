@@ -4,7 +4,7 @@ using Meadow.Foundation;
 using Meadow.Foundation.Web.Maple;
 using Meadow.Gateway.WiFi;
 using Meadow.Hardware;
-using MeadowMapleTemperature.Controller;
+using MeadowMapleTemperature.Controllers;
 using System;
 using System.Threading.Tasks;
 
@@ -27,11 +27,9 @@ namespace MeadowMapleTemperature
                 throw new Exception($"Cannot connect to network: {connectionResult.ConnectionStatus}");
             }
 
-            await DateTimeService.GetTimeAsync();
-
             TemperatureController.Instance.Initialize();
 
-            mapleServer = new MapleServer(wifi.IpAddress, 5417, true);
+            mapleServer = new MapleServer(wifi.IpAddress, 5417, true, logger: Resolver.Log);
             mapleServer.Start();
 
             LedController.Instance.SetColor(Color.Green);

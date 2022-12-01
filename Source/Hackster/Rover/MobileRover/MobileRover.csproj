@@ -10,7 +10,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 
 		<!-- Display name -->
-		<ApplicationTitle>MobileRover</ApplicationTitle>
+		<ApplicationTitle>Rover</ApplicationTitle>
 
 		<!-- App Identifier -->
 		<ApplicationId>com.companyname.MobileRover</ApplicationId>

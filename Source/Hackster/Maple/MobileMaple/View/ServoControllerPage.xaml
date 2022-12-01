@@ -32,15 +32,13 @@
                     </Grid.ColumnDefinitions>
 
                     <Grid Grid.Column="0">
-                        <Picker TextColor="White" FontSize="Medium" BackgroundColor="Transparent"
-                                ItemsSource="{Binding HostList}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedServer}"/>
-                        <Label IsVisible="{Binding IsServerListEmpty}" Text="Pick a server" 
-                                FontSize="Medium" TextColor="White" VerticalOptions="Center" />
+                        <Picker TextColor="White" FontSize="Medium" BackgroundColor="Transparent" Margin="0,4,0,0"
+                            ItemsSource="{Binding HostList}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedServer}"/>
                     </Grid>
 
                     <Grid Grid.Column="1" WidthRequest="50" HeightRequest="50">
                         <Button Command="{Binding SearchServersCommand}" BackgroundColor="Transparent" CornerRadius="5" />
-                        <Image Source="icon_search.png" Margin="10" InputTransparent="True" />
+                        <Image Source="img_search.png" Margin="10" InputTransparent="True" />
                     </Grid>
                 </Grid>
             </Frame>
