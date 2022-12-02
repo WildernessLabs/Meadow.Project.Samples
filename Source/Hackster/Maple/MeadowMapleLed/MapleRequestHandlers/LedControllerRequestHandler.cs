@@ -11,35 +11,35 @@ namespace MeadowMapleLed.MapleRequestHandlers
         [HttpPost("/turnon")]
         public IActionResult TurnOn()
         {
-            LedController.Current.TurnOn();
+            LedController.Instance.TurnOn();
             return new OkResult();
         }
 
         [HttpPost("/turnoff")]
         public IActionResult TurnOff()
         {
-            LedController.Current.TurnOff();
+            LedController.Instance.TurnOff();
             return new OkResult();
         }
 
         [HttpPost("/startblink")]
         public IActionResult StartBlink()
         {
-            LedController.Current.StartBlink();
+            LedController.Instance.StartBlink();
             return new OkResult();
         }
 
         [HttpPost("/startpulse")]
         public IActionResult StartPulse()
         {
-            LedController.Current.StartPulse();
+            LedController.Instance.StartPulse();
             return new OkResult();
         }
 
         [HttpPost("/startrunningcolors")]
         public IActionResult StartRunningColors()
         {
-            LedController.Current.StartRunningColors();
+            LedController.Instance.StartRunningColors();
             return new OkResult();
         }
     }

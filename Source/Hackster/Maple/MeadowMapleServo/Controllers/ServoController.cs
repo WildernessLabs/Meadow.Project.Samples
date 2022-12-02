@@ -1,40 +1,36 @@
-﻿using Meadow;
-using Meadow.Foundation.Servos;
-using Meadow.Hardware;
+﻿using Meadow.Foundation.Servos;
 using Meadow.Units;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
-using AU = Meadow.Units.Angle.UnitType;
 
 namespace MeadowMapleServo.Controllers
 {
     public class ServoController
     {
+        private static readonly Lazy<ServoController> instance =
+            new Lazy<ServoController>(() => new ServoController());
+        public static ServoController Instance => instance.Value;
+
         Servo servo;
+
         Task animationTask = null;
         CancellationTokenSource cancellationTokenSource = null;
 
         protected int _rotationAngle;
 
-        protected bool initialized = false;
-
-        public static ServoController Current { get; private set; }
-
-        private ServoController() { }
-
-        static ServoController()
+        private ServoController() 
         {
-            Current = new ServoController();
+            Initialize();
         }
 
-        public void Initialize(IMeadowDevice device, IPin PwmPin)
+        private void Initialize()
         {
-            if (initialized) { return; }
-
-            servo = new Servo(device, PwmPin, NamedServoConfigs.SG90);
+            servo = new Servo(
+                device: MeadowApp.Device, 
+                pwmPort: MeadowApp.Device.Pins.D10, 
+                config: NamedServoConfigs.SG90);
             servo.RotateTo(NamedServoConfigs.SG90.MinimumAngle);
-
-            initialized = true;
         }
 
         public void RotateTo(Angle angle)
@@ -67,7 +63,7 @@ namespace MeadowMapleServo.Controllers
                     if (cancellationToken.IsCancellationRequested) { break; }
 
                     _rotationAngle++;
-                    servo.RotateTo(new Angle(_rotationAngle, AU.Degrees));
+                    servo.RotateTo(new Angle(_rotationAngle, Angle.UnitType.Degrees));
                     await Task.Delay(50);
                 }
 
@@ -76,7 +72,7 @@ namespace MeadowMapleServo.Controllers
                     if (cancellationToken.IsCancellationRequested) { break; }
 
                     _rotationAngle--;
-                    servo.RotateTo(new Angle(_rotationAngle, AU.Degrees));
+                    servo.RotateTo(new Angle(_rotationAngle, Angle.UnitType.Degrees));
                     await Task.Delay(50);
                 }
             }

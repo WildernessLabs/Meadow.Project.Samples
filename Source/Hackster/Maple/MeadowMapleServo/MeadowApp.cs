@@ -8,6 +8,8 @@ using Meadow.Hardware;
 using MeadowMapleServo.Controllers;
 using System;
 using System.Threading.Tasks;
+using Meadow.Units;
+using Meadow.Foundation.Servos;
 
 namespace MeadowMapleServo
 {
@@ -24,7 +26,7 @@ namespace MeadowMapleServo
                 bluePwmPin: Device.Pins.OnboardLedBlue);
             onboardLed.SetColor(Color.Red);
 
-            ServoController.Current.Initialize(Device, Device.Pins.D10);
+            ServoController.Instance.RotateTo(new Angle(NamedServoConfigs.SG90.MinimumAngle));
 
             var wifi = Device.NetworkAdapters.Primary<IWiFiNetworkAdapter>();
 

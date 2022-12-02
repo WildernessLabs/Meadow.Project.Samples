@@ -17,8 +17,7 @@ namespace MeadowMapleLed
 
         public override async Task Initialize()
         {
-            LedController.Current.Initialize();
-            LedController.Current.SetColor(Color.Red);
+            LedController.Instance.SetColor(Color.Red);
 
             var wifi = Device.NetworkAdapters.Primary<IWiFiNetworkAdapter>();
 
@@ -31,7 +30,7 @@ namespace MeadowMapleLed
             mapleServer = new MapleServer(wifi.IpAddress, 5417, true, logger: Resolver.Log);
             mapleServer.Start();
 
-            LedController.Current.SetColor(Color.Green);
+            LedController.Instance.SetColor(Color.Green);
         }
     }
 }
