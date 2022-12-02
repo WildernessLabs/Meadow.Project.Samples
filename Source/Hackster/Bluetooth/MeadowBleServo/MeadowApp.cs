@@ -3,6 +3,7 @@ using Meadow.Devices;
 using Meadow.Foundation;
 using Meadow.Foundation.Leds;
 using Meadow.Gateways.Bluetooth;
+using Meadow.Units;
 using MeadowBleServo.Controllers;
 using System.Threading.Tasks;
 
@@ -11,12 +12,13 @@ namespace MeadowBleServo
     // public class MeadowApp : App<F7FeatherV1> <- If you have a Meadow F7v1.*
     public class MeadowApp : App<F7FeatherV2>
     {
-        Definition bleTreeDefinition;
-        CharacteristicBool isSweepingCharacteristic;
-        CharacteristicInt32 angleCharacteristic;
-
         readonly string IS_SWEEPING = "24517ccc888e4ffc9da521884353b08d";
-        readonly string ANGLE       = "5a0bb01669ab4a49a2f2de5b292458f3";
+        readonly string ANGLE = "5a0bb01669ab4a49a2f2de5b292458f3";
+
+        IDefinition bleTreeDefinition;
+        
+        ICharacteristic isSweepingCharacteristic;
+        ICharacteristic angleCharacteristic;
 
         public override Task Initialize()
         {
@@ -58,7 +60,7 @@ namespace MeadowBleServo
         {
             int angle = (int)data;
 
-            ServoController.Instance.RotateTo(angle);
+            ServoController.Instance.RotateTo(new Angle(angle));
         }
 
         Definition GetDefinition()
