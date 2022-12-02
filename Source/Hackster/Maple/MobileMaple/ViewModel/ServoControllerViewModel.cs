@@ -45,7 +45,7 @@
 
             try
             {
-                bool response = await client.PostAsync(SelectedServer.IpAddress, ServerPort, command, AngleDegrees.ToString());
+                bool response = await client.PostAsync(SelectedServer != null ? SelectedServer.IpAddress : IpAddress, ServerPort, command, AngleDegrees.ToString());
 
                 if (response)
                 {
