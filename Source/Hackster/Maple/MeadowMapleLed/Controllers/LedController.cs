@@ -8,33 +8,27 @@ namespace MeadowMapleLed.Controller
 {
     public class LedController
     {
+        private static readonly Lazy<LedController> instance =
+            new Lazy<LedController>(() => new LedController());
+        public static LedController Instance => instance.Value;
+
         RgbPwmLed rgbPwmLed;
+
         Task animationTask = null;
         CancellationTokenSource cancellationTokenSource = null;
 
-        protected bool initialized = false;
-
-        public static LedController Current { get; private set; }
-
-        private LedController() { }
-
-        static LedController()
+        private LedController() 
         {
-            Current = new LedController();
+            Initialize();
         }
 
-        public void Initialize()
+        private void Initialize()
         {
-            if (initialized) { return; }
-
             rgbPwmLed = new RgbPwmLed(
                 device: MeadowApp.Device,
                 redPwmPin: MeadowApp.Device.Pins.D12,
                 greenPwmPin: MeadowApp.Device.Pins.D11,
                 bluePwmPin: MeadowApp.Device.Pins.D10);
-            rgbPwmLed.SetColor(Color.Red);
-
-            initialized = true;
         }
 
         void Stop()
