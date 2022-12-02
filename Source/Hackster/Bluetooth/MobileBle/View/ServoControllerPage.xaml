@@ -52,10 +52,10 @@
                                     <Setter Property="InputTransparent" Value="True" />
                                 </DataTrigger>
                                 <DataTrigger TargetType="Image" Binding="{Binding IsConnected}" Value="True">
-                                    <Setter Property="Source" Value="icon_connected" />
+                                    <Setter Property="Source" Value="img_ble_paired" />
                                 </DataTrigger>
                                 <DataTrigger TargetType="Image" Binding="{Binding IsConnected}" Value="False">
-                                    <Setter Property="Source" Value="icon_disconnected" />
+                                    <Setter Property="Source" Value="img_ble_pair" />
                                 </DataTrigger>
                             </Image.Triggers>
                         </Image>
@@ -66,7 +66,7 @@
 
                     <Grid Grid.Column="3" WidthRequest="50" HeightRequest="50">
                         <Button Command="{Binding CmdSearchForDevices}" BackgroundColor="Transparent" CornerRadius="5" />
-                        <Image Source="icon_search.png" Margin="10" InputTransparent="True" HorizontalOptions="Center" />
+                        <Image Source="img_search" Margin="10" InputTransparent="True" HorizontalOptions="Center" />
                     </Grid>
                 </Grid>
             </Frame>

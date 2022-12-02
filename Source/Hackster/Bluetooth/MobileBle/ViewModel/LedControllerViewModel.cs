@@ -13,13 +13,6 @@ namespace MobileBle.ViewModel
         ICharacteristic StartBlinking;
         ICharacteristic StartRunningColors;
 
-        bool isLedOn;
-        public bool IsLedOn
-        {
-            get => isLedOn;
-            set { isLedOn = value; OnPropertyChanged(nameof(IsLedOn)); }
-        }
-
         bool _isOn;
         public bool IsOn
         {
@@ -59,7 +52,7 @@ namespace MobileBle.ViewModel
 
         public LedControllerViewModel()
         {
-            IsLedOn = true;
+            IsOn = true;
 
             adapter.DeviceConnected += AdapterDeviceConnected;
             adapter.DeviceDisconnected += AdapterDeviceDisconnected;
