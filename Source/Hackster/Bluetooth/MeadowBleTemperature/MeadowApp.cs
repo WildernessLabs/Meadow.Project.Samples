@@ -27,7 +27,7 @@ namespace MeadowBleTemperature
                 bluePwmPin: Device.Pins.OnboardLedBlue);
             onboardLed.SetColor(Color.Red);
 
-            TemperatureController.Instance.StartUpdating(TimeSpan.FromSeconds(30));
+            TemperatureController.Instance.StartUpdating(TimeSpan.FromSeconds(5));
 
             bleTreeDefinition = GetDefinition();
             TemperatureController.Instance.TemperatureUpdated += TemperatureUpdated;
@@ -58,7 +58,7 @@ namespace MeadowBleTemperature
                 temperatureCharacteristic
             );
 
-            return new Definition("MeadowClimaHackKit", service);
+            return new Definition("MeadowTemperature", service);
         }
     }
 }

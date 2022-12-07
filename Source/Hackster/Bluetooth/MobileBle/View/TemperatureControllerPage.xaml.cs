@@ -1,18 +1,19 @@
 using MobileBle.ViewModel;
 
-namespace MobileBle.View;
-
-public partial class TemperatureControllerPage : ContentPage
+namespace MobileBle.View
 {
-	public TemperatureControllerPage()
-	{
-		InitializeComponent();
-        BindingContext = new TemperatureControllerViewModel();
-	}
-
-    protected override void OnAppearing()
+    public partial class TemperatureControllerPage : ContentPage
     {
-        base.OnAppearing();
-        (BindingContext as BaseViewModel).CmdSearchForDevices.Execute(null);
+        public TemperatureControllerPage()
+        {
+            InitializeComponent();
+            BindingContext = new TemperatureControllerViewModel();
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            (BindingContext as BaseViewModel).CmdSearchForDevices.Execute(null);
+        }
     }
 }
