@@ -26,7 +26,7 @@ namespace MobileBle.ViewModel
             CmdGetTemperature = new Command(async () => await GetTemperature());
         }
 
-        private async void AdapterDeviceConnected(object sender, Plugin.BLE.Abstractions.EventArgs.DeviceEventArgs e)
+        async void AdapterDeviceConnected(object sender, Plugin.BLE.Abstractions.EventArgs.DeviceEventArgs e)
         {
             IsConnected = true;
 
@@ -45,7 +45,7 @@ namespace MobileBle.ViewModel
             tempCharacteristic = await service.GetCharacteristicAsync(Guid.Parse(CharacteristicsConstants.TEMPERATURE));
         }
 
-        private void AdapterDeviceDisconnected(object sender, Plugin.BLE.Abstractions.EventArgs.DeviceEventArgs e)
+        void AdapterDeviceDisconnected(object sender, Plugin.BLE.Abstractions.EventArgs.DeviceEventArgs e)
         {
             IsConnected = false;
         }

@@ -15,5 +15,15 @@ namespace MobileBle.View
             base.OnAppearing();
             (BindingContext as BaseViewModel).CmdSearchForDevices.Execute(null);
         }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+
+            if ((BindingContext as BaseViewModel).IsConnected)
+            {
+                (BindingContext as BaseViewModel).CmdToggleConnection.Execute(null);
+            }
+        }
     }
 }
