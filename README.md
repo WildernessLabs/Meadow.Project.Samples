@@ -33,8 +33,8 @@ Public project samples for Meadow and Meadow.Foundation. Click on any of the pro
         </td>
         <td>
         <img src="Design/MeadowBleTemperature.png"/><br/>
-            Get temperature logs with Meadow and MAUI using REST</br>
-            <a href="https://www.hackster.io/wilderness-labs/get-temperature-data-via-bluetooth-with-meadow-and-maui-app-397fb8">Hackster</a> | <a href="Source/Hackster/Maple/MeadowMapleTemperature/">Source Code</a>
+            Get temperature with Meadow and MAUI using Bluetooth</br>
+            <a href="https://www.hackster.io/wilderness-labs/get-temperature-data-via-bluetooth-with-meadow-and-maui-app-397fb8">Hackster</a> | <a href="Source/Hackster/Bluetooth/MeadowBleTemperature/">Source Code</a>
             <!--<img src="Design/RotationDetector.png"/><br/>
             Make a Level with an MPU6050, Four LEDs and Meadow</br>
             <a href="https://www.hackster.io/wilderness-labs/make-a-basic-level-with-an-mpu6050-four-leds-and-meadow-53a883">Hackster</a> | <a href="Source/Hackster/RotationDetector/">Source Code</a>-->
