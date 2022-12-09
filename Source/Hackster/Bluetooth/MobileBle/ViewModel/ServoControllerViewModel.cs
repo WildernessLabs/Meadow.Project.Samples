@@ -1,8 +1,6 @@
 ﻿using MobileBle.Utils;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Abstractions.EventArgs;
-using System;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace MobileBle.ViewModel

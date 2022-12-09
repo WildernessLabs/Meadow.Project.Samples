@@ -1,13 +1,13 @@
-﻿using MobileBle.ViewModel;
+using MobileBle.ViewModel;
 
 namespace MobileBle.View
 {
-    public partial class LedControllerPage : ContentPage
+    public partial class TemperatureControllerPage : ContentPage
     {
-        public LedControllerPage()
+        public TemperatureControllerPage()
         {
             InitializeComponent();
-            BindingContext = new LedControllerViewModel();
+            BindingContext = new TemperatureControllerViewModel();
         }
 
         protected override void OnAppearing()

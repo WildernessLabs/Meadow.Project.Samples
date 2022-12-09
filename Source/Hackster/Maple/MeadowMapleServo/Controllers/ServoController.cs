@@ -30,7 +30,6 @@ namespace MeadowMapleServo.Controllers
                 device: MeadowApp.Device, 
                 pwmPort: MeadowApp.Device.Pins.D10, 
                 config: NamedServoConfigs.SG90);
-            servo.RotateTo(NamedServoConfigs.SG90.MinimumAngle);
         }
 
         public void RotateTo(Angle angle)

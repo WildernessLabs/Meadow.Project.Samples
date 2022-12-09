@@ -3,7 +3,6 @@ using Meadow.Units;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using AU = Meadow.Units.Angle.UnitType;
 
 namespace MeadowBleServo.Controllers
 {
@@ -14,9 +13,11 @@ namespace MeadowBleServo.Controllers
         public static ServoController Instance => instance.Value;
 
         Servo servo;
+
+        Task animationTask = null;
         CancellationTokenSource cancellationTokenSource = null;
 
-        int _rotationAngle;
+        protected int _rotationAngle;
 
         private ServoController() 
         {
@@ -25,11 +26,13 @@ namespace MeadowBleServo.Controllers
 
         public void Initialize()
         {
-            servo = new Servo(MeadowApp.Device, MeadowApp.Device.Pins.D10, NamedServoConfigs.SG90);
-            servo.RotateTo(NamedServoConfigs.SG90.MinimumAngle);
+            servo = new Servo(
+                device: MeadowApp.Device,
+                pwmPort: MeadowApp.Device.Pins.D10,
+                config: NamedServoConfigs.SG90);
         }
 
-        public void RotateTo(int angle)
+        public void RotateTo(Angle angle)
         {
             servo.RotateTo(new Angle(angle));
         }
@@ -41,18 +44,15 @@ namespace MeadowBleServo.Controllers
 
         public void StartSweep()
         {
-            cancellationTokenSource = new CancellationTokenSource();
-
-            Task.Run(async () => 
+            animationTask = new Task(async () =>
             {
+                cancellationTokenSource = new CancellationTokenSource();
                 await StartSweep(cancellationTokenSource.Token);
-            }, 
-            cancellationTokenSource.Token);
+            });
+            animationTask.Start();
         }
-        async Task StartSweep(CancellationToken cancellationToken)
+        protected async Task StartSweep(CancellationToken cancellationToken)
         {
-            Console.WriteLine("Sweeping");
-
             while (true)
             {
                 if (cancellationToken.IsCancellationRequested) { break; }
@@ -62,7 +62,7 @@ namespace MeadowBleServo.Controllers
                     if (cancellationToken.IsCancellationRequested) { break; }
 
                     _rotationAngle++;
-                    servo.RotateTo(new Angle(_rotationAngle, AU.Degrees));
+                    servo.RotateTo(new Angle(_rotationAngle, Angle.UnitType.Degrees));
                     await Task.Delay(50);
                 }
 
@@ -71,7 +71,7 @@ namespace MeadowBleServo.Controllers
                     if (cancellationToken.IsCancellationRequested) { break; }
 
                     _rotationAngle--;
-                    servo.RotateTo(new Angle(_rotationAngle, AU.Degrees));
+                    servo.RotateTo(new Angle(_rotationAngle, Angle.UnitType.Degrees));
                     await Task.Delay(50);
                 }
             }

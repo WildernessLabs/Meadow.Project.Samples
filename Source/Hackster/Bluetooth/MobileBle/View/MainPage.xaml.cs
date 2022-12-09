@@ -19,7 +19,7 @@
 
         void BtnTemperatureClicked(object sender, EventArgs e)
         {
-            //Navigation.PushAsync(new TemperatureControllerPage());
+            Navigation.PushAsync(new TemperatureControllerPage());
         }
     }
 }

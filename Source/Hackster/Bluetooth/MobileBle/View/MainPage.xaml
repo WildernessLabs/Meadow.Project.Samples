@@ -10,14 +10,14 @@
         <VerticalStackLayout Spacing="10" VerticalOptions="StartAndExpand">
             <Label Text="Select a device:" TextColor="Black" FontSize="Medium" Margin="0,0,0,10" />
 
-            <Button x:Name="btnLed" Text="RGB LED Controller" Clicked="BtnLedClicked" HeightRequest="60"
-                TextColor="White" BackgroundColor="{StaticResource ButtonActive}" />
+            <Button x:Name="btnLed" Text="Control RGB LED" Clicked="BtnLedClicked" HeightRequest="60"
+                FontSize="Medium" TextColor="White" BackgroundColor="{StaticResource ButtonActive}" />
 
-            <Button x:Name="btnServo" Text="Servo Controller" Clicked="BtnServoClicked" HeightRequest="60"
-                TextColor="White" BackgroundColor="{StaticResource ButtonActive}" />
+            <Button x:Name="btnServo" Text="Control Micro Servo" Clicked="BtnServoClicked" HeightRequest="60"
+                FontSize="Medium" TextColor="White" BackgroundColor="{StaticResource ButtonActive}" />
 
-            <Button x:Name="btnAnalogTemperature" Text="Temperature Controller" Clicked="BtnTemperatureClicked" HeightRequest="60"
-                TextColor="White" BackgroundColor="{StaticResource ButtonActive}" IsEnabled="False" />
+            <Button x:Name="btnAnalogTemperature" Text="Get Temperature Reading" Clicked="BtnTemperatureClicked" HeightRequest="60"
+                FontSize="Medium" TextColor="White" BackgroundColor="{StaticResource ButtonActive}" />
         </VerticalStackLayout>
 
         <Label Text="By Wilderness Labs" TextColor="Black" 

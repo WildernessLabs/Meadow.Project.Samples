@@ -16,29 +16,28 @@ namespace MeadowBleLed
         readonly string BLINKING = "3a6cc4f2a6ab4709a9bfc9611c6bf892";
         readonly string RUNNING_COLORS = "30df1258f42b4788af2ea8ed9d0b932f";
 
-        Definition bleTreeDefinition;
+        IDefinition bleTreeDefinition;
 
-        CharacteristicBool On;
-        CharacteristicBool Off;
-        CharacteristicBool StartPulse;
-        CharacteristicBool StartBlink;
-        CharacteristicBool StartRunningColors;
+        ICharacteristic On;
+        ICharacteristic Off;
+        ICharacteristic StartPulse;
+        ICharacteristic StartBlink;
+        ICharacteristic StartRunningColors;
 
         public override Task Initialize()
         {
-            LedController.Current.Initialize();
-            LedController.Current.SetColor(Color.Red);
+            LedController.Instance.SetColor(Color.Red);
 
             bleTreeDefinition = GetDefinition();
             Device.BluetoothAdapter.StartBluetoothServer(bleTreeDefinition);
 
-            On.ValueSet += (s,e) => { LedController.Current.TurnOn(); };
-            Off.ValueSet += (s, e) => { LedController.Current.TurnOff(); };
-            StartPulse.ValueSet += (s, e) => { LedController.Current.StartPulse(); };
-            StartBlink.ValueSet += (s, e) => { LedController.Current.StartBlink(); };
-            StartRunningColors.ValueSet += (s, e) => { LedController.Current.StartRunningColors(); };
+            On.ValueSet += (s,e) => { LedController.Instance.TurnOn(); };
+            Off.ValueSet += (s, e) => { LedController.Instance.TurnOff(); };
+            StartPulse.ValueSet += (s, e) => { LedController.Instance.StartPulse(); };
+            StartBlink.ValueSet += (s, e) => { LedController.Instance.StartBlink(); };
+            StartRunningColors.ValueSet += (s, e) => { LedController.Instance.StartRunningColors(); };
 
-            LedController.Current.SetColor(Color.Green);
+            LedController.Instance.SetColor(Color.Green);
 
             return base.Initialize();
         }
