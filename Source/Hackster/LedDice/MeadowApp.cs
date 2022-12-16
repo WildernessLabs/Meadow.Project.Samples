@@ -12,7 +12,7 @@ namespace LedDice
     // public class MeadowApp : App<F7FeatherV1> <- If you have a Meadow F7v1.*
     public class MeadowApp : App<F7FeatherV2>
     {
-        PwmLed[] leds;
+        Led[] leds;
         PushButton button;
 
         public override Task Initialize() 
@@ -24,16 +24,16 @@ namespace LedDice
                 bluePwmPin: Device.Pins.OnboardLedBlue);
             onboardLed.SetColor(Color.Red);
 
-            leds = new PwmLed[7];
-            leds[0] = new PwmLed(Device, Device.Pins.D06, TypicalForwardVoltage.Red);  // 
-            leds[1] = new PwmLed(Device, Device.Pins.D07, TypicalForwardVoltage.Red);  // [6]       [5]
-            leds[2] = new PwmLed(Device, Device.Pins.D08, TypicalForwardVoltage.Red);  // 
-            leds[3] = new PwmLed(Device, Device.Pins.D09, TypicalForwardVoltage.Red);  // [4]  [3]  [2]
-            leds[4] = new PwmLed(Device, Device.Pins.D10, TypicalForwardVoltage.Red);  // 
-            leds[5] = new PwmLed(Device, Device.Pins.D11, TypicalForwardVoltage.Red);  // [1]       [0]
-            leds[6] = new PwmLed(Device, Device.Pins.D12, TypicalForwardVoltage.Red);  // 
+            leds = new Led[7];
+            leds[0] = new Led(Device, Device.Pins.D06);  // 
+            leds[1] = new Led(Device, Device.Pins.D07);  // [6]       [5]
+            leds[2] = new Led(Device, Device.Pins.D08);  // 
+            leds[3] = new Led(Device, Device.Pins.D09);  // [4]  [3]  [2]
+            leds[4] = new Led(Device, Device.Pins.D10);  // 
+            leds[5] = new Led(Device, Device.Pins.D11);  // [1]       [0]
+            leds[6] = new Led(Device, Device.Pins.D12);  // 
 
-            button = new PushButton(Device, Device.Pins.D05);
+            button = new PushButton(Device, Device.Pins.D04);
             button.Clicked += ButtonClicked;
 
             onboardLed.SetColor(Color.Green);
@@ -53,7 +53,7 @@ namespace LedDice
         {
             foreach (var led in leds)
             {
-                led.StartBlink();
+                led.StartBlink(TimeSpan.FromMilliseconds(100), TimeSpan.FromMilliseconds(100));
             }
             Thread.Sleep(1000);
 
@@ -73,13 +73,6 @@ namespace LedDice
             leds[4].IsOn = (number == 6);
             leds[5].IsOn = (number == 6 || number == 5 || number == 4 || number == 3 || number == 2);
             leds[6].IsOn = (number == 6 || number == 5 || number == 4);
-        }
-
-        public override Task Run()
-        {
-            ShuffleAnimation();
-
-            return base.Run();
         }
     }
 }
