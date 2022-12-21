@@ -176,12 +176,12 @@ Public project samples for Meadow and Meadow.Foundation. Click on any of the pro
         <tr>
         <td>
             <img src="Design/LedDice.png"/><br/>
-            Working with a Touch Keypad and SPI Display</br>
+            Roll an LED Dice with a push button using Meadow</br>
             <a href="https://www.hackster.io/wilderness-labs/roll-an-led-dice-with-a-push-button-using-meadow-3beb46">Hackster</a> | <a href="Source/Hackster/LedDice/">Source Code</a>
         </td>
         <td>
             <img src="Design/MemoryGame.png"/><br/>
-            WIFI Christmas Countdown Timer with a LCD</br>
+            Build your own Memory Game with Meadow</br>
             <a href="https://www.hackster.io/wilderness-labs/build-your-own-memory-game-with-meadow-a40933">Hackster</a> | <a href="Source/Hackster/MemoryGame/">Source Code</a>
         </td>
         <td>
