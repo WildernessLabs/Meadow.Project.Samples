@@ -35,9 +35,6 @@ Public project samples for Meadow and Meadow.Foundation. Click on any of the pro
         <img src="Design/MeadowBleTemperature.png"/><br/>
             Get temperature with Meadow and MAUI using Bluetooth</br>
             <a href="https://www.hackster.io/wilderness-labs/get-temperature-data-via-bluetooth-with-meadow-and-maui-app-397fb8">Hackster</a> | <a href="Source/Hackster/Bluetooth/MeadowBleTemperature/">Source Code</a>
-            <!--<img src="Design/RotationDetector.png"/><br/>
-            Make a Level with an MPU6050, Four LEDs and Meadow</br>
-            <a href="https://www.hackster.io/wilderness-labs/make-a-basic-level-with-an-mpu6050-four-leds-and-meadow-53a883">Hackster</a> | <a href="Source/Hackster/RotationDetector/">Source Code</a>-->
         </td>
     </tr>
     <tr>
@@ -55,9 +52,6 @@ Public project samples for Meadow and Meadow.Foundation. Click on any of the pro
         <img src="Design/MeadowMapleTemperature.png"/><br/>
             Get temperature logs with Meadow and MAUI using REST</br>
             <a href="https://www.hackster.io/wilderness-labs/get-temperature-logs-with-meadow-and-maui-using-rest-e529df">Hackster</a> | <a href="Source/Hackster/Maple/MeadowMapleTemperature/">Source Code</a>
-            <!--<img src="Design/MorseCodeTrainer.png"/><br/>
-            Train your Morse Code spelling skills with Meadow</br>
-            <a href="https://www.hackster.io/wilderness-labs/train-your-morse-code-spelling-skills-with-meadow-3f2d9e">Hackster</a> | <a href="Source/Hackster/MorseCodeTrainer/">Source Code</a>-->
         </td>
     </tr>
     <tr>
@@ -183,12 +177,12 @@ Public project samples for Meadow and Meadow.Foundation. Click on any of the pro
         <td>
             <img src="Design/LedDice.png"/><br/>
             Working with a Touch Keypad and SPI Display</br>
-            <a href="https://www.hackster.io/wilderness-labs/working-with-a-touch-keypad-and-spi-display-using-meadow-ddb040">Hackster</a> | <a href="Source/Hackster/TouchKeypad/">Source Code</a>
+            <a href="https://www.hackster.io/wilderness-labs/roll-an-led-dice-with-a-push-button-using-meadow-3beb46">Hackster</a> | <a href="Source/Hackster/TouchKeypad/">Source Code</a>
         </td>
         <td>
             <img src="Design/MemoryGame.png"/><br/>
             WIFI Christmas Countdown Timer with a LCD</br>
-            <a href="https://www.hackster.io/wilderness-labs/wifi-christmas-countdown-timer-w-an-lcd-display-and-meadow-e4cf9c">Hackster</a> | <a href="Source/Hackster/ChristmasCountdown/">Source Code</a>
+            <a href="https://www.hackster.io/wilderness-labs/build-your-own-memory-game-with-meadow-a40933">Hackster</a> | <a href="Source/Hackster/ChristmasCountdown/">Source Code</a>
         </td>
         <td>
             <img src="Design/MorseCodeTrainer.png"/><br/>
