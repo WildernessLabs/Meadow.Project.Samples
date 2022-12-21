@@ -6,7 +6,7 @@ Public project samples for Meadow and Meadow.Foundation. Click on any of the pro
     <tr>
         <td>
             <img src="Design/OnAir.png"/><br/>
-            Make your own OnAir sign with Meadow and Xamarin</br>
+            Make your own OnAir sign with Meadow and MAUI</br>
             <a href="https://www.hackster.io/wilderness-labs/make-your-own-onair-sign-with-meadow-and-xamarin-ea0c9e">Hackster</a> | <a href="https://github.com/WildernessLabs/OnAir_Sign">Source Code</a>
         </td>
         <td>
@@ -178,11 +178,23 @@ Public project samples for Meadow and Meadow.Foundation. Click on any of the pro
             Using a 2-Axis Analog Joystick with Meadow</br>
             <a href="https://www.hackster.io/wilderness-labs/using-a-2-axis-analog-joystick-with-meadow-e3188e">Hackster</a> | <a href="Source/Hackster/LedJoystick/">Source Code</a>
         </td>
-        <!--<td>
-            <img src="Design/ChristmasCountdown.png"/><br/>
-            <a href="https://www.hackster.io/wilderness-labs/wifi-christmas-countdown-timer-w-an-lcd-display-and-meadow-e4cf9c">Hackster</a> | 
-    <a href="Source/Hackster/ChristmasCountdown/">Source Code</a>
-        </td>-->
+    </tr>
+        <tr>
+        <td>
+            <img src="Design/LedDice.png"/><br/>
+            Working with a Touch Keypad and SPI Display</br>
+            <a href="https://www.hackster.io/wilderness-labs/working-with-a-touch-keypad-and-spi-display-using-meadow-ddb040">Hackster</a> | <a href="Source/Hackster/TouchKeypad/">Source Code</a>
+        </td>
+        <td>
+            <img src="Design/MemoryGame.png"/><br/>
+            WIFI Christmas Countdown Timer with a LCD</br>
+            <a href="https://www.hackster.io/wilderness-labs/wifi-christmas-countdown-timer-w-an-lcd-display-and-meadow-e4cf9c">Hackster</a> | <a href="Source/Hackster/ChristmasCountdown/">Source Code</a>
+        </td>
+        <td>
+            <img src="Design/MorseCodeTrainer.png"/><br/>
+            Train your Morse Code spelling skills with Meadow</br>
+            <a href="https://www.hackster.io/wilderness-labs/train-your-morse-code-spelling-skills-with-meadow-3f2d9e">Hackster</a> | <a href="Source/Hackster/MorseCodeTrainer/">Source Code</a>
+        </td>
     </tr>
     <tr>
         <td>

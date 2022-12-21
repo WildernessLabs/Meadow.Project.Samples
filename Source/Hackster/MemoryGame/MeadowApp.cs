@@ -39,10 +39,10 @@ namespace MemoryGame
             graphics = new MicroGraphics(display);
             graphics.Rotation = RotationType._180Degrees;
 
-            rowPorts[0] = Device.CreateDigitalInputPort(Device.Pins.D13, InterruptMode.EdgeRising, ResistorMode.InternalPullDown, TimeSpan.FromMilliseconds(0), TimeSpan.FromMilliseconds(50));
-            rowPorts[1] = Device.CreateDigitalInputPort(Device.Pins.D12, InterruptMode.EdgeRising, ResistorMode.InternalPullDown, TimeSpan.FromMilliseconds(0), TimeSpan.FromMilliseconds(50));
-            rowPorts[2] = Device.CreateDigitalInputPort(Device.Pins.D10, InterruptMode.EdgeRising, ResistorMode.InternalPullDown, TimeSpan.FromMilliseconds(0), TimeSpan.FromMilliseconds(50));
-            rowPorts[3] = Device.CreateDigitalInputPort(Device.Pins.D09, InterruptMode.EdgeRising, ResistorMode.InternalPullDown, TimeSpan.FromMilliseconds(0), TimeSpan.FromMilliseconds(50));
+            rowPorts[0] = Device.CreateDigitalInputPort(Device.Pins.A05, InterruptMode.EdgeRising, ResistorMode.InternalPullDown, TimeSpan.FromMilliseconds(0), TimeSpan.FromMilliseconds(50));
+            rowPorts[1] = Device.CreateDigitalInputPort(Device.Pins.A04, InterruptMode.EdgeRising, ResistorMode.InternalPullDown, TimeSpan.FromMilliseconds(0), TimeSpan.FromMilliseconds(50));
+            rowPorts[2] = Device.CreateDigitalInputPort(Device.Pins.A02, InterruptMode.EdgeRising, ResistorMode.InternalPullDown, TimeSpan.FromMilliseconds(0), TimeSpan.FromMilliseconds(50));
+            rowPorts[3] = Device.CreateDigitalInputPort(Device.Pins.A01, InterruptMode.EdgeRising, ResistorMode.InternalPullDown, TimeSpan.FromMilliseconds(0), TimeSpan.FromMilliseconds(50));
 
             columnPorts[0] = Device.CreateDigitalOutputPort(Device.Pins.D01);
             columnPorts[1] = Device.CreateDigitalOutputPort(Device.Pins.D02);
@@ -95,7 +95,7 @@ namespace MemoryGame
             for (int i = 0; i < 16; i++)
             {
                 Console.Write((i + 1).ToString() + " " + options[i].ToString() + " ");
-            }                
+            }
         }
 
         void PlaceCharacter(int i)
