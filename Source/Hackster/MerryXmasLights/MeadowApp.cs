@@ -2,10 +2,8 @@
 using Meadow.Devices;
 using Meadow.Foundation;
 using Meadow.Foundation.Leds;
-using Meadow.Hardware;
 using System;
 using System.Threading;
-using Meadow.Peripherals.Leds;
 using System.Threading.Tasks;
 
 namespace MerryXmasLights
@@ -24,11 +22,8 @@ namespace MerryXmasLights
                 bluePwmPin: Device.Pins.OnboardLedBlue);
             onboardLed.SetColor(Color.Red);
 
-            ISpiBus spiBus = Device.CreateSpiBus();
-            IDigitalOutputPort spiPeriphChipSelect = 
-                Device.CreateDigitalOutputPort(Device.Pins.D04);
             ledStrip = new Apa102(
-                spiBus: spiBus,
+                spiBus: Device.CreateSpiBus(),
                 numberOfLeds: 18, 
                 pixelOrder: Apa102.PixelOrder.BGR);
 
@@ -65,7 +60,7 @@ namespace MerryXmasLights
                 {
                     if ((offset + i) % 4 == 0)
                     {
-                        ledStrip.SetLed(i, color);
+                        ledStrip.SetLed(i, color, 0.5f);
                     }
                     else
                     {
@@ -92,7 +87,7 @@ namespace MerryXmasLights
                 {
                     if ((offset + i) % 5 == 0)
                     {
-                        ledStrip.SetLed(i, color);
+                        ledStrip.SetLed(i, color, 0.5f);
                     }
                     else
                     {
