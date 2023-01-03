@@ -3,7 +3,6 @@ using Meadow.Devices;
 using Meadow.Foundation;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Temperature;
-using Meadow.Gateway.WiFi;
 using Meadow.Hardware;
 using System;
 using System.Threading.Tasks;
