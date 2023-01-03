@@ -3,7 +3,6 @@ using Meadow.Devices;
 using Meadow.Foundation;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Temperature;
-using Meadow.Gateway.WiFi;
 using Meadow.Hardware;
 using System;
 using System.Threading.Tasks;
@@ -31,11 +30,7 @@ namespace WifiWeather
 
             var wifi = Device.NetworkAdapters.Primary<IWiFiNetworkAdapter>();
 
-            var connectionResult = await wifi.Connect(Secrets.WIFI_NAME, Secrets.WIFI_PASSWORD, TimeSpan.FromSeconds(45));
-            if (connectionResult.ConnectionStatus != ConnectionStatus.Success)
-            {
-                throw new Exception($"Cannot connect to network: {connectionResult.ConnectionStatus}");
-            }
+            await wifi.Connect(Secrets.WIFI_NAME, Secrets.WIFI_PASSWORD, TimeSpan.FromSeconds(45));
 
             analogTemperature = new AnalogTemperature(
                 device: Device,
