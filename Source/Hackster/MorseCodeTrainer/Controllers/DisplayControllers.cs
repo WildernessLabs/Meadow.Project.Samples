@@ -34,7 +34,7 @@ namespace MorseCodeTrainer
                 dcPin: MeadowApp.Device.Pins.D01,
                 resetPin: MeadowApp.Device.Pins.D00,
                 width: 240, height: 240,
-                colorMode: ColorType.Format16bppRgb565
+                colorMode: ColorMode.Format16bppRgb565
             );
             graphics = new MicroGraphics(display)
             {
