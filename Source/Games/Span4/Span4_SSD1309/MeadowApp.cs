@@ -43,7 +43,6 @@ namespace Span4
                 config: config);
             var display = new Ssd1309
             (
-                device: Device,
                 spiBus: spiBus,
                 chipSelectPin: Device.Pins.D02,
                 dcPin: Device.Pins.D01,
@@ -53,12 +52,12 @@ namespace Span4
             graphics = new MicroGraphics(display);
             graphics.CurrentFont = new Font4x8();
 
-            portLeft = Device.CreateDigitalInputPort(Device.Pins.D13);
-            portRight = Device.CreateDigitalInputPort(Device.Pins.D11);
-            portDown = Device.CreateDigitalInputPort(Device.Pins.D12);
-            portReset = Device.CreateDigitalInputPort(Device.Pins.D07);
+            portLeft = Device.Pins.D13.CreateDigitalInputPort();
+            portRight = Device.Pins.D11.CreateDigitalInputPort();
+            portDown = Device.Pins.D12.CreateDigitalInputPort();
+            portReset = Device.Pins.D07.CreateDigitalInputPort();
 
-            speaker = new PiezoSpeaker(Device, Device.Pins.D05);
+            speaker = new PiezoSpeaker(Device.Pins.D05);
 
             return base.Initialize();
         }

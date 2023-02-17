@@ -19,7 +19,6 @@ namespace ChristmasCountdown
         public override async Task Initialize() 
         {
             var onboardLed = new RgbPwmLed(
-                    device: Device,
                     redPwmPin: Device.Pins.OnboardLedRed,
                     greenPwmPin: Device.Pins.OnboardLedGreen,
                     bluePwmPin: Device.Pins.OnboardLedBlue);
@@ -27,7 +26,6 @@ namespace ChristmasCountdown
 
             display = new CharacterDisplay
             (
-                device: Device,
                 pinRS: Device.Pins.D10,
                 pinE: Device.Pins.D09,
                 pinD4: Device.Pins.D08,

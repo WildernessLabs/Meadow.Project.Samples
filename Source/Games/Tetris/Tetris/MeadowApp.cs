@@ -41,7 +41,6 @@ namespace Tetris
                 config: config);
             var display = new Ssd1309
             (
-                device: Device,
                 spiBus: spiBus,
                 chipSelectPin: Device.Pins.D02,
                 dcPin: Device.Pins.D01,

@@ -25,7 +25,6 @@ namespace MeadowMenu
         public override Task Initialize()
         {
             var onboardLed = new RgbPwmLed(
-                device: Device,
                 redPwmPin: Device.Pins.OnboardLedRed,
                 greenPwmPin: Device.Pins.OnboardLedGreen,
                 bluePwmPin: Device.Pins.OnboardLedBlue);
@@ -41,7 +40,6 @@ namespace MeadowMenu
                 config: config);
             var st7789 = new St7789
             (
-                device: Device,
                 spiBus: spiBus,
                 chipSelectPin: null,
                 dcPin: Device.Pins.D01,
@@ -59,13 +57,13 @@ namespace MeadowMenu
             //var menuData = LoadFromCode();
             menu = new Menu(graphics, menuData, false);
 
-            next = new PushButton(Device, Device.Pins.D03, ResistorMode.InternalPullUp);
+            next = new PushButton(Device.Pins.D03, ResistorMode.InternalPullUp);
             next.Clicked += (s, e) => { menu.Next(); };
 
-            select = new PushButton(Device, Device.Pins.D04, ResistorMode.InternalPullUp);
+            select = new PushButton(Device.Pins.D04, ResistorMode.InternalPullUp);
             select.Clicked += (s, e) => { menu.Select(); };
 
-            previous = new PushButton(Device, Device.Pins.D01, ResistorMode.InternalPullUp);
+            previous = new PushButton(Device.Pins.D01, ResistorMode.InternalPullUp);
             previous.Clicked += (s, e) => { menu.Previous(); };
 
             menu.Enable();

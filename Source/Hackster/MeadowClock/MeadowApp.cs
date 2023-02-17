@@ -20,7 +20,6 @@ namespace MeadowClock
         public override Task Initialize() 
         {
             var led = new RgbLed(
-                Device,
                 Device.Pins.OnboardLedRed,
                 Device.Pins.OnboardLedGreen,
                 Device.Pins.OnboardLedBlue);
@@ -28,7 +27,6 @@ namespace MeadowClock
 
             display = new CharacterDisplay
             (
-                device: Device,
                 pinV0: Device.Pins.D11,
                 pinRS: Device.Pins.D10,
                 pinE: Device.Pins.D09,
@@ -38,9 +36,9 @@ namespace MeadowClock
                 pinD7: Device.Pins.D05
             );
 
-            hour = new PushButton(Device, Device.Pins.D14);
+            hour = new PushButton(Device.Pins.D14);
             hour.Clicked += HourClicked;
-            minute = new PushButton(Device, Device.Pins.D13);
+            minute = new PushButton(Device.Pins.D13);
             minute.Clicked += MinuteClicked;
 
             Device.SetClock(new DateTime(2022, 03, 05, 19, 45, 00));

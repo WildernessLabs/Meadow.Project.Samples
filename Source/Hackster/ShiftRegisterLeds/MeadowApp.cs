@@ -16,14 +16,12 @@ namespace ShiftRegisterLeds
         public override Task Initialize() 
         {
             var onboardLed = new RgbPwmLed(
-                device: Device,
                 redPwmPin: Device.Pins.OnboardLedRed,
                 greenPwmPin: Device.Pins.OnboardLedGreen,
                 bluePwmPin: Device.Pins.OnboardLedBlue);
             onboardLed.SetColor(Color.Red);
 
             shiftRegister = new x74595(
-                device: Device,
                 spiBus: Device.CreateSpiBus(),
                 pinChipSelect: Device.Pins.D03,
                 pins: 8);

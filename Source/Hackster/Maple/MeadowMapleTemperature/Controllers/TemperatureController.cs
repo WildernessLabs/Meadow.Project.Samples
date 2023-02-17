@@ -23,8 +23,8 @@ namespace MeadowMapleTemperature.Controllers
         {
             TemperatureLogs = new ObservableCollection<TemperatureModel>();
 
-            analogTemperature = new AnalogTemperature(MeadowApp.Device, 
-                MeadowApp.Device.Pins.A01, AnalogTemperature.KnownSensorType.LM35);
+            analogTemperature = new AnalogTemperature(MeadowApp.Device.Pins.A01,
+                AnalogTemperature.KnownSensorType.LM35);
             analogTemperature.TemperatureUpdated += AnalogTemperatureUpdated;
             analogTemperature.StartUpdating(TimeSpan.FromSeconds(30));
         }

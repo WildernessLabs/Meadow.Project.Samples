@@ -27,8 +27,7 @@ namespace MeadowMapleServo.Controllers
         private void Initialize()
         {
             servo = new Servo(
-                device: MeadowApp.Device, 
-                pwmPort: MeadowApp.Device.Pins.D10, 
+                pwmPin: MeadowApp.Device.Pins.D10, 
                 config: NamedServoConfigs.SG90);
         }
 

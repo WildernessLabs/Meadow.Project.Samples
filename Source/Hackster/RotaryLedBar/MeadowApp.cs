@@ -22,13 +22,12 @@ namespace RotaryLedBar
         public override Task Initialize()
         {
             var onboardLed = new RgbPwmLed(
-                device: Device,
                 redPwmPin: Device.Pins.OnboardLedRed,
                 greenPwmPin: Device.Pins.OnboardLedGreen,
                 bluePwmPin: Device.Pins.OnboardLedBlue);
             onboardLed.SetColor(Color.Red);
 
-            shiftRegister = new x74595(Device, Device.CreateSpiBus(), Device.Pins.D00, 8);
+            shiftRegister = new x74595(Device.CreateSpiBus(), Device.Pins.D00, 8);
             shiftRegister.Clear();
 
             IDigitalOutputPort[] ports =
@@ -48,7 +47,7 @@ namespace RotaryLedBar
             ledBarGraph = new LedBarGraph(ports);
             ledBarGraph.Percentage = 1;
 
-            rotaryEncoder = new RotaryEncoder(Device, Device.Pins.D01, Device.Pins.D03);
+            rotaryEncoder = new RotaryEncoder(Device.Pins.D01, Device.Pins.D03);
             rotaryEncoder.Rotated += RotaryEncoderRotated;
 
             onboardLed.SetColor(Color.Green);

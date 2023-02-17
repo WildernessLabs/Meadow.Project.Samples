@@ -22,28 +22,25 @@ namespace MeadowBleRover
         public override Task Initialize() 
         {
             led = new RgbLed(
-                Device,
                 Device.Pins.OnboardLedRed,
                 Device.Pins.OnboardLedGreen,
                 Device.Pins.OnboardLedBlue);
             led.SetColor(RgbLedColors.Red);
 
-            ledUp = new Led(Device, Device.Pins.D13);
-            ledDown = new Led(Device, Device.Pins.D10);
-            ledLeft = new Led(Device, Device.Pins.D11);
-            ledRight = new Led(Device, Device.Pins.D12);
+            ledUp = new Led(Device.Pins.D13);
+            ledDown = new Led(Device.Pins.D10);
+            ledLeft = new Led(Device.Pins.D11);
+            ledRight = new Led(Device.Pins.D12);
             ledUp.IsOn = ledDown.IsOn = ledLeft.IsOn = ledRight.IsOn = true;
 
             var motorLeft = new HBridgeMotor
             (
-                device: Device,
                 a1Pin: Device.Pins.D07,
                 a2Pin: Device.Pins.D08,
                 enablePin: Device.Pins.D09
             );
             var motorRight = new HBridgeMotor
             (
-                device: Device,
                 a1Pin: Device.Pins.D02,
                 a2Pin: Device.Pins.D03,
                 enablePin: Device.Pins.D04

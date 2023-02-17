@@ -26,9 +26,7 @@ namespace MeadowBleServo.Controllers
 
         public void Initialize()
         {
-            servo = new Servo(
-                device: MeadowApp.Device,
-                pwmPort: MeadowApp.Device.Pins.D10,
+            servo = new Servo(pwmPin: MeadowApp.Device.Pins.D10,
                 config: NamedServoConfigs.SG90);
         }
 

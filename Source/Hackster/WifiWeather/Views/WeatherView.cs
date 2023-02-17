@@ -33,7 +33,6 @@ namespace WifiWeather.Views
                 config: config);
             var display = new St7789
             (
-                device: MeadowApp.Device,
                 spiBus: spiBus,
                 chipSelectPin: null,
                 dcPin: MeadowApp.Device.Pins.D01,

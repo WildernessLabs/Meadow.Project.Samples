@@ -20,7 +20,6 @@ namespace MeadowMapleTemperature.Controllers
         private void Initialize()
         {
             led = new RgbPwmLed(
-                MeadowApp.Device,
                 MeadowApp.Device.Pins.OnboardLedRed,
                 MeadowApp.Device.Pins.OnboardLedGreen,
                 MeadowApp.Device.Pins.OnboardLedBlue

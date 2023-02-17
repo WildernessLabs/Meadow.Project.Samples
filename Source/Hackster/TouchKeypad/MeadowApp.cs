@@ -20,7 +20,6 @@ namespace TouchKeypad
         public override Task Initialize() 
         {
             var onboardLed = new RgbPwmLed(
-                device: Device,
                 redPwmPin: Device.Pins.OnboardLedRed,
                 greenPwmPin: Device.Pins.OnboardLedGreen,
                 bluePwmPin: Device.Pins.OnboardLedBlue);
@@ -35,7 +34,6 @@ namespace TouchKeypad
                 cipo: Device.Pins.MISO,
                 config: config);
             var display = new St7789(
-                device: Device,
                 spiBus: spiBus,
                 chipSelectPin: Device.Pins.D02,
                 dcPin: Device.Pins.D01,

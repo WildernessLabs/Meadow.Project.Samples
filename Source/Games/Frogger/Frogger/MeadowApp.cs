@@ -42,7 +42,6 @@ namespace Frogger
                 config: config);
             display = new Ssd1309
             (
-                device: Device,
                 spiBus: spiBus,
                 chipSelectPin: Device.Pins.D02,
                 dcPin: Device.Pins.D01,
@@ -52,12 +51,12 @@ namespace Frogger
             graphics = new MicroGraphics(display);
             graphics.CurrentFont = new Font12x16();
 
-            buttonLeft = new PushButton(Device, Device.Pins.D11, ResistorMode.Disabled);
-            buttonRight = new PushButton(Device, Device.Pins.D10, ResistorMode.Disabled);
-            buttonUp = new PushButton(Device, Device.Pins.D09, ResistorMode.Disabled);
-            buttonDown = new PushButton(Device, Device.Pins.D12, ResistorMode.Disabled);
+            buttonLeft = new PushButton(Device.Pins.D11, ResistorMode.Disabled);
+            buttonRight = new PushButton(Device.Pins.D10, ResistorMode.Disabled);
+            buttonUp = new PushButton(Device.Pins.D09, ResistorMode.Disabled);
+            buttonDown = new PushButton(Device.Pins.D12, ResistorMode.Disabled);
 
-            speaker = new PiezoSpeaker(Device, Device.Pins.D13);
+            speaker = new PiezoSpeaker(Device.Pins.D13);
 
             return base.Initialize();
         }
