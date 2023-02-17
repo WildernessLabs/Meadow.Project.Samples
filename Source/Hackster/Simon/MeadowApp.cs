@@ -27,7 +27,6 @@ namespace Simon
         public override Task Initialize() 
         {
             var onboardLed = new RgbPwmLed(
-                device: Device,
                 redPwmPin: Device.Pins.OnboardLedRed,
                 greenPwmPin: Device.Pins.OnboardLedGreen,
                 bluePwmPin: Device.Pins.OnboardLedBlue);
@@ -44,22 +43,22 @@ namespace Simon
             game = new SimonGame();
 
             leds = new PwmLed[4];
-            leds[0] = new PwmLed(Device, Device.Pins.D10, TypicalForwardVoltage.Red);
-            leds[1] = new PwmLed(Device, Device.Pins.D09, TypicalForwardVoltage.Green);
-            leds[2] = new PwmLed(Device, Device.Pins.D08, TypicalForwardVoltage.Blue);
-            leds[3] = new PwmLed(Device, Device.Pins.D07, TypicalForwardVoltage.Yellow);
+            leds[0] = new PwmLed(Device.Pins.D10, TypicalForwardVoltage.Red);
+            leds[1] = new PwmLed(Device.Pins.D09, TypicalForwardVoltage.Green);
+            leds[2] = new PwmLed(Device.Pins.D08, TypicalForwardVoltage.Blue);
+            leds[3] = new PwmLed(Device.Pins.D07, TypicalForwardVoltage.Yellow);
 
             buttons = new PushButton[4];
-            buttons[0] = new PushButton(Device, Device.Pins.CIPO);
+            buttons[0] = new PushButton(Device.Pins.CIPO);
             buttons[0].Clicked += ButtonRedClicked;
-            buttons[1] = new PushButton(Device, Device.Pins.D01);
+            buttons[1] = new PushButton(Device.Pins.D01);
             buttons[1].Clicked += ButtonGreenClicked;
-            buttons[2] = new PushButton(Device, Device.Pins.D03);
+            buttons[2] = new PushButton(Device.Pins.D03);
             buttons[2].Clicked += ButtonBlueClicked;
-            buttons[3] = new PushButton(Device, Device.Pins.D04);
+            buttons[3] = new PushButton(Device.Pins.D04);
             buttons[3].Clicked += ButtonYellowClicked;
 
-            speaker = new PiezoSpeaker(Device, Device.Pins.D12);
+            speaker = new PiezoSpeaker(Device.Pins.D12);
 
             onboardLed.SetColor(Color.Green);
 

@@ -18,20 +18,17 @@ namespace RgbLedSample
         public override Task Initialize() 
         {
             var onboardLed = new RgbPwmLed(
-                device: Device,
                 redPwmPin: Device.Pins.OnboardLedRed,
                 greenPwmPin: Device.Pins.OnboardLedGreen,
                 bluePwmPin: Device.Pins.OnboardLedBlue);
             onboardLed.SetColor(Color.Red);
 
             rgbLed = new RgbLed(
-                Device,
                 Device.Pins.D02,
                 Device.Pins.D03,
                 Device.Pins.D04
             );
             //rgbPwmLed = new RgbPwmLed(
-            //    Device,
             //    Device.Pins.D02,
             //    Device.Pins.D03,
             //    Device.Pins.D04

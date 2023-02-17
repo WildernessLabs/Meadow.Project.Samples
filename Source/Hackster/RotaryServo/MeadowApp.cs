@@ -20,16 +20,15 @@ namespace RotaryServo
         public override async Task Initialize()
         {
             var onboardLed = new RgbPwmLed(
-                device: Device,
                 redPwmPin: Device.Pins.OnboardLedRed,
                 greenPwmPin: Device.Pins.OnboardLedGreen,
                 bluePwmPin: Device.Pins.OnboardLedBlue);
             onboardLed.SetColor(Color.Red);
 
-            servo = new Servo(Device, Device.Pins.D08, NamedServoConfigs.SG90);
+            servo = new Servo(Device.Pins.D08, NamedServoConfigs.SG90);
             await servo.RotateTo(new Angle(0, AU.Degrees));
 
-            rotaryEncoder = new RotaryEncoder(Device, Device.Pins.D01, Device.Pins.D03);
+            rotaryEncoder = new RotaryEncoder(Device.Pins.D01, Device.Pins.D03);
             rotaryEncoder.Rotated += RotaryEncoderRotated;
 
             onboardLed.SetColor(Color.Green);

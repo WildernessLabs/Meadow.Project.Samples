@@ -18,7 +18,6 @@ namespace MotorRotaryController
         public override Task Initialize()
         {
             var onboardLed = new RgbPwmLed(
-                device: Device,
                 redPwmPin: Device.Pins.OnboardLedRed,
                 greenPwmPin: Device.Pins.OnboardLedGreen,
                 bluePwmPin: Device.Pins.OnboardLedBlue);
@@ -26,14 +25,13 @@ namespace MotorRotaryController
 
             motor = new HBridgeMotor
             (
-                device: Device,
                 a1Pin: Device.Pins.D05,
                 a2Pin: Device.Pins.D06,
                 enablePin: Device.Pins.D09
             );
             motor.Power = 0f;
 
-            rotary = new RotaryEncoder(Device, Device.Pins.D01, Device.Pins.D03);
+            rotary = new RotaryEncoder(Device.Pins.D01, Device.Pins.D03);
             rotary.Rotated += RotaryRotated;
 
             onboardLed.SetColor(Color.Green);

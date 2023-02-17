@@ -19,16 +19,15 @@ namespace LedJoystick
         public override Task Initialize()
         {
             var onboardLed = new RgbPwmLed(
-                device: Device,
                 redPwmPin: Device.Pins.OnboardLedRed,
                 greenPwmPin: Device.Pins.OnboardLedGreen,
                 bluePwmPin: Device.Pins.OnboardLedBlue);
             onboardLed.SetColor(Color.Red);
 
-            Up = new Led(Device, Device.Pins.D15); Up.IsOn = true;
-            Down = new Led(Device, Device.Pins.D12); Down.IsOn = true;
-            Left = new Led(Device, Device.Pins.D13); Left.IsOn = true;
-            Right = new Led(Device, Device.Pins.D14); Right.IsOn = true;
+            Up = new Led(Device.Pins.D15); Up.IsOn = true;
+            Down = new Led(Device.Pins.D12); Down.IsOn = true;
+            Left = new Led(Device.Pins.D13); Left.IsOn = true;
+            Right = new Led(Device.Pins.D14); Right.IsOn = true;
 
             joystick = new AnalogJoystick(
                 Device.CreateAnalogInputPort(Device.Pins.A01, 1, TimeSpan.FromMilliseconds(10), new Voltage(3.3)),

@@ -28,16 +28,15 @@ namespace GalleryViewer
         public override Task Initialize()
         {
             led = new RgbPwmLed(
-                device: Device,
                 redPwmPin: Device.Pins.OnboardLedRed,
                 greenPwmPin: Device.Pins.OnboardLedGreen,
                 bluePwmPin: Device.Pins.OnboardLedBlue);
             led.SetColor(Color.Red);
 
-            buttonUp = new PushButton(Device, Device.Pins.D03);
+            buttonUp = new PushButton(Device.Pins.D03);
             buttonUp.Clicked += ButtonUpClicked;
 
-            buttonDown = new PushButton(Device, Device.Pins.D04);
+            buttonDown = new PushButton(Device.Pins.D04);
             buttonDown.Clicked += ButtonDownClicked;
 
             var config = new SpiClockConfiguration(
@@ -50,7 +49,6 @@ namespace GalleryViewer
                 config: config);
             var display = new St7789
             (
-                device: Device,
                 spiBus: spiBus,
                 chipSelectPin: Device.Pins.D02,
                 dcPin: Device.Pins.D01,

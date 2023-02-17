@@ -24,7 +24,7 @@ namespace TemperatureDisplay
 
         public override Task Initialize()
         {
-            onboardLed = new RgbPwmLed(device: Device,
+            onboardLed = new RgbPwmLed(
                 redPwmPin: Device.Pins.OnboardLedRed,
                 greenPwmPin: Device.Pins.OnboardLedGreen,
                 bluePwmPin: Device.Pins.OnboardLedBlue);
@@ -39,7 +39,6 @@ namespace TemperatureDisplay
                 cipo: Device.Pins.MISO,
                 config: config);
             var display = new St7789(
-                device: Device,
                 spiBus: spiBus,
                 chipSelectPin: Device.Pins.D02,
                 dcPin: Device.Pins.D01,

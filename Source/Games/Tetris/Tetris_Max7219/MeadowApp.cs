@@ -22,7 +22,6 @@ namespace Tetris
             Console.WriteLine("Tetris");
 
             var display = new Max7219(
-                device: Device, 
                 spiBus: Device.CreateSpiBus(Max7219.DefaultSpiBusSpeed), 
                 chipSelectPin: Device.Pins.D01, 
                 deviceCount: 4, 
@@ -32,7 +31,7 @@ namespace Tetris
             graphics.CurrentFont = new Font4x8();
             graphics.Rotation = RotationType._180Degrees;
 
-            joystick = new AnalogJoystick(Device, Device.Pins.A01, Device.Pins.A02, null);
+            joystick = new AnalogJoystick(Device.Pins.A01, Device.Pins.A02, null);
             _ = joystick.SetCenterPosition(); //fire and forget
             joystick.StartUpdating(TimeSpan.FromMilliseconds(100));
 

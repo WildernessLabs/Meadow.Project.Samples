@@ -45,7 +45,7 @@ namespace Span4
             portDown = Device.CreateDigitalInputPort(Device.Pins.D04);
             portReset = Device.CreateDigitalInputPort(Device.Pins.D05);
 
-            speaker = new PiezoSpeaker(Device, Device.Pins.D06);
+            speaker = new PiezoSpeaker(Device.Pins.D06);
 
             var config = new SpiClockConfiguration(
                 speed: new Frequency(6000, Frequency.UnitType.Kilohertz),
@@ -56,7 +56,6 @@ namespace Span4
                 cipo: Device.Pins.MISO,
                 config: config);
             var display = new St7789(
-                device: Device,
                 spiBus: spiBus,
                 chipSelectPin: Device.Pins.D10,
                 dcPin: Device.Pins.D01,

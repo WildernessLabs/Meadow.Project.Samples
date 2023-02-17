@@ -27,7 +27,6 @@ namespace RadioPlayer
         public override Task Initialize()
         {
             var onboardLed = new RgbPwmLed(
-                device: Device,
                 redPwmPin: Device.Pins.OnboardLedRed,
                 greenPwmPin: Device.Pins.OnboardLedGreen,
                 bluePwmPin: Device.Pins.OnboardLedBlue);
@@ -41,10 +40,10 @@ namespace RadioPlayer
             graphics = new MicroGraphics(display);
             graphics.Rotation = RotationType._180Degrees;
 
-            btnNext = new PushButton(Device, Device.Pins.D03);
+            btnNext = new PushButton(Device.Pins.D03);
             btnNext.Clicked += BtnNextClicked;
 
-            btnPrevious = new PushButton(Device, Device.Pins.D04);
+            btnPrevious = new PushButton(Device.Pins.D04);
             btnPrevious.Clicked += BtnPreviousClicked;
 
             stations = new List<Frequency>();

@@ -28,7 +28,6 @@ namespace ObstacleRadar
         public override async Task Initialize()
         {
             var onboardLed = new RgbPwmLed(
-                device: Device,
                 redPwmPin: Device.Pins.OnboardLedRed,
                 greenPwmPin: Device.Pins.OnboardLedGreen,
                 bluePwmPin: Device.Pins.OnboardLedBlue);
@@ -42,7 +41,6 @@ namespace ObstacleRadar
                 Device.Pins.MOSI, 
                 Device.Pins.MISO, config);
             var display = new St7789(
-                device: Device, 
                 spiBus: spiBus,
                 chipSelectPin: Device.Pins.D02,
                 dcPin: Device.Pins.D01,
@@ -54,10 +52,10 @@ namespace ObstacleRadar
             graphics.Rotation = RotationType._270Degrees;
 
             var i2cBus = Device.CreateI2cBus(I2cBusSpeed.FastPlus);
-            sensor = new Vl53l0x(Device, i2cBus);
+            sensor = new Vl53l0x(i2cBus);
             sensor.StartUpdating(TimeSpan.FromMilliseconds(200));
 
-            servo = new Servo(Device, Device.Pins.D05, NamedServoConfigs.SG90);
+            servo = new Servo(Device.Pins.D05, NamedServoConfigs.SG90);
             await servo.RotateTo(new Angle(0, AU.Degrees));
 
             onboardLed.SetColor(Color.Green);
