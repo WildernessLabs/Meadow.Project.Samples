@@ -32,13 +32,12 @@ namespace PlantMonitor
         public override Task Initialize()
         {
             onboardLed = new RgbPwmLed(
-                device: Device,
                 redPwmPin: Device.Pins.OnboardLedRed,
                 greenPwmPin: Device.Pins.OnboardLedGreen,
                 bluePwmPin: Device.Pins.OnboardLedBlue);
             onboardLed.SetColor(Color.Red);
 
-            button = new PushButton(Device, Device.Pins.D04, ResistorMode.InternalPullUp);
+            button = new PushButton(Device.Pins.D04, ResistorMode.InternalPullUp);
             button.Clicked += ButtonClicked;
 
             var config = new SpiClockConfiguration(
@@ -51,7 +50,6 @@ namespace PlantMonitor
                 config: config);
             var display = new St7789
             (
-                device: Device,
                 spiBus: spiBus,
                 chipSelectPin: Device.Pins.D02,
                 dcPin: Device.Pins.D01,
@@ -61,7 +59,6 @@ namespace PlantMonitor
             displayController = new DisplayController(display);
             
             capacitive = new Capacitive(
-                device: Device,
                 analogInputPin: Device.Pins.A01,
                 minimumVoltageCalibration: MINIMUM_VOLTAGE_CALIBRATION,
                 maximumVoltageCalibration: MAXIMUM_VOLTAGE_CALIBRATION);
@@ -82,7 +79,7 @@ namespace PlantMonitor
 
             capacitive.StartUpdating(TimeSpan.FromHours(1));
 
-            analogTemperature = new AnalogTemperature(Device, Device.Pins.A00, AnalogTemperature.KnownSensorType.LM35);
+            analogTemperature = new AnalogTemperature(Device.Pins.A00, AnalogTemperature.KnownSensorType.LM35);
             var analogTemperatureObserver = AnalogTemperature.CreateObserver(
                 handler =>
                 {

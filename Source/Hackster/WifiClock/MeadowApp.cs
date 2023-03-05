@@ -26,14 +26,12 @@ namespace WifiClock
         public override async Task Initialize()
         { 
             var onboardLed = new RgbPwmLed(
-                device: Device,
                 redPwmPin: Device.Pins.OnboardLedRed,
                 greenPwmPin: Device.Pins.OnboardLedGreen,
                 bluePwmPin: Device.Pins.OnboardLedBlue);
             onboardLed.SetColor(Color.Red);
 
             var display = new Max7219(
-                device: Device, 
                 spiBus: Device.CreateSpiBus(), 
                 chipSelectPin: Device.Pins.D01, 
                 deviceCount: 4, 
@@ -49,11 +47,10 @@ namespace WifiClock
             graphics.DrawText(0, 25, "ME");
             graphics.Show();
 
-            pushButton = new PushButton(Device, Device.Pins.D04, ResistorMode.InternalPullUp);
+            pushButton = new PushButton(Device.Pins.D04, ResistorMode.InternalPullUp);
             pushButton.Clicked += PushButtonClicked;
 
             analogTemperature = new AnalogTemperature(
-                device: Device,
                 analogPin: Device.Pins.A00,
                 sensorType: AnalogTemperature.KnownSensorType.LM35
             );

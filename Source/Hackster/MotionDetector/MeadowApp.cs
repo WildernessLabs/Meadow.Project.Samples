@@ -25,7 +25,6 @@ namespace MotionDetector
         public override Task Initialize()
         {
             var onboardLed = new RgbPwmLed(
-                device: Device,
                 redPwmPin: Device.Pins.OnboardLedRed,
                 greenPwmPin: Device.Pins.OnboardLedGreen,
                 bluePwmPin: Device.Pins.OnboardLedBlue);
@@ -41,7 +40,6 @@ namespace MotionDetector
                 config: config);
             var display = new St7789
             (
-                device: Device,
                 spiBus: spiBus,
                 chipSelectPin: null,
                 dcPin: Device.Pins.D01,
@@ -52,7 +50,7 @@ namespace MotionDetector
             graphics = new MicroGraphics(display);
             graphics.Rotation = RotationType._270Degrees;
 
-            motionSensor = new ParallaxPir(Device, Device.Pins.D08, InterruptMode.EdgeFalling, ResistorMode.Disabled, TimeSpan.FromMilliseconds(5), TimeSpan.FromMilliseconds(0));
+            motionSensor = new ParallaxPir(Device.Pins.D08, InterruptMode.EdgeFalling, ResistorMode.Disabled, TimeSpan.FromMilliseconds(5), TimeSpan.FromMilliseconds(0));
             motionSensor.OnMotionStart += MotionSensorMotionStart;
             motionSensor.OnMotionEnd += MotionSensorMotionEnd;
 

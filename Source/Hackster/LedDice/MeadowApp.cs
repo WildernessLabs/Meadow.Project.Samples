@@ -18,22 +18,21 @@ namespace LedDice
         public override Task Initialize() 
         {
             var onboardLed = new RgbPwmLed(
-                device: Device,
                 redPwmPin: Device.Pins.OnboardLedRed,
                 greenPwmPin: Device.Pins.OnboardLedGreen,
                 bluePwmPin: Device.Pins.OnboardLedBlue);
             onboardLed.SetColor(Color.Red);
 
             leds = new Led[7];
-            leds[0] = new Led(Device, Device.Pins.D06);  // 
-            leds[1] = new Led(Device, Device.Pins.D07);  // [6]       [5]
-            leds[2] = new Led(Device, Device.Pins.D08);  // 
-            leds[3] = new Led(Device, Device.Pins.D09);  // [4]  [3]  [2]
-            leds[4] = new Led(Device, Device.Pins.D10);  // 
-            leds[5] = new Led(Device, Device.Pins.D11);  // [1]       [0]
-            leds[6] = new Led(Device, Device.Pins.D12);  // 
+            leds[0] = new Led(Device.Pins.D06);  // 
+            leds[1] = new Led(Device.Pins.D07);  // [6]       [5]
+            leds[2] = new Led(Device.Pins.D08);  // 
+            leds[3] = new Led(Device.Pins.D09);  // [4]  [3]  [2]
+            leds[4] = new Led(Device.Pins.D10);  // 
+            leds[5] = new Led(Device.Pins.D11);  // [1]       [0]
+            leds[6] = new Led(Device.Pins.D12);  // 
 
-            button = new PushButton(Device, Device.Pins.D04);
+            button = new PushButton(Device.Pins.D04);
             button.Clicked += ButtonClicked;
 
             onboardLed.SetColor(Color.Green);

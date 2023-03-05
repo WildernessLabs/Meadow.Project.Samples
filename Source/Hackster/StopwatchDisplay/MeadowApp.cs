@@ -23,7 +23,6 @@ namespace StopwatchDisplay
         public override Task Initialize() 
         {
             var onboardLed = new RgbPwmLed(
-                device: Device,
                 redPwmPin: Device.Pins.OnboardLedRed,
                 greenPwmPin: Device.Pins.OnboardLedGreen,
                 bluePwmPin: Device.Pins.OnboardLedBlue);
@@ -32,13 +31,11 @@ namespace StopwatchDisplay
             stopwatch = new Stopwatch();
 
             startStop = new PushButton(
-                device: Device,
                 inputPin: Device.Pins.D12,
                 resistorMode: Meadow.Hardware.ResistorMode.InternalPullUp);
             startStop.Clicked += StartStopClicked;
 
             reset = new PushButton(
-                device: Device,
                 inputPin: Device.Pins.D13,
                 resistorMode: Meadow.Hardware.ResistorMode.InternalPullUp);
             reset.Clicked += ResetClicked;

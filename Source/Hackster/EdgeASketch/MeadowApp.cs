@@ -24,7 +24,6 @@ namespace EdgeASketch
         public override Task Initialize()
         {
             var onboardLed = new RgbPwmLed(
-                device: Device,
                 redPwmPin: Device.Pins.OnboardLedRed,
                 greenPwmPin: Device.Pins.OnboardLedGreen,
                 bluePwmPin: Device.Pins.OnboardLedBlue);
@@ -41,7 +40,6 @@ namespace EdgeASketch
                 cipo: Device.Pins.MISO,
                 config: config);
             var st7789 = new St7789(
-                device: Device,
                 spiBus: spiBus,
                 chipSelectPin: null,
                 dcPin: Device.Pins.D01,
@@ -54,12 +52,10 @@ namespace EdgeASketch
             graphics.DrawPixel(x, y, Color.Red);
             graphics.Show();
 
-            rotaryX = new RotaryEncoderWithButton(Device,
-                Device.Pins.A00, Device.Pins.A01, Device.Pins.A02);
+            rotaryX = new RotaryEncoderWithButton(Device.Pins.A00, Device.Pins.A01, Device.Pins.A02);
             rotaryX.Rotated += RotaryXRotated;
 
-            rotaryY = new RotaryEncoderWithButton(Device,
-            Device.Pins.D01, Device.Pins.D03, Device.Pins.D04);
+            rotaryY = new RotaryEncoderWithButton(Device.Pins.D01, Device.Pins.D03, Device.Pins.D04);
             rotaryY.Rotated += RotaryYRotated;
             rotaryY.Clicked += RotaryYClicked;
 

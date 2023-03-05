@@ -29,7 +29,7 @@ namespace MorseCodeTrainer
 
         public override Task Initialize()
         {
-            var onboardLed = new RgbPwmLed(device: Device,
+            var onboardLed = new RgbPwmLed(
                 redPwmPin: Device.Pins.OnboardLedRed,
                 greenPwmPin: Device.Pins.OnboardLedGreen,
                 bluePwmPin: Device.Pins.OnboardLedBlue);
@@ -37,9 +37,9 @@ namespace MorseCodeTrainer
 
             displayController = new DisplayControllers();
 
-            piezo = new PiezoSpeaker(Device, Device.Pins.D09);
+            piezo = new PiezoSpeaker(Device.Pins.D09);
 
-            button = new PushButton(device: Device, Device.Pins.D04);
+            button = new PushButton(Device.Pins.D04);
             button.PressStarted += ButtonPressStarted;
             button.PressEnded += ButtonPressEnded;
 

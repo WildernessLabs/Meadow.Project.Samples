@@ -23,7 +23,6 @@ namespace WifiWeatherClock
         public override async Task Initialize()
         {
             onboardLed = new RgbPwmLed(
-                device: Device,
                 redPwmPin: Device.Pins.OnboardLedRed,
                 greenPwmPin: Device.Pins.OnboardLedGreen,
                 bluePwmPin: Device.Pins.OnboardLedBlue);
@@ -35,7 +34,7 @@ namespace WifiWeatherClock
 
             await wifi.Connect(Secrets.WIFI_NAME, Secrets.WIFI_PASSWORD, TimeSpan.FromSeconds(45));
 
-            analogTemperature = new AnalogTemperature(Device, Device.Pins.A00,
+            analogTemperature = new AnalogTemperature(Device.Pins.A00,
                 sensorType: AnalogTemperature.KnownSensorType.LM35);
             await analogTemperature.Read();
             analogTemperature.StartUpdating(TimeSpan.FromMinutes(5));

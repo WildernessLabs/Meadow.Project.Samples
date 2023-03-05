@@ -24,16 +24,15 @@ namespace ServoButton
         public override Task Initialize() 
         {
             var onboardLed = new RgbPwmLed(
-                device: Device,
                 redPwmPin: Device.Pins.OnboardLedRed,
                 greenPwmPin: Device.Pins.OnboardLedGreen,
                 bluePwmPin: Device.Pins.OnboardLedBlue);
             onboardLed.SetColor(Color.Red);
 
-            servo = new Servo(Device, Device.Pins.D10, NamedServoConfigs.SG90);
+            servo = new Servo(Device.Pins.D10, NamedServoConfigs.SG90);
             servo.RotateTo(NamedServoConfigs.SG90.MinimumAngle);
 
-            button = new PushButton(Device, Device.Pins.D04);
+            button = new PushButton(Device.Pins.D04);
             button.Clicked += ButtonClicked;
 
             onboardLed.SetColor(Color.Green);

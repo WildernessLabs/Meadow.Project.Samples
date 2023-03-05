@@ -25,7 +25,6 @@ namespace MeadowMapleLed.Controller
         private void Initialize()
         {
             rgbPwmLed = new RgbPwmLed(
-                device: MeadowApp.Device,
                 redPwmPin: MeadowApp.Device.Pins.D12,
                 greenPwmPin: MeadowApp.Device.Pins.D11,
                 bluePwmPin: MeadowApp.Device.Pins.D10);
