@@ -20,7 +20,7 @@ namespace MeadowWifi
 
         ICharacteristic Ssid;
         ICharacteristic Password;
-        ICharacteristic Connect;
+        ICharacteristic ToggleConnection;
 
         string ssid;
         string password;
@@ -35,32 +35,46 @@ namespace MeadowWifi
                 redPwmPin: Device.Pins.OnboardLedRed,
                 greenPwmPin: Device.Pins.OnboardLedGreen,
                 bluePwmPin: Device.Pins.OnboardLedBlue);
-            onboardLed.SetColor(Color.Red);
+            onboardLed.StartPulse(Color.Red);
 
             wifi = Device.NetworkAdapters.Primary<IWiFiNetworkAdapter>();
             wifi.NetworkConnected += WifiNetworkConnected;
+            wifi.NetworkDisconnected += WifiNetworkDisconnected;
 
             bleTreeDefinition = GetDefinition();
             Device.BluetoothAdapter.StartBluetoothServer(bleTreeDefinition);
 
             Ssid.ValueSet += (s, e) => { ssid = (string) e; };
             Password.ValueSet += (s, e) => { password = (string) e; };
-            Connect.ValueSet += async (s, e) =>
+            ToggleConnection.ValueSet += async (s, e) =>
             {
-                await wifi.Connect(ssid, password, TimeSpan.FromSeconds(45));
-
-                ConfigFileManager.CreateMeadowConfigFile();
-                ConfigFileManager.CreateWifiConfigFile(ssid, password);
+                if ((bool) e)
+                {
+                    await wifi.Connect(ssid, password, TimeSpan.FromSeconds(45));
+                }
+                else
+                {
+                    await wifi.Disconnect(false);
+                }
             };
 
-            onboardLed.SetColor(Color.Green);
+            onboardLed.StartPulse(Color.Green);
 
             return base.Initialize();
         }
 
         private void WifiNetworkConnected(INetworkAdapter sender, NetworkConnectionEventArgs args)
         {
-            onboardLed.SetColor(Color.Purple);
+            ConfigFileManager.CreateConfigFiles(ssid, password);
+
+            onboardLed.StartPulse(Color.Magenta);
+        }
+
+        private void WifiNetworkDisconnected(INetworkAdapter sender)
+        {
+            ConfigFileManager.DeleteConfigFiles();
+
+            onboardLed.StartPulse(Color.Cyan);
         }
 
         Definition GetDefinition()
@@ -81,8 +95,8 @@ namespace MeadowWifi
                     permissions: CharacteristicPermission.Read | CharacteristicPermission.Write,
                     properties: CharacteristicProperty.Read | CharacteristicProperty.Write,
                     maxLength: 256),
-                Connect = new CharacteristicBool(
-                    name: nameof(Connect),
+                ToggleConnection = new CharacteristicBool(
+                    name: nameof(ToggleConnection),
                     uuid: CONNECT,
                     permissions: CharacteristicPermission.Read | CharacteristicPermission.Write,
                     properties: CharacteristicProperty.Read | CharacteristicProperty.Write)

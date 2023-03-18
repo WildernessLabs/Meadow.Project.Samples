@@ -19,6 +19,12 @@ namespace MobileWifi.ViewModel
             set { _showPassword = value; OnPropertyChanged(nameof(ShowPassword)); }
         }
 
+        bool _hasJoinedWifi;
+        public bool HasJoinedWifi
+        {
+            get => _hasJoinedWifi;
+            set { _hasJoinedWifi = value; OnPropertyChanged(nameof(HasJoinedWifi)); }
+        }
 
         string _ssid;
         public string Ssid
@@ -45,18 +51,33 @@ namespace MobileWifi.ViewModel
 
             ConnectCommand = new Command(async () => 
             {
-                var ssid = Encoding.ASCII.GetBytes(Ssid);
-                await CharacteristicSsid.WriteAsync(ssid);
+                if (!HasJoinedWifi)
+                {
+                    var ssid = Encoding.ASCII.GetBytes(Ssid);
+                    await CharacteristicSsid.WriteAsync(ssid);
 
-                await Task.Delay(500);
+                    await Task.Delay(500);
 
-                var password = Encoding.ASCII.GetBytes(Password);
-                await CharacteristicPassword.WriteAsync(password);
+                    var password = Encoding.ASCII.GetBytes(Password);
+                    await CharacteristicPassword.WriteAsync(password);
 
-                await Task.Delay(500);
+                    await Task.Delay(500);
 
-                byte[] connect = new byte[1] { 1 };
-                await CharacteristicConnect.WriteAsync(connect);
+                    byte[] connect = new byte[1] { 1 };
+                    await CharacteristicConnect.WriteAsync(connect);
+
+                    HasJoinedWifi = true;
+                }
+                else
+                {
+                    Ssid = string.Empty;
+                    Password = string.Empty;
+
+                    byte[] connect = new byte[1] { 0 };
+                    await CharacteristicConnect.WriteAsync(connect);
+
+                    HasJoinedWifi = false;
+                }
             });
 
             TogglePasswordVisibility = new Command(() => ShowPassword = !ShowPassword);

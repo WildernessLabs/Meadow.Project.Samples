@@ -7,7 +7,19 @@ namespace MeadowWifi
 {
     public static class ConfigFileManager
     {
-        public static void CreateMeadowConfigFile()
+        public static void CreateConfigFiles(string ssid, string password) 
+        {
+            CreateMeadowConfigFile();
+            CreateWifiConfigFile(ssid, password);
+        }
+
+        public static void DeleteConfigFiles()
+        {
+            DeleteMeadowConfigFile();
+            DeleteWifiConfigFile();
+        }
+
+        private static void CreateMeadowConfigFile()
         {
             try
             {
@@ -27,7 +39,7 @@ namespace MeadowWifi
             }
         }
 
-        public static void CreateWifiConfigFile(string ssid, string password)
+        private static void CreateWifiConfigFile(string ssid, string password)
         {
             try
             {
@@ -45,6 +57,20 @@ namespace MeadowWifi
             {
                 Console.WriteLine(ex.ToString());
             }
+        }
+
+        private static void DeleteMeadowConfigFile() 
+        {
+            string path = $"{MeadowOS.FileSystem.UserFileSystemRoot}\"meadow.config.yaml\"";
+
+            File.Delete(path);
+        }
+
+        private static void DeleteWifiConfigFile()
+        {
+            string path = $"{MeadowOS.FileSystem.UserFileSystemRoot}\"wifi.config.yaml\"";
+
+            File.Delete(path);
         }
     }
 }

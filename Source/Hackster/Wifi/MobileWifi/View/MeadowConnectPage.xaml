@@ -74,10 +74,30 @@
             <Label Grid.Row="2" Text="WiFi Settings:" TextColor="Black" FontSize="Medium" Margin="0,5" />
 
             <Frame Grid.Row="3" BackgroundColor="#10485E" HasShadow="False" CornerRadius="5" BorderColor="Transparent" Padding="10,0">
+                <Frame.Triggers>
+                    <DataTrigger TargetType="Frame" Binding="{Binding HasJoinedWifi}" Value="true">
+                        <Setter Property="Opacity" Value="0.75" />
+                        <Setter Property="IsEnabled" Value="false" />
+                    </DataTrigger>
+                    <DataTrigger TargetType="Frame" Binding="{Binding HasJoinedWifi}" Value="false">
+                        <Setter Property="Opacity" Value="1" />
+                        <Setter Property="IsEnabled" Value="true" />
+                    </DataTrigger>
+                </Frame.Triggers>
                 <Entry Placeholder="Enter SSID" Text="{Binding Ssid}" TextColor="White" PlaceholderColor="#CCC" FontAttributes="Bold" />
             </Frame>
 
             <Frame Grid.Row="4" BackgroundColor="#10485E" HasShadow="False" CornerRadius="5" BorderColor="Transparent" Padding="10,0">
+                <Frame.Triggers>
+                    <DataTrigger TargetType="Frame" Binding="{Binding HasJoinedWifi}" Value="true">
+                        <Setter Property="Opacity" Value="0.75" />
+                        <Setter Property="IsEnabled" Value="false" />
+                    </DataTrigger>
+                    <DataTrigger TargetType="Frame" Binding="{Binding HasJoinedWifi}" Value="false">
+                        <Setter Property="Opacity" Value="1" />
+                        <Setter Property="IsEnabled" Value="true" />
+                    </DataTrigger>
+                </Frame.Triggers>
                 <Grid ColumnDefinitions="*, Auto">
                     <Entry Grid.Column="0" Placeholder="Enter Password" Text="{Binding Password}" TextColor="White" PlaceholderColor="#CCC">
                         <Entry.Triggers>
@@ -105,16 +125,14 @@
                 </Grid>
             </Frame>
 
-            <Button Grid.Row="5" Text="Connect" Command="{Binding ConnectCommand}"
+            <Button Grid.Row="5" Command="{Binding ConnectCommand}"
                 TextColor="White" BackgroundColor="#EF7D3B">
                 <Button.Triggers>
-                    <DataTrigger TargetType="Button" Binding="{Binding IsConnected}" Value="true">
-                        <Setter Property="IsEnabled" Value="True" />
-                        <Setter Property="Opacity" Value="1" />
+                    <DataTrigger TargetType="Button" Binding="{Binding HasJoinedWifi}" Value="true">
+                        <Setter Property="Text" Value="Disconnect" />
                     </DataTrigger>
-                    <DataTrigger TargetType="Button" Binding="{Binding IsConnected}" Value="false">
-                        <Setter Property="IsEnabled" Value="false" />
-                        <Setter Property="Opacity" Value="0.75" />
+                    <DataTrigger TargetType="Button" Binding="{Binding HasJoinedWifi}" Value="false">
+                        <Setter Property="Text" Value="Connect" />
                     </DataTrigger>
                 </Button.Triggers>
             </Button>

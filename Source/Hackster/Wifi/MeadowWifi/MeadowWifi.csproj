@@ -16,9 +16,4 @@
     <PackageReference Include="Meadow.Foundation" Version="0.*" />
     <PackageReference Include="YamlDotNet" Version="13.0.2" />
   </ItemGroup>
-  <ItemGroup>
-    <None Update="meadow.config.yaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
 </Project>
