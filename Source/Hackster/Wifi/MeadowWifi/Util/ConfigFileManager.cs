@@ -61,20 +61,26 @@ namespace MeadowWifi
 
         private static void DeleteMeadowConfigFile() 
         {
-            string path = $"{MeadowOS.FileSystem.UserFileSystemRoot}meadow.config.yaml";
-
-            Console.WriteLine(path);
-
-            File.Delete(path);
+            try 
+            { 
+                File.Delete($"{MeadowOS.FileSystem.UserFileSystemRoot}meadow.config.yaml");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
         }
 
         private static void DeleteWifiConfigFile()
         {
-            string path = $"{MeadowOS.FileSystem.UserFileSystemRoot}wifi.config.yaml";
-
-            Console.WriteLine(path);
-
-            File.Delete(path);
+            try 
+            { 
+                File.Delete($"{MeadowOS.FileSystem.UserFileSystemRoot}wifi.config.yaml");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
         }
     }
 }

@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 
 namespace MeadowWifi
 {
-    // Change F7FeatherV2 to F7FeatherV1 for V1.x boards
     public class MeadowApp : App<F7FeatherV2>
     {
         readonly string SSID = "8c3bb16c0d954fb8b37999e1f040b279";
