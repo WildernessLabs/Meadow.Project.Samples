@@ -48,13 +48,24 @@ namespace MeadowWifi
             Password.ValueSet += (s, e) => { password = (string) e; };
             ToggleConnection.ValueSet += async (s, e) =>
             {
+                onboardLed.StartPulse(Color.Yellow);
+
                 if ((bool) e)
                 {
                     await wifi.Connect(ssid, password, TimeSpan.FromSeconds(45));
+
+                    if (wifi.IsConnected)
+                    {
+                        ConfigFileManager.CreateConfigFiles(ssid, password);
+                    }
                 }
                 else
                 {
                     await wifi.Disconnect(false);
+
+                    ConfigFileManager.DeleteConfigFiles();
+
+                    Device.PlatformOS.Reset();
                 }
             };
 
@@ -65,15 +76,11 @@ namespace MeadowWifi
 
         private void WifiNetworkConnected(INetworkAdapter sender, NetworkConnectionEventArgs args)
         {
-            ConfigFileManager.CreateConfigFiles(ssid, password);
-
             onboardLed.StartPulse(Color.Magenta);
         }
 
         private void WifiNetworkDisconnected(INetworkAdapter sender)
         {
-            ConfigFileManager.DeleteConfigFiles();
-
             onboardLed.StartPulse(Color.Cyan);
         }
 
