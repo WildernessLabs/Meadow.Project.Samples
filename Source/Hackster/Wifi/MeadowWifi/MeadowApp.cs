@@ -19,7 +19,7 @@ namespace MeadowWifi
 
         ICharacteristic Ssid;
         ICharacteristic Password;
-        ICharacteristic ToggleConnection;
+        ICharacteristic HasJoinedWifi;
 
         string ssid;
         string password;
@@ -45,7 +45,7 @@ namespace MeadowWifi
 
             Ssid.ValueSet += (s, e) => { ssid = (string) e; };
             Password.ValueSet += (s, e) => { password = (string) e; };
-            ToggleConnection.ValueSet += async (s, e) =>
+            HasJoinedWifi.ValueSet += async (s, e) =>
             {
                 onboardLed.StartPulse(Color.Yellow);
 
@@ -75,11 +75,15 @@ namespace MeadowWifi
 
         private void WifiNetworkConnected(INetworkAdapter sender, NetworkConnectionEventArgs args)
         {
+            HasJoinedWifi.SetValue(true);
+
             onboardLed.StartPulse(Color.Magenta);
         }
 
         private void WifiNetworkDisconnected(INetworkAdapter sender)
         {
+            HasJoinedWifi.SetValue(false);
+
             onboardLed.StartPulse(Color.Cyan);
         }
 
@@ -101,8 +105,8 @@ namespace MeadowWifi
                     permissions: CharacteristicPermission.Read | CharacteristicPermission.Write,
                     properties: CharacteristicProperty.Read | CharacteristicProperty.Write,
                     maxLength: 256),
-                ToggleConnection = new CharacteristicBool(
-                    name: nameof(ToggleConnection),
+                HasJoinedWifi = new CharacteristicBool(
+                    name: nameof(HasJoinedWifi),
                     uuid: CONNECT,
                     permissions: CharacteristicPermission.Read | CharacteristicPermission.Write,
                     properties: CharacteristicProperty.Read | CharacteristicProperty.Write)
