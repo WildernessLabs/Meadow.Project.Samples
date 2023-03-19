@@ -35,19 +35,15 @@
                             <Image.Triggers>
                                 <DataTrigger TargetType="Image" Binding="{Binding IsDeviceListEmpty}" Value="True">
                                     <Setter Property="Opacity" Value="0.5" />
-                                    <Setter Property="InputTransparent" Value="False" />
                                 </DataTrigger>
                                 <DataTrigger TargetType="Image" Binding="{Binding IsDeviceListEmpty}" Value="False">
                                     <Setter Property="Opacity" Value="1" />
-                                    <Setter Property="InputTransparent" Value="True" />
                                 </DataTrigger>
                                 <DataTrigger TargetType="Image" Binding="{Binding IsScanning}" Value="True">
                                     <Setter Property="IsVisible" Value="False" />
-                                    <Setter Property="InputTransparent" Value="False" />
                                 </DataTrigger>
                                 <DataTrigger TargetType="Image" Binding="{Binding IsScanning}" Value="False">
                                     <Setter Property="IsVisible" Value="True" />
-                                    <Setter Property="InputTransparent" Value="True" />
                                 </DataTrigger>
                                 <DataTrigger TargetType="Image" Binding="{Binding IsConnected}" Value="True">
                                     <Setter Property="Source" Value="img_ble_paired" />
@@ -74,7 +70,7 @@
 
             <Label Grid.Row="2" Text="WiFi Settings:" TextColor="Black" FontSize="Medium" Margin="0,5" />
 
-            <Frame Grid.Row="3" BackgroundColor="#10485E" HasShadow="False" HeightRequest="50"
+            <Frame Grid.Row="3" BackgroundColor="#10485E" HasShadow="False" HeightRequest="45"
                 CornerRadius="5" BorderColor="Transparent" Padding="10,0">
                 <Frame.Triggers>
                     <DataTrigger TargetType="Frame" Binding="{Binding HasJoinedWifi}" Value="true">
@@ -86,11 +82,11 @@
                         <Setter Property="IsEnabled" Value="true" />
                     </DataTrigger>
                 </Frame.Triggers>
-                <Entry Placeholder="Enter SSID" Text="{Binding Ssid}" TextColor="White" 
+                <Entry Placeholder="Enter SSID" Text="{Binding Ssid}" TextColor="White" VerticalOptions="Center"
                     ClearButtonVisibility="WhileEditing" PlaceholderColor="#CCC" FontAttributes="Bold" />
             </Frame>
 
-            <Frame Grid.Row="4" BackgroundColor="#10485E" HasShadow="False" 
+            <Frame Grid.Row="4" BackgroundColor="#10485E" HasShadow="False" HeightRequest="45"
                 CornerRadius="5" BorderColor="Transparent" Padding="10,0">
                 <Frame.Triggers>
                     <DataTrigger TargetType="Frame" Binding="{Binding HasJoinedWifi}" Value="true">
@@ -103,8 +99,8 @@
                     </DataTrigger>
                 </Frame.Triggers>
                 <Grid ColumnDefinitions="*, Auto">
-                    <Entry Grid.Column="0" Placeholder="Enter Password" Text="{Binding Password}" 
-                        ClearButtonVisibility="WhileEditing" TextColor="White" PlaceholderColor="#CCC">
+                    <Entry Grid.Column="0" Placeholder="Enter Password" Text="{Binding Password}" VerticalOptions="Center"
+                        ClearButtonVisibility="WhileEditing" TextColor="White" PlaceholderColor="#CCC" Margin="0,0,5,0">
                         <Entry.Triggers>
                             <DataTrigger TargetType="Entry" Binding="{Binding ShowPassword}" Value="true">
                                 <Setter Property="IsPassword" Value="false" />

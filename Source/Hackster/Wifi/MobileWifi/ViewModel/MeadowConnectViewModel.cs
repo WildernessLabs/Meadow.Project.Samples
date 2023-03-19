@@ -77,6 +77,7 @@ namespace MobileWifi.ViewModel
                     await CharacteristicConnect.WriteAsync(connect);
 
                     HasJoinedWifi = false;
+                    IsConnected = false;
                 }
             });
 
@@ -107,6 +108,8 @@ namespace MobileWifi.ViewModel
             CharacteristicSsid = await service.GetCharacteristicAsync(Guid.Parse(CharacteristicsConstants.SSID));
             CharacteristicPassword = await service.GetCharacteristicAsync(Guid.Parse(CharacteristicsConstants.PASSWORD));
             CharacteristicConnect = await service.GetCharacteristicAsync(Guid.Parse(CharacteristicsConstants.CONNECT));
+
+            HasJoinedWifi = (await CharacteristicConnect.ReadAsync())[0] == 1;
         }
     }
 }
