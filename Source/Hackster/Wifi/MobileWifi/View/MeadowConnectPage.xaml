@@ -45,10 +45,10 @@
                                 <DataTrigger TargetType="Image" Binding="{Binding IsScanning}" Value="False">
                                     <Setter Property="IsVisible" Value="True" />
                                 </DataTrigger>
-                                <DataTrigger TargetType="Image" Binding="{Binding IsConnected}" Value="True">
+                                <DataTrigger TargetType="Image" Binding="{Binding IsBlePaired}" Value="True">
                                     <Setter Property="Source" Value="img_ble_paired" />
                                 </DataTrigger>
-                                <DataTrigger TargetType="Image" Binding="{Binding IsConnected}" Value="False">
+                                <DataTrigger TargetType="Image" Binding="{Binding IsBlePaired}" Value="False">
                                     <Setter Property="Source" Value="img_ble_pair" />
                                 </DataTrigger>
                             </Image.Triggers>
@@ -126,7 +126,7 @@
                 </Grid>
             </Frame>
 
-            <Button Grid.Row="5" Command="{Binding ConnectCommand}"
+            <Button Grid.Row="5" Command="{Binding ToggleWifiConnectionCommand}"
                 TextColor="White" BackgroundColor="#EF7D3B">
                 <Button.Triggers>
                     <DataTrigger TargetType="Button" Binding="{Binding HasJoinedWifi}" Value="true">

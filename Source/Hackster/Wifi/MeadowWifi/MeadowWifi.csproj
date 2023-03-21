@@ -14,6 +14,7 @@
   <ItemGroup>
     <PackageReference Include="Meadow.F7" Version="0.*" />
     <PackageReference Include="Meadow.Foundation" Version="0.*" />
+    <PackageReference Include="Meadow.Foundation.Displays.Ssd130x" Version="0.95.0" />
     <PackageReference Include="YamlDotNet" Version="13.0.2" />
   </ItemGroup>
 </Project>

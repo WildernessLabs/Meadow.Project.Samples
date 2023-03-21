@@ -13,12 +13,14 @@ namespace MeadowWifi
     {
         readonly string SSID = "8c3bb16c0d954fb8b37999e1f040b279";
         readonly string PASSWORD = "b1cb00bd69424cba937a597fabb93052";
-        readonly string CONNECT = "98dea8431f7443a3bf24f78650672361";
+        readonly string IS_BLE_PAIRED = "8ee2de4ced7c4f2c92a1f984507d87e3";
+        readonly string HAS_JOINED_WIFI = "98dea8431f7443a3bf24f78650672361";
 
         IDefinition bleTreeDefinition;
 
         ICharacteristic Ssid;
         ICharacteristic Password;
+        ICharacteristic IsBlePaired;
         ICharacteristic HasJoinedWifi;
 
         string ssid;
@@ -45,12 +47,19 @@ namespace MeadowWifi
 
             Ssid.ValueSet += (s, e) => { ssid = (string) e; };
             Password.ValueSet += (s, e) => { password = (string) e; };
+            IsBlePaired.ValueSet += (s, e) =>
+            {
+                DisplayControllers.Instance.UpdateBluetoothStatus((bool)e 
+                    ? "Paired"
+                    : "Not Paired");
+            };
             HasJoinedWifi.ValueSet += async (s, e) =>
             {
                 onboardLed.StartPulse(Color.Yellow);
 
                 if ((bool) e)
                 {
+                    DisplayControllers.Instance.UpdateWifiStatus("Connecting");
                     await wifi.Connect(ssid, password, TimeSpan.FromSeconds(45));
 
                     if (wifi.IsConnected)
@@ -60,13 +69,12 @@ namespace MeadowWifi
                 }
                 else
                 {
+                    DisplayControllers.Instance.UpdateWifiStatus("Disconnecting");
                     await wifi.Disconnect(false);
-
-                    ConfigFileManager.DeleteConfigFiles();
-
-                    Device.PlatformOS.Reset();
                 }
             };
+
+            DisplayControllers.Instance.UpdateStatus();
 
             onboardLed.StartPulse(Color.Green);
 
@@ -76,7 +84,7 @@ namespace MeadowWifi
         private void WifiNetworkConnected(INetworkAdapter sender, NetworkConnectionEventArgs args)
         {
             HasJoinedWifi.SetValue(true);
-
+            DisplayControllers.Instance.UpdateWifiStatus("Connected");
             onboardLed.StartPulse(Color.Magenta);
         }
 
@@ -84,7 +92,13 @@ namespace MeadowWifi
         {
             HasJoinedWifi.SetValue(false);
 
+            ConfigFileManager.DeleteConfigFiles();
+
+            DisplayControllers.Instance.UpdateBluetoothStatus("Not Paired");
+            DisplayControllers.Instance.UpdateWifiStatus("Disconnected");
             onboardLed.StartPulse(Color.Cyan);
+
+            Device.PlatformOS.Reset();
         }
 
         Definition GetDefinition()
@@ -105,9 +119,14 @@ namespace MeadowWifi
                     permissions: CharacteristicPermission.Read | CharacteristicPermission.Write,
                     properties: CharacteristicProperty.Read | CharacteristicProperty.Write,
                     maxLength: 256),
+                IsBlePaired = new CharacteristicBool(
+                    name: nameof(IsBlePaired),
+                    uuid: IS_BLE_PAIRED,
+                    permissions: CharacteristicPermission.Read | CharacteristicPermission.Write,
+                    properties: CharacteristicProperty.Read | CharacteristicProperty.Write),
                 HasJoinedWifi = new CharacteristicBool(
                     name: nameof(HasJoinedWifi),
-                    uuid: CONNECT,
+                    uuid: HAS_JOINED_WIFI,
                     permissions: CharacteristicPermission.Read | CharacteristicPermission.Write,
                     properties: CharacteristicProperty.Read | CharacteristicProperty.Write)
             );

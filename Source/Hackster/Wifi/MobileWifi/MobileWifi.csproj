@@ -42,8 +42,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="Resources\Images\img_ble_pair.svg" />
-	  <None Remove="Resources\Images\img_ble_paired.svg" />
+	  <None Remove="Resources\Images\img_ble_pair.png" />
+	  <None Remove="Resources\Images\img_ble_paired.png" />
 	  <None Remove="Resources\Images\img_hide.png" />
 	  <None Remove="Resources\Images\img_search.svg" />
 	  <None Remove="Resources\Images\img_show.png" />

@@ -12,12 +12,17 @@ namespace MobileWifi.ViewModel
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
+        protected byte[] TRUE = new byte[1] { 1 };
+        protected byte[] FALSE = new byte[1] { 0 };
+
         int listenTimeout = 5000;
 
         protected ushort DEVICE_ID = 253;
 
         protected IAdapter adapter;
         protected IService service;
+
+        protected ICharacteristic CharacteristicIsBlePaired;
 
         public ObservableCollection<IDevice> DeviceList { get; set; }
 
@@ -36,10 +41,10 @@ namespace MobileWifi.ViewModel
         }
 
         bool isConnected;
-        public bool IsConnected
+        public bool IsBlePaired
         {
             get => isConnected;
-            set { isConnected = value; OnPropertyChanged(nameof(IsConnected)); }
+            set { isConnected = value; OnPropertyChanged(nameof(IsBlePaired)); }
         }
 
         bool isDeviceListEmpty;
@@ -121,15 +126,16 @@ namespace MobileWifi.ViewModel
         {
             try
             {
-                if (IsConnected)
+                if (IsBlePaired)
                 {
+                    await CharacteristicIsBlePaired.WriteAsync(FALSE);
                     await adapter.DisconnectDeviceAsync(DeviceSelected);
-                    IsConnected = false;
+                    IsBlePaired = false;
                 }
                 else
                 {
                     await adapter.ConnectToDeviceAsync(DeviceSelected);
-                    IsConnected = true;
+                    IsBlePaired = true;
                 }
             }
             catch (DeviceConnectionException ex)

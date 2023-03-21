@@ -14,7 +14,7 @@ namespace MobileWifi.View
         {
             base.OnAppearing();
 
-            if (!(BindingContext as BaseViewModel).IsConnected)
+            if (!(BindingContext as BaseViewModel).IsBlePaired)
             {
                 (BindingContext as BaseViewModel).CmdSearchForDevices.Execute(null);
             }
