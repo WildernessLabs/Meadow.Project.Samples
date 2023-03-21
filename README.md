@@ -15,9 +15,9 @@ Public project samples for Meadow and Meadow.Foundation. Click on any of the pro
             <a href="https://www.hackster.io/wilderness-labs/meadow-rover-part-2-remote-control-over-bluetooth-fe43f5">Hackster</a> | <a href="Source/Hackster/Rover/">Source Code</a>
         </td>
         <td>
-            <img src="Design/PlantMonitor.png"/><br/>
-            Build Your Own Plant Monitor Using Meadow</br>
-            <a href="https://www.hackster.io/wilderness-labs/build-your-own-plant-monitor-using-meadow-5a4b6c">Hackster</a> | <a href="Source/Hackster/PlantMonitor/">Source Code</a>
+            <img src="Design/MeadowWifi.png"/><br/>
+            Configure Meadow's WIFI over Bluetooth</br>
+            <a href="https://www.hackster.io/wilderness-labs/build-your-own-plant-monitor-using-meadow-5a4b6c">Hackster</a> | <a href="Source/Hackster/Wifi/">Source Code</a>
         </td>
     </tr>
     <tr>
