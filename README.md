@@ -17,7 +17,7 @@ Public project samples for Meadow and Meadow.Foundation. Click on any of the pro
         <td>
             <img src="Design/MeadowWifi.png"/><br/>
             Configure Meadow's WIFI over Bluetooth</br>
-            <a href="https://www.hackster.io/wilderness-labs/build-your-own-plant-monitor-using-meadow-5a4b6c">Hackster</a> | <a href="Source/Hackster/Wifi/">Source Code</a>
+            <a href="https://www.hackster.io/wilderness-labs/configure-meadow-s-wifi-over-bluetooth-c2841e">Hackster</a> | <a href="Source/Hackster/Wifi/">Source Code</a>
         </td>
     </tr>
     <tr>
