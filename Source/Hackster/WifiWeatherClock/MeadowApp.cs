@@ -31,6 +31,7 @@ namespace WifiWeatherClock
             displayView = new DisplayView();
 
             var wifi = Device.NetworkAdapters.Primary<IWiFiNetworkAdapter>();
+            wifi.NetworkConnected += NetworkConnected;
 
             await wifi.Connect(Secrets.WIFI_NAME, Secrets.WIFI_PASSWORD, TimeSpan.FromSeconds(45));
 
@@ -40,6 +41,26 @@ namespace WifiWeatherClock
             analogTemperature.StartUpdating(TimeSpan.FromMinutes(5));
 
             onboardLed.SetColor(Color.Green);
+        }
+
+        private async void NetworkConnected(INetworkAdapter sender, NetworkConnectionEventArgs args)
+        {
+            await GetTemperature();
+
+            while (true)
+            {
+                int TimeZoneOffSet = -7; // PST
+                var datetime = DateTime.Now.AddHours(TimeZoneOffSet);
+
+                if (datetime.Minute == 0 && datetime.Second == 0)
+                {
+                    await GetTemperature();
+                }
+
+                displayView.WriteLine($"{datetime.ToString("ddd, MMM dd, yyyy")}", 0);
+                displayView.WriteLine($"{datetime.ToString("hh:mm:ss tt")}", 1);
+                await Task.Delay(1000);
+            }
         }
 
         async Task GetTemperature()
@@ -57,26 +78,6 @@ namespace WifiWeatherClock
             displayView.WriteLine($"{model.Weather}", 3);
 
             onboardLed.StartPulse(Color.Green);
-        }
-
-        public override async Task Run() 
-        {
-            await GetTemperature();
-
-            while (true) 
-            {
-                int TimeZoneOffSet = -8; // PST
-                var datetime = DateTime.Now.AddHours(TimeZoneOffSet);
-
-                if (datetime.Minute == 0 && datetime.Second == 0)
-                {
-                    await GetTemperature();
-                }
-
-                displayView.WriteLine($"{datetime.ToString("ddd, MMM dd, yyyy")}", 0);
-                displayView.WriteLine($"{datetime.ToString("hh:mm:ss tt")}", 1);
-                await Task.Delay(1000);
-            }
         }
     }
 }
