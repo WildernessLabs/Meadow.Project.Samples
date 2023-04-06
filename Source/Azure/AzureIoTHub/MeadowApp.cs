@@ -1,54 +1,61 @@
-﻿using Meadow;
+﻿using Amqp;
+using Meadow;
 using Meadow.Devices;
+using Meadow.Hardware;
 using System;
-using System.Threading;
-using Amqp;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
-using Meadow.Gateway.WiFi;
 
 //ported from https://techcommunity.microsoft.com/t5/internet-of-things-blog/connect-an-esp32-to-azure-iot-with-net-nanoframework/ba-p/2731691
 namespace MeadowAzureIoTHub
 {
     // Change F7MicroV2 to F7Micro for V1.x boards
-    public class MeadowApp : App<F7MicroV2, MeadowApp>
+    public class MeadowApp : App<F7FeatherV1>
     {
         private static readonly Random rand = new Random();
 
         //You'll need to create an IoT Hub - https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-create-through-portal?WT.mc_id=AZ-MVP-5003764
-        const string HubName = ""; // ex MeadowIoTHub 
         //Create a device within your hub
-        const string DeviceId = ""; //ex MeadowF7
         //And then generate a SAS token - this can be done via the Azure CLI 
-        //Example: az iot hub generate-sas-token --hub-name MeadowIoTHub --device-id MeadowF7
-        const string SasToken = "SharedAccessSignature sr=......";
+        //Example: az iot hub generate-sas-token --hub-name MeadowHub --device-id MeadowV2 --resource-group MyIoTHub --login [primary connection string]
+
+        const string HubName = Secrets.HUB_NAME;
+        const string SasToken = Secrets.SAS_TOKEN;
+        const string DeviceId = "F7v1";
 
         // Lat/Lon Points
         static double latitude = 49.246292;
         static double longitude = -123.116226;
-        const double radius = 6378;   
-        
+        const double radius = 6378;
+
         static readonly bool traceOn = false;
 
-        public MeadowApp()
+        public override Task Run()
         {
             latitude = 49.246292;
             longitude = -123.116226;
 
-            Initialize().Wait();
-
             IoTHubDataTest();
+
+            return base.Run();
         }
 
-        async Task Initialize()
+        public async override Task Initialize()
         {
             // connnect to the wifi network.
             Console.WriteLine($"Connecting to WiFi Network {Secrets.WIFI_NAME}");
-            var connectionResult = await Device.WiFiAdapter.Connect(Secrets.WIFI_NAME, Secrets.WIFI_PASSWORD); 
 
-            if (connectionResult.ConnectionStatus != ConnectionStatus.Success)
+            var adapter = Device.NetworkAdapters.Primary<IWiFiNetworkAdapter>();
+
+            try
             {
-                throw new Exception($"Cannot connect to network: {connectionResult.ConnectionStatus}");
+                var wifi = Device.NetworkAdapters.Primary<IWiFiNetworkAdapter>();
+                await wifi.Connect(Secrets.WIFI_NAME, Secrets.WIFI_PASSWORD, TimeSpan.FromSeconds(45));
+            }
+            catch (Exception ex)
+            {
+                Resolver.Log.Error($"Failed to Connect: {ex.Message}");
             }
         }
 
@@ -56,21 +63,18 @@ namespace MeadowAzureIoTHub
         {
             Console.WriteLine("Amqp setup");
 
+            Thread.Sleep(1000);
+
             // setup AMQP
             Trace.TraceLevel = TraceLevel.Frame | TraceLevel.Information;
             // enable trace
             Trace.TraceListener = WriteTrace;
             Connection.DisableServerCertValidation = false;
 
-            Console.WriteLine("Start thread");
-
-            // launch worker thread
-            new Thread(WorkerThread).Start();
-
-            Thread.Sleep(Timeout.Infinite);
+            SendLatLongData();
         }
 
-        private static void WorkerThread()
+        private void SendLatLongData()
         {
             try
             {
@@ -80,9 +84,13 @@ namespace MeadowAzureIoTHub
                 string senderAddress = "devices/" + DeviceId + "/messages/events";
                 string receiverAddress = "devices/" + DeviceId + "/messages/deviceBound";
 
+                Console.WriteLine("Create connection ...");
                 var connection = new Connection(new Address(hostName, 5671, userName, SasToken));
+                Console.WriteLine("Create session ...");
                 var session = new Session(connection);
+                Console.WriteLine("Create SenderLink ...");
                 var sender = new SenderLink(session, "send-link", senderAddress);
+                Console.WriteLine("Create ReceiverLink ...");
                 var receiver = new ReceiverLink(session, "receive-link", receiverAddress);
                 receiver.Start(100, OnMessage);
 
@@ -98,7 +106,7 @@ namespace MeadowAzureIoTHub
 
                     // compose message
                     Console.WriteLine("Create message");
-                    Message message = new Message(Encoding.UTF8.GetBytes(messagePayload));
+                    var message = new Message(Encoding.UTF8.GetBytes(messagePayload));
                     message.ApplicationProperties = new Amqp.Framing.ApplicationProperties();
 
                     // send message with the new Lat/Lon
