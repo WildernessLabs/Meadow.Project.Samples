@@ -41,7 +41,7 @@ namespace MeadowClock
             minute = new PushButton(Device.Pins.D13);
             minute.Clicked += MinuteClicked;
 
-            Device.SetClock(new DateTime(2022, 03, 05, 19, 45, 00));
+            Device.PlatformOS.SetClock(new DateTime(2023, 04, 05, 19, 45, 00));
 
             led.SetColor(RgbLedColors.Green);
 
@@ -50,12 +50,12 @@ namespace MeadowClock
 
         void HourClicked(object sender, EventArgs e)
         {
-            Device.SetClock(DateTime.Now.AddHours(1));
+            Device.PlatformOS.SetClock(DateTime.Now.AddHours(1));
         }
 
         void MinuteClicked(object sender, EventArgs e)
         {
-            Device.SetClock(DateTime.Now.AddMinutes(1));
+            Device.PlatformOS.SetClock(DateTime.Now.AddMinutes(1));
         }
 
         void CharacterDisplayClock()
