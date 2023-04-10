@@ -17,7 +17,7 @@ class Program
 
     const string HubName = Secrets.HUB_NAME;
     const string SasToken = Secrets.SAS_TOKEN;
-    const string DeviceId = "F7v1";
+    const string DeviceId = Secrets.DEVICE;
 
     // Lat/Lon Points
     static double latitude = 49.246292;

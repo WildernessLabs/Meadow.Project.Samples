@@ -7,11 +7,10 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-//ported from https://techcommunity.microsoft.com/t5/internet-of-things-blog/connect-an-esp32-to-azure-iot-with-net-nanoframework/ba-p/2731691
 namespace MeadowAzureIoTHub
 {
     // Change F7MicroV2 to F7Micro for V1.x boards
-    public class MeadowApp : App<F7FeatherV1>
+    public class MeadowApp : App<F7FeatherV2>
     {
         private static readonly Random rand = new Random();
 
@@ -19,10 +18,9 @@ namespace MeadowAzureIoTHub
         //Create a device within your hub
         //And then generate a SAS token - this can be done via the Azure CLI 
         //Example: az iot hub generate-sas-token --hub-name MeadowHub --device-id MeadowV2 --resource-group MyIoTHub --login [primary connection string]
-
         const string HubName = Secrets.HUB_NAME;
         const string SasToken = Secrets.SAS_TOKEN;
-        const string DeviceId = "F7v1";
+        const string DeviceId = Secrets.DEVICE;
 
         // Lat/Lon Points
         static double latitude = 49.246292;
@@ -31,22 +29,12 @@ namespace MeadowAzureIoTHub
 
         static readonly bool traceOn = false;
 
-        public override Task Run()
+        public async override Task Initialize()
         {
             latitude = 49.246292;
             longitude = -123.116226;
 
-            IoTHubDataTest();
-
-            return base.Run();
-        }
-
-        public async override Task Initialize()
-        {
-            // connnect to the wifi network.
             Console.WriteLine($"Connecting to WiFi Network {Secrets.WIFI_NAME}");
-
-            var adapter = Device.NetworkAdapters.Primary<IWiFiNetworkAdapter>();
 
             try
             {
@@ -59,44 +47,47 @@ namespace MeadowAzureIoTHub
             }
         }
 
-        void IoTHubDataTest()
+        public async override Task Run()
+        {
+            await IoTHubDataTest();
+        }
+
+        Task IoTHubDataTest()
         {
             Console.WriteLine("Amqp setup");
 
-            Thread.Sleep(1000);
-
-            // setup AMQP
             Trace.TraceLevel = TraceLevel.Frame | TraceLevel.Information;
-            // enable trace
             Trace.TraceListener = WriteTrace;
             Connection.DisableServerCertValidation = false;
 
-            SendLatLongData();
+            return SendLatLongData();
         }
 
-        private void SendLatLongData()
+        async Task SendLatLongData()
         {
             try
             {
-                // parse Azure IoT Hub Map settings to AMQP protocol settings
                 string hostName = HubName + ".azure-devices.net";
                 string userName = DeviceId + "@sas." + HubName;
                 string senderAddress = "devices/" + DeviceId + "/messages/events";
                 string receiverAddress = "devices/" + DeviceId + "/messages/deviceBound";
 
                 Console.WriteLine("Create connection ...");
-                var connection = new Connection(new Address(hostName, 5671, userName, SasToken));
+                var factory = new ConnectionFactory();
+                var connection = await factory.CreateAsync(new Address(hostName, 5671, userName, SasToken), null, null).ConfigureAwait(false);
+
                 Console.WriteLine("Create session ...");
                 var session = new Session(connection);
+
                 Console.WriteLine("Create SenderLink ...");
                 var sender = new SenderLink(session, "send-link", senderAddress);
+
                 Console.WriteLine("Create ReceiverLink ...");
                 var receiver = new ReceiverLink(session, "receive-link", receiverAddress);
                 receiver.Start(100, OnMessage);
 
                 while (true)
                 {
-                    // update the location data
                     Console.WriteLine("Update location data");
 
                     UpdateMockDestination();
@@ -104,19 +95,15 @@ namespace MeadowAzureIoTHub
                     Console.WriteLine("Create payload");
                     string messagePayload = $"{{\"Latitude\":{latitude},\"Longitude\":{longitude}}}";
 
-                    // compose message
                     Console.WriteLine("Create message");
                     var message = new Message(Encoding.UTF8.GetBytes(messagePayload));
                     message.ApplicationProperties = new Amqp.Framing.ApplicationProperties();
 
-                    // send message with the new Lat/Lon
                     Console.WriteLine("Send message");
                     sender.Send(message, null, null);
 
-                    // data sent
                     Console.WriteLine($"*** DATA SENT - Lat - {latitude}, Lon - {longitude} ***");
 
-                    // wait before sending the next position update
                     Console.WriteLine("Sleep");
                     Thread.Sleep(2000);
                 }
@@ -132,7 +119,7 @@ namespace MeadowAzureIoTHub
             Console.WriteLine("Message received");
 
             try
-            {   // command received 
+            {
                 double.TryParse((string)message.ApplicationProperties["setlat"], out latitude);
                 double.TryParse((string)message.ApplicationProperties["setlon"], out longitude);
                 Console.WriteLine($"== Received new Location setting: Lat - {latitude}, Lon - {longitude} ==");
@@ -151,10 +138,8 @@ namespace MeadowAzureIoTHub
             }
         }
 
-        // Starting at the last Lat/Lon move along the bearing and for the distance to reset the Lat/Lon at a new point...
         public static void UpdateMockDestination()
         {
-            // Get a random Bearing and Distance...
             double distance = rand.Next(10);     // Random distance from 0 to 10km...
             double bearing = rand.Next(360);     // Random bearing from 0 to 360 degrees...
 
