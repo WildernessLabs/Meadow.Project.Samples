@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace BostonDetector
 {
     // Change F7MicroV2 to F7Micro for V1.x boards
-    public class MeadowApp : App<F7FeatherV1>
+    public class MeadowApp : App<F7FeatherV2>
     {
         string endpoint = ""; //typically "https://[yourproject]-prediction.cognitiveservices.azure.com/";
         string projectId = ""; //from customvision.ai portal project url 
