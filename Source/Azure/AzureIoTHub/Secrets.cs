@@ -3,18 +3,18 @@
     public class Secrets
     {
         /// <summary>
-        /// Name of the WiFi network to use
+        /// Name of the Azure IoT Hub created
         /// </summary>
-        public const string WIFI_NAME = "";
+        public const string HUB_NAME = "HUB_NAME";
 
         /// <summary>
-        /// Password for the WiFi network names in WIFI_NAME
+        /// Name of the Azure IoT Hub created
         /// </summary>
-        public const string WIFI_PASSWORD = "";
+        public const string DEVICE_ID = "DEVICE_ID";
 
-        public const string HUB_NAME = "";
-
-        //example "SharedAccessSignature sr=MeadowIoTHub ..... "
-        public const string SAS_TOKEN = "";
+        /// <summary>
+        /// example "SharedAccessSignature sr=MeadowIoTHub ..... "
+        /// </summary>
+        public const string SAS_TOKEN = "SharedAccessSignature ...";
     }
 }

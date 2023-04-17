@@ -6,9 +6,36 @@
     <AssemblyName>App</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="img_meadow.jpg" />
+    <None Remove="img_refresh.jpg" />
+    <None Remove="img_wifi_connected.jpg" />
+    <None Remove="img_wifi_connecting.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="img_meadow.jpg" />
+    <EmbeddedResource Include="img_refresh.jpg" />
+    <EmbeddedResource Include="img_wifi_connected.jpg" />
+    <EmbeddedResource Include="img_wifi_connecting.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="SimpleJpegDecoder" Version="*" />
     <PackageReference Include="Meadow.AmqpNetLite" Version="*" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Meadow.Core\source\implementations\f7\Meadow.F7\Meadow.F7.csproj" />
+    <ProjectReference Include="..\..\..\..\Meadow.Foundation\Source\Meadow.Foundation.Core\Meadow.Foundation.Core.csproj" />
+    <ProjectReference Include="..\..\..\..\Meadow.Foundation\Source\Meadow.Foundation.Peripherals\Displays.TftSpi\Driver\Displays.TftSpi.csproj" />
+    <ProjectReference Include="..\..\..\..\Meadow.Foundation\Source\Meadow.Foundation.Peripherals\Sensors.Atmospheric.Htu2xd\Driver\Sensors.Atmospheric.Htux1d.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="app.config.yaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="meadow.config.yaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="wifi.config.yaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>
