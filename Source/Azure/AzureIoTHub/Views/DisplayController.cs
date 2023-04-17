@@ -22,7 +22,7 @@ namespace MeadowAzureIoTHub.Views
 
         CancellationTokenSource token;
 
-        protected BufferRgb888 imgConnecting, imgConnected, imgRefreshing;
+        protected BufferRgb888 imgConnecting, imgConnected, imgRefreshing, imgRefreshed;
         protected MicroGraphics graphics;
 
         private DisplayController() { }
@@ -31,12 +31,14 @@ namespace MeadowAzureIoTHub.Views
         {
             imgConnected = LoadJpeg("img_wifi_connected.jpg");
             imgConnecting = LoadJpeg("img_wifi_connecting.jpg");
-            imgRefreshing = LoadJpeg("img_refresh.jpg");
+            imgRefreshing = LoadJpeg("img_refreshing.jpg");
+            imgRefreshed = LoadJpeg("img_refreshed.jpg");
 
             graphics = new MicroGraphics(display)
             {
-                CurrentFont = new Font12x16(),
+                CurrentFont = new Font8x12(),
                 Stroke = 3,
+                Rotation = RotationType._90Degrees
             };
 
             graphics.Clear(true);
@@ -61,7 +63,7 @@ namespace MeadowAzureIoTHub.Views
                 y: 63,
                 buffer: logo);
 
-            graphics.DrawText(graphics.Width / 2, 160, "Azure IoT Hub", Color.Black, alignmentH: HorizontalAlignment.Center);
+            graphics.DrawText(graphics.Width / 2, 160, "Azure IoT Hub", foregroundColor, ScaleFactor.X2, HorizontalAlignment.Center);
         }
 
         protected byte[] LoadResource(string filename)
@@ -101,23 +103,17 @@ namespace MeadowAzureIoTHub.Views
         public void ShowConnected()
         {
             token.Cancel();
-            graphics.DrawBuffer(
-                x: 204,
-                y: 6,
-                buffer: imgConnected);
+            graphics.DrawBuffer(204, 6, imgConnected);
 
-            graphics.DrawBuffer(
-                x: 6,
-                y: 6,
-                buffer: imgRefreshing);
+            graphics.DrawBuffer(6, 6, imgRefreshed);
 
             graphics.DrawRectangle(0, 32, 240, 208, backgroundColor, true);
 
-            graphics.DrawCircle(120, 75, 50, foregroundColor);
-            graphics.DrawText(120, 59, "Temp", foregroundColor, alignmentH: HorizontalAlignment.Center);
+            graphics.DrawRoundedRectangle(19, 62, 200, 70, 15, foregroundColor);
+            graphics.DrawText(120, 70, "Temperature", foregroundColor, ScaleFactor.X2, HorizontalAlignment.Center);
 
-            graphics.DrawCircle(178, 177, 50, foregroundColor);
-            graphics.DrawText(178, 161, "Hum", foregroundColor, alignmentH: HorizontalAlignment.Center);
+            graphics.DrawRoundedRectangle(19, 151, 200, 70, 15, foregroundColor);
+            graphics.DrawText(120, 159, "Humidity", foregroundColor, ScaleFactor.X2, HorizontalAlignment.Center);
 
             graphics.Show();
         }
@@ -128,13 +124,13 @@ namespace MeadowAzureIoTHub.Views
             graphics.Show();
             await Task.Delay(TimeSpan.FromSeconds(1));
 
-            graphics.DrawRectangle(75, 78, 90, 16, backgroundColor, true);
-            graphics.DrawText(120, 78, $"{reading.Temperature.Value.Celsius:N1}°C", foregroundColor, alignmentH: HorizontalAlignment.Center);
+            graphics.DrawRectangle(23, 100, 192, 24, backgroundColor, true);
+            graphics.DrawText(120, 100, $"{reading.Temperature.Value.Celsius:N1}°C", foregroundColor, ScaleFactor.X2, HorizontalAlignment.Center);
 
-            graphics.DrawRectangle(133, 180, 90, 16, backgroundColor, true);
-            graphics.DrawText(178, 180, $"{reading.Humidity.Value.Percent:N2}%", foregroundColor, alignmentH: HorizontalAlignment.Center);
+            graphics.DrawRectangle(23, 189, 192, 24, backgroundColor, true);
+            graphics.DrawText(120, 189, $"{reading.Humidity.Value.Percent:N2}%", foregroundColor, ScaleFactor.X2, HorizontalAlignment.Center);
 
-            graphics.DrawRectangle(6, 6, 26, 26, backgroundColor, true);
+            graphics.DrawBuffer(6, 6, imgRefreshed);
             graphics.Show();
         }
     }

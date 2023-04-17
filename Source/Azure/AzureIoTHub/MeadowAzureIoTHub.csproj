@@ -7,13 +7,15 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove="img_meadow.jpg" />
-    <None Remove="img_refresh.jpg" />
+    <None Remove="img_refreshed.jpg" />
+    <None Remove="img_refreshing.jpg" />
     <None Remove="img_wifi_connected.jpg" />
     <None Remove="img_wifi_connecting.jpg" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="img_meadow.jpg" />
-    <EmbeddedResource Include="img_refresh.jpg" />
+    <EmbeddedResource Include="img_refreshed.jpg" />
+    <EmbeddedResource Include="img_refreshing.jpg" />
     <EmbeddedResource Include="img_wifi_connected.jpg" />
     <EmbeddedResource Include="img_wifi_connecting.jpg" />
   </ItemGroup>
