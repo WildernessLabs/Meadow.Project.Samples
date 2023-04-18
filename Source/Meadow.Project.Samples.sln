@@ -171,6 +171,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeadowAzureIoTHub", "Azure\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BostonDetector", "Azure\CustomVision\BostonDetector.csproj", "{915D95FA-6E2F-4977-BC66-AC2FF99DA5D6}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sensors.Atmospheric.Htux1d", "..\..\Meadow.Foundation\Source\Meadow.Foundation.Peripherals\Sensors.Atmospheric.Htu2xd\Driver\Sensors.Atmospheric.Htux1d.csproj", "{BF080925-C922-4C1B-A986-F49077DBB461}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -2852,6 +2854,42 @@ Global
 		{915D95FA-6E2F-4977-BC66-AC2FF99DA5D6}.Release|x86.ActiveCfg = Release|Any CPU
 		{915D95FA-6E2F-4977-BC66-AC2FF99DA5D6}.Release|x86.Build.0 = Release|Any CPU
 		{915D95FA-6E2F-4977-BC66-AC2FF99DA5D6}.Release|x86.Deploy.0 = Release|Any CPU
+		{BF080925-C922-4C1B-A986-F49077DBB461}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF080925-C922-4C1B-A986-F49077DBB461}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF080925-C922-4C1B-A986-F49077DBB461}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{BF080925-C922-4C1B-A986-F49077DBB461}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{BF080925-C922-4C1B-A986-F49077DBB461}.Debug|ARM.Build.0 = Debug|Any CPU
+		{BF080925-C922-4C1B-A986-F49077DBB461}.Debug|ARM.Deploy.0 = Debug|Any CPU
+		{BF080925-C922-4C1B-A986-F49077DBB461}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{BF080925-C922-4C1B-A986-F49077DBB461}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{BF080925-C922-4C1B-A986-F49077DBB461}.Debug|iPhone.Deploy.0 = Debug|Any CPU
+		{BF080925-C922-4C1B-A986-F49077DBB461}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{BF080925-C922-4C1B-A986-F49077DBB461}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{BF080925-C922-4C1B-A986-F49077DBB461}.Debug|iPhoneSimulator.Deploy.0 = Debug|Any CPU
+		{BF080925-C922-4C1B-A986-F49077DBB461}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{BF080925-C922-4C1B-A986-F49077DBB461}.Debug|x64.Build.0 = Debug|Any CPU
+		{BF080925-C922-4C1B-A986-F49077DBB461}.Debug|x64.Deploy.0 = Debug|Any CPU
+		{BF080925-C922-4C1B-A986-F49077DBB461}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BF080925-C922-4C1B-A986-F49077DBB461}.Debug|x86.Build.0 = Debug|Any CPU
+		{BF080925-C922-4C1B-A986-F49077DBB461}.Debug|x86.Deploy.0 = Debug|Any CPU
+		{BF080925-C922-4C1B-A986-F49077DBB461}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF080925-C922-4C1B-A986-F49077DBB461}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF080925-C922-4C1B-A986-F49077DBB461}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{BF080925-C922-4C1B-A986-F49077DBB461}.Release|ARM.ActiveCfg = Release|Any CPU
+		{BF080925-C922-4C1B-A986-F49077DBB461}.Release|ARM.Build.0 = Release|Any CPU
+		{BF080925-C922-4C1B-A986-F49077DBB461}.Release|ARM.Deploy.0 = Release|Any CPU
+		{BF080925-C922-4C1B-A986-F49077DBB461}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{BF080925-C922-4C1B-A986-F49077DBB461}.Release|iPhone.Build.0 = Release|Any CPU
+		{BF080925-C922-4C1B-A986-F49077DBB461}.Release|iPhone.Deploy.0 = Release|Any CPU
+		{BF080925-C922-4C1B-A986-F49077DBB461}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{BF080925-C922-4C1B-A986-F49077DBB461}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{BF080925-C922-4C1B-A986-F49077DBB461}.Release|iPhoneSimulator.Deploy.0 = Release|Any CPU
+		{BF080925-C922-4C1B-A986-F49077DBB461}.Release|x64.ActiveCfg = Release|Any CPU
+		{BF080925-C922-4C1B-A986-F49077DBB461}.Release|x64.Build.0 = Release|Any CPU
+		{BF080925-C922-4C1B-A986-F49077DBB461}.Release|x64.Deploy.0 = Release|Any CPU
+		{BF080925-C922-4C1B-A986-F49077DBB461}.Release|x86.ActiveCfg = Release|Any CPU
+		{BF080925-C922-4C1B-A986-F49077DBB461}.Release|x86.Build.0 = Release|Any CPU
+		{BF080925-C922-4C1B-A986-F49077DBB461}.Release|x86.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -2936,6 +2974,7 @@ Global
 		{A44B240F-3CD6-4B03-81BD-8CF5B04851E3} = {E9E59B83-9F7E-4069-AA8B-26D39C526D13}
 		{09BE6C47-7A6C-454E-9BC9-1C30E8F512B5} = {C865DD42-B57F-4E4C-B94D-6E485D0ACFAA}
 		{915D95FA-6E2F-4977-BC66-AC2FF99DA5D6} = {C865DD42-B57F-4E4C-B94D-6E485D0ACFAA}
+		{BF080925-C922-4C1B-A986-F49077DBB461} = {E9C72D14-0468-4A79-9EE0-806F9B11A49A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {10FA7F4A-2FF2-4696-8B12-DD0B9C978890}
