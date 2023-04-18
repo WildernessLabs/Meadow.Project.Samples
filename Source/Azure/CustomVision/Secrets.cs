@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace MeadowAzureIoTHub
+﻿namespace BostonDetector
 {
     public class Secrets
     {
@@ -13,5 +11,11 @@ namespace MeadowAzureIoTHub
         /// Password for the WiFi network names in WIFI_NAME.
         /// </summary>
         public const string WIFI_PASSWORD = "";
+
+
+        /// <summary>
+        /// Custom vision prediction key
+        /// </summary>
+        public const string PREDICTION_KEY = "";
     }
 }

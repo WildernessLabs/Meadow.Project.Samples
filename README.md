@@ -5,9 +5,9 @@ Public project samples for Meadow and Meadow.Foundation. Click on any of the pro
 <table>
     <tr>
         <td>
-            <img src="Design/OnAir.png"/><br/>
-            Make your own OnAir sign with Meadow and MAUI</br>
-            <a href="https://www.hackster.io/wilderness-labs/make-your-own-onair-sign-with-meadow-and-xamarin-ea0c9e">Hackster</a> | <a href="https://github.com/WildernessLabs/OnAir_Sign">Source Code</a>
+            <img src="Design/MeadowAzureIoTHub.png"/><br/>
+           Send Temp/Humidity data from Meadow to Azure IoT Hub</br>
+            <a href="https://www.hackster.io/wilderness-labs/send-temperature-humidity-data-from-meadow-to-azure-iot-hub-340b39">Hackster</a> | <a href="Source/Azure/AzureIoTHub/">Source Code</a>
         </td>
         <td>
             <img src="Design/MeadowRoverBle.png"/><br/>
