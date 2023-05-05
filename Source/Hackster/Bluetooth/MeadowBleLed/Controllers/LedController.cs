@@ -32,7 +32,7 @@ namespace MeadowBleLed.Controller
 
         void Stop()
         {
-            rgbPwmLed.Stop();
+            rgbPwmLed.StopAnimation();
             cancellationTokenSource?.Cancel();
         }
 
@@ -57,19 +57,17 @@ namespace MeadowBleLed.Controller
 
         public void StartBlink()
         {
-            Stop();
             rgbPwmLed.StartBlink(GetRandomColor());
         }
 
         public void StartPulse()
         {
-            Stop();
             rgbPwmLed.StartPulse(GetRandomColor());
         }
 
         public void StartRunningColors()
         {
-            rgbPwmLed.Stop();
+            rgbPwmLed.StopAnimation();
 
             animationTask = new Task(async () =>
             {

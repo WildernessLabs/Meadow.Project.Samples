@@ -69,7 +69,7 @@ namespace MoistureMeter
                 if (moisture < 0)
                     moisture = 0f;
 
-                ledBarGraph.Percentage = (float)moisture;
+                await ledBarGraph.SetPercentage((float)moisture);
                 Console.WriteLine($"Moisture {moisture * 100}%");
                 Thread.Sleep(1000);
             }

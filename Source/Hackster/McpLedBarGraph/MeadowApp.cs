@@ -16,7 +16,7 @@ namespace McpLedBarGraph
         Mcp23008 mcp;
         LedBarGraph ledBarGraph;
 
-        public override Task Initialize() 
+        public override Task Initialize()
         {
             var onboardLed = new RgbPwmLed(
                 redPwmPin: Device.Pins.OnboardLedRed,
@@ -47,7 +47,7 @@ namespace McpLedBarGraph
             return base.Initialize();
         }
 
-        void CycleLeds()
+        async Task CycleLeds()
         {
             Console.WriteLine("Cycle leds...");
 
@@ -58,7 +58,7 @@ namespace McpLedBarGraph
                 Console.WriteLine("Turning them on using SetLed...");
                 for (int i = 0; i < ledBarGraph.Count; i++)
                 {
-                    ledBarGraph.SetLed(i, true);
+                    await ledBarGraph.SetLed(i, true);
                     Thread.Sleep(300);
                 }
 
@@ -67,7 +67,7 @@ namespace McpLedBarGraph
                 Console.WriteLine("Turning them off using SetLed...");
                 for (int i = ledBarGraph.Count - 1; i >= 0; i--)
                 {
-                    ledBarGraph.SetLed(i, false);
+                    await ledBarGraph.SetLed(i, false);
                     Thread.Sleep(300);
                 }
 
@@ -77,7 +77,7 @@ namespace McpLedBarGraph
                 while (percentage <= 1)
                 {
                     percentage += 0.10f;
-                    ledBarGraph.Percentage = Math.Min(1.0f, percentage);
+                    await ledBarGraph.SetPercentage(Math.Min(1.0f, percentage));
                     Thread.Sleep(100);
                 }
 
@@ -87,27 +87,25 @@ namespace McpLedBarGraph
                 while (percentage >= 0)
                 {
                     percentage -= 0.10f;
-                    ledBarGraph.Percentage = Math.Max(0.0f, percentage); ;
+                    await ledBarGraph.SetPercentage(Math.Max(0.0f, percentage));
                     Thread.Sleep(100);
                 }
 
                 Thread.Sleep(1000);
 
                 Console.WriteLine("Blinking for 3 seconds...");
-                ledBarGraph.StartBlink();
+                await ledBarGraph.StartBlink();
                 Thread.Sleep(3000);
-                ledBarGraph.Stop();
+                await ledBarGraph.StopAnimation();
 
                 Thread.Sleep(1000);
             }
         }
 
-        public override Task Run()
+        public override async Task Run()
         {
-            ledBarGraph.Percentage = 1;
+            await ledBarGraph.SetPercentage(1f);
             CycleLeds();
-
-            return base.Run();
         }
     }
 }

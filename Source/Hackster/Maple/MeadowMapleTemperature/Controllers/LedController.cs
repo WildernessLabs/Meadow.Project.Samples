@@ -1,6 +1,7 @@
 ﻿using Meadow.Foundation;
 using Meadow.Foundation.Leds;
 using System;
+using System.Threading.Tasks;
 
 namespace MeadowMapleTemperature.Controllers
 {
@@ -26,16 +27,16 @@ namespace MeadowMapleTemperature.Controllers
             );
         }
 
-        public void SetColor(Color color)
+        public async Task SetColor(Color color)
         {
-            led.Stop();
+            await led.StopAnimation();
             led.SetColor(color);
         }
 
-        public void StartBlink(Color color)
+        public async Task StartBlink(Color color)
         {
-            led.Stop();
-            led.StartBlink(color);
+            await led.StopAnimation();
+            await led.StartBlink(color);
         }
     }
 }
