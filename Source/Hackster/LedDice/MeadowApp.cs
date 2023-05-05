@@ -15,7 +15,7 @@ namespace LedDice
         Led[] leds;
         PushButton button;
 
-        public override Task Initialize() 
+        public override Task Initialize()
         {
             var onboardLed = new RgbPwmLed(
                 redPwmPin: Device.Pins.OnboardLedRed,
@@ -45,10 +45,10 @@ namespace LedDice
             Random random = new Random();
 
             ShuffleAnimation();
-            ShowNumber(random.Next(1,7));
+            ShowNumber(random.Next(1, 7));
         }
 
-        void ShuffleAnimation() 
+        void ShuffleAnimation()
         {
             foreach (var led in leds)
             {
@@ -58,7 +58,7 @@ namespace LedDice
 
             foreach (var led in leds)
             {
-                led.Stop();
+                led.StopAnimation();
             }
             Thread.Sleep(100);
         }

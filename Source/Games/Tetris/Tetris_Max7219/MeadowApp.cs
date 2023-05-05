@@ -22,9 +22,9 @@ namespace Tetris
             Console.WriteLine("Tetris");
 
             var display = new Max7219(
-                spiBus: Device.CreateSpiBus(Max7219.DefaultSpiBusSpeed), 
-                chipSelectPin: Device.Pins.D01, 
-                deviceCount: 4, 
+                spiBus: Device.CreateSpiBus(),
+                chipSelectPin: Device.Pins.D01,
+                deviceCount: 4,
                 maxMode: Max7219.Max7219Mode.Display);
 
             graphics = new MicroGraphics(display);
@@ -78,7 +78,7 @@ namespace Tetris
             if (pos == DigitalJoystickPosition.Down)
             {
                 game.OnDown();
-            } 
+            }
         }
 
         void DrawTetrisField()

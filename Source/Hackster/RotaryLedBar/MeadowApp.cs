@@ -6,7 +6,6 @@ using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Rotary;
 using Meadow.Hardware;
 using Meadow.Peripherals.Sensors.Rotary;
-using System;
 using System.Threading.Tasks;
 
 namespace RotaryLedBar
@@ -19,7 +18,7 @@ namespace RotaryLedBar
         LedBarGraph ledBarGraph;
         RotaryEncoder rotaryEncoder;
 
-        public override Task Initialize()
+        public override async Task Initialize()
         {
             var onboardLed = new RgbPwmLed(
                 redPwmPin: Device.Pins.OnboardLedRed,
@@ -45,20 +44,16 @@ namespace RotaryLedBar
             };
 
             ledBarGraph = new LedBarGraph(ports);
-            ledBarGraph.Percentage = 1;
+            await ledBarGraph.SetPercentage(1f);
 
             rotaryEncoder = new RotaryEncoder(Device.Pins.D01, Device.Pins.D03);
             rotaryEncoder.Rotated += RotaryEncoderRotated;
 
             onboardLed.SetColor(Color.Green);
-
-            return base.Initialize();
         }
 
-        void RotaryEncoderRotated(object sender, RotaryChangeResult result)
+        async void RotaryEncoderRotated(object sender, RotaryChangeResult result)
         {
-            Console.WriteLine("Hey");
-
             if (result.New == RotationDirection.Clockwise)
                 percentage += 0.05f;
             else
@@ -69,7 +64,7 @@ namespace RotaryLedBar
             else if (percentage < 0f)
                 percentage = 0f;
 
-            ledBarGraph.Percentage = percentage;
+            await ledBarGraph.SetPercentage(percentage);
         }
     }
 }

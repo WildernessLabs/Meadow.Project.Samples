@@ -22,7 +22,7 @@ namespace LedSample
             return base.Initialize();
         }
 
-        void TestLed()
+        async Task TestLed()
         {
             while (true)
             {
@@ -36,13 +36,13 @@ namespace LedSample
                 }
 
                 Console.WriteLine("Blinking the LED for a bit.");
-                led.StartBlink();
+                await led.StartBlink();
                 Thread.Sleep(3000);
-                led.Stop();
+                await led.StopAnimation();
             }
         }
 
-        void TestPwmLed()
+        async Task TestPwmLed()
         {
             Console.WriteLine("TestPwmLed...");
 
@@ -54,14 +54,14 @@ namespace LedSample
                 pwmLed.IsOn = false;
 
                 Console.WriteLine("Blinking the LED for three seconds...");
-                pwmLed.StartBlink();
+                await pwmLed.StartBlink();
                 Thread.Sleep(3000);
-                pwmLed.Stop();
+                await pwmLed.StopAnimation();
 
                 Console.WriteLine("Pulsing the LED for three seconds...");
-                pwmLed.StartPulse();
+                await pwmLed.StartPulse();
                 Thread.Sleep(3000);
-                pwmLed.Stop();
+                await pwmLed.StopAnimation();
 
                 Console.WriteLine("Increasing and decreasing brightness...");
                 for (int j = 0; j <= 3; j++)
@@ -81,12 +81,10 @@ namespace LedSample
             }
         }
 
-        public override Task Run()
+        public override async Task Run()
         {
-            TestLed();
-            //TestPwmLed();
-
-            return base.Run();
+            await TestLed();
+            //await TestPwmLed();
         }
     }
 }
