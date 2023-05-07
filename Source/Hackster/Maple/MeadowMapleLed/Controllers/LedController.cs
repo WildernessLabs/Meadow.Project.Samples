@@ -17,7 +17,7 @@ namespace MeadowMapleLed.Controller
         Task animationTask = null;
         CancellationTokenSource cancellationTokenSource = null;
 
-        private LedController() 
+        private LedController()
         {
             Initialize();
         }
@@ -32,7 +32,7 @@ namespace MeadowMapleLed.Controller
 
         void Stop()
         {
-            rgbPwmLed.Stop();
+            rgbPwmLed.StopAnimation();
             cancellationTokenSource?.Cancel();
         }
 
@@ -69,7 +69,7 @@ namespace MeadowMapleLed.Controller
 
         public void StartRunningColors()
         {
-            rgbPwmLed.Stop();
+            rgbPwmLed.StopAnimation();
 
             animationTask = new Task(async () =>
             {

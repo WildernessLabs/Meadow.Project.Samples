@@ -1,8 +1,8 @@
 ﻿using Meadow;
 using Meadow.Devices;
 using Meadow.Foundation;
-using Meadow.Foundation.Displays.TextDisplayMenu;
 using Meadow.Foundation.Displays;
+using Meadow.Foundation.Displays.UI;
 using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Buttons;
@@ -17,8 +17,8 @@ namespace MeadowMenu
 {
     // public class MeadowApp : App<F7FeatherV1> <- If you have a Meadow F7v1.*
     public class MeadowApp : App<F7FeatherV2>
-    {        
-        Menu menu;
+    {
+        TextDisplayMenu menu;
         MicroGraphics graphics;
         PushButton next, previous, select;
 
@@ -31,12 +31,12 @@ namespace MeadowMenu
             onboardLed.SetColor(Color.Red);
 
             var config = new SpiClockConfiguration(
-                speed: new Frequency(48000, Frequency.UnitType.Kilohertz), 
+                speed: new Frequency(48000, Frequency.UnitType.Kilohertz),
                 mode: SpiClockConfiguration.Mode.Mode3);
             var spiBus = Device.CreateSpiBus(
-                clock: Device.Pins.SCK, 
-                copi: Device.Pins.MOSI, 
-                cipo: Device.Pins.MISO, 
+                clock: Device.Pins.SCK,
+                copi: Device.Pins.MOSI,
+                cipo: Device.Pins.MISO,
                 config: config);
             var st7789 = new St7789
             (
@@ -55,7 +55,7 @@ namespace MeadowMenu
 
             var menuData = LoadFromJson("menu.json");
             //var menuData = LoadFromCode();
-            menu = new Menu(graphics, menuData, false);
+            menu = new TextDisplayMenu(graphics, menuData, false);
 
             next = new PushButton(Device.Pins.D03, ResistorMode.InternalPullUp);
             next.Clicked += (s, e) => { menu.Next(); };
@@ -88,7 +88,7 @@ namespace MeadowMenu
             }
         }
 
-        MenuItem[] LoadFromCode() 
+        MenuItem[] LoadFromCode()
         {
             var subMenuItems2 = new List<MenuItem>();
             subMenuItems2.Add(new MenuItem(
@@ -104,7 +104,7 @@ namespace MeadowMenu
             subMenuItems1.Add(new MenuItem(
                 text: "Sub Item B"));
             subMenuItems1.Add(new MenuItem(
-                text: "Submenu 2", 
+                text: "Submenu 2",
                 subItems: subMenuItems2.ToArray()));
 
             var menuItems = new List<MenuItem>();
