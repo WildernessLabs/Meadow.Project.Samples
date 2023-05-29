@@ -48,7 +48,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-        <PackageReference Include="Meadow.Foundation.Web.Maple.Client" Version="1.*" />
+        <PackageReference Include="Meadow.Foundation.Web.Maple.Client" Version="0.*" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
         <PackageReference Include="Plugin.BLE" Version="2.1.2" />
 	</ItemGroup>
