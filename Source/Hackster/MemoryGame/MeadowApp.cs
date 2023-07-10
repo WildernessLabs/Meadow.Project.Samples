@@ -13,7 +13,7 @@ namespace MemoryGame
 {
     // public class MeadowApp : App<F7FeatherV1> <- If you have a Meadow F7v1.*
     public class MeadowApp : App<F7FeatherV2>
-    {        
+    {
         MicroGraphics graphics;
 
         int currentColumn;
@@ -38,10 +38,10 @@ namespace MemoryGame
             graphics = new MicroGraphics(display);
             graphics.Rotation = RotationType._180Degrees;
 
-            rowPorts[0] = Device.CreateDigitalInputPort(Device.Pins.A05, InterruptMode.EdgeRising, ResistorMode.InternalPullDown, TimeSpan.FromMilliseconds(0), TimeSpan.FromMilliseconds(50));
-            rowPorts[1] = Device.CreateDigitalInputPort(Device.Pins.A04, InterruptMode.EdgeRising, ResistorMode.InternalPullDown, TimeSpan.FromMilliseconds(0), TimeSpan.FromMilliseconds(50));
-            rowPorts[2] = Device.CreateDigitalInputPort(Device.Pins.A02, InterruptMode.EdgeRising, ResistorMode.InternalPullDown, TimeSpan.FromMilliseconds(0), TimeSpan.FromMilliseconds(50));
-            rowPorts[3] = Device.CreateDigitalInputPort(Device.Pins.A01, InterruptMode.EdgeRising, ResistorMode.InternalPullDown, TimeSpan.FromMilliseconds(0), TimeSpan.FromMilliseconds(50));
+            rowPorts[0] = Device.CreateDigitalInputPort(Device.Pins.A05, InterruptMode.EdgeRising);
+            rowPorts[1] = Device.CreateDigitalInputPort(Device.Pins.A04, InterruptMode.EdgeRising);
+            rowPorts[2] = Device.CreateDigitalInputPort(Device.Pins.A02, InterruptMode.EdgeRising);
+            rowPorts[3] = Device.CreateDigitalInputPort(Device.Pins.A01, InterruptMode.EdgeRising);
 
             columnPorts[0] = Device.CreateDigitalOutputPort(Device.Pins.D01);
             columnPorts[1] = Device.CreateDigitalOutputPort(Device.Pins.D02);
@@ -117,7 +117,7 @@ namespace MemoryGame
         {
             DisplayText("MEMORY GAME", 20);
             Thread.Sleep(2000);
-            DisplayText("Ready?", 40); 
+            DisplayText("Ready?", 40);
             Thread.Sleep(2000);
             DisplayText("Start!", 40);
             Thread.Sleep(2000);

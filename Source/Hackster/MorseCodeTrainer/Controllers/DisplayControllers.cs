@@ -1,8 +1,6 @@
 ﻿using Meadow.Foundation;
 using Meadow.Foundation.Displays;
 using Meadow.Foundation.Graphics;
-using Meadow.Hardware;
-using Meadow.Units;
 
 namespace MorseCodeTrainer
 {
@@ -10,25 +8,17 @@ namespace MorseCodeTrainer
     {
         MicroGraphics graphics;
 
-        public DisplayControllers() 
+        public DisplayControllers()
         {
             Initialize();
             DrawTitleAndFrame();
         }
 
-        void Initialize() 
+        void Initialize()
         {
-            var config = new SpiClockConfiguration(
-                new Frequency(48000, Frequency.UnitType.Kilohertz), 
-                SpiClockConfiguration.Mode.Mode3);
-            var spiBus = MeadowApp.Device.CreateSpiBus(
-                clock: MeadowApp.Device.Pins.SCK,
-                copi: MeadowApp.Device.Pins.MOSI,
-                cipo: MeadowApp.Device.Pins.MISO,
-                config: config);
             var display = new St7789
             (
-                spiBus: spiBus,
+                spiBus: MeadowApp.Device.CreateSpiBus(),
                 chipSelectPin: null,
                 dcPin: MeadowApp.Device.Pins.D01,
                 resetPin: MeadowApp.Device.Pins.D00,
@@ -45,7 +35,7 @@ namespace MorseCodeTrainer
             graphics.Show();
         }
 
-        void DrawTitleAndFrame() 
+        void DrawTitleAndFrame()
         {
             graphics.Clear();
             graphics.DrawRectangle(0, 0, 240, 240);
@@ -72,12 +62,12 @@ namespace MorseCodeTrainer
             graphics.Show();
         }
 
-        public void UpdateAnswer(string answer, Color color) 
+        public void UpdateAnswer(string answer, Color color)
         {
             int x = 0;
             int y = 143;
 
-            switch (answer.Length) 
+            switch (answer.Length)
             {
                 case 1: x = 109; break;
                 case 2: x = 96; break;
@@ -89,7 +79,7 @@ namespace MorseCodeTrainer
 
             graphics.DrawRectangle(24, y, 200, 30, Color.Black, true);
 
-            foreach (var ch in answer) 
+            foreach (var ch in answer)
             {
                 DrawDashOrDot(x, y, ch == '-', color);
                 x += 26;
@@ -98,7 +88,7 @@ namespace MorseCodeTrainer
             graphics.Show();
         }
 
-        void DrawDashOrDot(int x, int y, bool isDash, Color color) 
+        void DrawDashOrDot(int x, int y, bool isDash, Color color)
         {
             if (isDash)
             {

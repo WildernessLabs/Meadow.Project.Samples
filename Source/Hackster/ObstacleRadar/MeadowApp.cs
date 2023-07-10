@@ -33,15 +33,8 @@ namespace ObstacleRadar
                 bluePwmPin: Device.Pins.OnboardLedBlue);
             onboardLed.SetColor(Color.Red);
 
-            var config = new SpiClockConfiguration(
-                new Frequency(48000, Frequency.UnitType.Kilohertz), 
-                SpiClockConfiguration.Mode.Mode3);
-            var spiBus = Device.CreateSpiBus(
-                Device.Pins.SCK, 
-                Device.Pins.MOSI, 
-                Device.Pins.MISO, config);
             var display = new St7789(
-                spiBus: spiBus,
+                spiBus: Device.CreateSpiBus(),
                 chipSelectPin: Device.Pins.D02,
                 dcPin: Device.Pins.D01,
                 resetPin: Device.Pins.D00,

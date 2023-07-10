@@ -31,7 +31,7 @@ namespace Span4
         PiezoSpeaker speaker;
 
         Span4Game connectGame;
-       
+
         byte currentColumn = 0;
 
         public override Task Initialize()
@@ -47,16 +47,8 @@ namespace Span4
 
             speaker = new PiezoSpeaker(Device.Pins.D06);
 
-            var config = new SpiClockConfiguration(
-                speed: new Frequency(6000, Frequency.UnitType.Kilohertz),
-                mode: SpiClockConfiguration.Mode.Mode3);
-            var spiBus = Device.CreateSpiBus(
-                clock: Device.Pins.SCK,
-                copi: Device.Pins.MOSI,
-                cipo: Device.Pins.MISO,
-                config: config);
             var display = new St7789(
-                spiBus: spiBus,
+                spiBus: Device.CreateSpiBus(),
                 chipSelectPin: Device.Pins.D10,
                 dcPin: Device.Pins.D01,
                 resetPin: Device.Pins.D00,
@@ -105,10 +97,10 @@ namespace Span4
                 speaker?.PlayTone(new Frequency(440), TimeSpan.FromMilliseconds(200));
 
             }
-         /*   else if (portReset.State == true)
-            {
-                connectGame.Reset();
-            } */
+            /*   else if (portReset.State == true)
+               {
+                   connectGame.Reset();
+               } */
         }
 
         void DrawGame()
@@ -166,17 +158,17 @@ namespace Span4
             }
 
             //Draw side display
-         /*   int xText = 150;
-            graphics.DrawText(xText, 0, "Span4!");
+            /*   int xText = 150;
+               graphics.DrawText(xText, 0, "Span4!");
 
-            graphics.DrawText(xText, 18, "Player 1");
-            DrawChip(xText + 40, 21, 3, true);
+               graphics.DrawText(xText, 18, "Player 1");
+               DrawChip(xText + 40, 21, 3, true);
 
-            graphics.DrawText(xText, 27, "Player 2");
-            DrawChip(xText + 40, 30, 3, false);
+               graphics.DrawText(xText, 27, "Player 2");
+               DrawChip(xText + 40, 30, 3, false);
 
-            graphics.DrawText(xText, 45, "Score:");
-            graphics.DrawText(xText, 54, $"{connectGame.Player1Wins} to {connectGame.Player2Wins}");  */
+               graphics.DrawText(xText, 45, "Score:");
+               graphics.DrawText(xText, 54, $"{connectGame.Player1Wins} to {connectGame.Player2Wins}");  */
         }
 
         void DrawPreviewChip(int column, bool isFilled)
@@ -195,7 +187,7 @@ namespace Span4
         void DrawChip(int xCenter, int yCenter, int radius, bool isFilled)
         {
             graphics.DrawCircle(xCenter, yCenter, radius,
-                            isFilled ? Color.Red : Color.Yellow, true,  true);
+                            isFilled ? Color.Red : Color.Yellow, true, true);
         }
 
         public override Task Run()

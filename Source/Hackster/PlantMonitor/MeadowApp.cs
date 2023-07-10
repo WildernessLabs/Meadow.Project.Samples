@@ -7,10 +7,10 @@ using Meadow.Foundation.Sensors.Buttons;
 using Meadow.Foundation.Sensors.Moisture;
 using Meadow.Foundation.Sensors.Temperature;
 using Meadow.Hardware;
-using System;
 using Meadow.Units;
-using VU = Meadow.Units.Voltage.UnitType;
+using System;
 using System.Threading.Tasks;
+using VU = Meadow.Units.Voltage.UnitType;
 
 namespace PlantMonitor
 {
@@ -40,24 +40,16 @@ namespace PlantMonitor
             button = new PushButton(Device.Pins.D04, ResistorMode.InternalPullUp);
             button.Clicked += ButtonClicked;
 
-            var config = new SpiClockConfiguration(
-                speed: new Frequency(48000, Frequency.UnitType.Kilohertz),
-                mode: SpiClockConfiguration.Mode.Mode3);
-            var spiBus = Device.CreateSpiBus(
-                clock: Device.Pins.SCK,
-                copi: Device.Pins.MOSI,
-                cipo: Device.Pins.MISO,
-                config: config);
             var display = new St7789
             (
-                spiBus: spiBus,
+                spiBus: Device.CreateSpiBus(),
                 chipSelectPin: Device.Pins.D02,
                 dcPin: Device.Pins.D01,
                 resetPin: Device.Pins.D00,
                 width: 240, height: 240
             );
             displayController = new DisplayController(display);
-            
+
             capacitive = new Capacitive(
                 analogInputPin: Device.Pins.A01,
                 minimumVoltageCalibration: MINIMUM_VOLTAGE_CALIBRATION,

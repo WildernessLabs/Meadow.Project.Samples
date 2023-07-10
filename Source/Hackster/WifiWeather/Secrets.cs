@@ -3,13 +3,13 @@
     public class Secrets
     {
         /// <summary>
-        /// Name of the WiFi network to use.
+        /// Open Weather Map API key.
         /// </summary>
-        public const string WIFI_NAME = "SSID";
+        public const string WEATHER_API_KEY = "WEATHER_API_KEY";
 
         /// <summary>
-        /// Password for the WiFi network names in WIFI_NAME.
+        /// City to get weather for.
         /// </summary>
-        public const string WIFI_PASSWORD = "PASSWORD";
+        public const string WEATHER_CITY = "WEATHER_CITY";
     }
 }
