@@ -16,7 +16,7 @@
     <PackageReference Include="Meadow.Foundation" Version="1.*" />
     <PackageReference Include="Meadow.Foundation.Displays.TftSpi" Version="1.*" />
     <PackageReference Include="Meadow.Foundation.Sensors.Moisture.Capacitive" Version="1.*" />
-    <PackageReference Include="SimpleJpegDecoder" Version="0.*" />
+    <PackageReference Include="SimpleJpegDecoder" Version="*" />
   </ItemGroup>
   <ItemGroup>
     <None Update="meadow.config.yaml">

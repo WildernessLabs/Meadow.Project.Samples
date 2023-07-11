@@ -4,8 +4,6 @@ using Meadow.Foundation;
 using Meadow.Foundation.Displays;
 using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
-using Meadow.Hardware;
-using Meadow.Units;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -21,7 +19,7 @@ namespace MeadowClockGraphics
         int displayWidth, displayHeight;
         int hour, minute, tick;
 
-        public override Task Initialize() 
+        public override Task Initialize()
         {
             var onboardLed = new RgbPwmLed(
                 redPwmPin: Device.Pins.OnboardLedRed,
@@ -29,17 +27,9 @@ namespace MeadowClockGraphics
                 bluePwmPin: Device.Pins.OnboardLedBlue);
             onboardLed.SetColor(Color.Red);
 
-            var config = new SpiClockConfiguration(
-                speed: new Frequency(48000, Frequency.UnitType.Kilohertz),
-                mode: SpiClockConfiguration.Mode.Mode3);
-            var spiBus = Device.CreateSpiBus(
-                clock: Device.Pins.SCK,
-                copi: Device.Pins.MOSI,
-                cipo: Device.Pins.MISO,
-                config: config);
             var st7789 = new St7789
             (
-                spiBus: spiBus,
+                spiBus: Device.CreateSpiBus(),
                 chipSelectPin: Device.Pins.D02,
                 dcPin: Device.Pins.D01,
                 resetPin: Device.Pins.D00,
@@ -66,14 +56,14 @@ namespace MeadowClockGraphics
             int originX = displayWidth / 2;
             int originY = displayHeight / 2;
 
-            for (int i=1; i<5; i++) 
+            for (int i = 1; i < 5; i++)
             {
                 graphics.DrawCircle
                 (
-                    centerX: originX, 
-                    centerY: originY, 
-                    radius: radius, 
-                    color: Color.FromRgb(rand.Next(128,255), rand.Next(128, 255), rand.Next(128, 255))
+                    centerX: originX,
+                    centerY: originY,
+                    radius: radius,
+                    color: Color.FromRgb(rand.Next(128, 255), rand.Next(128, 255), rand.Next(128, 255))
                 );
                 graphics.Show();
                 radius += 30;
@@ -84,9 +74,9 @@ namespace MeadowClockGraphics
             {
                 graphics.DrawRectangle
                 (
-                    x: (displayWidth - sideLength) / 2, 
-                    y: (displayHeight - sideLength) / 2, 
-                    width: sideLength, 
+                    x: (displayWidth - sideLength) / 2,
+                    y: (displayHeight - sideLength) / 2,
+                    width: sideLength,
                     height: sideLength,
                     color: Color.FromRgb(rand.Next(128, 255), rand.Next(128, 255), rand.Next(128, 255))
                 );
@@ -94,13 +84,13 @@ namespace MeadowClockGraphics
                 sideLength += 60;
             }
 
-            graphics.DrawLine(0, displayHeight / 2, displayWidth, displayHeight / 2, 
+            graphics.DrawLine(0, displayHeight / 2, displayWidth, displayHeight / 2,
                 Color.FromRgb(rand.Next(128, 255), rand.Next(128, 255), rand.Next(128, 255)));
-            graphics.DrawLine(displayWidth / 2, 0, displayWidth / 2, displayHeight, 
+            graphics.DrawLine(displayWidth / 2, 0, displayWidth / 2, displayHeight,
                 Color.FromRgb(rand.Next(128, 255), rand.Next(128, 255), rand.Next(128, 255)));
-            graphics.DrawLine(0, 0, displayWidth, displayHeight, 
+            graphics.DrawLine(0, 0, displayWidth, displayHeight,
                 Color.FromRgb(rand.Next(128, 255), rand.Next(128, 255), rand.Next(128, 255)));
-            graphics.DrawLine(0, displayHeight, displayWidth, 0, 
+            graphics.DrawLine(0, displayHeight, displayWidth, 0,
                 Color.FromRgb(rand.Next(128, 255), rand.Next(128, 255), rand.Next(128, 255)));
             graphics.Show();
 
@@ -166,7 +156,7 @@ namespace MeadowClockGraphics
 
                 if (i % 5 == 0)
                 {
-                    graphics.DrawText(hour > 9? x-10 : x-5, y-5, hour.ToString(), Color.Black);
+                    graphics.DrawText(hour > 9 ? x - 10 : x - 5, y - 5, hour.ToString(), Color.Black);
                     if (hour == 12) hour = 1; else hour++;
                 }
             }
@@ -245,7 +235,7 @@ namespace MeadowClockGraphics
             graphics.Show();
         }
 
-        public override Task Run() 
+        public override Task Run()
         {
             //DrawShapes();
             //DrawTexts();

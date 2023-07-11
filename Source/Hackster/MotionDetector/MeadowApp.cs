@@ -6,7 +6,6 @@ using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Motion;
 using Meadow.Hardware;
-using Meadow.Units;
 using SimpleJpegDecoder;
 using System;
 using System.IO;
@@ -30,17 +29,9 @@ namespace MotionDetector
                 bluePwmPin: Device.Pins.OnboardLedBlue);
             onboardLed.SetColor(Color.Red);
 
-            var config = new SpiClockConfiguration(
-                speed: new Frequency(48000, Frequency.UnitType.Kilohertz),
-                mode: SpiClockConfiguration.Mode.Mode3);
-            var spiBus = Device.CreateSpiBus(
-                clock: Device.Pins.SCK,
-                copi: Device.Pins.MOSI,
-                cipo: Device.Pins.MISO,
-                config: config);
             var display = new St7789
             (
-                spiBus: spiBus,
+                spiBus: Device.CreateSpiBus(),
                 chipSelectPin: null,
                 dcPin: Device.Pins.D01,
                 resetPin: Device.Pins.D00,
@@ -89,20 +80,20 @@ namespace MotionDetector
             DisplayJPG(55, 40);
 
             graphics.CurrentFont = new Font8x12();
-            
+
             string textMotion = "MOTION";
             graphics.DrawText(
-                (graphics.Width - textMotion.Length * 16) / 2, 
-                140, 
-                textMotion, 
-                Color.Black, 
+                (graphics.Width - textMotion.Length * 16) / 2,
+                140,
+                textMotion,
+                Color.Black,
                 ScaleFactor.X2);
 
             string textDetector = "DETECTOR";
             graphics.DrawText(
                 (graphics.Width - textDetector.Length * 16) / 2,
                 165,
-                textDetector, 
+                textDetector,
                 Color.Black,
                 ScaleFactor.X2);
 

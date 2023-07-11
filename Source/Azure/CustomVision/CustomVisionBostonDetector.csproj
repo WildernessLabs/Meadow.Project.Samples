@@ -42,7 +42,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="SimpleJpegDecoder" Version="0.4.0" />
+    <PackageReference Include="SimpleJpegDecoder" Version="*" />
     <PackageReference Include="SimpleJsonSerializer" Version="0.0.2" />
   </ItemGroup>
   <ItemGroup>

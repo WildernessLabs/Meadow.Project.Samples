@@ -1,14 +1,15 @@
-﻿using System;
-using System.Threading.Tasks;
-using Meadow;
+﻿using Meadow;
 using Meadow.Devices;
 using Meadow.Foundation;
 using Meadow.Foundation.Displays;
 using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Atmospheric;
+using Meadow.Foundation.Sensors.Buttons;
 using Meadow.Hardware;
 using Meadow.Units;
+using System;
+using System.Threading.Tasks;
 
 namespace TemperatureDisplay
 {
@@ -18,7 +19,7 @@ namespace TemperatureDisplay
         Bmp180 sensor;
         RgbPwmLed onboardLed;
         MicroGraphics graphics;
-        IDigitalInputPort button;
+        PushButton button;
 
         bool isMetric = true;
 
@@ -30,25 +31,18 @@ namespace TemperatureDisplay
                 bluePwmPin: Device.Pins.OnboardLedBlue);
             onboardLed.SetColor(Color.Red);
 
-            var config = new SpiClockConfiguration(
-                speed: new Frequency(48000, Frequency.UnitType.Kilohertz),
-                mode: SpiClockConfiguration.Mode.Mode3);
-            var spiBus = Device.CreateSpiBus(
-                clock: Device.Pins.SCK,
-                copi: Device.Pins.MOSI,
-                cipo: Device.Pins.MISO,
-                config: config);
             var display = new St7789(
-                spiBus: spiBus,
+                spiBus: Device.CreateSpiBus(),
                 chipSelectPin: Device.Pins.D02,
                 dcPin: Device.Pins.D01,
                 resetPin: Device.Pins.D00,
                 width: 240, height: 240);
+
             graphics = new MicroGraphics(display);
             graphics.CurrentFont = new Font12x20();
 
-            button = Device.CreateDigitalInputPort(Device.Pins.D12, InterruptMode.EdgeRising, ResistorMode.Disabled);
-            button.Changed += Button_Changed;
+            button = new PushButton(Device.Pins.D12, ResistorMode.InternalPullUp);
+            button.Clicked += ButtonClicked;
 
             sensor = new Bmp180(Device.CreateI2cBus());
             sensor.Updated += SensorUpdated;
@@ -59,6 +53,12 @@ namespace TemperatureDisplay
             return base.Initialize();
         }
 
+        private void ButtonClicked(object sender, EventArgs e)
+        {
+            Console.WriteLine("Button pressed");
+            isMetric = !isMetric;
+        }
+
         private void SensorUpdated(object sender, IChangeResult<(Meadow.Units.Temperature? Temperature, Meadow.Units.Pressure? Pressure)> result)
         {
             Console.WriteLine($"{result.New.Temperature?.Celsius}");
@@ -66,12 +66,6 @@ namespace TemperatureDisplay
             UpdateDisplayFancy(result.New.Temperature.Value);
 
             UpdateLed(result.New.Temperature.Value.Celsius);
-        }
-
-        private void Button_Changed(object sender, DigitalPortResult e)
-        {
-            Console.WriteLine("Button pressed");
-            isMetric = !isMetric;
         }
 
         void UpdateDisplayFancy(Temperature? temperature)
@@ -95,7 +89,7 @@ namespace TemperatureDisplay
                 graphics.DrawRectangle(10, 190, 220, 30, primaryColor);
                 graphics.DrawText(20, 196, sensor.Pressure.Value.Bar.ToString(), primaryColor);
 
-                graphics.Show(); 
+                graphics.Show();
             }
         }
 
@@ -107,7 +101,7 @@ namespace TemperatureDisplay
             }
             else
             {
-                return $"{celsius.Value.Fahrenheit}°F"; 
+                return $"{celsius.Value.Fahrenheit}°F";
             }
         }
 

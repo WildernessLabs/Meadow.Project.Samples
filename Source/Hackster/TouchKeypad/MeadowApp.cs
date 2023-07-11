@@ -6,7 +6,6 @@ using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Hid;
 using Meadow.Hardware;
-using Meadow.Units;
 using System.Threading.Tasks;
 
 namespace TouchKeypad
@@ -17,7 +16,7 @@ namespace TouchKeypad
         Mpr121 sensor;
         MicroGraphics graphics;
 
-        public override Task Initialize() 
+        public override Task Initialize()
         {
             var onboardLed = new RgbPwmLed(
                 redPwmPin: Device.Pins.OnboardLedRed,
@@ -25,22 +24,14 @@ namespace TouchKeypad
                 bluePwmPin: Device.Pins.OnboardLedBlue);
             onboardLed.SetColor(Color.Red);
 
-            var config = new SpiClockConfiguration(
-                speed: new Frequency(48000, Frequency.UnitType.Kilohertz),
-                mode: SpiClockConfiguration.Mode.Mode3);
-            var spiBus = Device.CreateSpiBus(
-                clock: Device.Pins.SCK,
-                copi: Device.Pins.MOSI,
-                cipo: Device.Pins.MISO,
-                config: config);
             var display = new St7789(
-                spiBus: spiBus,
+                spiBus: Device.CreateSpiBus(),
                 chipSelectPin: Device.Pins.D02,
                 dcPin: Device.Pins.D01,
                 resetPin: Device.Pins.D00,
                 width: 240, height: 240);
 
-            graphics = new MicroGraphics(display) 
+            graphics = new MicroGraphics(display)
             {
                 Stroke = 2,
                 Rotation = RotationType._180Degrees,
@@ -55,7 +46,7 @@ namespace TouchKeypad
             return base.Initialize();
         }
 
-        void DrawGrid() 
+        void DrawGrid()
         {
             graphics.Clear();
             for (int columns = 0; columns < 3; columns++)

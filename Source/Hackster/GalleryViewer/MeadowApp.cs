@@ -5,8 +5,6 @@ using Meadow.Foundation.Displays;
 using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Buttons;
-using Meadow.Hardware;
-using Meadow.Units;
 using SimpleJpegDecoder;
 using System;
 using System.IO;
@@ -39,17 +37,9 @@ namespace GalleryViewer
             buttonDown = new PushButton(Device.Pins.D04);
             buttonDown.Clicked += ButtonDownClicked;
 
-            var config = new SpiClockConfiguration(
-                speed: new Frequency(48000, Frequency.UnitType.Kilohertz),
-                mode: SpiClockConfiguration.Mode.Mode3);
-            var spiBus = Device.CreateSpiBus(
-                clock: Device.Pins.SCK,
-                copi: Device.Pins.MOSI,
-                cipo: Device.Pins.MISO,
-                config: config);
             var display = new St7789
             (
-                spiBus: spiBus,
+                spiBus: Device.CreateSpiBus(),
                 chipSelectPin: Device.Pins.D02,
                 dcPin: Device.Pins.D01,
                 resetPin: Device.Pins.D00,

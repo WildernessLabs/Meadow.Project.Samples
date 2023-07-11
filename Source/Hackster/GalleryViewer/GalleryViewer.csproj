@@ -11,7 +11,7 @@
     <EmbeddedResource Include="image3.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="SimpleJpegDecoder" Version="0.*" />
+    <PackageReference Include="SimpleJpegDecoder" Version="*" />
     <PackageReference Include="Meadow.F7" Version="1.*" />
     <PackageReference Include="Meadow.Foundation" Version="1.*" />
     <PackageReference Include="Meadow.Foundation.Displays.TftSpi" Version="1.*" />
