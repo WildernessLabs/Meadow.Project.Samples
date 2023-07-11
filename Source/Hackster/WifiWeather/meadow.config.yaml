@@ -4,14 +4,23 @@
 #===============================================================================
 # main device config
 
-MonoControl:
-    Options: --jit
-
 Device:
     # Name of the device on the network.
     Name: WifiWeather
 
 #===============================================================================
+# Control how the ESP coprocessor will start and operate.
+Coprocessor:
+    # Should the ESP32 automatically attempt to connect to an access point at startup?
+    # If set to true, wifi.config.yaml credentials must be stored in the device.
+    AutomaticallyStartNetwork: true
+
+    # Should the ESP32 automatically reconnect to the configured access point?
+    AutomaticallyReconnect: true
+
+    # Maximum number of retry attempts for connections etc. before an error code is returned.
+    MaximumRetryCount: 7
+
 # Network configuration.
 Network:
 
@@ -23,12 +32,12 @@ Network:
 
     # Name of the NTP servers.
     NtpServers:
-        - time.google.com
-        - time1.google.com
-        - time2.google.com
-        - time3.google.com
+        - 0.pool.ntp.org
+        - 1.pool.ntp.org
+        - 2.pool.ntp.org
+        - 3.pool.ntp.org
 
     # IP addresses of the DNS servers.
     DnsServers:
-        - 142.103.1.1
-        - 65.39.139.53
+        - 1.1.1.1
+        - 8.8.8.8

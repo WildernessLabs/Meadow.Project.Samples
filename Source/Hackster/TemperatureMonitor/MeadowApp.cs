@@ -5,8 +5,6 @@ using Meadow.Foundation.Displays;
 using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Temperature;
-using Meadow.Hardware;
-using Meadow.Units;
 using System;
 using System.Threading.Tasks;
 
@@ -15,8 +13,8 @@ namespace TemperatureMonitor
     // public class MeadowApp : App<F7FeatherV1> <- If you have a Meadow F7v1.*
     public class MeadowApp : App<F7FeatherV2>
     {
-        Color[] colors = new Color[4] 
-        { 
+        Color[] colors = new Color[4]
+        {
             Color.FromHex("#67E667"),
             Color.FromHex("#00CC00"),
             Color.FromHex("#269926"),
@@ -26,7 +24,7 @@ namespace TemperatureMonitor
         MicroGraphics graphics;
         AnalogTemperature analogTemperature;
 
-        public override Task Initialize() 
+        public override Task Initialize()
         {
             var onboardLed = new RgbPwmLed(
                 redPwmPin: Device.Pins.OnboardLedRed,
@@ -40,16 +38,8 @@ namespace TemperatureMonitor
             );
             analogTemperature.TemperatureUpdated += AnalogTemperatureUpdated;
 
-            var config = new SpiClockConfiguration(
-                speed: new Frequency(48000, Frequency.UnitType.Kilohertz),
-                mode: SpiClockConfiguration.Mode.Mode3);
-            var spiBus = Device.CreateSpiBus(
-                clock: Device.Pins.SCK,
-                copi: Device.Pins.MOSI,
-                cipo: Device.Pins.MISO,
-                config: config);
             var st7789 = new St7789(
-                spiBus: spiBus,
+                spiBus: Device.CreateSpiBus(),
                 chipSelectPin: Device.Pins.D02,
                 dcPin: Device.Pins.D01,
                 resetPin: Device.Pins.D00,
