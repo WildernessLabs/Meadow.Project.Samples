@@ -49,8 +49,13 @@ namespace MobileWifi.ViewModel
             adapter.DeviceConnected += AdapterDeviceConnected;
             adapter.DeviceDisconnected += AdapterDeviceDisconnected;
 
-            ToggleWifiConnectionCommand = new Command(async () => 
+            ToggleWifiConnectionCommand = new Command(async () =>
             {
+                if (!IsBlePaired)
+                {
+                    return;
+                }
+
                 if (!HasJoinedWifi)
                 {
                     var ssid = Encoding.ASCII.GetBytes(Ssid);
@@ -74,8 +79,8 @@ namespace MobileWifi.ViewModel
 
                     await CharacteristicHasJoinedWifi.WriteAsync(FALSE);
 
-                    HasJoinedWifi = false;
                     IsBlePaired = false;
+                    HasJoinedWifi = false;
                 }
             });
 
@@ -84,6 +89,10 @@ namespace MobileWifi.ViewModel
 
         void AdapterDeviceDisconnected(object sender, DeviceEventArgs e)
         {
+            Ssid = string.Empty;
+            Password = string.Empty;
+
+            HasJoinedWifi = false;
             IsBlePaired = false;
         }
 
@@ -107,6 +116,8 @@ namespace MobileWifi.ViewModel
             CharacteristicPassword = await service.GetCharacteristicAsync(Guid.Parse(CharacteristicsConstants.PASSWORD));
             CharacteristicIsBlePaired = await service.GetCharacteristicAsync(Guid.Parse(CharacteristicsConstants.IS_BLE_PAIRED));
             CharacteristicHasJoinedWifi = await service.GetCharacteristicAsync(Guid.Parse(CharacteristicsConstants.HAS_JOINED_WIFI));
+
+            await Task.Delay(1000);
 
             await CharacteristicIsBlePaired.WriteAsync(TRUE);
 
