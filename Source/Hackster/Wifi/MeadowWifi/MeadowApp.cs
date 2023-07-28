@@ -13,15 +13,15 @@ namespace MeadowWifi
     {
         readonly string SSID = "8c3bb16c0d954fb8b37999e1f040b279";
         readonly string PASSWORD = "b1cb00bd69424cba937a597fabb93052";
-        readonly string IS_BLE_PAIRED = "8ee2de4ced7c4f2c92a1f984507d87e3";
-        readonly string HAS_JOINED_WIFI = "98dea8431f7443a3bf24f78650672361";
+        readonly string TOGGLE_BLE_CONNECTION = "8ee2de4ced7c4f2c92a1f984507d87e3";
+        readonly string TOGGLE_WIFI_CONNECTION = "98dea8431f7443a3bf24f78650672361";
 
         IDefinition bleTreeDefinition;
 
         ICharacteristic Ssid;
         ICharacteristic Password;
-        ICharacteristic IsBlePaired;
-        ICharacteristic HasJoinedWifi;
+        ICharacteristic ToggleBleConnection;
+        ICharacteristic ToggleWifiConnection;
 
         string ssid;
         string password;
@@ -38,26 +38,28 @@ namespace MeadowWifi
                 bluePwmPin: Device.Pins.OnboardLedBlue);
             onboardLed.StartPulse(Color.Red);
 
-            wifi = Device.NetworkAdapters.Primary<IWiFiNetworkAdapter>();
-            wifi.NetworkConnected += WifiNetworkConnected;
-            wifi.NetworkDisconnected += WifiNetworkDisconnected;
-
             bleTreeDefinition = GetDefinition();
             Device.BluetoothAdapter.StartBluetoothServer(bleTreeDefinition);
 
-            Ssid.ValueSet += (s, e) => { ssid = (string) e; };
-            Password.ValueSet += (s, e) => { password = (string) e; };
-            IsBlePaired.ValueSet += (s, e) =>
+            Ssid.ValueSet += (s, e) =>
             {
-                DisplayControllers.Instance.UpdateBluetoothStatus((bool)e 
+                ssid = (string)e;
+            };
+            Password.ValueSet += (s, e) =>
+            {
+                password = (string)e;
+            };
+            ToggleBleConnection.ValueSet += (s, e) =>
+            {
+                DisplayControllers.Instance.UpdateBluetoothStatus((bool)e
                     ? "Paired"
                     : "Not Paired");
             };
-            HasJoinedWifi.ValueSet += async (s, e) =>
+            ToggleWifiConnection.ValueSet += async (s, e) =>
             {
-                onboardLed.StartPulse(Color.Yellow);
+                _ = onboardLed.StartPulse(Color.Yellow);
 
-                if ((bool) e)
+                if ((bool)e)
                 {
                     DisplayControllers.Instance.UpdateWifiStatus("Connecting");
                     await wifi.Connect(ssid, password, TimeSpan.FromSeconds(45));
@@ -74,6 +76,10 @@ namespace MeadowWifi
                 }
             };
 
+            wifi = Device.NetworkAdapters.Primary<IWiFiNetworkAdapter>();
+            wifi.NetworkConnected += WifiNetworkConnected;
+            wifi.NetworkDisconnected += WifiNetworkDisconnected;
+
             DisplayControllers.Instance.UpdateStatus();
 
             onboardLed.StartPulse(Color.Green);
@@ -83,20 +89,21 @@ namespace MeadowWifi
 
         private void WifiNetworkConnected(INetworkAdapter sender, NetworkConnectionEventArgs args)
         {
-            HasJoinedWifi.SetValue(true);
+            ToggleWifiConnection.SetValue(true);
+
             DisplayControllers.Instance.UpdateWifiStatus("Connected");
+
             onboardLed.StartPulse(Color.Magenta);
         }
 
         private void WifiNetworkDisconnected(INetworkAdapter sender)
         {
-            HasJoinedWifi.SetValue(false);
+            ToggleWifiConnection.SetValue(false);
 
             ConfigFileManager.DeleteConfigFiles();
 
             DisplayControllers.Instance.UpdateBluetoothStatus("Not Paired");
             DisplayControllers.Instance.UpdateWifiStatus("Disconnected");
-            onboardLed.StartPulse(Color.Cyan);
 
             Device.PlatformOS.Reset();
         }
@@ -119,14 +126,14 @@ namespace MeadowWifi
                     permissions: CharacteristicPermission.Read | CharacteristicPermission.Write,
                     properties: CharacteristicProperty.Read | CharacteristicProperty.Write,
                     maxLength: 256),
-                IsBlePaired = new CharacteristicBool(
-                    name: nameof(IsBlePaired),
-                    uuid: IS_BLE_PAIRED,
+                ToggleBleConnection = new CharacteristicBool(
+                    name: nameof(ToggleBleConnection),
+                    uuid: TOGGLE_BLE_CONNECTION,
                     permissions: CharacteristicPermission.Read | CharacteristicPermission.Write,
                     properties: CharacteristicProperty.Read | CharacteristicProperty.Write),
-                HasJoinedWifi = new CharacteristicBool(
-                    name: nameof(HasJoinedWifi),
-                    uuid: HAS_JOINED_WIFI,
+                ToggleWifiConnection = new CharacteristicBool(
+                    name: nameof(ToggleWifiConnection),
+                    uuid: TOGGLE_WIFI_CONNECTION,
                     permissions: CharacteristicPermission.Read | CharacteristicPermission.Write,
                     properties: CharacteristicProperty.Read | CharacteristicProperty.Write)
             );
