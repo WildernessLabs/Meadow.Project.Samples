@@ -12,10 +12,10 @@
     <EmbeddedResource Include="menu.json" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Meadow.F7" Version="1.*" />
-    <PackageReference Include="Meadow.Foundation" Version="1.*" />
-    <PackageReference Include="Meadow.Foundation.Displays.TextDisplayMenu" Version="1.*" />
-    <PackageReference Include="Meadow.Foundation.Displays.TftSpi" Version="1.*" />
+    <PackageReference Include="Meadow.F7" Version="*" />
+    <PackageReference Include="Meadow.Foundation" Version="*" />
+    <PackageReference Include="Meadow.Foundation.Displays.TextDisplayMenu" Version="*" />
+    <PackageReference Include="Meadow.Foundation.Displays.TftSpi" Version="*" />
   </ItemGroup>
   <ItemGroup>
     <None Update="meadow.config.yaml">
