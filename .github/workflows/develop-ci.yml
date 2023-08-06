@@ -80,9 +80,6 @@ jobs:
         dotnet-version:
           7.0.x
 
-    - name: Install .NET Restore
-      run: dotnet workload dotnet restore
-
     - name: Install MAUI Workload
       run: dotnet workload install maui --ignore-failed-sources
 
