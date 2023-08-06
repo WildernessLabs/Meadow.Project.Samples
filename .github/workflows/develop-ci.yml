@@ -57,6 +57,7 @@ jobs:
     - name: Checkout Meadow.Foundation
       uses: actions/checkout@v3
       with:
+        repository: WildernessLabs/Meadow.Foundation
         path: Meadow.Foundation
         ref: develop
 
@@ -72,5 +73,5 @@ jobs:
         dotnet-version:
           7.0.x
     
-    - name: Build Meadow Foundation
+    - name: Build Meadow.Project.Samples
       run: dotnet build -c Release Meadow.Project.Samples/Source/Meadow.Project.Samples.sln
