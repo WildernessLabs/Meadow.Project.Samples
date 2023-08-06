@@ -61,6 +61,13 @@ jobs:
         path: Meadow.Foundation
         ref: develop
 
+    - name: Checkout Maple
+      uses: actions/checkout@v3
+      with:
+          repository: WildernessLabs/Maple
+          path: Maple
+          ref: develop
+
     - name: Checkout Meadow.Project.Samples
       uses: actions/checkout@v3
       with:
