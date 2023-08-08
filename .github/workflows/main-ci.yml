@@ -23,6 +23,12 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 7.0.x
+
+    - name: Install MAUI Workload
+      run: dotnet workload install maui --ignore-failed-sources
+
+    - name: Install MAUI Android Workload
+      run: dotnet workload install maui-android --ignore-failed-sources
       
     - name: Build Meadow.Project.Samples
       run: dotnet build -c Release Meadow.Project.Samples/Source/Meadow.Project.Samples.sln
