@@ -39,7 +39,7 @@ namespace MotorRotaryController
             return base.Initialize();
         }
 
-        async Task TestMotor() 
+        async Task TestMotor()
         {
             while (true)
             {
@@ -67,7 +67,7 @@ namespace MotorRotaryController
 
         void RotaryRotated(object sender, Meadow.Peripherals.Sensors.Rotary.RotaryChangeResult e)
         {
-            if (e.New == Meadow.Peripherals.Sensors.Rotary.RotationDirection.Clockwise)
+            if (e.New == Meadow.Peripherals.RotationDirection.Clockwise)
             {
                 motor.Power = 0.75f;
                 //number = number + SPEED > 1 ? 1.0 : number + SPEED;

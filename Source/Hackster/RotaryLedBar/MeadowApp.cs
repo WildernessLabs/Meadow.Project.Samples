@@ -5,6 +5,7 @@ using Meadow.Foundation.ICs.IOExpanders;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Rotary;
 using Meadow.Hardware;
+using Meadow.Peripherals;
 using Meadow.Peripherals.Sensors.Rotary;
 using System.Threading.Tasks;
 

@@ -5,6 +5,7 @@ using Meadow.Foundation.Displays;
 using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Rotary;
+using Meadow.Peripherals;
 using Meadow.Peripherals.Sensors.Rotary;
 using System;
 using System.Threading.Tasks;
