@@ -4,6 +4,7 @@ using Meadow.Foundation;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Rotary;
 using Meadow.Foundation.Servos;
+using Meadow.Peripherals.Sensors.Rotary;
 using Meadow.Units;
 using System.Threading.Tasks;
 using AU = Meadow.Units.Angle.UnitType;
@@ -34,9 +35,9 @@ namespace RotaryServo
             onboardLed.SetColor(Color.Green);
         }
 
-        void RotaryEncoderRotated(object sender, Meadow.Peripherals.Sensors.Rotary.RotaryChangeResult e)
+        void RotaryEncoderRotated(object sender, RotaryChangeResult e)
         {
-            if (e.New == Meadow.Peripherals.Sensors.Rotary.RotationDirection.Clockwise)
+            if (e.New == Meadow.Peripherals.RotationDirection.Clockwise)
             {
                 angle += new Angle(1, AU.Degrees);
             }

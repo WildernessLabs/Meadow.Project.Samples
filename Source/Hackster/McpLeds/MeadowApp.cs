@@ -4,7 +4,6 @@ using Meadow.Foundation;
 using Meadow.Foundation.ICs.IOExpanders;
 using Meadow.Foundation.Leds;
 using System.Collections.Generic;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace McpLeds
@@ -15,7 +14,7 @@ namespace McpLeds
         List<Led> leds;
         Mcp23008 mcp;
 
-        public override Task Initialize() 
+        public override Task Initialize()
         {
             var onboardLed = new RgbPwmLed(
                 redPwmPin: Device.Pins.OnboardLedRed,
@@ -25,46 +24,41 @@ namespace McpLeds
 
             mcp = new Mcp23008(Device.CreateI2cBus());
 
-            leds = new List<Led>();
-            leds.Add(new Led(mcp.CreateDigitalOutputPort(mcp.Pins.GP0)));
-            leds.Add(new Led(mcp.CreateDigitalOutputPort(mcp.Pins.GP1)));
-            leds.Add(new Led(mcp.CreateDigitalOutputPort(mcp.Pins.GP2)));
-            leds.Add(new Led(mcp.CreateDigitalOutputPort(mcp.Pins.GP3)));
-            leds.Add(new Led(mcp.CreateDigitalOutputPort(mcp.Pins.GP4)));
-            leds.Add(new Led(mcp.CreateDigitalOutputPort(mcp.Pins.GP5)));
-            leds.Add(new Led(mcp.CreateDigitalOutputPort(mcp.Pins.GP6)));
-            leds.Add(new Led(mcp.CreateDigitalOutputPort(mcp.Pins.GP7)));
+            leds = new List<Led>
+            {
+                new Led(mcp.CreateDigitalOutputPort(mcp.Pins.GP0)),
+                new Led(mcp.CreateDigitalOutputPort(mcp.Pins.GP1)),
+                new Led(mcp.CreateDigitalOutputPort(mcp.Pins.GP2)),
+                new Led(mcp.CreateDigitalOutputPort(mcp.Pins.GP3)),
+                new Led(mcp.CreateDigitalOutputPort(mcp.Pins.GP4)),
+                new Led(mcp.CreateDigitalOutputPort(mcp.Pins.GP5)),
+                new Led(mcp.CreateDigitalOutputPort(mcp.Pins.GP6)),
+                new Led(mcp.CreateDigitalOutputPort(mcp.Pins.GP7))
+            };
 
             onboardLed.SetColor(Color.Green);
 
             return base.Initialize();
         }
 
-        void CycleLeds()
+        public override async Task Run()
         {
             while (true)
             {
-                foreach(var led in leds)
+                foreach (var led in leds)
                 {
                     led.IsOn = true;
-                    Thread.Sleep(500);
+                    await Task.Delay(500);
                 }
 
-                Thread.Sleep(1000);
+                await Task.Delay(1000);
 
                 foreach (var led in leds)
                 {
                     led.IsOn = false;
-                    Thread.Sleep(500);
+                    await Task.Delay(500);
                 }
             }
-        }
-
-        public override Task Run()
-        {
-            CycleLeds();
-
-            return base.Run();
         }
     }
 }
