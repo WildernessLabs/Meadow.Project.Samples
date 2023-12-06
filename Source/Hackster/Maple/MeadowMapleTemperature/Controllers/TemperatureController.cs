@@ -25,11 +25,11 @@ namespace MeadowMapleTemperature.Controllers
 
             analogTemperature = new AnalogTemperature(MeadowApp.Device.Pins.A01,
                 AnalogTemperature.KnownSensorType.LM35);
-            analogTemperature.TemperatureUpdated += AnalogTemperatureUpdated;
+            analogTemperature.Updated += AnalogTemperatureUpdated;
             analogTemperature.StartUpdating(TimeSpan.FromSeconds(30));
         }
 
-        void AnalogTemperatureUpdated(object sender, Meadow.IChangeResult<Temperature> e)
+        private void AnalogTemperatureUpdated(object sender, Meadow.IChangeResult<Temperature> e)
         {
             int TIMEZONE_OFFSET = -8;
 
