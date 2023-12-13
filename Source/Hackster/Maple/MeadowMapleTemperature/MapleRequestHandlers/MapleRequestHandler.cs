@@ -1,4 +1,4 @@
-﻿using Meadow.Foundation;
+﻿using Meadow;
 using Meadow.Foundation.Web.Maple;
 using Meadow.Foundation.Web.Maple.Routing;
 using MeadowMapleTemperature.Controllers;

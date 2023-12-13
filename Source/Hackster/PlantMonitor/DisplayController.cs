@@ -1,10 +1,10 @@
-﻿using Meadow.Foundation;
+﻿using Meadow;
 using Meadow.Foundation.Displays;
 using Meadow.Foundation.Graphics;
+using Meadow.Units;
 using SimpleJpegDecoder;
 using System.IO;
 using System.Reflection;
-using Meadow.Units;
 
 namespace PlantMonitor
 {
@@ -13,7 +13,7 @@ namespace PlantMonitor
         MicroGraphics graphics;
 
         public DisplayController(St7789 display)
-        { 
+        {
             graphics = new MicroGraphics(display);
             graphics.CurrentFont = new Font12x20();
             graphics.Stroke = 3;
@@ -78,30 +78,34 @@ namespace PlantMonitor
             }
         }
 
-        public void UpdateMoistureImage(double moistureReadings) 
+        public void UpdateMoistureImage(double moistureReadings)
         {
             double moisture = moistureReadings;
 
             if (moisture > 1) moisture = 1f;
             else if (moisture < 0) moisture = 0f;
-            
-            if (moisture > 0 && moisture <= 0.25) {
+
+            if (moisture > 0 && moisture <= 0.25)
+            {
                 UpdateImage(0, 42, 10);
             }
-            else if (moisture > 0.25 && moisture <= 0.50) {
+            else if (moisture > 0.25 && moisture <= 0.50)
+            {
                 UpdateImage(1, 28, 4);
             }
-            else if (moisture > 0.50 && moisture <= 0.75) {
+            else if (moisture > 0.50 && moisture <= 0.75)
+            {
                 UpdateImage(2, 31, 5);
             }
-            else if (moisture > 0.75 && moisture <= 1.0) {
+            else if (moisture > 0.75 && moisture <= 1.0)
+            {
                 UpdateImage(3, 35, 5);
             }
 
             graphics.Show();
         }
 
-        public void UpdateMoisturePercentage(double newValue, double oldValue) 
+        public void UpdateMoisturePercentage(double newValue, double oldValue)
         {
             if (newValue > 1) newValue = 1f;
             else if (newValue < 0) newValue = 0f;
@@ -111,9 +115,9 @@ namespace PlantMonitor
             graphics.Show();
         }
 
-        public void UpdateTemperatureValue(Temperature newValue, Temperature oldValue) 
+        public void UpdateTemperatureValue(Temperature newValue, Temperature oldValue)
         {
-            string t = $"{(int)oldValue.Celsius}C";           
+            string t = $"{(int)oldValue.Celsius}C";
             graphics.DrawText(240 - t.Length * 24, 208, t, Color.White, ScaleFactor.X2);
 
             t = $"{(int)newValue.Celsius}C";
