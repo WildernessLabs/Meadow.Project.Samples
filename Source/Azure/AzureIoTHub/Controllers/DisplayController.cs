@@ -80,11 +80,11 @@ namespace MeadowAzureIoTHub.Controllers
 
             graphics.DrawRectangle(0, 32, 240, 208, backgroundColor, true);
 
-            graphics.DrawRoundedRectangle(19, 62, 200, 70, 15, foregroundColor);
-            graphics.DrawText(120, 70, "Temperature", foregroundColor, ScaleFactor.X2, HorizontalAlignment.Center);
+            graphics.DrawRoundedRectangle(19, 47, 200, 80, 15, foregroundColor);
+            graphics.DrawText(120, 56, "Temperature", foregroundColor, ScaleFactor.X2, HorizontalAlignment.Center);
 
-            graphics.DrawRoundedRectangle(19, 151, 200, 70, 15, foregroundColor);
-            graphics.DrawText(120, 159, "Humidity", foregroundColor, ScaleFactor.X2, HorizontalAlignment.Center);
+            graphics.DrawRoundedRectangle(19, 141, 200, 80, 15, foregroundColor);
+            graphics.DrawText(120, 149, "Humidity", foregroundColor, ScaleFactor.X2, HorizontalAlignment.Center);
 
             graphics.Show();
         }
@@ -95,11 +95,13 @@ namespace MeadowAzureIoTHub.Controllers
             graphics.Show();
             await Task.Delay(TimeSpan.FromSeconds(1));
 
-            graphics.DrawRectangle(23, 100, 192, 24, backgroundColor, true);
-            graphics.DrawText(120, 100, $"{reading.Temperature.Value.Celsius:N1}°C", foregroundColor, ScaleFactor.X2, HorizontalAlignment.Center);
+            graphics.CurrentFont = new Font12x20();
 
-            graphics.DrawRectangle(23, 189, 192, 24, backgroundColor, true);
-            graphics.DrawText(120, 189, $"{reading.Humidity.Value.Percent:N2}%", foregroundColor, ScaleFactor.X2, HorizontalAlignment.Center);
+            graphics.DrawRectangle(24, 85, 190, 40, backgroundColor, true);
+            graphics.DrawText(120, 85, $"{reading.Temperature.Value.Celsius:N1}°C", foregroundColor, ScaleFactor.X2, HorizontalAlignment.Center);
+
+            graphics.DrawRectangle(24, 178, 190, 40, backgroundColor, true);
+            graphics.DrawText(120, 178, $"{reading.Humidity.Value.Percent:N2}%", foregroundColor, ScaleFactor.X2, HorizontalAlignment.Center);
 
             graphics.DrawImage(6, 6, imgRefreshed);
             graphics.Show();
