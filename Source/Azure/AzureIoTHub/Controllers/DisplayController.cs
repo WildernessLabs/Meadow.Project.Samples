@@ -1,38 +1,28 @@
 ﻿using Meadow;
 using Meadow.Foundation.Graphics;
-using Meadow.Foundation.Graphics.Buffers;
 using Meadow.Units;
-using SimpleJpegDecoder;
 using System;
-using System.IO;
-using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MeadowAzureIoTHub.Views
+namespace MeadowAzureIoTHub.Controllers
 {
     public class DisplayController
     {
-        private static readonly Lazy<DisplayController> instance =
-            new Lazy<DisplayController>(() => new DisplayController());
-        public static DisplayController Instance => instance.Value;
-
         static Color backgroundColor = Color.FromHex("#23ABE3");
         static Color foregroundColor = Color.Black;
 
         CancellationTokenSource token;
 
-        protected BufferRgb888 imgConnecting, imgConnected, imgRefreshing, imgRefreshed;
+        protected Image imgConnecting, imgConnected, imgRefreshing, imgRefreshed;
         protected MicroGraphics graphics;
 
-        private DisplayController() { }
-
-        public void Initialize(IGraphicsDisplay display)
+        public DisplayController(IGraphicsDisplay display)
         {
-            imgConnected = LoadJpeg("img_wifi_connected.jpg");
-            imgConnecting = LoadJpeg("img_wifi_connecting.jpg");
-            imgRefreshing = LoadJpeg("img_refreshing.jpg");
-            imgRefreshed = LoadJpeg("img_refreshed.jpg");
+            imgConnected = Image.LoadFromResource("MeadowAzureIoTHub.Resources.img_wifi_connected.bmp");
+            imgConnecting = Image.LoadFromResource("MeadowAzureIoTHub.Resources.img_wifi_connecting.bmp");
+            imgRefreshing = Image.LoadFromResource("MeadowAzureIoTHub.Resources.img_refreshing.bmp");
+            imgRefreshed = Image.LoadFromResource("MeadowAzureIoTHub.Resources.img_refreshed.bmp");
 
             graphics = new MicroGraphics(display)
             {
@@ -44,37 +34,18 @@ namespace MeadowAzureIoTHub.Views
             graphics.Clear(true);
         }
 
-        BufferRgb888 LoadJpeg(string fileName)
-        {
-            var jpgData = LoadResource(fileName);
-            var decoder = new JpegDecoder();
-            decoder.DecodeJpeg(jpgData);
-            return new BufferRgb888(decoder.Width, decoder.Height, decoder.GetImageData());
-        }
-
         protected void DrawBackground()
         {
-            var logo = LoadJpeg("img_meadow.jpg");
+            var logo = Image.LoadFromResource("MeadowAzureIoTHub.Resources.img_meadow.bmp");
 
             graphics.Clear(backgroundColor);
 
-            graphics.DrawBuffer(
+            graphics.DrawImage(
                 x: graphics.Width / 2 - logo.Width / 2,
                 y: 63,
-                buffer: logo);
+                image: logo);
 
             graphics.DrawText(graphics.Width / 2, 160, "Azure IoT Hub", foregroundColor, ScaleFactor.X2, HorizontalAlignment.Center);
-        }
-
-        protected byte[] LoadResource(string filename)
-        {
-            var assembly = Assembly.GetExecutingAssembly();
-            var resourceName = $"MeadowAzureIoTHub.{filename}";
-
-            using Stream stream = assembly.GetManifestResourceStream(resourceName);
-            using var ms = new MemoryStream();
-            stream.CopyTo(ms);
-            return ms.ToArray();
         }
 
         public void ShowSplashScreen()
@@ -93,7 +64,7 @@ namespace MeadowAzureIoTHub.Views
             {
                 alternateImg = !alternateImg;
 
-                graphics.DrawBuffer(204, 6, alternateImg ? imgConnecting : imgConnected);
+                graphics.DrawImage(204, 6, alternateImg ? imgConnecting : imgConnected);
                 graphics.Show();
 
                 await Task.Delay(500);
@@ -103,9 +74,9 @@ namespace MeadowAzureIoTHub.Views
         public void ShowConnected()
         {
             token.Cancel();
-            graphics.DrawBuffer(204, 6, imgConnected);
+            graphics.DrawImage(204, 6, imgConnected);
 
-            graphics.DrawBuffer(6, 6, imgRefreshed);
+            graphics.DrawImage(6, 6, imgRefreshed);
 
             graphics.DrawRectangle(0, 32, 240, 208, backgroundColor, true);
 
@@ -120,7 +91,7 @@ namespace MeadowAzureIoTHub.Views
 
         public async Task StartSyncCompletedAnimation((Temperature? Temperature, RelativeHumidity? Humidity) reading)
         {
-            graphics.DrawBuffer(6, 6, imgRefreshing);
+            graphics.DrawImage(6, 6, imgRefreshing);
             graphics.Show();
             await Task.Delay(TimeSpan.FromSeconds(1));
 
@@ -130,7 +101,7 @@ namespace MeadowAzureIoTHub.Views
             graphics.DrawRectangle(23, 189, 192, 24, backgroundColor, true);
             graphics.DrawText(120, 189, $"{reading.Humidity.Value.Percent:N2}%", foregroundColor, ScaleFactor.X2, HorizontalAlignment.Center);
 
-            graphics.DrawBuffer(6, 6, imgRefreshed);
+            graphics.DrawImage(6, 6, imgRefreshed);
             graphics.Show();
         }
     }
