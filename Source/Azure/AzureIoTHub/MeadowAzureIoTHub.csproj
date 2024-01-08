@@ -12,17 +12,17 @@
     <None Remove="img_wifi_connected.jpg" />
     <None Remove="img_wifi_connecting.jpg" />
     <None Remove="Resources\img_meadow.bmp" />
-    <None Remove="Resources\img_refreshed.bmp" />
-    <None Remove="Resources\img_refreshing.bmp" />
-    <None Remove="Resources\img_wifi_connected.bmp" />
-    <None Remove="Resources\img_wifi_connecting.bmp" />
+    <None Remove="Resources\img_sync.bmp" />
+    <None Remove="Resources\img_sync_fade.bmp" />
+    <None Remove="Resources\img_wifi.bmp" />
+    <None Remove="Resources\img_wifi_fade.bmp" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\img_meadow.bmp" />
-    <EmbeddedResource Include="Resources\img_refreshed.bmp" />
-    <EmbeddedResource Include="Resources\img_refreshing.bmp" />
-    <EmbeddedResource Include="Resources\img_wifi_connected.bmp" />
-    <EmbeddedResource Include="Resources\img_wifi_connecting.bmp" />
+    <EmbeddedResource Include="Resources\img_sync_fade.bmp" />
+    <EmbeddedResource Include="Resources\img_sync.bmp" />
+    <EmbeddedResource Include="Resources\img_wifi.bmp" />
+    <EmbeddedResource Include="Resources\img_wifi_fade.bmp" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Meadow.AmqpNetLite" Version="*" />

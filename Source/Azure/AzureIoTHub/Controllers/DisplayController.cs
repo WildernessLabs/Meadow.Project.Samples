@@ -2,25 +2,23 @@
 using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Graphics.MicroLayout;
 using Meadow.Units;
-using System;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace MeadowAzureIoTHub.Controllers
 {
     public class DisplayController
     {
-        static Color backgroundColor = Color.FromHex("#23ABE3");
-        static Color foregroundColor = Color.Black;
+        Color backgroundColor = Color.FromHex("#23ABE3");
+
+        Font8x12 font8x12 = new Font8x12();
+        Font12x20 font12X20 = new Font12x20();
 
         CancellationTokenSource token;
 
-        Image imgConnecting = Image.LoadFromResource("MeadowAzureIoTHub.Resources.img_wifi_connected.bmp");
-        Image imgConnected = Image.LoadFromResource("MeadowAzureIoTHub.Resources.img_wifi_connecting.bmp");
-        Image imgRefreshing = Image.LoadFromResource("MeadowAzureIoTHub.Resources.img_refreshing.bmp");
-        Image imgRefreshed = Image.LoadFromResource("MeadowAzureIoTHub.Resources.img_refreshed.bmp");
-
-        MicroGraphics graphics;
+        Image imgWifi = Image.LoadFromResource("MeadowAzureIoTHub.Resources.img_wifi.bmp");
+        Image imgWifiFade = Image.LoadFromResource("MeadowAzureIoTHub.Resources.img_wifi_fade.bmp");
+        Image imgSync = Image.LoadFromResource("MeadowAzureIoTHub.Resources.img_sync.bmp");
+        Image imgSyncFade = Image.LoadFromResource("MeadowAzureIoTHub.Resources.img_sync_fade.bmp");
 
         DisplayScreen displayScreen;
 
@@ -28,94 +26,216 @@ namespace MeadowAzureIoTHub.Controllers
 
         AbsoluteLayout DataLayout;
 
+        Picture Wifi;
+
+        Picture Sync;
+
+        Label Title;
+
+        Label Temperature;
+
+        Label Humidity;
+
         public DisplayController(IGraphicsDisplay display)
         {
-            graphics = new MicroGraphics(display)
+            displayScreen = new DisplayScreen(display, RotationType._90Degrees)
             {
-                CurrentFont = new Font8x12(),
-                Stroke = 3,
-                Rotation = RotationType._90Degrees
+                BackgroundColor = backgroundColor
             };
 
-            displayScreen = new DisplayScreen(display);
-            {
-                backgroundColor = backgroundColor;
-            }
+            LoadSplashLayout();
 
-            graphics.Clear(true);
+            displayScreen.Controls.Add(SplashLayout);
+
+            LoadDataLayout();
+
+            displayScreen.Controls.Add(DataLayout);
         }
 
-        protected void DrawBackground()
+        private void LoadSplashLayout()
         {
+            SplashLayout = new AbsoluteLayout(displayScreen, 0, 0, displayScreen.Width, displayScreen.Height)
+            {
+                IsVisible = false
+            };
+
             var logo = Image.LoadFromResource("MeadowAzureIoTHub.Resources.img_meadow.bmp");
+            var displayImage = new Picture(
+                55,
+                60,
+                logo.Width,
+                logo.Height,
+                logo)
+            {
+                BackColor = backgroundColor,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center,
+            };
+            SplashLayout.Controls.Add(displayImage);
 
-            graphics.Clear(backgroundColor);
+            SplashLayout.Controls.Add(new Label(
+                0,
+                160,
+                displayScreen.Width,
+                font8x12.Height)
+            {
+                Text = $"Azure IoT Hub",
+                TextColor = Color.Black,
+                Font = font8x12,
+                ScaleFactor = ScaleFactor.X2,
+                HorizontalAlignment = HorizontalAlignment.Center,
+            });
+        }
 
-            graphics.DrawImage(
-                x: graphics.Width / 2 - logo.Width / 2,
-                y: 63,
-                image: logo);
+        public void LoadDataLayout()
+        {
+            DataLayout = new AbsoluteLayout(displayScreen, 0, 0, displayScreen.Width, displayScreen.Height)
+            {
+                IsVisible = false
+            };
 
-            graphics.DrawText(graphics.Width / 2, 160, "Azure IoT Hub", foregroundColor, ScaleFactor.X2, HorizontalAlignment.Center);
+            Sync = new Picture(
+                15,
+                15,
+                imgSyncFade.Width,
+                imgSyncFade.Height,
+                imgSyncFade);
+            DataLayout.Controls.Add(Sync);
+
+            Title = new Label(
+                60,
+                20,
+                120,
+                26)
+            {
+                Text = "AMQP",
+                TextColor = Color.Black,
+                Font = font8x12,
+                ScaleFactor = ScaleFactor.X2,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center
+            };
+            DataLayout.Controls.Add(Title);
+
+            Wifi = new Picture(
+                195,
+                15,
+                imgWifiFade.Width,
+                imgWifiFade.Height,
+                imgWifiFade);
+            DataLayout.Controls.Add(Wifi);
+
+            DataLayout.Controls.Add(new Box(
+                20,
+                57,
+                200,
+                76)
+            {
+                ForeColor = Color.Black,
+                IsFilled = false
+            });
+
+            DataLayout.Controls.Add(new Label(
+                24,
+                65,
+                192,
+                font8x12.Height * 2)
+            {
+                Text = "Temperature",
+                TextColor = Color.Black,
+                Font = font8x12,
+                ScaleFactor = ScaleFactor.X2,
+                HorizontalAlignment = HorizontalAlignment.Center
+            });
+
+            Temperature = new Label(
+                24,
+                93,
+                192,
+                font12X20.Height * 2)
+            {
+                Text = "--°C",
+                TextColor = Color.Black,
+                Font = font12X20,
+                ScaleFactor = ScaleFactor.X2,
+                HorizontalAlignment = HorizontalAlignment.Center
+            };
+            DataLayout.Controls.Add(Temperature);
+
+            DataLayout.Controls.Add(new Box(
+                20,
+                144,
+                200,
+                76)
+            {
+                ForeColor = Color.Black,
+                IsFilled = false
+            });
+
+            DataLayout.Controls.Add(new Label(
+                24,
+                152,
+                192,
+                font8x12.Height * 2)
+            {
+                Text = "Humidity",
+                TextColor = Color.Black,
+                Font = font8x12,
+                ScaleFactor = ScaleFactor.X2,
+                HorizontalAlignment = HorizontalAlignment.Center
+            });
+
+            Humidity = new Label(
+                24,
+                180,
+                192,
+                font12X20.Height * 2)
+            {
+                Text = "--%",
+                TextColor = Color.Black,
+                Font = font12X20,
+                ScaleFactor = ScaleFactor.X2,
+                HorizontalAlignment = HorizontalAlignment.Center
+            };
+            DataLayout.Controls.Add(Humidity);
         }
 
         public void ShowSplashScreen()
         {
-            DrawBackground();
-
-            graphics.Show();
+            DataLayout.IsVisible = false;
+            SplashLayout.IsVisible = true;
         }
 
-        public async Task ShowConnectingAnimation()
+        public void ShowDataScreen()
         {
-            token = new CancellationTokenSource();
-
-            bool alternateImg = false;
-            while (!token.IsCancellationRequested)
-            {
-                alternateImg = !alternateImg;
-
-                graphics.DrawImage(204, 6, alternateImg ? imgConnecting : imgConnected);
-                graphics.Show();
-
-                await Task.Delay(500);
-            }
+            SplashLayout.IsVisible = false;
+            DataLayout.IsVisible = true;
         }
 
-        public void ShowConnected()
+        public void UpdateTitle(string title)
         {
-            token.Cancel();
-            graphics.DrawImage(204, 6, imgConnected);
-
-            graphics.DrawImage(6, 6, imgRefreshed);
-
-            graphics.DrawRectangle(0, 32, 240, 208, backgroundColor, true);
-
-            graphics.DrawRoundedRectangle(19, 47, 200, 80, 15, foregroundColor);
-            graphics.DrawText(120, 56, "Temperature", foregroundColor, ScaleFactor.X2, HorizontalAlignment.Center);
-
-            graphics.DrawRoundedRectangle(19, 141, 200, 80, 15, foregroundColor);
-            graphics.DrawText(120, 149, "Humidity", foregroundColor, ScaleFactor.X2, HorizontalAlignment.Center);
-
-            graphics.Show();
+            Title.Text = title;
         }
 
-        public async Task StartSyncCompletedAnimation((Temperature? Temperature, RelativeHumidity? Humidity) reading)
+        public void UpdateWiFiStatus(bool isConnected)
         {
-            graphics.DrawImage(6, 6, imgRefreshing);
-            graphics.Show();
-            await Task.Delay(TimeSpan.FromSeconds(1));
+            Wifi.Image = isConnected
+                ? imgWifi
+                : imgWifiFade;
+        }
 
-            graphics.CurrentFont = new Font12x20();
+        public void UpdateSyncStatus(bool isSyncing)
+        {
+            Sync.Image = isSyncing
+                ? imgSync
+                : imgSyncFade;
+        }
 
-            graphics.DrawRectangle(24, 85, 190, 40, backgroundColor, true);
-            graphics.DrawText(120, 85, $"{reading.Temperature.Value.Celsius:N1}°C", foregroundColor, ScaleFactor.X2, HorizontalAlignment.Center);
+        public void UpdateReadings((Temperature? Temperature, RelativeHumidity? Humidity) reading)
+        {
+            Temperature.Text = $"{reading.Temperature.Value.Celsius:N1}°C";
 
-            graphics.DrawRectangle(24, 178, 190, 40, backgroundColor, true);
-            graphics.DrawText(120, 178, $"{reading.Humidity.Value.Percent:N2}%", foregroundColor, ScaleFactor.X2, HorizontalAlignment.Center);
-
-            graphics.DrawImage(6, 6, imgRefreshed);
-            graphics.Show();
+            Humidity.Text = $"{reading.Humidity.Value.Percent:N2}%";
         }
     }
 }

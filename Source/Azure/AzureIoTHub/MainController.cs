@@ -12,6 +12,8 @@ namespace MeadowAzureIoTHub
 {
     internal class MainController
     {
+        bool useMQTT = true;
+
         Htu21d atmosphericSensor;
         DisplayController displayController;
 
@@ -36,12 +38,19 @@ namespace MeadowAzureIoTHub
 
             displayController = new DisplayController(display);
             displayController.ShowSplashScreen();
-            Thread.Sleep(3000);
-            _ = displayController.ShowConnectingAnimation();
+            Thread.Sleep(5000);
+            displayController.ShowDataScreen();
 
-            //iotHubController = new IoTHubAmqpController();
-
-            iotHubController = new IoTHubMqttController();
+            if (useMQTT)
+            {
+                displayController.UpdateTitle("MQTT");
+                iotHubController = new IoTHubMqttController();
+            }
+            else
+            {
+                displayController.UpdateTitle("AMQP");
+                iotHubController = new IoTHubAmqpController();
+            }
 
             await InitializeIoTHub();
 
@@ -53,6 +62,8 @@ namespace MeadowAzureIoTHub
         {
             while (!iotHubController.isAuthenticated)
             {
+                displayController.UpdateWiFiStatus(network.IsConnected);
+
                 if (network.IsConnected)
                 {
                     bool authenticated = await iotHubController.Initialize();
@@ -60,7 +71,7 @@ namespace MeadowAzureIoTHub
                     if (authenticated)
                     {
                         Resolver.Log.Info("Authenticated");
-                        displayController.ShowConnected();
+
                     }
                     else
                     {
@@ -78,15 +89,16 @@ namespace MeadowAzureIoTHub
 
         private async void AtmosphericSensorUpdated(object sender, IChangeResult<(Temperature? Temperature, RelativeHumidity? Humidity)> e)
         {
-            await SendDataToIoTHub(e.New);
-            await displayController.StartSyncCompletedAnimation(e.New);
-        }
+            displayController.UpdateWiFiStatus(network.IsConnected);
 
-        private async Task SendDataToIoTHub((Temperature? Temperature, RelativeHumidity? Humidity) data)
-        {
             if (network.IsConnected && iotHubController.isAuthenticated)
             {
-                await iotHubController.SendEnvironmentalReading(data);
+                displayController.UpdateSyncStatus(true);
+
+                await iotHubController.SendEnvironmentalReading(e.New);
+                displayController.UpdateReadings(e.New);
+
+                displayController.UpdateSyncStatus(false);
             }
         }
 

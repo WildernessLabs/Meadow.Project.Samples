@@ -2,12 +2,11 @@
 using Amqp.Framing;
 using Meadow;
 using Meadow.Units;
-using MeadowAzureIoTHub.Controllers;
 using System;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MeadowAzureIoTHub.Azure
+namespace MeadowAzureIoTHub.Controllers
 {
     public class IoTHubAmqpController : IIoTHubController
     {
