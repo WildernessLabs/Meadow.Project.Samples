@@ -68,6 +68,13 @@ jobs:
           path: Maple
           ref: develop
 
+    - name: Checkout amqpnetlite
+      uses: actions/checkout@v3
+      with:
+          repository: WildernessLabs/amqpnetlite
+          path: amqpnetlite
+          ref: v2.4.5-meadow
+
     - name: Checkout Meadow.Project.Samples
       uses: actions/checkout@v3
       with:
