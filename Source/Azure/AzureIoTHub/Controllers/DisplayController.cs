@@ -1,5 +1,6 @@
 ﻿using Meadow;
 using Meadow.Foundation.Graphics;
+using Meadow.Foundation.Graphics.MicroLayout;
 using Meadow.Units;
 using System;
 using System.Threading;
@@ -14,22 +15,32 @@ namespace MeadowAzureIoTHub.Controllers
 
         CancellationTokenSource token;
 
-        protected Image imgConnecting, imgConnected, imgRefreshing, imgRefreshed;
-        protected MicroGraphics graphics;
+        Image imgConnecting = Image.LoadFromResource("MeadowAzureIoTHub.Resources.img_wifi_connected.bmp");
+        Image imgConnected = Image.LoadFromResource("MeadowAzureIoTHub.Resources.img_wifi_connecting.bmp");
+        Image imgRefreshing = Image.LoadFromResource("MeadowAzureIoTHub.Resources.img_refreshing.bmp");
+        Image imgRefreshed = Image.LoadFromResource("MeadowAzureIoTHub.Resources.img_refreshed.bmp");
+
+        MicroGraphics graphics;
+
+        DisplayScreen displayScreen;
+
+        AbsoluteLayout SplashLayout;
+
+        AbsoluteLayout DataLayout;
 
         public DisplayController(IGraphicsDisplay display)
         {
-            imgConnected = Image.LoadFromResource("MeadowAzureIoTHub.Resources.img_wifi_connected.bmp");
-            imgConnecting = Image.LoadFromResource("MeadowAzureIoTHub.Resources.img_wifi_connecting.bmp");
-            imgRefreshing = Image.LoadFromResource("MeadowAzureIoTHub.Resources.img_refreshing.bmp");
-            imgRefreshed = Image.LoadFromResource("MeadowAzureIoTHub.Resources.img_refreshed.bmp");
-
             graphics = new MicroGraphics(display)
             {
                 CurrentFont = new Font8x12(),
                 Stroke = 3,
                 Rotation = RotationType._90Degrees
             };
+
+            displayScreen = new DisplayScreen(display);
+            {
+                backgroundColor = backgroundColor;
+            }
 
             graphics.Clear(true);
         }
