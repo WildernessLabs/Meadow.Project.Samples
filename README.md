@@ -6,7 +6,7 @@ Public project samples for Meadow and Meadow.Foundation. Click on any of the pro
     <tr>
         <td>
             <img src="Design/MeadowAzureIoTHub.png" alt="iot, dotnet, meadow, azure, iot-hub"/><br/>
-           Send Temp/Humidity data from Meadow to Azure IoT Hub</br>
+            Send environmental data to Azure IoT Hub via AMQP or MQTT</br>
             <a href="https://www.hackster.io/wilderness-labs/send-temperature-humidity-data-from-meadow-to-azure-iot-hub-340b39">Hackster</a> | <a href="Source/Azure/AzureIoTHub/">Source Code</a>
         </td>
         <td>
