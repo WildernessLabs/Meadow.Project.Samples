@@ -1,6 +1,5 @@
 ﻿using Meadow;
 using Meadow.Devices;
-using Meadow.Foundation;
 using Meadow.Foundation.Displays;
 using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
@@ -36,7 +35,7 @@ namespace TemperatureMonitor
                 analogPin: Device.Pins.A00,
                 sensorType: AnalogTemperature.KnownSensorType.LM35
             );
-            analogTemperature.TemperatureUpdated += AnalogTemperatureUpdated;
+            analogTemperature.Updated += AnalogTemperatureUpdated;
 
             var st7789 = new St7789(
                 spiBus: Device.CreateSpiBus(),

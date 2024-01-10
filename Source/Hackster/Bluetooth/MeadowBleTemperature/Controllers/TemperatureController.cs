@@ -14,16 +14,16 @@ namespace MeadowBleTemperature.Controllers
 
         AnalogTemperature analogTemperature;
 
-        private TemperatureController() 
+        private TemperatureController()
         {
             Initialize();
         }
 
         private void Initialize()
         {
-            analogTemperature = new AnalogTemperature(MeadowApp.Device.Pins.A01, 
+            analogTemperature = new AnalogTemperature(MeadowApp.Device.Pins.A01,
                 AnalogTemperature.KnownSensorType.LM35);
-            analogTemperature.TemperatureUpdated += AnalogTemperatureUpdated;
+            analogTemperature.Updated += AnalogTemperatureUpdated;
         }
 
         void AnalogTemperatureUpdated(object sender, Meadow.IChangeResult<Temperature> e)
@@ -31,7 +31,7 @@ namespace MeadowBleTemperature.Controllers
             TemperatureUpdated.Invoke(this, e.New);
         }
 
-        public void StartUpdating(TimeSpan timeSpan) 
+        public void StartUpdating(TimeSpan timeSpan)
         {
             analogTemperature.StartUpdating(timeSpan);
         }

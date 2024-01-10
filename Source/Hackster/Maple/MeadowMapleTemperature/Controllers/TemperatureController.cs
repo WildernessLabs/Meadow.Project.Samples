@@ -1,4 +1,4 @@
-﻿using Meadow.Foundation;
+﻿using Meadow;
 using Meadow.Foundation.Sensors.Temperature;
 using Meadow.Peripherals.Sensors;
 using Meadow.Units;
