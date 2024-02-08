@@ -1,13 +1,12 @@
 ﻿using Meadow;
 using Meadow.Devices;
-using Meadow.Foundation;
 using Meadow.Foundation.Displays;
 using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Buttons;
 using Meadow.Foundation.Sensors.Temperature;
-using Meadow.Gateway.WiFi;
 using Meadow.Hardware;
+using Meadow.Peripherals.Displays;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -24,7 +23,7 @@ namespace WifiClock
         bool showDate;
 
         public override async Task Initialize()
-        { 
+        {
             var onboardLed = new RgbPwmLed(
                 redPwmPin: Device.Pins.OnboardLedRed,
                 greenPwmPin: Device.Pins.OnboardLedGreen,
@@ -32,17 +31,17 @@ namespace WifiClock
             onboardLed.SetColor(Color.Red);
 
             var display = new Max7219(
-                spiBus: Device.CreateSpiBus(), 
-                chipSelectPin: Device.Pins.D01, 
-                deviceCount: 4, 
+                spiBus: Device.CreateSpiBus(),
+                chipSelectPin: Device.Pins.D01,
+                deviceCount: 4,
                 maxMode: Max7219.Max7219Mode.Display);
             graphics = new MicroGraphics(display);
             graphics.CurrentFont = new Font4x8();
             graphics.Rotation = RotationType._180Degrees;
 
             graphics.Clear();
-            graphics.DrawText(0, 1,  "WI");
-            graphics.DrawText(0, 9,  "FI");
+            graphics.DrawText(0, 1, "WI");
+            graphics.DrawText(0, 9, "FI");
             graphics.DrawText(0, 17, "TI");
             graphics.DrawText(0, 25, "ME");
             graphics.Show();
@@ -69,7 +68,7 @@ namespace WifiClock
             showDate = false;
         }
 
-        public override async Task Run() 
+        public override async Task Run()
         {
             while (true)
             {
@@ -94,9 +93,9 @@ namespace WifiClock
 
                     var temperature = await analogTemperature.Read();
 
-                    graphics.DrawText(0, 26, $"{(int) temperature.Celsius}");
+                    graphics.DrawText(0, 26, $"{(int)temperature.Celsius}");
                 }
-                
+
                 graphics.Show();
                 Thread.Sleep(1000);
             }

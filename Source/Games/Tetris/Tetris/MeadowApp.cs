@@ -3,6 +3,7 @@ using Meadow.Devices;
 using Meadow.Foundation.Displays;
 using Meadow.Foundation.Graphics;
 using Meadow.Hardware;
+using Meadow.Peripherals.Displays;
 using Meadow.Units;
 using System;
 using System.Threading;
@@ -61,7 +62,7 @@ namespace Tetris
 
         void StartGameLoop()
         {
-            while(true)
+            while (true)
             {
                 tick++;
                 CheckInput(tick);
@@ -81,16 +82,20 @@ namespace Tetris
                 game.OnDown(true);
             }
 
-            if (portLeft.State == true) {
+            if (portLeft.State == true)
+            {
                 game.OnLeft();
             }
-            else if (portRight.State == true) {
+            else if (portRight.State == true)
+            {
                 game.OnRight();
             }
-            else if (portUp.State == true) {
+            else if (portUp.State == true)
+            {
                 game.OnRotate();
             }
-            else if (portDown.State == true) {
+            else if (portDown.State == true)
+            {
                 game.OnDown();
             }
         }
@@ -102,14 +107,14 @@ namespace Tetris
 
             graphics.DrawText(xIndent, 0, $"Lines: {game.LinesCleared}");
 
-            graphics.DrawRectangle(6, 10, 52, 112); 
+            graphics.DrawRectangle(6, 10, 52, 112);
 
             //draw current piece
-            for(int i = 0; i < 4; i++)
+            for (int i = 0; i < 4; i++)
             {
                 for (int j = 0; j < 4; j++)
                 {
-                    if(game.IsPieceLocationSet(i, j))
+                    if (game.IsPieceLocationSet(i, j))
                     {
                         //  graphics.DrawPixel(i, j);
                         graphics.DrawRectangle((game.CurrentPiece.X + i) * BLOCK_SIZE + xIndent,
@@ -131,7 +136,7 @@ namespace Tetris
                             BLOCK_SIZE + 1, BLOCK_SIZE, true, true);//+1 hack until we fix the graphics lib
                     }
                 }
-            } 
+            }
         }
 
         public override Task Run()

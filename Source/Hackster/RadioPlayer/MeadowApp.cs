@@ -1,11 +1,11 @@
 ﻿using Meadow;
 using Meadow.Devices;
-using Meadow.Foundation;
 using Meadow.Foundation.Audio.Radio;
 using Meadow.Foundation.Displays;
 using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Buttons;
+using Meadow.Peripherals.Displays;
 using Meadow.Units;
 using System;
 using System.Collections.Generic;
@@ -62,10 +62,10 @@ namespace RadioPlayer
 
         void BtnNextClicked(object sender, EventArgs e)
         {
-            if (currentStation < stations.Count-1)
+            if (currentStation < stations.Count - 1)
             {
                 DisplayText("      >>>>      ", 0);
-                currentStation++; 
+                currentStation++;
                 radio.SelectFrequency(stations[currentStation]);
                 DisplayText($"<- FM {stations[currentStation].Megahertz} ->");
             }

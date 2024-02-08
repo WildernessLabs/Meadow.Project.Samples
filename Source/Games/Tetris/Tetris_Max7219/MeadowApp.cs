@@ -3,6 +3,7 @@ using Meadow.Devices;
 using Meadow.Foundation.Displays;
 using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Sensors.Hid;
+using Meadow.Peripherals.Displays;
 using Meadow.Peripherals.Sensors.Hid;
 using System;
 using System.Threading;
