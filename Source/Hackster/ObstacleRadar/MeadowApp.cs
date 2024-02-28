@@ -1,12 +1,12 @@
 ﻿using Meadow;
 using Meadow.Devices;
-using Meadow.Foundation;
 using Meadow.Foundation.Displays;
 using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Distance;
 using Meadow.Foundation.Servos;
 using Meadow.Hardware;
+using Meadow.Peripherals.Displays;
 using Meadow.Units;
 using System;
 using System.Threading;

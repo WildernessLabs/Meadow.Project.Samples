@@ -1,6 +1,7 @@
 ﻿using Meadow;
 using Meadow.Foundation.Displays;
 using Meadow.Foundation.Graphics;
+using Meadow.Peripherals.Displays;
 using SimpleJpegDecoder;
 using System;
 using System.IO;

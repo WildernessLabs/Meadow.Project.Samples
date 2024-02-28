@@ -1,10 +1,10 @@
 ﻿using Meadow;
 using Meadow.Devices;
-using Meadow.Foundation;
 using Meadow.Foundation.Displays;
 using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Leds;
 using Meadow.Foundation.Sensors.Buttons;
+using Meadow.Peripherals.Displays;
 using SimpleJpegDecoder;
 using System;
 using System.IO;

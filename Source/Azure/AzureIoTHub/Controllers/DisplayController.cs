@@ -1,6 +1,7 @@
 ﻿using Meadow;
 using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Graphics.MicroLayout;
+using Meadow.Peripherals.Displays;
 using Meadow.Units;
 using System.Threading;
 
@@ -36,7 +37,7 @@ namespace MeadowAzureIoTHub.Controllers
 
         Label Humidity;
 
-        public DisplayController(IGraphicsDisplay display)
+        public DisplayController(IPixelDisplay display)
         {
             displayScreen = new DisplayScreen(display, RotationType._90Degrees)
             {
