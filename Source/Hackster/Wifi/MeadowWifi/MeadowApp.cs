@@ -1,6 +1,5 @@
 ﻿using Meadow;
 using Meadow.Devices;
-using Meadow.Foundation;
 using Meadow.Foundation.Leds;
 using Meadow.Gateways.Bluetooth;
 using Meadow.Hardware;
@@ -96,7 +95,7 @@ namespace MeadowWifi
             onboardLed.StartPulse(Color.Magenta);
         }
 
-        private void WifiNetworkDisconnected(INetworkAdapter sender)
+        private void WifiNetworkDisconnected(INetworkAdapter sender, NetworkDisconnectionEventArgs args)
         {
             ToggleWifiConnection.SetValue(false);
 
